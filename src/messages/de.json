@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "siteName": "Smarte Theaterdienste",
+    "siteDescription": "Datenraum Kultur, Use Case 3 – Maschinenlesbare Theaterspielpläne via JSON-Schnittstelle"
+  },
+  "nav": {
+    "home": "Start",
+    "project": "Projekt",
+    "participation": "Beteiligung",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Ansprechpersonen",
+    "events": "Termine",
+    "language": "Sprache"
+  },
+  "hero": {
+    "kicker": "Datenraum Kultur · Use Case 3",
+    "title": "Smarte Theaterdienste",
+    "subtitle": "Maschinenlesbare Theaterspielpläne als Teil der Digitalstrategie des Bundes – damit Daten dorthin fließen, wo Kultur sichtbar wird.",
+    "ctaPrimary": "Beta-Tester:in werden",
+    "ctaSecondary": "So funktioniert's"
+  },
+  "footer": {
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "supportedBy": "Gefördert von",
+    "rights": "Ein Projekt des Deutschen Bühnenvereins"
+  }
+}

@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +40,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Obsidian – Vault-Inhalte versionieren, Workspace-Cache nicht
+_vault/.obsidian/workspace.json
+_vault/.obsidian/workspace-mobile.json
+_vault/.obsidian/cache
+_vault/.obsidian/plugins/*/data.json
+_vault/.trash/
+
+# Supabase
+supabase/.branches
+supabase/.temp

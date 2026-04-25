@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "siteName": "Smart Theatre Services",
+    "siteDescription": "Cultural Data Space, Use Case 3 – Machine-readable theatre programmes via JSON interface"
+  },
+  "nav": {
+    "home": "Home",
+    "project": "Project",
+    "participation": "Participate",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "events": "Events",
+    "language": "Language"
+  },
+  "hero": {
+    "kicker": "Cultural Data Space · Use Case 3",
+    "title": "Smart Theatre Services",
+    "subtitle": "Machine-readable theatre programmes as part of Germany's digital strategy – letting data flow where culture becomes visible.",
+    "ctaPrimary": "Become a beta tester",
+    "ctaSecondary": "How it works"
+  },
+  "footer": {
+    "imprint": "Imprint",
+    "privacy": "Privacy",
+    "supportedBy": "Supported by",
+    "rights": "A project of the Deutscher Bühnenverein"
+  }
+}
