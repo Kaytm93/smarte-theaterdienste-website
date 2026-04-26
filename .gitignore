@@ -42,11 +42,11 @@ yarn-error.log*
 next-env.d.ts
 
 # Obsidian – Vault-Inhalte versionieren, Workspace-Cache nicht
-_vault/.obsidian/workspace.json
-_vault/.obsidian/workspace-mobile.json
-_vault/.obsidian/cache
-_vault/.obsidian/plugins/*/data.json
-_vault/.trash/
+SMARTE-THEATERDIENSTE/.obsidian/workspace.json
+SMARTE-THEATERDIENSTE/.obsidian/workspace-mobile.json
+SMARTE-THEATERDIENSTE/.obsidian/cache
+SMARTE-THEATERDIENSTE/.obsidian/plugins/*/data.json
+SMARTE-THEATERDIENSTE/.trash/
 
 # Supabase
 supabase/.branches

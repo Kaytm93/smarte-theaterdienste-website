@@ -1,0 +1,168 @@
+# Smarte Theaterdienste — Vollständiger Projektkontext
+
+> Letzte Aktualisierung: 2026-04-25 | Stand: M1 Setup & Infra abgeschlossen
+
+---
+
+## ⚠️ Pflicht-Regel für Claude: Commit & Push nach jeder Session
+
+Nach **jedem abgeschlossenen Workflow** (egal ob Bugfix, Feature, Refactor) gilt zwingend:
+
+1. `git add` — nur die tatsächlich geänderten Dateien (keine `.claude/`, `.env.local`, Binaries)
+2. `git commit -m "..."` — aussagekräftige Message, ggf. Hinweise auf Milestone (M2, M3, …)
+3. `git push` — auf `origin/main`
+
+Ohne Push ist die Session **nicht abgeschlossen**. Der Schritt kommt immer ganz am Ende, nach dem Build-Check und nach dem Eintrag in `CHANGELOG.md`.
+
+Der Repo-Owner ist **Kaytm93**, SSH-Auth via vorhandenen Key. Remote: `git@github.com:Kaytm93/smarte-theaterdienste-website.git`.
+
+---
+
+## Was ist „Smarte Theaterdienste"?
+
+Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deutschen Bühnenvereins**. Thema: maschinenlesbare Theaterspielpläne via JSON/ORIF-Schnittstelle.
+
+**Zielgruppen:**
+1. Theater-Intendant:innen & Dramaturgie → strategischer Nutzen, einfache Sprache
+2. Webagenturen & technische Verantwortliche → konkrete Implementierung (JSON, Konnektor)
+3. Kulturinteressierte Öffentlichkeit → Verständnis für offenen Datenraum
+4. Projektpartner & Förderer → Status, Beteiligung, Ergebnisse
+
+**Charakter:**
+- Mehrsprachig (DE primär, EN sekundär)
+- Apple-like minimal mit subtilen GSAP-Animationen
+- Bildhaft/metaphorisch, kulturaffin („Besteckkasten", „Leitung legen")
+- Sympathisch, nahbar (echte Menschen hinter dem Projekt)
+- Mobile-first, accessible
+
+**Quelle der Wahrheit für Inhalte:** Miro-Board > bestehende Website. Siehe `INHALTE.md`.
+
+---
+
+## Tech-Stack
+
+| Tech                  | Version   | Zweck                                                  |
+| --------------------- | --------- | ------------------------------------------------------ |
+| Next.js               | **16.2.4**| App Router, RSC, Turbopack default                     |
+| React / React-DOM     | 19.2.4    | Mit Canary-Features (View Transitions, useEffectEvent) |
+| TypeScript            | 5.9.3     | strict                                                 |
+| Tailwind CSS          | 4.2.4     | Tokens via `@theme inline` + CSS Custom Properties     |
+| next-intl             | 4.9.1     | i18n DE/EN, pathnames-Map                              |
+| GSAP + ScrollTrigger  | 3.15.0    | Animationen (kein WebGL)                               |
+| @supabase/ssr         | latest    | Server- & Browser-Client für RSC                       |
+| @supabase/supabase-js | latest    | Core Supabase                                          |
+| clsx + tailwind-merge | latest    | shadcn `cn()`-Helper (`src/lib/utils.ts`)              |
+| class-variance-authority | latest | shadcn variants                                        |
+| lucide-react          | latest    | Icons                                                  |
+| pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
+| Node.js               | 20.19.4   | nvm-installiert                                        |
+
+**Hosting:** Vercel (Preview pro Branch, ISR, on-demand revalidate). Noch nicht eingerichtet.
+
+**Datenbank:** Supabase Cloud. Projekt noch nicht angelegt — erfolgt in M4.
+
+---
+
+## Next.js 16 — Pflicht-Wissen
+
+**Lies `MUSTER.md` für Code-Patterns.** Schnell-Übersicht:
+
+- `middleware.ts` heißt jetzt **`proxy.ts`** (Funktion `proxy`); nur `nodejs`-Runtime
+- `params`/`searchParams`/`cookies()`/`headers()` sind **Promises** → immer `await`
+- `revalidateTag(tag, profile)` — zweites Argument verpflichtend (`'max'`, …) oder `updateTag` für read-your-writes
+- `next lint` entfernt → ESLint-CLI direkt (`pnpm exec eslint .`)
+- `images.domains` deprecated → `images.remotePatterns`
+- Turbopack ist Default für `dev` und `build`, kein Flag nötig
+
+Autoritative Quelle für diese Version: `node_modules/next/dist/docs/` im Projektordner. **Niemals auf Trainings-Wissen über Next.js verlassen.**
+
+---
+
+## Wichtigste Dateipfade
+
+```
+smarte-theaterdienste-website/
+├── src/
+│   ├── app/[locale]/
+│   │   ├── layout.tsx            ← Root html/body, NextIntlClientProvider, Fonts
+│   │   ├── page.tsx              ← Landing-Hero (M3 ausbauen)
+│   │   └── globals.css ← parent  ← Tailwind import + base tokens
+│   ├── components/               ← LEER, befüllen ab M2
+│   │   ├── ui/                   ← shadcn primitives
+│   │   ├── layout/               ← Header, Footer, LanguageSwitcher
+│   │   ├── sections/             ← Hero, ComicStrip, ContactCard, EventList, PartnerMap, …
+│   │   ├── animations/           ← FadeInOnScroll, ParallaxImage, RevealText
+│   │   └── forms/                ← ContactForm
+│   ├── lib/
+│   │   ├── i18n/
+│   │   │   ├── routing.ts        ← defineRouting + pathnames-Map (DE↔EN)
+│   │   │   ├── request.ts        ← getRequestConfig (lädt messages/{locale}.json)
+│   │   │   └── navigation.ts     ← Link, redirect, useRouter, getPathname
+│   │   ├── supabase/             ← Stub, aktiv ab M4
+│   │   ├── gsap/registerScrollTrigger.ts
+│   │   └── utils.ts              ← cn(), shadcn helper
+│   ├── messages/
+│   │   ├── de.json               ← UI-Strings (nav, hero, footer, meta)
+│   │   └── en.json
+│   ├── content/{de,en}/          ← Statische Inhalte (MDX/JSON), M3
+│   ├── styles/tokens.css         ← --radius-*, --ease-out, --duration-*
+│   ├── types/                    ← Generated Supabase types ab M4
+│   └── proxy.ts                  ← next-intl Routing-Proxy (Next.js 16!)
+│
+├── supabase/migrations/          ← Migrations ab M4
+├── public/                       ← Logos, Bilder
+├── SMARTE-THEATERDIENSTE/        ← Dieser Vault
+│
+├── next.config.ts                ← withNextIntl + remotePatterns
+├── tailwind.config.ts            ← (existiert nicht – Tailwind v4 nutzt @theme)
+├── tsconfig.json                 ← @/* → ./src/*
+├── package.json
+├── pnpm-lock.yaml
+├── .env.example                  ← Supabase, Resend, Revalidate-Secret
+├── .gitignore                    ← Vault-aware
+├── README.md
+├── CLAUDE.md → @AGENTS.md + Vault-Hinweis
+└── AGENTS.md                     ← Next.js 16 Warnung
+```
+
+---
+
+## Sprache & Routing
+
+Beide Locales mit Pfad-Prefix:
+- `/de` (Default) → `de.json`
+- `/en` → `en.json`
+
+`localeDetection` ist next-intl-Default = `true` → Browser-Accept-Language wählt Locale beim ersten Besuch von `/`.
+
+Slug-Übersetzungen über `pathnames`-Map in `src/lib/i18n/routing.ts`:
+- `/projekt/technische-standards` ↔ `/project/technical-standards`
+- `/beteiligung/anwendungsbeispiele` ↔ `/participation/use-cases`
+- `/impressum` ↔ `/imprint`
+
+**Navigation immer via `@/lib/i18n/navigation`**, niemals `next/link` direkt — sonst kein Locale-Routing.
+
+---
+
+## Lokal entwickeln
+
+```bash
+cd "/Users/kaygewinner/Desktop/Claude code/smarte-theaterdienste-website"
+pnpm install            # nur einmal
+pnpm dev                # http://localhost:3030 (oder via preview MCP)
+pnpm build              # Production-SSG-Test
+pnpm exec tsc --noEmit  # Typecheck
+```
+
+PNPM-Pfad falls nicht auf PATH:
+`/Users/kaygewinner/.nvm/versions/node/v20.19.4/bin/pnpm`
+
+Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `smarte-theaterdienste` auf Port 3030.
+
+---
+
+## Nächste Schritte
+
+Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
+
+Aktuell offen: **M2 — Design-System** (Tokens ausbauen, Schriftarten finalisieren, Header/Footer/LanguageSwitcher, shadcn init mit Button/Accordion/Card/Sheet, Animation-Primitives `<FadeInOnScroll>` / `<RevealText>` / `<ParallaxImage>`).

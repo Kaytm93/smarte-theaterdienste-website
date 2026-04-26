@@ -54,10 +54,13 @@ _vault/           – Obsidian Vault als Projektplaner
 - **`revalidateTag(tag, profile)`** – zweites Argument verpflichtend
 - Vor jeder Doku-Lektüre: `node_modules/next/dist/docs/` ist die autoritative Quelle für diese Version
 
-## Projektplan
+## Projektplan & Vault
 
-Ausführlicher Plan, ER-Diagramm, Komponentenhierarchie und Milestones:
-`_vault/` (Obsidian) – im Repo versioniert.
+Vollständiger Kontext, Roadmap, Architektur, Inhalte, Patterns:
+**`SMARTE-THEATERDIENSTE/`** (Obsidian-Vault) – im Repo versioniert.
+
+Frische Claude-Code-Sessions: lies zuerst `SMARTE-THEATERDIENSTE/START_HIER.md`.
+Die `CLAUDE.md` im Repo-Root verweist automatisch dorthin.
 
 ## Lizenz
 
