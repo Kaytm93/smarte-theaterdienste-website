@@ -11,7 +11,13 @@
     "faq": "FAQ",
     "contact": "Ansprechpersonen",
     "events": "Termine",
-    "language": "Sprache"
+    "language": "Sprache",
+    "menu": "Menü"
+  },
+  "langSwitcher": {
+    "label": "Sprache wechseln zu {target}",
+    "de": "Deutsch",
+    "en": "Englisch"
   },
   "hero": {
     "kicker": "Datenraum Kultur · Use Case 3",
@@ -24,6 +30,14 @@
     "imprint": "Impressum",
     "privacy": "Datenschutz",
     "supportedBy": "Gefördert von",
-    "rights": "Ein Projekt des Deutschen Bühnenvereins"
+    "rights": "Ein Projekt des Deutschen Bühnenvereins",
+    "logoAlt": {
+      "buehnenverein": "Deutscher Bühnenverein",
+      "akademie": "Akademie für Theater und Digitalität Dortmund",
+      "fraunhofer": "Fraunhofer FIT",
+      "acatech": "acatech",
+      "nfdi4culture": "NFDI4Culture",
+      "bkm": "BKM"
+    }
   }
 }

@@ -15,8 +15,7 @@
 
 ## 🟡 Offene Fragen / Entscheidungen
 
-- **Schriftart-Headlines:** Geist (vorhanden, clean) vs. kulturaffin Serif (Söhne, Cormorant, IBM Plex Serif). Entscheidung: M2 nach User-Rücksprache.
-- **Branding-Farben:** Aktuell Tailwind-Default (zinc/black/white via tokens). Kein Branding aus alter Site geholt.
+- **Akzentfarbe:** Slate-Basis durch shadcn-Init gesetzt (neutral baseColor in `components.json`). Slot `--accent-brand` in `src/styles/tokens.css` zeigt initial auf foreground. Konkreter Hex/OKLCH wird in M3 definiert (User-Vorgabe oder aus alter Site sobald online).
 - **Comic-Strip Landing:** Variante A (pinned horizontal scroll) vs. B (vertical stagger). Entscheidung: M6.
 - **Newsletter-Signup:** Im Miro nicht erwähnt — User-Wunsch? Falls ja, später.
 - **Kontaktformular Empfänger-Adresse:** Aktuell Placeholder in `.env.example`. Echte Adresse vom User.
@@ -36,3 +35,7 @@
 | 2026-04-25 | Workspace-Pfad in User-Anweisung war Windows (`D:/...`) | macOS-Pfad mit User abgestimmt |
 | 2026-04-25 | Reference-Website 503 | Plan basiert auf Miro-Inhalten + User-Beschreibung; Site bei nächster Session erneut prüfen |
 | 2026-04-25 | Next.js 16 Breaking Changes | `proxy.ts` statt `middleware.ts`, `await params`, `revalidateTag(tag, 'max')` — dokumentiert in MUSTER.md |
+| 2026-04-26 | Schriftart-Entscheidung (Geist vs. Serif) | User-Entscheidung: Geist Sans behalten. Headlines + Body via `--font-geist-sans` |
+| 2026-04-26 | `body` font-family hartcodiert auf `Arial, Helvetica` (Create-Next-App-Default) | shadcn-Init überschrieb `globals.css`, `html` nutzt jetzt `@apply font-sans`; `--font-sans` an `--font-geist-sans` gebridge'd |
+| 2026-04-26 | shadcn `--font-sans: var(--font-sans)` zirkulär nach init | In `globals.css` `@theme inline` auf `var(--font-geist-sans)` umgebogen |
+| 2026-04-26 | LanguageSwitcher TS-Fehler bei dynamischem `/blog/[slug]` | Pattern `{ pathname, params }` mit `useParams()` aus `next/navigation` + lokalisiertem `@ts-expect-error` |

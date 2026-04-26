@@ -17,13 +17,18 @@
 | ADR-13 | 2026-04-25  | **Server Actions statt API-Routes** für Forms | Kein eigenes API-Layer, server-only secrets, type-safe. |
 | ADR-14 | 2026-04-25  | **Obsidian-Vault als `SMARTE-THEATERDIENSTE/`** im Projekt-Root, Nexus-Pattern | Plan und Code synchron, single source of truth, frische Sessions können sich orientieren. |
 | ADR-15 | 2026-04-25  | **Port 3030** für Dev-Server | Konflikt vermeidet mit aether (5173) und nexus (5174). Konfiguriert in `.claude/launch.json` Workspace-Root. |
+| ADR-16 | 2026-04-26  | **Geist Sans für Headlines & Body** | Bereits installiert, clean-modern, kein Lizenz-Overhead. User-Entscheidung gegen Serif-Optionen (Cormorant/IBM Plex). Headlines wirken sachlich-zeitgenössisch, passt zur DRK-Tech-Brücke. |
+| ADR-17 | 2026-04-26  | **shadcn-Preset radix-nova mit neutral baseColor** | shadcn-CLI bot Preset-Auswahl (Nova/Vega/Maia/…); Nova ist die Default-Option mit Lucide+Geist und passt zur User-Entscheidung. `-b radix` für klassische Radix-Primitives. baseColor=neutral als Slate-Basis ohne sichtbaren Akzent. |
+| ADR-18 | 2026-04-26  | **Akzentfarbe als Slot, nicht als Wert** | `--accent-brand` in `tokens.css` zeigt initial auf foreground (kein sichtbarer Effekt). Branding-Farbe wird in M3 nach Inhaltsarbeit definiert — eine Zeile Änderung, keine Migration nötig. |
+| ADR-19 | 2026-04-26  | **localeDetection bleibt next-intl-Default (`true`)** | User-Entscheidung. Erstbesucher mit Accept-Language=en-* landen auf `/en`. SEO-konform, hreflang-friendly, kein Eingriff in Routing. |
+| ADR-20 | 2026-04-26  | **`@gsap/react` `useGSAP` statt manueller `useEffect`** | Auto-Cleanup über `scope`, weniger Boilerplate, offiziell empfohlen ab GSAP 3.13. Alle Animation-Primitives (`FadeInOnScroll`, `RevealText`, `ParallaxImage`) folgen demselben Pattern. |
+| ADR-21 | 2026-04-26  | **Reveal-Text via eigene Wort-Split-Logik** | Kein SplitText-Plugin (Club-only / lizenzpflichtig). Whitespace-Split + zwei Span-Schichten (Mask-Container + Inner-Span) reicht für Wort-Stagger; minimaler Code. |
 
 ---
 
 ## Zukunftige offene ADRs
 
-- **ADR-?? Schriftart Headlines** — Geist vs. kulturaffin Serif. M2.
-- **ADR-?? Branding-Farben** — Tailwind-Default vs. eigene Palette. M2.
+- **ADR-?? Akzentfarbe-Wert** — Hex/OKLCH konkret. M3.
 - **ADR-?? Comic-Strip Variante** — pinned horizontal scroll vs. vertical stagger. M6.
 - **ADR-?? Newsletter** — überhaupt? M3+.
 - **ADR-?? Analytics** — Vercel Analytics, Plausible, oder gar nichts? M8.

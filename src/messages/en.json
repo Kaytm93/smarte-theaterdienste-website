@@ -11,7 +11,13 @@
     "faq": "FAQ",
     "contact": "Contact",
     "events": "Events",
-    "language": "Language"
+    "language": "Language",
+    "menu": "Menu"
+  },
+  "langSwitcher": {
+    "label": "Switch language to {target}",
+    "de": "German",
+    "en": "English"
   },
   "hero": {
     "kicker": "Cultural Data Space · Use Case 3",
@@ -24,6 +30,14 @@
     "imprint": "Imprint",
     "privacy": "Privacy",
     "supportedBy": "Supported by",
-    "rights": "A project of the Deutscher Bühnenverein"
+    "rights": "A project of the Deutscher Bühnenverein",
+    "logoAlt": {
+      "buehnenverein": "Deutscher Bühnenverein",
+      "akademie": "Academy for Theatre and Digitality Dortmund",
+      "fraunhofer": "Fraunhofer FIT",
+      "acatech": "acatech",
+      "nfdi4culture": "NFDI4Culture",
+      "bkm": "BKM"
+    }
   }
 }

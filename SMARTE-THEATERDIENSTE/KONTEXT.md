@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-04-25 | Stand: M1 Setup & Infra abgeschlossen
+> Letzte Aktualisierung: 2026-04-26 | Stand: M2 Design-System abgeschlossen
 
 ---
 
@@ -54,6 +54,10 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | clsx + tailwind-merge | latest    | shadcn `cn()`-Helper (`src/lib/utils.ts`)              |
 | class-variance-authority | latest | shadcn variants                                        |
 | lucide-react          | latest    | Icons                                                  |
+| @gsap/react           | 2.1.2     | `useGSAP`-Hook mit auto-cleanup (M2)                   |
+| shadcn/ui             | radix-nova | UI-Primitives (button/sheet/dialog/etc., M2)          |
+| radix-ui              | 1.4.3     | Combined Radix-Primitives-Paket (von shadcn genutzt)   |
+| tw-animate-css        | 1.4.0     | shadcn-Animation-Utilities (Tailwind v4)               |
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
@@ -84,15 +88,16 @@ Autoritative Quelle für diese Version: `node_modules/next/dist/docs/` im Projek
 smarte-theaterdienste-website/
 ├── src/
 │   ├── app/[locale]/
-│   │   ├── layout.tsx            ← Root html/body, NextIntlClientProvider, Fonts
-│   │   ├── page.tsx              ← Landing-Hero (M3 ausbauen)
-│   │   └── globals.css ← parent  ← Tailwind import + base tokens
-│   ├── components/               ← LEER, befüllen ab M2
-│   │   ├── ui/                   ← shadcn primitives
-│   │   ├── layout/               ← Header, Footer, LanguageSwitcher
-│   │   ├── sections/             ← Hero, ComicStrip, ContactCard, EventList, PartnerMap, …
-│   │   ├── animations/           ← FadeInOnScroll, ParallaxImage, RevealText
-│   │   └── forms/                ← ContactForm
+│   │   ├── layout.tsx            ← Root html/body, NextIntlClientProvider, Header+Footer, Fonts
+│   │   ├── page.tsx              ← Landing-Hero mit RevealText/FadeInOnScroll (Inhalte M3)
+│   │   └── globals.css ← parent  ← Tailwind v4 + shadcn theme + tokens.css-Import
+│   ├── components/
+│   │   ├── ui/                   ← shadcn (radix-nova) Primitives:
+│   │   │                            button, accordion, card, sheet, dialog, input, label
+│   │   ├── layout/               ← Header.tsx, Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx
+│   │   ├── sections/             ← LEER (M3+: Hero-Variants, ComicStrip, ContactCard, EventList, …)
+│   │   ├── animations/           ← FadeInOnScroll.tsx, RevealText.tsx, ParallaxImage.tsx
+│   │   └── forms/                ← LEER (M3/M4)
 │   ├── lib/
 │   │   ├── i18n/
 │   │   │   ├── routing.ts        ← defineRouting + pathnames-Map (DE↔EN)
@@ -100,21 +105,22 @@ smarte-theaterdienste-website/
 │   │   │   └── navigation.ts     ← Link, redirect, useRouter, getPathname
 │   │   ├── supabase/             ← Stub, aktiv ab M4
 │   │   ├── gsap/registerScrollTrigger.ts
-│   │   └── utils.ts              ← cn(), shadcn helper
+│   │   └── utils.ts              ← cn(), shadcn helper (von shadcn-init überschrieben)
 │   ├── messages/
-│   │   ├── de.json               ← UI-Strings (nav, hero, footer, meta)
+│   │   ├── de.json               ← UI-Strings (nav, hero, footer, langSwitcher, meta)
 │   │   └── en.json
 │   ├── content/{de,en}/          ← Statische Inhalte (MDX/JSON), M3
-│   ├── styles/tokens.css         ← --radius-*, --ease-out, --duration-*
+│   ├── styles/tokens.css         ← Spacing-Scale, Typo-Scale, Easings, Container-Max,
+│   │                                Akzent-Slot (--accent-brand)
 │   ├── types/                    ← Generated Supabase types ab M4
 │   └── proxy.ts                  ← next-intl Routing-Proxy (Next.js 16!)
 │
 ├── supabase/migrations/          ← Migrations ab M4
-├── public/                       ← Logos, Bilder
+├── public/                       ← Logos, Bilder (M3)
 ├── SMARTE-THEATERDIENSTE/        ← Dieser Vault
 │
 ├── next.config.ts                ← withNextIntl + remotePatterns
-├── tailwind.config.ts            ← (existiert nicht – Tailwind v4 nutzt @theme)
+├── components.json               ← shadcn config (radix-nova, neutral baseColor, css-vars)
 ├── tsconfig.json                 ← @/* → ./src/*
 ├── package.json
 ├── pnpm-lock.yaml
@@ -165,4 +171,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **M2 — Design-System** (Tokens ausbauen, Schriftarten finalisieren, Header/Footer/LanguageSwitcher, shadcn init mit Button/Accordion/Card/Sheet, Animation-Primitives `<FadeInOnScroll>` / `<RevealText>` / `<ParallaxImage>`).
+Aktuell offen: **M3 — Statische Seiten DE** (alle Routen aus `routing.ts` mit Inhalten aus Miro/`INHALTE.md` füllen, Team-JSON, ContactCard, Comic-Strip-Skeleton, Akzentfarbe entscheiden).
