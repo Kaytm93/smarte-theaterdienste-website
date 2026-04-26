@@ -1,0 +1,40 @@
+{
+  "sections": [
+    {
+      "eyebrow": "Konzept",
+      "heading": "Was ist ein Datenmodell?",
+      "body": [
+        "Ein Datenmodell legt fest, welche Begriffe es gibt, wie sie zusammenhängen und welche Werte erlaubt sind. Es ist die gemeinsame Sprache, die alle beteiligten Systeme verstehen.",
+        "Für Theaterspielpläne bedeutet das: Was ist eine Aufführung, eine Produktion, eine Spielstätte, eine Mitwirkende:r? Wir definieren das einmal sauber – damit alle das Gleiche meinen."
+      ]
+    },
+    {
+      "eyebrow": "Prinzip",
+      "heading": "Übersetzen statt umbenennen",
+      "body": [
+        "Theater nennen ihre Begriffe so, wie es zu ihrer Tradition und ihrem Publikum passt. Das soll auch so bleiben.",
+        "Im Hintergrund übersetzen wir „Premiere“, „Wiederaufnahme“, „Hausgastspiel“ in standardisierte Begriffe der offenen Welt – sichtbar bleibt das gewohnte Vokabular."
+      ]
+    },
+    {
+      "eyebrow": "Standards",
+      "heading": "Auf welchen Vokabularen wir aufbauen",
+      "body": [
+        "Schema.org für strukturierte Veranstaltungsdaten.",
+        "GND (Gemeinsame Normdatei) für Personen und Werke.",
+        "CIDOC CRM für komplexere kulturhistorische Beziehungen.",
+        "NFDI4Culture-Erweiterungen für Forschung und Archivierung."
+      ]
+    },
+    {
+      "eyebrow": "Vertiefung",
+      "heading": "Weiterführende Links",
+      "body": [
+        "GND-Explorer (Deutsche Nationalbibliothek), NFDI4Culture-Konsortium, Schema.org, CIDOC CRM-Explorer, GitHub-Doku des Projekts."
+      ]
+    }
+  ],
+  "links": [
+    { "href": "/projekt/technische-standards", "label": "Zu den technischen Standards" }
+  ]
+}

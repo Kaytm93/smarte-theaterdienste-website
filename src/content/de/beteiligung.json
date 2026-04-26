@@ -1,0 +1,26 @@
+{
+  "sections": [
+    {
+      "eyebrow": "Aufruf",
+      "heading": "Beta-Tester:innen gesucht",
+      "body": [
+        "Wir suchen Theater, die früh dabei sein wollen. Mit euch entwickeln wir die Schnittstelle so, dass sie zum Alltag eurer Häuser passt – nicht andersherum.",
+        "Im Gegenzug bekommt ihr direkten Draht zur Entwicklung, könnt euer System einbringen und seid die ersten, die sich an Plattformen, Archive und Medien anschließen lassen."
+      ]
+    },
+    {
+      "eyebrow": "Pitch",
+      "heading": "Was ihr davon habt",
+      "body": [
+        "Kein mühseliges Copy & Paste mehr in Drittsysteme.",
+        "Automatische Datenübertragung an Archive, Plattformen, Anzeigesysteme und Pressedienste.",
+        "Volle Kontrolle: ihr entscheidet, wer welche Daten nutzen darf."
+      ]
+    }
+  ],
+  "links": [
+    { "href": "/beteiligung/anwendungsbeispiele", "label": "Anwendungsbeispiele" },
+    { "href": "/beteiligung/mitwirkung", "label": "So funktioniert die Mitwirkung" },
+    { "href": "/projekt/technische-standards", "label": "Technische Details" }
+  ]
+}

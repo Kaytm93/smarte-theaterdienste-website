@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-04-26 | Stand: M2 Design-System abgeschlossen
+> Letzte Aktualisierung: 2026-04-26 | Stand: M3 Statische Seiten DE abgeschlossen
 
 ---
 
@@ -88,47 +88,64 @@ Autoritative Quelle für diese Version: `node_modules/next/dist/docs/` im Projek
 smarte-theaterdienste-website/
 ├── src/
 │   ├── app/[locale]/
-│   │   ├── layout.tsx            ← Root html/body, NextIntlClientProvider, Header+Footer, Fonts
-│   │   ├── page.tsx              ← Landing-Hero mit RevealText/FadeInOnScroll (Inhalte M3)
-│   │   └── globals.css ← parent  ← Tailwind v4 + shadcn theme + tokens.css-Import
+│   │   ├── layout.tsx                          ← Root html/body, NextIntlClientProvider, Header+Footer, Fonts
+│   │   ├── page.tsx                            ← Landing: Hero + ComicStrip-Skeleton + Pitch-TextSection
+│   │   ├── ansprechpersonen/page.tsx           ← PageHero + TeamGrid (4 Personen)
+│   │   ├── projekt/page.tsx                    ← PageHero + 6 TextSections + CTA-Links
+│   │   ├── projekt/technische-standards/page.tsx
+│   │   ├── projekt/semantische-standards/page.tsx
+│   │   ├── beteiligung/page.tsx                ← PageHero + 2 TextSections + 3 CTA-Links
+│   │   ├── beteiligung/anwendungsbeispiele/page.tsx ← 3 UseCaseCards
+│   │   ├── beteiligung/mitwirkung/page.tsx     ← 2 StepCards + Map-Platzhalter (M5)
+│   │   ├── impressum/page.tsx                  ← TODO-Platzhalter
+│   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter
+│   │   ├── blog/page.tsx                       ← Coming-Soon-Stub (M4 ersetzt)
+│   │   ├── faq/page.tsx                        ← Coming-Soon-Stub (M4 ersetzt)
+│   │   └── termine/page.tsx                    ← Coming-Soon-Stub (M4 ersetzt)
+│   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge
 │   ├── components/
-│   │   ├── ui/                   ← shadcn (radix-nova) Primitives:
-│   │   │                            button, accordion, card, sheet, dialog, input, label
-│   │   ├── layout/               ← Header.tsx, Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx
-│   │   ├── sections/             ← LEER (M3+: Hero-Variants, ComicStrip, ContactCard, EventList, …)
-│   │   ├── animations/           ← FadeInOnScroll.tsx, RevealText.tsx, ParallaxImage.tsx
-│   │   └── forms/                ← LEER (M3/M4)
+│   │   ├── ui/                                 ← shadcn (radix-nova) Primitives
+│   │   ├── layout/                             ← Header.tsx, Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx
+│   │   ├── sections/                           ← PageHero, TextSection, ContactCard, TeamGrid,
+│   │   │                                          UseCaseCard, StepCard, ComingSoonHero, ComicStrip
+│   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage
+│   │   └── forms/                              ← LEER (M4: Newsletter, Beta-Anmeldung)
 │   ├── lib/
-│   │   ├── i18n/
-│   │   │   ├── routing.ts        ← defineRouting + pathnames-Map (DE↔EN)
-│   │   │   ├── request.ts        ← getRequestConfig (lädt messages/{locale}.json)
-│   │   │   └── navigation.ts     ← Link, redirect, useRouter, getPathname
-│   │   ├── supabase/             ← Stub, aktiv ab M4
+│   │   ├── i18n/{routing,request,navigation}.ts
+│   │   ├── content/loader.ts                   ← `loadContent(key, locale)` — typisierte JSON-Bundle-Registry
+│   │   ├── supabase/                           ← Stub, aktiv ab M4
 │   │   ├── gsap/registerScrollTrigger.ts
-│   │   └── utils.ts              ← cn(), shadcn helper (von shadcn-init überschrieben)
-│   ├── messages/
-│   │   ├── de.json               ← UI-Strings (nav, hero, footer, langSwitcher, meta)
-│   │   └── en.json
-│   ├── content/{de,en}/          ← Statische Inhalte (MDX/JSON), M3
-│   ├── styles/tokens.css         ← Spacing-Scale, Typo-Scale, Easings, Container-Max,
-│   │                                Akzent-Slot (--accent-brand)
-│   ├── types/                    ← Generated Supabase types ab M4
-│   └── proxy.ts                  ← next-intl Routing-Proxy (Next.js 16!)
+│   │   └── utils.ts                            ← cn(), shadcn helper
+│   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.*
+│   ├── content/{de,en}/                        ← Page-Content (umfangreich):
+│   │   ├── team.json                            ←   4 Ansprechpersonen
+│   │   ├── projekt.json                         ←   6 Sections + 2 Links
+│   │   ├── projekt-technische-standards.json
+│   │   ├── projekt-semantische-standards.json
+│   │   ├── beteiligung.json                     ←   Pitch + 3 Links
+│   │   ├── beteiligung-anwendungsbeispiele.json ←   3 Use Cases
+│   │   ├── beteiligung-mitwirkung.json          ←   2 Schritte + Map-Platzhalter
+│   │   ├── legal.json                           ←   imprint/privacy mit todo-Flag
+│   │   └── landing.json                         ←   Comic-Strip-Frames + Pitch
+│   ├── styles/tokens.css                       ← Spacing/Typo/Easings/Container; --accent-brand: Datenraum-Blau
+│   ├── types/                                  ← Generated Supabase types ab M4
+│   └── proxy.ts                                ← next-intl Routing-Proxy (Next.js 16!)
 │
-├── supabase/migrations/          ← Migrations ab M4
-├── public/                       ← Logos, Bilder (M3)
-├── SMARTE-THEATERDIENSTE/        ← Dieser Vault
+├── supabase/migrations/                        ← Migrations ab M4
+├── public/                                     ← Logos, Bilder (Assets folgen vom User)
+│   └── team/                                   ← (Portraits folgen, © Sophie Moriarty)
+├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
 │
-├── next.config.ts                ← withNextIntl + remotePatterns
-├── components.json               ← shadcn config (radix-nova, neutral baseColor, css-vars)
-├── tsconfig.json                 ← @/* → ./src/*
+├── next.config.ts                              ← withNextIntl + remotePatterns
+├── components.json                             ← shadcn config (radix-nova, neutral baseColor, css-vars)
+├── tsconfig.json                               ← @/* → ./src/*
 ├── package.json
 ├── pnpm-lock.yaml
-├── .env.example                  ← Supabase, Resend, Revalidate-Secret
-├── .gitignore                    ← Vault-aware
+├── .env.example                                ← Supabase, Resend, Revalidate-Secret
+├── .gitignore                                  ← Vault-aware
 ├── README.md
 ├── CLAUDE.md → @AGENTS.md + Vault-Hinweis
-└── AGENTS.md                     ← Next.js 16 Warnung
+└── AGENTS.md                                   ← Next.js 16 Warnung
 ```
 
 ---
@@ -171,4 +188,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **M3 — Statische Seiten DE** (alle Routen aus `routing.ts` mit Inhalten aus Miro/`INHALTE.md` füllen, Team-JSON, ContactCard, Comic-Strip-Skeleton, Akzentfarbe entscheiden).
+Aktuell offen: **M4 — Dynamic Content** (Supabase-Projekt anlegen, Schema, Migrationen, Coming-Soon-Stubs durch echte Pages ersetzen). User muss vorab das Supabase-Cloud-Projekt anlegen und ENV-Vars liefern.

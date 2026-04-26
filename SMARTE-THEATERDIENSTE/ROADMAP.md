@@ -3,9 +3,9 @@
 | #     | Status        | Milestone                  | Output                                                                                |
 | ----- | ------------- | -------------------------- | ------------------------------------------------------------------------------------- |
 | **M1**| ✅ done       | Setup & Infra              | Next.js 16, next-intl, Supabase-Skeleton, GitHub-Push, Obsidian-Vault                |
-| M2    | ⏳ next       | Design-System              | Tokens, Typo, Header/Footer, LanguageSwitcher, shadcn init, Animation-Primitives     |
-| M3    | ⏳ pending    | Statische Seiten DE        | Alle SSG-Routen mit Inhalten aus Miro/Referenz                                       |
-| M4    | ⏳ pending    | Dynamic Content            | Supabase-Schema, Migrations, Seed, Termine/Blog/FAQ-UI                                |
+| **M2**| ✅ done       | Design-System              | Tokens, Typo, Header/Footer, LanguageSwitcher, shadcn init, Animation-Primitives     |
+| **M3**| ✅ done       | Statische Seiten DE        | Alle SSG-Routen mit Inhalten aus Miro, Akzentfarbe, Coming-Soon-Stubs, EN-Stub        |
+| M4    | ⏳ next       | Dynamic Content            | Supabase-Schema, Migrations, Seed, Termine/Blog/FAQ-UI                                |
 | M5    | ⏳ pending    | Partner-Deutschlandkarte   | SVG, Hotspots, Side-Panel, GSAP-Polish                                                |
 | M6    | ⏳ pending    | Animation-Polish           | Comic-Strip, Parallax, Reveals, Reduced-Motion finalisieren                          |
 | M7    | ⏳ pending    | i18n EN                    | Vollständige Übersetzungen, hreflang, Switcher                                        |
@@ -28,36 +28,42 @@
 - [x] GitHub-Repo + Push
 - [x] Verifikation: `pnpm dev`, `/de` und `/en` rendern, `prod build` SSG sauber, TS clean
 
-## M2 — Design-System ⏳
+## M2 — Design-System ✅
 
-- [ ] Schrift-Entscheidung mit User (Geist vs. Serif)
-- [ ] Branding-Farben aus alter Site (sobald wieder erreichbar) oder User-Vorgabe
-- [ ] `pnpm dlx shadcn@latest init` (Slate-Default oder Custom-Farben)
-- [ ] shadcn components: `button`, `accordion`, `card`, `sheet`, `dialog`, `input`, `label`
-- [ ] `tokens.css` ausbauen: Farb-Tokens, Typo-Scale, Spacing-Scale
-- [ ] `<Header>` (sticky, translucent)
-- [ ] `<Footer>` (Logo-Grid + Impressum/DS)
-- [ ] `<LanguageSwitcher>` (path-preserving via next-intl navigation)
-- [ ] `<FadeInOnScroll>` (GSAP + ScrollTrigger + reduced-motion)
-- [ ] `<RevealText>` (Wort-stagger)
-- [ ] `<ParallaxImage>` (background y-shift)
-- [ ] Layout in `[locale]/layout.tsx` mit Header+Footer
-- [ ] Landing in `[locale]/page.tsx` mit Hero-Animation einbauen
+- [x] Schrift-Entscheidung: Geist Sans (User-Entscheidung gegen Serif)
+- [x] Akzentfarben-Slot in `tokens.css` (Wert in M3 gesetzt)
+- [x] `pnpm dlx shadcn@latest init -y -b radix -p nova --no-monorepo`
+- [x] shadcn components: button, accordion, card, sheet, dialog, input, label
+- [x] `tokens.css`: Spacing-Scale, Typo-Scale (fluid), Easings, Container-Max, Header-Height
+- [x] `<Header>` (sticky, backdrop-blur)
+- [x] `<Footer>` (Logo-Platzhalter + Impressum/DS-Links)
+- [x] `<LanguageSwitcher>` (path-preserving)
+- [x] `<MobileNav>` (shadcn Sheet)
+- [x] `<FadeInOnScroll>` (`useGSAP`, ScrollTrigger, reduced-motion)
+- [x] `<RevealText>` (Wort-stagger via eigene Split-Logik)
+- [x] `<ParallaxImage>` (gsap.fromTo mit scrub)
+- [x] Layout in `[locale]/layout.tsx` mit Header+Footer
+- [x] Landing in `[locale]/page.tsx` mit Hero-Animation
 
-## M3 — Statische Seiten DE ⏳
+## M3 — Statische Seiten DE ✅
 
-Routen aus `lib/i18n/routing.ts`:
-- [ ] `/ansprechpersonen` (Team-Grid mit ContactCards × 4)
-- [ ] `/projekt` (Projektbeschreibung, Zeitplan)
-- [ ] `/projekt/technische-standards` (JSON, Konnektor, Schema.org)
-- [ ] `/projekt/semantische-standards` (Datenmodell, GND, NFDI4culture)
-- [ ] `/beteiligung` (Pitch + Verlinkungen)
-- [ ] `/beteiligung/anwendungsbeispiele` (Use Cases × 3)
-- [ ] `/beteiligung/mitwirkung` (Schritt 1 JSON, Schritt 2 DRK-Konnektor)
-- [ ] `/impressum`
-- [ ] `/datenschutz`
-
-Inhalte aus `INHALTE.md`. Comic-Strip auf Landing als Section ergänzen.
+- [x] Akzentfarbe `--accent-brand: oklch(0.55 0.16 250)` (Datenraum-Blau, ADR-22)
+- [x] `messages/{de,en}.json` erweitert um `comingSoon`, `team`, `pages.*`
+- [x] Content-JSONs in `src/content/{de,en}/` (team, projekt, projekt-{technische,semantische}-standards, beteiligung, beteiligung-{anwendungsbeispiele,mitwirkung}, legal, landing) — DE primär, EN-Stubs vorbereitet
+- [x] Content-Loader-Helper `src/lib/content/loader.ts` (statische Bundle-Registry, Locale-Fallback)
+- [x] Sections-Component-Library: PageHero, TextSection, ContactCard, TeamGrid, UseCaseCard, StepCard, ComingSoonHero, ComicStrip
+- [x] `/ansprechpersonen` (Team-Grid mit 4 ContactCards)
+- [x] `/projekt` (PageHero + 6 TextSections + 2 CTA-Links)
+- [x] `/projekt/technische-standards`
+- [x] `/projekt/semantische-standards`
+- [x] `/beteiligung` (Pitch + 3 CTA-Links)
+- [x] `/beteiligung/anwendungsbeispiele` (3 UseCaseCards mit Lucide-Icons)
+- [x] `/beteiligung/mitwirkung` (2 StepCards + Map-Platzhalter für M5)
+- [x] `/impressum` (sichtbarer TODO-Marker, ADR-25)
+- [x] `/datenschutz` (sichtbarer TODO-Marker, ADR-25)
+- [x] Coming-Soon-Stubs für `/blog`, `/faq`, `/termine` (ADR-24)
+- [x] Landing erweitert: ComicStrip-Skeleton (4 Frames) + Pitch-TextSection
+- [x] Verifikation: `pnpm exec tsc --noEmit` clean, `pnpm exec eslint .` clean, `pnpm build` clean (29 SSG-Pages), Routen + Slug-Mapping + Coming-Soon im Browser geprüft
 
 ## M4 — Dynamic Content ⏳
 

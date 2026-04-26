@@ -1,0 +1,46 @@
+{
+  "sections": [
+    {
+      "eyebrow": "Format",
+      "heading": "What is a JSON file?",
+      "body": [
+        "JSON (JavaScript Object Notation) is an open text format that stores data as nested key-value pairs. Humans can read it, machines can process it reliably.",
+        "For the Cultural Data Space, we follow Schema.org vocabulary for events and extend it with culture-specific additions."
+      ]
+    },
+    {
+      "eyebrow": "Transformation",
+      "heading": "From programme to interface",
+      "body": [
+        "Theatres usually publish their programmes through CMS systems. We develop adapters that automatically generate a standardised JSON interface from the CMS data model – without touching the frontend."
+      ]
+    },
+    {
+      "eyebrow": "Connection",
+      "heading": "What is a connector?",
+      "body": [
+        "A connector is the software bridge between a theatre system and the Cultural Data Space. It handles authentication, data format validation and the transfer protocol.",
+        "We provide reference connectors for common systems and document the protocol for in-house implementations."
+      ]
+    },
+    {
+      "eyebrow": "Data flow",
+      "heading": "Sending and receiving via the data space",
+      "body": [
+        "The Cultural Data Space acts as broker: data senders (theatres) and data users (platforms, archives) meet here on the basis of agreed standards.",
+        "Every sender decides who may use which data – data sovereignty stays with the houses."
+      ]
+    },
+    {
+      "eyebrow": "Reference",
+      "heading": "Documentation & examples",
+      "body": [
+        "Schema.org Event docs, technical specification on GitHub and on the Academy Dortmund website.",
+        "Application examples: Stadttheater Augsburg, Theaterstücke FRECARO."
+      ]
+    }
+  ],
+  "links": [
+    { "href": "/beteiligung/anwendungsbeispiele", "label": "See application examples" }
+  ]
+}

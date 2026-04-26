@@ -15,10 +15,15 @@
 
 ## 🟡 Offene Fragen / Entscheidungen
 
-- **Akzentfarbe:** Slate-Basis durch shadcn-Init gesetzt (neutral baseColor in `components.json`). Slot `--accent-brand` in `src/styles/tokens.css` zeigt initial auf foreground. Konkreter Hex/OKLCH wird in M3 definiert (User-Vorgabe oder aus alter Site sobald online).
-- **Comic-Strip Landing:** Variante A (pinned horizontal scroll) vs. B (vertical stagger). Entscheidung: M6.
+- **Comic-Strip Landing:** Variante A (pinned horizontal scroll) vs. B (vertical stagger). Aktuell statisches 4-Card-Grid als Skeleton in `<ComicStrip>`. Entscheidung: M6.
 - **Newsletter-Signup:** Im Miro nicht erwähnt — User-Wunsch? Falls ja, später.
 - **Kontaktformular Empfänger-Adresse:** Aktuell Placeholder in `.env.example`. Echte Adresse vom User.
+- **Echte Inhalte vom User benötigt:**
+  - Portraits Sophie Moriarty für `public/team/{sina-schmidt,peter-retzlaff,claudia-groenniger,madeleine-scheuerpflug}.jpg` (Fallback aktuell: Initialen)
+  - Partner-Logos als SVG für `public/logos/{buehnenverein,akademie,fraunhofer,acatech,nfdi4culture,bkm}.svg` (Footer zeigt aktuell nur Text)
+  - Hero-Visual für Landing (optional, sonst bleibt textbasiert)
+  - Echte Impressum-/Datenschutz-Texte vom Bühnenverein-Auftraggeber (aktuell sichtbarer TODO-Marker)
+  - E-Mails der Ansprechpersonen verifizieren (aktuell vermutet `vorname.nachname@buehnenverein.de`)
 
 ## 🟢 Wissenswert (keine Bugs, aber Aufmerksamkeit nötig)
 
@@ -40,3 +45,6 @@
 | 2026-04-26 | `body` font-family hartcodiert auf `Arial, Helvetica` (Create-Next-App-Default) | shadcn-Init überschrieb `globals.css`, `html` nutzt jetzt `@apply font-sans`; `--font-sans` an `--font-geist-sans` gebridge'd |
 | 2026-04-26 | shadcn `--font-sans: var(--font-sans)` zirkulär nach init | In `globals.css` `@theme inline` auf `var(--font-geist-sans)` umgebogen |
 | 2026-04-26 | LanguageSwitcher TS-Fehler bei dynamischem `/blog/[slug]` | Pattern `{ pathname, params }` mit `useParams()` aus `next/navigation` + lokalisiertem `@ts-expect-error` |
+| 2026-04-26 | Akzentfarbe noch nicht definiert (M2-Offen) | M3: User-Entscheidung Datenraum-Blau `oklch(0.55 0.16 250)` + `--accent-brand-foreground` für Text auf Akzent. Bridge in `globals.css` `@theme inline`. ADR-22 |
+| 2026-04-26 | Header-Nav führt teils ins Leere (Blog/FAQ/Termine 404) | M3: Coming-Soon-Stubs unter denselben Routen via `<ComingSoonHero>`-Component. M4 ersetzt mit Supabase-Pages. ADR-24 |
+| 2026-04-26 | JSON-Parser-Fehler durch ASCII-Quote im DE-String | „…" mit U+0022 schloss JSON-String. Fix: U+201C („…") als typografisch korrektes Schlusszeichen verwenden. |

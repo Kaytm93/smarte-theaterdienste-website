@@ -1,0 +1,19 @@
+{
+  "imprint": {
+    "todo": true,
+    "body": [
+      "Diese Seite wird vom Deutschen Bühnenverein als Auftraggeber inhaltlich geliefert. Bitte ergänzen mit:",
+      "Verantwortlicher gemäß § 5 TMG, Anschrift, Vertretungsberechtigte, Kontakt (Telefon/E-Mail), Registereintrag (USt-IdNr.), Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV, Haftungs- und Urheberrechtshinweise.",
+      "Status: Platzhalter – nicht für die Veröffentlichung freigegeben."
+    ]
+  },
+  "privacy": {
+    "todo": true,
+    "body": [
+      "Diese Seite wird vom Deutschen Bühnenverein als Auftraggeber inhaltlich geliefert. Bitte ergänzen mit:",
+      "Verantwortlicher i. S. d. DSGVO, Datenschutzbeauftragte:r, Kontakt, Zwecke und Rechtsgrundlagen der Verarbeitung, Speicherdauer, Empfänger:innen, Drittlandtransfer, Betroffenenrechte (Art. 15–22 DSGVO), Beschwerderecht bei der Aufsichtsbehörde.",
+      "Eingesetzte Dienste auf dieser Site: Vercel (Hosting, USA – DPA notwendig), Supabase (Datenbank/Hosting EU). Keine Tracking-Tools im Einsatz.",
+      "Status: Platzhalter – nicht für die Veröffentlichung freigegeben."
+    ]
+  }
+}

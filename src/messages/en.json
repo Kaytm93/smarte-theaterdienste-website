@@ -39,5 +39,74 @@
       "nfdi4culture": "NFDI4Culture",
       "bkm": "BKM"
     }
+  },
+  "comingSoon": {
+    "kicker": "In preparation",
+    "title": "Coming soon",
+    "body": "We're still building this section. Once the database connection is live, we'll fill it with content.",
+    "backToHome": "Back to home"
+  },
+  "team": {
+    "phoneLabel": "Phone",
+    "mailLabel": "E-Mail",
+    "photoCredit": "© Sophie Moriarty",
+    "portraitFallback": "Photo coming"
+  },
+  "pages": {
+    "ansprechpersonen": {
+      "kicker": "Behind the project",
+      "title": "Contact persons",
+      "lead": "Four people carrying this project day to day. Reach out directly – by phone or e-mail."
+    },
+    "projekt": {
+      "kicker": "Project description",
+      "title": "Machine-readable theatre programmes",
+      "lead": "What this project is, why it matters, and who's behind it."
+    },
+    "technischeStandards": {
+      "kicker": "Technical standards",
+      "title": "JSON, schemas, connector",
+      "lead": "How a programme becomes an interface – and how it connects to the Cultural Data Space ecosystem."
+    },
+    "semantischeStandards": {
+      "kicker": "Semantic standards",
+      "title": "Translate, don't rename",
+      "lead": "Bringing theatre vocabulary into open data models without changing anything in your frontend."
+    },
+    "beteiligung": {
+      "kicker": "Get involved",
+      "title": "Join the data space",
+      "lead": "Beta testers, theatres, platforms – we're looking for partners for the next steps."
+    },
+    "anwendungsbeispiele": {
+      "kicker": "Use cases",
+      "title": "Application examples",
+      "lead": "What becomes possible when theatre programmes are machine-readable? Three concrete fields."
+    },
+    "mitwirkung": {
+      "kicker": "Step by step",
+      "title": "How participation works",
+      "lead": "Two technical steps separate your theatre from the data space – we accompany both."
+    },
+    "impressum": {
+      "kicker": "Legal",
+      "title": "Imprint"
+    },
+    "datenschutz": {
+      "kicker": "Legal",
+      "title": "Privacy"
+    },
+    "blog": {
+      "kicker": "News",
+      "title": "Blog"
+    },
+    "faq": {
+      "kicker": "Answers",
+      "title": "Frequently asked questions"
+    },
+    "termine": {
+      "kicker": "On site",
+      "title": "Events & dates"
+    }
   }
 }

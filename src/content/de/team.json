@@ -1,0 +1,38 @@
+{
+  "members": [
+    {
+      "id": "sina-schmidt",
+      "name": "Sina Schmidt",
+      "role": "Projektkoordination",
+      "phone": "+49 (0)151 65 02 60 84",
+      "email": "sina.schmidt@buehnenverein.de",
+      "portrait": "/team/sina-schmidt.jpg",
+      "quote": "Wir bauen die Leitung, damit Spielpläne dorthin fließen, wo Kultur stattfindet."
+    },
+    {
+      "id": "peter-retzlaff",
+      "name": "Peter Retzlaff",
+      "role": "Technical Advisor",
+      "phone": "+49 (0)151 11 13 18 47",
+      "email": "peter.retzlaff@buehnenverein.de",
+      "portrait": "/team/peter-retzlaff.jpg",
+      "quote": "Eine gute Schnittstelle ist unsichtbar – sie spart einfach Zeit."
+    },
+    {
+      "id": "claudia-groenniger",
+      "name": "Claudia Grönniger",
+      "role": "Projektreferentin",
+      "phone": "+49 (0)151 61 02 18 81",
+      "email": "claudia.groenniger@buehnenverein.de",
+      "portrait": "/team/claudia-groenniger.jpg"
+    },
+    {
+      "id": "madeleine-scheuerpflug",
+      "name": "Madeleine Scheuerpflug",
+      "role": "Studentische Mitarbeiterin",
+      "phone": "+49 (0)170 102 54 73",
+      "email": "madeleine.scheuerpflug@buehnenverein.de",
+      "portrait": "/team/madeleine-scheuerpflug.jpg"
+    }
+  ]
+}

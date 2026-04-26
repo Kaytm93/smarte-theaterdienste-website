@@ -1,0 +1,20 @@
+{
+  "intro": "Zwei technische Schritte trennen euer Haus vom Datenraum Kultur. Wir begleiten beide.",
+  "steps": [
+    {
+      "step": 1,
+      "title": "JSON-Schnittstelle implementieren",
+      "body": "Wir prüfen euer CMS oder Spielplan-System und entwickeln gemeinsam den Adapter, der eure Daten als standardisierte JSON-Schnittstelle bereitstellt. Frontend bleibt unverändert."
+    },
+    {
+      "step": 2,
+      "title": "Anschluss an den DRK-Konnektor",
+      "body": "Der Konnektor übernimmt Authentifizierung und Datenübertragung in den Datenraum Kultur. Ihr behaltet die Datensouveränität – ihr entscheidet, was wer sehen darf."
+    }
+  ],
+  "mapPlaceholder": {
+    "heading": "Pilot-Theater & Partner",
+    "body": "Eine interaktive Deutschlandkarte mit allen Pilot-Theatern und Datenraum-Partnern entsteht in Milestone 5. Bis dahin: ruf uns an, wir erzählen, wer schon dabei ist."
+  },
+  "partners": ["Datenraum Kultur", "GENESIS"]
+}

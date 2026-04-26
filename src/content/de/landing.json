@@ -1,0 +1,20 @@
+{
+  "comicStrip": {
+    "eyebrow": "Das Problem · Die Perspektive",
+    "heading": "Vom isolierten Spielplan zum vernetzten Datenraum",
+    "frames": [
+      { "caption": "Spielplan als PDF: schön für Menschen, sperrig für Maschinen.", "hue": 30 },
+      { "caption": "Plattformen pflegen jeden Eintrag aufwendig nach – manuell.", "hue": 60 },
+      { "caption": "Eine offene JSON-Schnittstelle macht Daten maschinenlesbar.", "hue": 240 },
+      { "caption": "Datenraum Kultur verteilt sie an alle, die sie brauchen.", "hue": 250 }
+    ]
+  },
+  "pitch": {
+    "eyebrow": "Worum es geht",
+    "heading": "Wir legen die Leitung – ihr behaltet die Kontrolle",
+    "body": [
+      "Das Projekt entsteht im Auftrag des Deutschen Bühnenvereins als Use Case 3 des Datenraums Kultur und ist Teil der Digitalstrategie des Bundes.",
+      "Theater bekommen eine standardisierte Schnittstelle für ihre Spielpläne – und bleiben Eigentümer:in ihrer Daten."
+    ]
+  }
+}

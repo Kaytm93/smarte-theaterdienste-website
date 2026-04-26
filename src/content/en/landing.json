@@ -1,0 +1,20 @@
+{
+  "comicStrip": {
+    "eyebrow": "The problem · The perspective",
+    "heading": "From isolated programmes to a connected data space",
+    "frames": [
+      { "caption": "Programme as PDF: beautiful for humans, awkward for machines.", "hue": 30 },
+      { "caption": "Platforms re-enter every entry by hand – manually.", "hue": 60 },
+      { "caption": "An open JSON interface makes data machine-readable.", "hue": 240 },
+      { "caption": "The Cultural Data Space distributes it to whoever needs it.", "hue": 250 }
+    ]
+  },
+  "pitch": {
+    "eyebrow": "What it's about",
+    "heading": "We lay the pipeline – you keep control",
+    "body": [
+      "This project is commissioned by Deutscher Bühnenverein as Use Case 3 of the Cultural Data Space and is part of Germany's digital strategy.",
+      "Theatres get a standardised interface for their programmes – and remain the owners of their data."
+    ]
+  }
+}

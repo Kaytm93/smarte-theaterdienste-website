@@ -1,0 +1,57 @@
+{
+  "sections": [
+    {
+      "eyebrow": "What it's about",
+      "heading": "What are machine-readable theatre programmes?",
+      "body": [
+        "Today, theatre programmes are mostly only readable by humans – as PDFs, HTML pages, in each house's own layout. Search engines, platforms and archives have to re-enter every entry by hand.",
+        "Machine-readable means: the data is published in an open format (JSON, based on Schema.org and CIDOC). Other software can then import it without human effort – securely, unambiguously, instantly."
+      ]
+    },
+    {
+      "eyebrow": "Step 1",
+      "heading": "Establish technical and semantic standards",
+      "body": [
+        "Together with theatres, the Academy for Theatre and Digitality Dortmund and research partners (Fraunhofer FIT, NFDI4Culture, acatech) we are developing a consistent data model for theatre programmes.",
+        "It translates the vocabulary of the theatre world into open standards without changing how anything looks on the website."
+      ]
+    },
+    {
+      "eyebrow": "Step 2",
+      "heading": "Build the data transfer interface",
+      "body": [
+        "Based on this model, we are building an interface that lets theatres send their programmes automatically to the Cultural Data Space, to platforms, archives and display systems.",
+        "No more copy & paste. Connect once, stay in sync."
+      ]
+    },
+    {
+      "eyebrow": "Use",
+      "heading": "What becomes possible",
+      "body": [
+        "Online event platforms, public displays, automated press releases, casting platforms, archives – wherever theatre programme data is needed, it will flow directly from the theatre's own system."
+      ]
+    },
+    {
+      "eyebrow": "Timeline",
+      "heading": "Where we are",
+      "body": [
+        "Phase 1 (standards & data model): ongoing.",
+        "Phase 2 (pilot interface): in preparation with beta theatres.",
+        "Phase 3 (rollout to broader group of houses): planned from 2027."
+      ]
+    },
+    {
+      "eyebrow": "Partners",
+      "heading": "Who is involved",
+      "body": [
+        "Steering group: Deutscher Bühnenverein, Academy for Theatre and Digitality Dortmund.",
+        "Advisory board: Fraunhofer FIT, acatech, NFDI4Culture, BKM (federal & Hamburg).",
+        "Pilot theatres are currently being onboarded – see participation."
+      ]
+    }
+  ],
+  "links": [
+    { "href": "/projekt/technische-standards", "label": "Technical standards" },
+    { "href": "/projekt/semantische-standards", "label": "Semantic standards" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "imprint": {
+    "todo": true,
+    "body": [
+      "This page will be provided by Deutscher Bühnenverein as commissioning party. Please complete with:",
+      "Responsible party (German § 5 TMG), address, authorised representatives, contact (phone/e-mail), trade registry (VAT-ID), party responsible for content (§ 18 (2) MStV), liability and copyright notices.",
+      "Status: placeholder – not approved for publication."
+    ]
+  },
+  "privacy": {
+    "todo": true,
+    "body": [
+      "This page will be provided by Deutscher Bühnenverein as commissioning party. Please complete with:",
+      "Controller within the meaning of GDPR, data protection officer, contact, purposes and legal bases of processing, retention period, recipients, third-country transfers, data subject rights (Art. 15–22 GDPR), right to lodge a complaint with the supervisory authority.",
+      "Services used on this site: Vercel (hosting, USA – DPA required), Supabase (database/hosting, EU). No tracking tools in use.",
+      "Status: placeholder – not approved for publication."
+    ]
+  }
+}

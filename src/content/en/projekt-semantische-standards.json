@@ -1,0 +1,40 @@
+{
+  "sections": [
+    {
+      "eyebrow": "Concept",
+      "heading": "What is a data model?",
+      "body": [
+        "A data model defines which terms exist, how they relate and which values are allowed. It is the shared language that all participating systems understand.",
+        "For theatre programmes that means: what is a performance, a production, a venue, a contributor? We define this cleanly once – so everyone means the same thing."
+      ]
+    },
+    {
+      "eyebrow": "Principle",
+      "heading": "Translate, don't rename",
+      "body": [
+        "Theatres name their terms in ways that fit their tradition and their audience. That should stay that way.",
+        "Behind the scenes we translate „Premiere“, „Wiederaufnahme“, „Hausgastspiel“ into standardised terms of the open world – the familiar vocabulary stays visible."
+      ]
+    },
+    {
+      "eyebrow": "Standards",
+      "heading": "Which vocabularies we build on",
+      "body": [
+        "Schema.org for structured event data.",
+        "GND (German Integrated Authority File) for persons and works.",
+        "CIDOC CRM for more complex cultural-heritage relationships.",
+        "NFDI4Culture extensions for research and archiving."
+      ]
+    },
+    {
+      "eyebrow": "Reference",
+      "heading": "Further links",
+      "body": [
+        "GND Explorer (German National Library), NFDI4Culture consortium, Schema.org, CIDOC CRM Explorer, project documentation on GitHub."
+      ]
+    }
+  ],
+  "links": [
+    { "href": "/projekt/technische-standards", "label": "Go to technical standards" }
+  ]
+}

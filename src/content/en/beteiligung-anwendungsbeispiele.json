@@ -1,0 +1,22 @@
+{
+  "useCases": [
+    {
+      "id": "oeffentlichkeitsarbeit",
+      "icon": "megaphone",
+      "title": "Public communication",
+      "body": "Theatre programmes flow automatically to online event platforms, public displays and media coverage. Maintain once, visible everywhere."
+    },
+    {
+      "id": "archivierung",
+      "icon": "archive",
+      "title": "Archiving",
+      "body": "Performances, casts and works are transferred with standardised identifiers into research and cultural archives. Theatre history stays digitally and permanently findable."
+    },
+    {
+      "id": "jobboerse",
+      "icon": "briefcase",
+      "title": "Job boards & casting platforms",
+      "body": "Production data reaches casting platforms and artist databases automatically. Open positions and engagements become connected and visible."
+    }
+  ]
+}

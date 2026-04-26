@@ -46,9 +46,9 @@
   --container-prose: 42rem;      /* ~672px für Lesetexte */
   --header-height: 4rem;         /* 64px sticky */
 
-  /* Akzent-Slot — wird in M3 mit Branding-Farbe befüllt.
-     Initial: zeigt auf foreground (kein sichtbarer Effekt).
-     Rohwert hier; die Tailwind-Utility-Bridge `--color-accent-brand`
-     kommt in globals.css `@theme inline`. */
-  --accent-brand: var(--foreground);
+  /* Akzent-Slot — Datenraum-Blau (kühl, technisch, vertrauenserweckend).
+     Tailwind-Utility-Bridge `--color-accent-brand` kommt in globals.css `@theme inline`.
+     Foreground-Variante ist der Textkontrast auf Akzent-Flächen (weiß auf Blau). */
+  --accent-brand: oklch(0.55 0.16 250);
+  --accent-brand-foreground: oklch(0.985 0 0);
 }

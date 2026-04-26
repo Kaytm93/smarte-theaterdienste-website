@@ -1,5 +1,61 @@
 # 📝 Changelog
 
+## 2026-04-26 (Abend) — Session 3: M3 Statische Seiten DE
+
+**Commits:**
+- (folgt am Ende der Session)
+
+**User-Entscheidungen vorab (via AskUserQuestion):**
+- Akzentfarbe: Datenraum-Blau (kühl) → `oklch(0.55 0.16 250)`
+- Blog/FAQ/Termine: Coming-Soon-Stubs anlegen (statt 404 oder Nav-Entfernung)
+- Impressum/Datenschutz: sichtbare TODO-Platzhalter (Auftraggeber liefert Texte)
+- EN-Übersetzungen: EN-Stubs zulässig, M7 finalisiert
+
+**Was passierte:**
+- `src/styles/tokens.css`: `--accent-brand: oklch(0.55 0.16 250)` + `--accent-brand-foreground: oklch(0.985 0 0)` für Text-auf-Akzent
+- `src/app/globals.css` `@theme inline`: zusätzliche Bridge `--color-accent-brand-foreground` für Tailwind-Utilities
+- `src/messages/{de,en}.json` erweitert: `comingSoon.{kicker,title,body,backToHome}`, `team.{phoneLabel,mailLabel,photoCredit,portraitFallback}`, `pages.{ansprechpersonen,projekt,technischeStandards,semantischeStandards,beteiligung,anwendungsbeispiele,mitwirkung,impressum,datenschutz,blog,faq,termine}.{kicker,title,lead?}`
+- `src/content/{de,en}/` neu (10 JSONs pro Locale):
+  - `team.json` — 4 Personen aus INHALTE.md (Sina/Peter/Claudia/Madeleine), inkl. Quote-Felder, Fallback-Email-Pattern `vorname.nachname@buehnenverein.de`
+  - `projekt.json` — 6 Sections + 2 CTA-Links
+  - `projekt-technische-standards.json` — 5 Sections (JSON, Transformation, Konnektor, Datenfluss, Vertiefung)
+  - `projekt-semantische-standards.json` — 4 Sections (Datenmodell, Übersetzen, Standards-Liste, Vertiefung)
+  - `beteiligung.json` — Pitch-Aufruf + 3 CTA-Links
+  - `beteiligung-anwendungsbeispiele.json` — 3 Use Cases mit Lucide-Icon-Keys
+  - `beteiligung-mitwirkung.json` — 2 Steps + Map-Platzhalter + Partner-Liste
+  - `legal.json` — `imprint`/`privacy` mit `todo: true` und Hinweistext
+  - `landing.json` — Comic-Strip-Frames (4 Captions + Hue-Werte) + Pitch-Section
+- `src/lib/content/loader.ts` — typisierte Bundle-Registry (`loadContent(key, locale)`), statische Imports (Turbopack-friendly), DE-Fallback wenn EN fehlt
+- `src/components/sections/` neu (8 Components):
+  - `PageHero` — wiederverwendbarer Page-Header mit RevealText + FadeInOnScroll
+  - `TextSection` — zweispaltiges Layout (Eyebrow/Heading links, Body rechts) mit FadeIn
+  - `ContactCard` — shadcn `<Card>`, Initialen-Portrait-Fallback, Quote, Tel/Mail-Links
+  - `TeamGrid` — `<ContactCard>` × N im responsive Grid (1/2/4 cols)
+  - `UseCaseCard` — Icon (lucide) + Title + Body, Akzentfarbe-Hintergrund am Icon
+  - `StepCard` — Step-Number-Badge in Akzentfarbe
+  - `ComingSoonHero` — wiederverwendbar für Stubs, mit Page-Kicker + Back-to-Home-Button
+  - `ComicStrip` — 4 Frames als Cards mit Hue-Gradient-Backgrounds (Animation in M6)
+- `src/app/[locale]/` neu (10 Routen + 1 erweitert):
+  - 10 neue `page.tsx` (ansprechpersonen, projekt + 2 Standards, beteiligung + 2 Sub-Routen, impressum, datenschutz, blog, faq, termine)
+  - alle als `async` Server-Component, `await params`, `setRequestLocale`, `generateMetadata` mit Page-Titel
+  - `[locale]/page.tsx` (Landing) erweitert um ComicStrip + Pitch-TextSection unter Hero
+- Verifikation:
+  - `pnpm exec tsc --noEmit` clean (Bug zwischendurch: deutsche Anführungszeichen `„…"` mit ASCII-Quote als Schluss zerschossen JSON-Parser; Fix: `„…“` mit U+201C)
+  - `pnpm exec eslint .` clean (`react/no-unescaped-entities` in ContactCard durch typografisch korrektes „…“ behoben)
+  - `pnpm build` SSG-clean: 29 statische Pages (14 Routen × 2 Locales + _not-found), keine "Dynamic at runtime"-Warning
+  - Browser-Test (Preview-MCP `smarte-theaterdienste`):
+    - `/de` Landing: Hero + Comic-Strip + Pitch rendern, Akzentfarbe-Blau am Kicker sichtbar
+    - `/de/ansprechpersonen`: alle 4 ContactCards mit Initialen-Fallback (SS/PR/CG/MS), Quotes, Tel/Mail-Links
+    - `/de/blog`: ComingSoonHero mit korrektem Text und Back-Link
+    - `/en/contact-persons`: EN-Slug-Mapping rewritet zu `/[locale]/ansprechpersonen` mit englischem Inhalt
+    - `/en/project/technical-standards`: tiefer-verschachtelte EN-Slug-Map funktioniert, 5 H2-Sections rendern
+    - Keine Console-Errors
+
+**Status am Ende:** M3 abgeschlossen. Site ist navigierbar, alle 14 Routen rendern, Slug-Mapping in beide Richtungen funktional, Akzentfarbe live. Coming-Soon-Stubs markieren M4-Lücken (Blog/FAQ/Termine). Echte Assets (Portraits, Logos) und Legal-Texte stehen offen — User-/Auftraggeber-Lieferung.
+**Nächster Schritt:** M4 — Dynamic Content (Supabase). Voraussetzung: User legt Supabase-Cloud-Projekt an und liefert ENV-Vars.
+
+---
+
 ## 2026-04-26 — Session 2: M2 Design-System
 
 **Commits:**

@@ -1,0 +1,57 @@
+{
+  "sections": [
+    {
+      "eyebrow": "Worum geht's",
+      "heading": "Was sind maschinenlesbare Spielpläne?",
+      "body": [
+        "Spielpläne sind heute meist nur für Menschen lesbar – als PDF, HTML, im hauseigenen Layout. Suchmaschinen, Plattformen und Archive müssen jeden Eintrag aufwendig nachpflegen.",
+        "Maschinenlesbar heißt: Daten werden in einem offenen Format bereitgestellt (JSON, basierend auf Schema.org und CIDOC). Eine andere Software kann die Daten dann ohne menschliches Zutun importieren – sicher, eindeutig, sofort."
+      ]
+    },
+    {
+      "eyebrow": "Schritt 1",
+      "heading": "Technische und semantische Standards etablieren",
+      "body": [
+        "Wir entwickeln gemeinsam mit Theatern, der Akademie für Theater und Digitalität Dortmund und Forschungspartnern (Fraunhofer FIT, NFDI4Culture, acatech) ein konsistentes Datenmodell für Spielpläne.",
+        "Es übersetzt die Begriffe der Theaterwelt in offene Standards, ohne dass auf der Website etwas anders aussehen muss."
+      ]
+    },
+    {
+      "eyebrow": "Schritt 2",
+      "heading": "Datentransfer-Schnittstelle entwickeln",
+      "body": [
+        "Auf Basis dieses Modells entsteht eine Schnittstelle, mit der Theater ihre Spielpläne automatisiert an den Datenraum Kultur, an Plattformen, Archive und Anzeigesysteme senden können.",
+        "Kein Copy & Paste mehr. Einmal verbinden, dauerhaft synchron."
+      ]
+    },
+    {
+      "eyebrow": "Anwendung",
+      "heading": "Was damit möglich wird",
+      "body": [
+        "Online-Veranstaltungsplattformen, Anzeigetafeln im öffentlichen Raum, automatisierte Pressemeldungen, Casting-Plattformen, Archive – überall dort, wo Spielplandaten gebraucht werden, fließen sie künftig direkt aus dem Theatersystem."
+      ]
+    },
+    {
+      "eyebrow": "Zeitplan",
+      "heading": "Wo wir stehen",
+      "body": [
+        "Phase 1 (Standards & Datenmodell): laufend.",
+        "Phase 2 (Pilot-Schnittstelle): in Vorbereitung mit Beta-Theatern.",
+        "Phase 3 (Roll-out an breitere Häusergruppe): geplant ab 2027."
+      ]
+    },
+    {
+      "eyebrow": "Beteiligte",
+      "heading": "Wer mitmacht",
+      "body": [
+        "Steuerkreis: Deutscher Bühnenverein, Akademie für Theater und Digitalität Dortmund.",
+        "Beirat: Fraunhofer FIT, acatech, NFDI4Culture, BKM (Bund & Hamburg).",
+        "Pilot-Theater werden derzeit aufgenommen – siehe Beteiligung."
+      ]
+    }
+  ],
+  "links": [
+    { "href": "/projekt/technische-standards", "label": "Technische Standards" },
+    { "href": "/projekt/semantische-standards", "label": "Semantische Standards" }
+  ]
+}

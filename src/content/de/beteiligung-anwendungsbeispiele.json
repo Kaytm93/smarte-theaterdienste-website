@@ -1,0 +1,22 @@
+{
+  "useCases": [
+    {
+      "id": "oeffentlichkeitsarbeit",
+      "icon": "megaphone",
+      "title": "Öffentlichkeitsarbeit",
+      "body": "Spielpläne fließen automatisch zu Online-Veranstaltungsplattformen, Anzeigetafeln im öffentlichen Raum und in die mediale Berichterstattung. Einmal pflegen, überall sichtbar."
+    },
+    {
+      "id": "archivierung",
+      "icon": "archive",
+      "title": "Archivierung",
+      "body": "Aufführungen, Besetzungen, Werke werden mit standardisierten Identifikatoren in Forschungs- und Kulturarchive übertragen. Theatergeschichte wird digital dauerhaft auffindbar."
+    },
+    {
+      "id": "jobboerse",
+      "icon": "briefcase",
+      "title": "Jobbörsen & Castingplattformen",
+      "body": "Produktionsdaten erreichen Castingplattformen und Künstler:innen-Datenbanken automatisiert. Stellenausschreibungen und Engagements werden vernetzt sichtbar."
+    }
+  ]
+}

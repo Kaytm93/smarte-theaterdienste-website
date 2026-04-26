@@ -1,0 +1,46 @@
+{
+  "sections": [
+    {
+      "eyebrow": "Format",
+      "heading": "Was ist eine JSON-Datei?",
+      "body": [
+        "JSON (JavaScript Object Notation) ist ein offenes Textformat, in dem Daten strukturiert abgelegt werden – als verschachtelte Schlüssel-Wert-Paare. Menschen können es lesen, Maschinen können es verlässlich verarbeiten.",
+        "Für den Datenraum Kultur folgen wir Schema.org-Vokabular für Veranstaltungen und ergänzen es mit kulturspezifischen Erweiterungen."
+      ]
+    },
+    {
+      "eyebrow": "Transformation",
+      "heading": "Vom Spielplan zur Schnittstelle",
+      "body": [
+        "Theater veröffentlichen ihre Spielpläne meist über CMS-Systeme. Wir entwickeln Adapter, die aus dem CMS-Datenmodell automatisch eine standardisierte JSON-Schnittstelle generieren – ohne dass das Frontend angefasst werden muss."
+      ]
+    },
+    {
+      "eyebrow": "Anbindung",
+      "heading": "Was ist ein Konnektor?",
+      "body": [
+        "Ein Konnektor ist die Software-Brücke zwischen einem Theater-System und dem Datenraum Kultur. Er übernimmt Authentifizierung, Datenformat-Validierung und das Übertragungsprotokoll.",
+        "Wir liefern Referenz-Konnektoren für gängige Systeme und dokumentieren das Protokoll für Eigenentwicklungen."
+      ]
+    },
+    {
+      "eyebrow": "Datenfluss",
+      "heading": "Senden und empfangen über den DRK",
+      "body": [
+        "Der Datenraum Kultur (DRK) funktioniert als Vermittler: Datensender (Theater) und Datennutzer (Plattformen, Archive) treffen sich hier auf Basis vereinbarter Standards.",
+        "Jede:r Sender:in entscheidet selbst, wer welche Daten nutzen darf – Datensouveränität bleibt bei den Häusern."
+      ]
+    },
+    {
+      "eyebrow": "Vertiefung",
+      "heading": "Dokumentation & Beispiele",
+      "body": [
+        "Schema.org Event-Doku, technische Spezifikation auf GitHub und der Akademie-Dortmund-Website.",
+        "Anwendungsbeispiele: Stadttheater Augsburg, Theaterstücke FRECARO."
+      ]
+    }
+  ],
+  "links": [
+    { "href": "/beteiligung/anwendungsbeispiele", "label": "Anwendungsbeispiele ansehen" }
+  ]
+}

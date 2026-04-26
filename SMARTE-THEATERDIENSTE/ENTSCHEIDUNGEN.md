@@ -23,12 +23,15 @@
 | ADR-19 | 2026-04-26  | **localeDetection bleibt next-intl-Default (`true`)** | User-Entscheidung. Erstbesucher mit Accept-Language=en-* landen auf `/en`. SEO-konform, hreflang-friendly, kein Eingriff in Routing. |
 | ADR-20 | 2026-04-26  | **`@gsap/react` `useGSAP` statt manueller `useEffect`** | Auto-Cleanup über `scope`, weniger Boilerplate, offiziell empfohlen ab GSAP 3.13. Alle Animation-Primitives (`FadeInOnScroll`, `RevealText`, `ParallaxImage`) folgen demselben Pattern. |
 | ADR-21 | 2026-04-26  | **Reveal-Text via eigene Wort-Split-Logik** | Kein SplitText-Plugin (Club-only / lizenzpflichtig). Whitespace-Split + zwei Span-Schichten (Mask-Container + Inner-Span) reicht für Wort-Stagger; minimaler Code. |
+| ADR-22 | 2026-04-26  | **Akzentfarbe = Datenraum-Blau `oklch(0.55 0.16 250)`** | User-Entscheidung in M3. Kühl, technisch, vertrauenserweckend, passt zur „Datenraum"-Konnotation und unterscheidet die Site optisch von typischen Theater-Rot-Tönen. Ergänzt um `--accent-brand-foreground: oklch(0.985 0 0)` für Text auf Akzent-Flächen. |
+| ADR-23 | 2026-04-26  | **Page-Content in `src/content/{locale}/*.json` statt `messages/*.json`** | `messages/` für UI-Strings (Buttons, Labels, Page-Titel), `content/` für längere Page-Bodies. Loader (`src/lib/content/loader.ts`) importiert alle Bundles statisch (kein dynamic `import()` — Turbopack-friendly), liefert Locale-spezifische Variante mit DE-Fallback. |
+| ADR-24 | 2026-04-26  | **Coming-Soon-Stubs für Blog/FAQ/Termine** | Routen sind in `routing.ts` und im Header-Nav, aber inhaltlich M4. Statt 404 oder Nav-Änderung: minimaler Server-Component-Stub via `<ComingSoonHero>` mit i18n-Strings aus `comingSoon.*`. M4 ersetzt sie mit Supabase-getriebenen Pages. |
+| ADR-25 | 2026-04-26  | **Sichtbare TODO-Platzhalter für Impressum/Datenschutz** | User-Entscheidung. Kein generischer DSGVO-Boilerplate (rechtlich nicht final), kein Eigen-Text (Auftraggeber liefert). `legal.json` markiert mit `todo: true`, `<TextSection eyebrow="TODO">` macht den Status sofort sichtbar. |
 
 ---
 
 ## Zukunftige offene ADRs
 
-- **ADR-?? Akzentfarbe-Wert** — Hex/OKLCH konkret. M3.
 - **ADR-?? Comic-Strip Variante** — pinned horizontal scroll vs. vertical stagger. M6.
 - **ADR-?? Newsletter** — überhaupt? M3+.
 - **ADR-?? Analytics** — Vercel Analytics, Plausible, oder gar nichts? M8.

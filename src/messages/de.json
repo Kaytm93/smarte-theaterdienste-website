@@ -39,5 +39,74 @@
       "nfdi4culture": "NFDI4Culture",
       "bkm": "BKM"
     }
+  },
+  "comingSoon": {
+    "kicker": "In Vorbereitung",
+    "title": "Bald verfügbar",
+    "body": "Diese Inhalte werden gerade aufgebaut. Wir verbinden den Bereich an die Datenbank an und füllen ihn dann mit Leben.",
+    "backToHome": "Zur Startseite"
+  },
+  "team": {
+    "phoneLabel": "Telefon",
+    "mailLabel": "E-Mail",
+    "photoCredit": "© Sophie Moriarty",
+    "portraitFallback": "Foto folgt"
+  },
+  "pages": {
+    "ansprechpersonen": {
+      "kicker": "Hinter dem Projekt",
+      "title": "Ansprechpersonen",
+      "lead": "Vier Menschen, die das Projekt täglich tragen. Sprich uns direkt an – per Telefon oder E-Mail."
+    },
+    "projekt": {
+      "kicker": "Projektbeschreibung",
+      "title": "Maschinenlesbare Spielpläne",
+      "lead": "Was das Projekt ist, warum wir es brauchen und wer dahintersteht."
+    },
+    "technischeStandards": {
+      "kicker": "Technische Standards",
+      "title": "JSON, Schemas, Konnektor",
+      "lead": "Wie ein Spielplan zur Schnittstelle wird – und wie er ans Datenraum-Ökosystem andockt."
+    },
+    "semantischeStandards": {
+      "kicker": "Semantische Standards",
+      "title": "Übersetzen statt umbenennen",
+      "lead": "Begriffe der Theaterwelt in offene Datenmodelle bringen, ohne im Frontend etwas zu verändern."
+    },
+    "beteiligung": {
+      "kicker": "Mitwirken",
+      "title": "Werde Teil des Datenraums",
+      "lead": "Beta-Tester:innen, Theater, Plattformen – wir suchen Mitwirkende für die nächsten Schritte."
+    },
+    "anwendungsbeispiele": {
+      "kicker": "Use Cases",
+      "title": "Anwendungsbeispiele",
+      "lead": "Was geht, wenn Spielpläne maschinenlesbar werden? Drei konkrete Felder."
+    },
+    "mitwirkung": {
+      "kicker": "Schritt für Schritt",
+      "title": "So funktioniert die Mitwirkung",
+      "lead": "Zwei technische Schritte trennen euer Theater vom Datenraum – wir begleiten beide."
+    },
+    "impressum": {
+      "kicker": "Rechtliches",
+      "title": "Impressum"
+    },
+    "datenschutz": {
+      "kicker": "Rechtliches",
+      "title": "Datenschutz"
+    },
+    "blog": {
+      "kicker": "Aktuelles",
+      "title": "Blog"
+    },
+    "faq": {
+      "kicker": "Antworten",
+      "title": "Häufige Fragen"
+    },
+    "termine": {
+      "kicker": "Vor Ort",
+      "title": "Termine & Veranstaltungen"
+    }
   }
 }
