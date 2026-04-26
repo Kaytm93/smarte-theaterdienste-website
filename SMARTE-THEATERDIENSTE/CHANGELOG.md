@@ -3,7 +3,7 @@
 ## 2026-04-26 (Abend) — Session 3: M3 Statische Seiten DE
 
 **Commits:**
-- (folgt am Ende der Session)
+- `dbf76a5` M3: Statische Seiten DE + Coming-Soon-Stubs
 
 **User-Entscheidungen vorab (via AskUserQuestion):**
 - Akzentfarbe: Datenraum-Blau (kühl) → `oklch(0.55 0.16 250)`
