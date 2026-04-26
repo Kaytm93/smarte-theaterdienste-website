@@ -3,7 +3,7 @@
 ## 2026-04-26 — Session 2: M2 Design-System
 
 **Commits:**
-- `<fill-after-commit>` M2: Design-System – Tokens, Header/Footer, shadcn-Init, Animation-Primitives
+- `a8572b8` M2: Design-System – Tokens, Header/Footer, shadcn-Init, Animation-Primitives
 
 **User-Entscheidungen vorab:**
 - Schrift: Geist Sans behalten (keine Serif-Migration)
