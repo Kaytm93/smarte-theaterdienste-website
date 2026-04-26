@@ -22,10 +22,11 @@
 
 ## 🟢 Wissenswert (keine Bugs, aber Aufmerksamkeit nötig)
 
+- **Vault existiert an zwei Orten** — Projekt (`SMARTE-THEATERDIENSTE/`, in Git) und User-Obsidian (`~/Documents/SMARTE-THEATERDIENSTE/`, mit `.obsidian/` Config). Beide müssen am Sessionende identisch sein. Sync-Befehl + Verifikation in `CLAUDE.md` Schritt 3. Niemals `.obsidian/` syncen.
 - **Next.js 16** statt geplant 15 — Breaking Changes berücksichtigt (proxy.ts, async params, revalidateTag-Profile). Siehe `MUSTER.md`.
-- **localeDetection ist standardmäßig `true`** in next-intl. Erste Besucher mit `Accept-Language: en-*` werden auf `/en` geleitet, nicht zwingend auf `/de` (Default-Locale). User-Erwartung klären, ggf. `localeDetection: false` setzen.
+- **localeDetection ist standardmäßig `true`** in next-intl. Erste Besucher mit `Accept-Language: en-*` werden auf `/en` geleitet — bewusste Entscheidung (ADR-19), bleibt so.
 - **Tailwind v4** nutzt `@theme inline` in `globals.css` statt `tailwind.config.ts`. Keine separate Config-Datei nötig.
-- **`.claude/launch.json`** (Workspace-Root) enthält den Dev-Server-Eintrag auf Port **3030** (nicht 3000, weil Konflikt mit anderen Projekten).
+- **`.claude/launch.json`** (Workspace-Root) enthält den Dev-Server-Eintrag auf Port **3030** (nicht 3000, weil Konflikt mit anderen Projekten). Preview-MCP überschreibt manchmal auf Port 3000 — funktional irrelevant.
 
 ## ✅ Gelöst
 

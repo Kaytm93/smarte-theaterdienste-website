@@ -41,7 +41,8 @@
 4. `CHANGELOG.md` → Neuen Eintrag mit Datum und Tätigkeiten hinzufügen
 5. `ENTSCHEIDUNGEN.md` → Neue Architekturentscheidungen ergänzen
 6. Bei größeren Änderungen (≥ 3 Dateien geändert oder grundlegendes Problem gelöst): `verlauf/SESSION_YYYY-MM-DD.md` anlegen
-7. **Commit & Push** — siehe `KONTEXT.md → Pflicht-Regel`
+7. **Commit & Push** auf `origin/main` (siehe `KONTEXT.md → Pflicht-Regel`)
+8. **Obsidian-Sync** zu `~/Documents/SMARTE-THEATERDIENSTE/` — ohne Sync sieht der User die Updates nicht in Obsidian. Befehl in `CLAUDE.md` Schritt 3.
 
 ---
 
