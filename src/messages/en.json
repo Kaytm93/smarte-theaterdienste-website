@@ -98,15 +98,40 @@
     },
     "blog": {
       "kicker": "News",
-      "title": "Blog"
+      "title": "Blog",
+      "lead": "Updates from the Cultural Data Space project: pilot houses, connector progress, events.",
+      "readMore": "Read more",
+      "publishedAt": "Published on",
+      "backToList": "Back to overview",
+      "empty": {
+        "kicker": "News",
+        "title": "Stories coming",
+        "body": "As soon as the first posts are online, they'll appear here."
+      }
     },
     "faq": {
       "kicker": "Answers",
-      "title": "Frequently asked questions"
+      "title": "Frequently asked questions",
+      "lead": "The five questions that reach us most often — answered briefly and honestly.",
+      "empty": {
+        "kicker": "Answers",
+        "title": "FAQ in progress",
+        "body": "We're collecting the most common questions from pilot houses. Answers follow shortly."
+      }
     },
     "termine": {
       "kicker": "On site",
-      "title": "Events & dates"
+      "title": "Events & dates",
+      "lead": "Meetups, workshops and demos around the Cultural Data Space.",
+      "upcomingHeading": "Upcoming",
+      "pastHeading": "Past",
+      "registerCta": "Register",
+      "noUpcoming": "No upcoming dates planned right now.",
+      "empty": {
+        "kicker": "On site",
+        "title": "Dates coming",
+        "body": "We're currently scheduling the next gatherings. Once dates are confirmed, you'll find them here."
+      }
     }
   }
 }

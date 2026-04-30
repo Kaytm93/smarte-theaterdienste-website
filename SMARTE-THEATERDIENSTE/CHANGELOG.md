@@ -1,5 +1,68 @@
 # 📝 Changelog
 
+## 2026-04-27 — Session 4: M4 (Vorbereitung) Dynamic Content
+
+**Commits:**
+- `<wird nach Push ergänzt>` M4 prep: Schema, Supabase-Helper, Page-Skeletons, Revalidate-Endpunkt
+
+**User-Entscheidungen vorab (via AskUserQuestion):**
+- Pfad: „M4 vorbereiten – Projekt kommt später" — alle offline-möglichen Schritte erledigen, Cloud-Projekt + `.env.local` legt der User parallel an
+
+**Was passierte:**
+- `pnpm add -D supabase` (CLI v2.95.5, dev-dep) + `pnpm.onlyBuiltDependencies: ["supabase"]` in `package.json`, damit der postinstall-Download des Go-Binärs durchläuft (siehe PROBLEME.md)
+- `pnpm add react-markdown` für Beitrags-Body-Rendering
+- `pnpm exec supabase init` → `supabase/config.toml`, `supabase/.gitignore`, `supabase/migrations/` scaffolded
+- Schema-Migration `supabase/migrations/20260427121400_init.sql`:
+  - `locale`-Enum (`'de' | 'en'`) als Quelle der Wahrheit auch in der DB
+  - `posts` (slug-unique, status-Enum draft/published/archived, published_at, cover_image_url) + `post_translations((post_id, locale))`
+  - `events` (slug-unique, starts_at, ends_at, location, registration_url, status upcoming/past/cancelled) + `event_translations`
+  - `faqs` (position, category, is_published) + `faq_translations`
+  - `partners` (für M5: name, slug, lat, lng, status partner/pilot/interested)
+  - `set_updated_at()`-Trigger pro Tabelle
+  - Indizes: `posts(published_at desc)` partial, `events(starts_at desc)`, `faqs(position)` partial
+  - RLS aktiv auf allen 7 Tabellen + Public-Read-Policies (Posts/Faqs nur veröffentlicht, Translations über Parent-Existenz, Events/Partners offen)
+- `supabase/seed.sql` mit 3 Posts (2 published DE+EN, 1 draft), 2 Events (1 upcoming, 1 past), 5 FAQs DE+EN, 4 Partners — idempotent via `on conflict do nothing`
+- `src/types/database.ts` hand-rolled, Shape-kompatibel mit `supabase gen types --linked` (überschreibt sich später bei `pnpm gen:types`)
+- `src/lib/supabase/`:
+  - `env.ts` — `isSupabaseConfigured()` + `getSupabaseEnv()` (throws bei fehlenden Public-Keys)
+  - `server.ts` — `getSupabaseServer()` mit `await cookies()` + `createServerClient<Database>` + `getAll`/`setAll`-Pattern; setAll fängt RSC-Schreibversuch silent ab
+  - `client.ts` — `getSupabaseBrowser()` mit `'use client'` + `createBrowserClient<Database>`
+  - `queries.ts` — typisierte Helper: `listPublishedPosts`, `getPostBySlug`, `listAllPostSlugs`, `listUpcomingEvents`, `listPastEvents`, `listPublishedFaqs`. i18n-Pattern: `post_translations!inner(...).eq('post_translations.locale', locale)`. `.returns<RowType[]>()`-Cast wegen fehlender Relationship-Inferenz im hand-rolled Schema
+- `src/components/sections/`:
+  - `PostCard` (RSC) — Cover-Image via `next/image`, lokalisiertes Datum, Card-Hover, Link via i18n-Navigation `{ pathname: '/blog/[slug]', params: { slug } }`
+  - `PostArticle` (RSC) — PageHero-Pattern + ReactMarkdown-Body mit Tailwind-prose-Klassen
+  - `EventCard` (RSC) — `<time dateTime>` mit `toLocaleDateString(locale)`, Register-CTA wenn `upcoming` und `registration_url`, Markdown-Beschreibung
+  - `FaqAccordion` (Client) — shadcn `<Accordion>` + `<ReactMarkdown>` für Antworten
+  - `ComingSoonHero` erweitert um optionale `body`-Prop (Empty-State-Variante)
+- `src/app/[locale]/blog/page.tsx` (ersetzt Stub) — `revalidate = 60`, dreistufige Logik: `!isSupabaseConfigured()` → ComingSoonHero; `posts.length === 0` → ComingSoonHero mit `empty.*`-Texten; sonst `<PageHero>` + 3-spaltiges Grid mit `<PostCard>`
+- `src/app/[locale]/blog/[slug]/page.tsx` (neu) — `generateStaticParams` returned `[]` ohne Supabase, sonst alle Slugs × Locales; `dynamicParams = true` für ISR; `notFound()` ohne Supabase oder bei unbekanntem Slug; `generateMetadata` mit Post-Title + Excerpt
+- `src/app/[locale]/faq/page.tsx` (ersetzt Stub) — gleiche Fallback-Logik, sonst `<PageHero>` + `<FaqAccordion>` in 3xl-Container
+- `src/app/[locale]/termine/page.tsx` (ersetzt Stub) — zwei Sections (Bevorstehend / Vergangen), `noUpcoming`-Hinweis wenn `upcoming.length === 0` aber `past` existiert
+- `src/app/api/revalidate/route.ts` (neu) — POST-Endpunkt für Supabase-DB-Webhook: Secret-Check über `?secret=` oder `x-revalidate-secret`-Header gegen `REVALIDATE_SECRET`; `runtime = 'nodejs'`, `dynamic = 'force-dynamic'`. Mappt Tabelle → Pages: posts/post_translations → `/[locale]/blog` + `/[locale]/blog/[slug]`, events → `/[locale]/termine`, faqs → `/[locale]/faq`. Webhook ohne Body revalidiert alle bekannten Pfade. GET liefert Hilfetext.
+- `src/messages/{de,en}.json`: `pages.blog.{lead,readMore,publishedAt,backToList,empty.*}`, `pages.faq.{lead,empty.*}`, `pages.termine.{lead,upcomingHeading,pastHeading,registerCta,noUpcoming,empty.*}`
+- `package.json` Scripts: `db:push`, `db:diff`, `db:reset`, `gen:types`
+- Verifikation:
+  - `pnpm exec tsc --noEmit` clean
+  - `pnpm exec eslint .` clean
+  - `pnpm exec next build` clean: 29 Static + 1 Dynamic (`/api/revalidate`), Routen `/blog`, `/faq`, `/termine` zeigen ISR-Revalidate `1m / 1y`, `/blog/[slug]` als ● (SSG mit dynamicParams)
+  - Browser-Test (Preview-MCP `smarte-theaterdienste`):
+    - `/de/blog`: ComingSoonHero "AKTUELLES · IN VORBEREITUNG · Blog" — env vars fehlen, Fallback greift wie geplant
+    - `/de/faq`, `/de/termine`: 200, ComingSoonHero
+    - `/de/blog/some-slug`: 404 (notFound() ohne Supabase) — korrektes Verhalten
+    - `/en/faq`: "ANSWERS · IN PREPARATION · Frequently asked questions" — EN-Lokalisierung greift
+    - `/api/revalidate` GET: 200 mit Hilfetext; POST ohne `REVALIDATE_SECRET` env: 500 mit klarer Fehlermeldung — erwartet ohne `.env.local`
+    - Console-Logs clean
+
+**Was bewusst NICHT lief (User-Entscheidung „später"):**
+- Kein `supabase login`, `supabase link`, `supabase db push` (Cloud-Projekt fehlt)
+- Kein Webhook-Setup im Studio
+- Keine Vercel-Deployment-Schritte
+
+**Status am Ende:** M4-Code vollständig vorbereitet. Sobald User `.env.local` mit Supabase-Keys + `REVALIDATE_SECRET` füllt, `pnpm exec supabase login`, `pnpm exec supabase link --project-ref <ref>`, `pnpm exec supabase db push`, dann optional `pnpm gen:types` — Pages rendern Daten ohne Code-Change.
+**Nächster Schritt:** User legt Supabase-Cloud-Projekt an (EU-Region). Danach 3-Befehle-Push + Webhook im Studio. Alternativ Vercel-Deployment vorziehen.
+
+---
+
 ## 2026-04-26 (Abend) — Session 3: M3 Statische Seiten DE
 
 **Commits:**

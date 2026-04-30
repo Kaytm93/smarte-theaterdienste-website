@@ -189,55 +189,158 @@ export function FadeInOnScroll({ children }: { children: React.ReactNode }) {
 
 ---
 
-## Supabase Pattern (ab M4)
+## Supabase Pattern (M4)
 
-### Server (RSC, Server Action, Route Handler)
+Alle Patterns sind in `src/lib/supabase/` umgesetzt — bei Code-Änderungen dort starten.
+
+### Env-Check als Gate
+
+```ts
+// src/lib/supabase/env.ts
+export function isSupabaseConfigured() {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
+}
+```
+
+Pages prüfen das **immer** zuerst und liefern `<ComingSoonHero>` zurück, wenn keine Env vorhanden ist (siehe ADR-27). So bleibt `pnpm build` ohne `.env.local` clean.
+
+### Server-Client (RSC, Route Handler, Server Action)
 
 ```ts
 // src/lib/supabase/server.ts
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import type { Database } from '@/types/database';
+import { getSupabaseEnv } from './env';
 
 export async function getSupabaseServer() {
-  const cookieStore = await cookies();          // Next.js 16 async!
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => cookieStore.getAll(),
-        setAll: (cookiesToSet) =>
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)),
+  const cookieStore = await cookies();          // Next.js 16: cookies() ist async
+  const { url, anonKey } = getSupabaseEnv();
+  return createServerClient<Database>(url, anonKey, {
+    cookies: {
+      getAll: () => cookieStore.getAll(),
+      setAll: (cookiesToSet) => {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        } catch {
+          // setAll kann in RSC nicht schreiben — wird vom Proxy übernommen
+        }
       },
-    }
-  );
+    },
+  });
 }
 ```
 
-### Client Component
+### Browser-Client
 
 ```ts
 // src/lib/supabase/client.ts
 'use client';
 import { createBrowserClient } from '@supabase/ssr';
+import type { Database } from '@/types/database';
+import { getSupabaseEnv } from './env';
 
-export const supabaseBrowser = () =>
-  createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+export function getSupabaseBrowser() {
+  const { url, anonKey } = getSupabaseEnv();
+  return createBrowserClient<Database>(url, anonKey);
+}
 ```
 
-### i18n Join für lokalisierten Content
+### i18n-Join + `.returns<T>()` (solange Relationships nicht autogeneriert sind)
 
 ```ts
-const { data } = await supabase
+type PostListRow = {
+  slug: string;
+  published_at: string | null;
+  cover_image_url: string | null;
+  post_translations: Array<{ title: string; excerpt: string | null }>;
+};
+
+const { data, error } = await supabase
   .from('posts')
-  .select('*, post_translations!inner(title, excerpt, body_md)')
+  .select('slug, published_at, cover_image_url, post_translations!inner(title, excerpt, locale)')
+  .eq('status', 'published')
   .eq('post_translations.locale', locale)
-  .eq('status', 'published');
+  .order('published_at', { ascending: false })
+  .returns<PostListRow[]>();        // bypassed Inferenz; entfernen, sobald `pnpm gen:types` lief
 ```
+
+### Page-Skeleton mit Graceful Degradation
+
+```tsx
+export const revalidate = 60;       // ISR-Untergrenze, Webhook hebt es bei Bedarf
+
+export default async function BlogPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('pages.blog');
+
+  if (!isSupabaseConfigured()) {
+    return <ComingSoonHero pageKicker={t('kicker')} pageTitle={t('title')} />;
+  }
+  const posts = await listPublishedPosts(locale);
+  if (posts.length === 0) {
+    return <ComingSoonHero pageKicker={t('empty.kicker')} pageTitle={t('empty.title')} body={t('empty.body')} />;
+  }
+  return /* render list */;
+}
+```
+
+---
+
+## Revalidate-Webhook Pattern (Next.js 16)
+
+```ts
+// src/app/api/revalidate/route.ts
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
+const TABLE_TO_PATHS: Record<string, Array<[string, 'page' | 'layout']>> = {
+  posts: [['/[locale]/blog', 'page'], ['/[locale]/blog/[slug]', 'page']],
+  // …
+};
+
+export async function POST(request: NextRequest) {
+  const secret = process.env.REVALIDATE_SECRET;
+  if (!secret) return NextResponse.json({ revalidated: false }, { status: 500 });
+
+  const provided =
+    request.nextUrl.searchParams.get('secret') ??
+    request.headers.get('x-revalidate-secret');
+  if (provided !== secret) return NextResponse.json({ revalidated: false }, { status: 401 });
+
+  const { table } = (await request.json().catch(() => ({}))) as { table?: string };
+  for (const [path, type] of TABLE_TO_PATHS[table ?? ''] ?? []) {
+    revalidatePath(path, type);    // Pattern matched beide Locales in einem Aufruf
+  }
+  return NextResponse.json({ revalidated: true });
+}
+```
+
+**Warum `revalidatePath`, nicht `revalidateTag`?** Tag-basierte Invalidation würde `cacheComponents: true` + `'use cache'` an jedem Query-Helper voraussetzen. `revalidatePath` arbeitet auf den Route-Files und ist mit `export const revalidate = 60` an den Pages ausreichend (ADR-29).
+
+**Webhook-URL in Supabase Studio:** `https://<deployment>/api/revalidate?secret=<REVALIDATE_SECRET>` (Method: POST).
+
+---
+
+## Empty-State / Coming-Soon Pattern
+
+`ComingSoonHero` akzeptiert eine optionale `body`-Prop. Pages liefern Locale-spezifische Empty-Texte aus den Messages:
+
+```tsx
+<ComingSoonHero
+  pageKicker={t('empty.kicker')}
+  pageTitle={t('empty.title')}
+  body={t('empty.body')}
+/>
+```
+
+Messages-Konvention: `pages.<route>.empty.{kicker,title,body}` für Empty-State, top-level `pages.<route>.{kicker,title,lead}` für die normale Hero-Variante.
 
 ---
 

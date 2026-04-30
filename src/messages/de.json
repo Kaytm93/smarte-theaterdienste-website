@@ -98,15 +98,40 @@
     },
     "blog": {
       "kicker": "Aktuelles",
-      "title": "Blog"
+      "title": "Blog",
+      "lead": "Updates aus dem Datenraum-Kultur-Projekt: Pilothäuser, Konnektor-Fortschritt, Veranstaltungen.",
+      "readMore": "Weiterlesen",
+      "publishedAt": "Veröffentlicht am",
+      "backToList": "Zur Übersicht",
+      "empty": {
+        "kicker": "Aktuelles",
+        "title": "Bald gibt's Neues",
+        "body": "Sobald die ersten Beiträge online sind, erscheinen sie hier."
+      }
     },
     "faq": {
       "kicker": "Antworten",
-      "title": "Häufige Fragen"
+      "title": "Häufige Fragen",
+      "lead": "Die fünf Fragen, die uns am häufigsten erreichen — kurz und ehrlich beantwortet.",
+      "empty": {
+        "kicker": "Antworten",
+        "title": "FAQ wird aufgebaut",
+        "body": "Wir sammeln gerade die häufigsten Fragen aus den Pilothäusern. Antworten folgen in Kürze."
+      }
     },
     "termine": {
       "kicker": "Vor Ort",
-      "title": "Termine & Veranstaltungen"
+      "title": "Termine & Veranstaltungen",
+      "lead": "Treffen, Workshops und Demos rund um den Datenraum Kultur.",
+      "upcomingHeading": "Bevorstehend",
+      "pastHeading": "Vergangen",
+      "registerCta": "Anmelden",
+      "noUpcoming": "Aktuell sind keine kommenden Termine geplant.",
+      "empty": {
+        "kicker": "Vor Ort",
+        "title": "Termine folgen",
+        "body": "Wir planen derzeit die nächsten Treffen. Sobald Daten feststehen, findest du sie hier."
+      }
     }
   }
 }

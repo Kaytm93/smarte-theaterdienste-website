@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-04-26 | Stand: M3 Statische Seiten DE abgeschlossen
+> Letzte Aktualisierung: 2026-04-27 | Stand: M4 Code vorbereitet, wartet auf Supabase-Cloud-Projekt
 
 ---
 
@@ -99,24 +99,28 @@ smarte-theaterdienste-website/
 │   │   ├── beteiligung/mitwirkung/page.tsx     ← 2 StepCards + Map-Platzhalter (M5)
 │   │   ├── impressum/page.tsx                  ← TODO-Platzhalter
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter
-│   │   ├── blog/page.tsx                       ← Coming-Soon-Stub (M4 ersetzt)
-│   │   ├── faq/page.tsx                        ← Coming-Soon-Stub (M4 ersetzt)
-│   │   └── termine/page.tsx                    ← Coming-Soon-Stub (M4 ersetzt)
+│   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
+│   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams
+│   │   ├── faq/page.tsx                        ← Accordion (Supabase) mit ComingSoonHero-Fallback
+│   │   ├── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase) mit ComingSoonHero-Fallback
+│   │   └── api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath
 │   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge
 │   ├── components/
 │   │   ├── ui/                                 ← shadcn (radix-nova) Primitives
 │   │   ├── layout/                             ← Header.tsx, Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx
 │   │   ├── sections/                           ← PageHero, TextSection, ContactCard, TeamGrid,
-│   │   │                                          UseCaseCard, StepCard, ComingSoonHero, ComicStrip
+│   │   │                                          UseCaseCard, StepCard, ComingSoonHero (jetzt mit body-Prop), ComicStrip,
+│   │   │                                          PostCard, PostArticle, EventCard, FaqAccordion (neu in M4)
 │   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage
-│   │   └── forms/                              ← LEER (M4: Newsletter, Beta-Anmeldung)
+│   │   └── forms/                              ← LEER (Newsletter/Beta-Anmeldung später)
 │   ├── lib/
 │   │   ├── i18n/{routing,request,navigation}.ts
 │   │   ├── content/loader.ts                   ← `loadContent(key, locale)` — typisierte JSON-Bundle-Registry
-│   │   ├── supabase/                           ← Stub, aktiv ab M4
+│   │   ├── supabase/                           ← env.ts, server.ts, client.ts, queries.ts (M4 aktiv)
 │   │   ├── gsap/registerScrollTrigger.ts
 │   │   └── utils.ts                            ← cn(), shadcn helper
-│   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.*
+│   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.* (inkl. blog/faq/termine empty.* und Listen-Labels)
+│   ├── types/database.ts                       ← Hand-rolled Database-Type, ersetzt durch `pnpm gen:types`
 │   ├── content/{de,en}/                        ← Page-Content (umfangreich):
 │   │   ├── team.json                            ←   4 Ansprechpersonen
 │   │   ├── projekt.json                         ←   6 Sections + 2 Links
@@ -131,7 +135,11 @@ smarte-theaterdienste-website/
 │   ├── types/                                  ← Generated Supabase types ab M4
 │   └── proxy.ts                                ← next-intl Routing-Proxy (Next.js 16!)
 │
-├── supabase/migrations/                        ← Migrations ab M4
+├── supabase/                                   ← config.toml (project_id=smarte-theaterdienste-website),
+│   ├── migrations/20260427121400_init.sql     │   migrations/ (Schema-SQL für Push), seed.sql (Beispiel-Daten)
+│   ├── seed.sql                               │
+│   ├── config.toml                            │
+│   └── .gitignore                             │
 ├── public/                                     ← Logos, Bilder (Assets folgen vom User)
 │   └── team/                                   ← (Portraits folgen, © Sophie Moriarty)
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
@@ -188,4 +196,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **M4 — Dynamic Content** (Supabase-Projekt anlegen, Schema, Migrationen, Coming-Soon-Stubs durch echte Pages ersetzen). User muss vorab das Supabase-Cloud-Projekt anlegen und ENV-Vars liefern.
+Aktuell offen: **M4 finalisieren** — Code ist vorbereitet. User legt das Supabase-Cloud-Projekt an, schreibt Keys in `.env.local`, dann `supabase login` + `supabase link` + `supabase db push` (+ optional `db seed`, `gen:types`). Pages rendern danach Daten ohne Code-Change.

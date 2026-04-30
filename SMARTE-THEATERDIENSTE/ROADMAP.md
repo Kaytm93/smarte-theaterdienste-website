@@ -5,7 +5,7 @@
 | **M1**| ✅ done       | Setup & Infra              | Next.js 16, next-intl, Supabase-Skeleton, GitHub-Push, Obsidian-Vault                |
 | **M2**| ✅ done       | Design-System              | Tokens, Typo, Header/Footer, LanguageSwitcher, shadcn init, Animation-Primitives     |
 | **M3**| ✅ done       | Statische Seiten DE        | Alle SSG-Routen mit Inhalten aus Miro, Akzentfarbe, Coming-Soon-Stubs, EN-Stub        |
-| M4    | ⏳ next       | Dynamic Content            | Supabase-Schema, Migrations, Seed, Termine/Blog/FAQ-UI                                |
+| M4    | 🟡 prepared   | Dynamic Content            | Code komplett vorbereitet — wartet auf Supabase-Cloud-Projekt + `.env.local` (User)   |
 | M5    | ⏳ pending    | Partner-Deutschlandkarte   | SVG, Hotspots, Side-Panel, GSAP-Polish                                                |
 | M6    | ⏳ pending    | Animation-Polish           | Comic-Strip, Parallax, Reveals, Reduced-Motion finalisieren                          |
 | M7    | ⏳ pending    | i18n EN                    | Vollständige Übersetzungen, hreflang, Switcher                                        |
@@ -65,20 +65,31 @@
 - [x] Landing erweitert: ComicStrip-Skeleton (4 Frames) + Pitch-TextSection
 - [x] Verifikation: `pnpm exec tsc --noEmit` clean, `pnpm exec eslint .` clean, `pnpm build` clean (29 SSG-Pages), Routen + Slug-Mapping + Coming-Soon im Browser geprüft
 
-## M4 — Dynamic Content ⏳
+## M4 — Dynamic Content 🟡 prepared
 
-- [ ] Supabase-Projekt im Web anlegen (User), URL+Keys in `.env.local`
-- [ ] `pnpm add -D supabase` (CLI als dev-dep)
-- [ ] `supabase init` → `supabase/config.toml`
-- [ ] Migration `20XXXXXX_init.sql` mit Schema (siehe `KONTEXT.md` oder ER-Diagramm)
-- [ ] `supabase gen types typescript --linked > src/types/database.ts`
-- [ ] `lib/supabase/{client,server}.ts` aktivieren (createBrowserClient / createServerClient)
-- [ ] `lib/supabase/queries.ts` mit i18n-Joins
-- [ ] `app/[locale]/termine/page.tsx`, `app/[locale]/faq/page.tsx`
-- [ ] `app/[locale]/blog/page.tsx` + `[slug]/page.tsx`
-- [ ] `app/api/revalidate/route.ts` mit `REVALIDATE_SECRET`
-- [ ] Supabase-Webhook auf relevante Tabellen → Revalidate-Endpunkt
-- [ ] Seed-Daten in `supabase/seed.sql`
+**Offline (✅ erledigt 2026-04-27):**
+- [x] `pnpm add -D supabase` (CLI als dev-dep, mit `pnpm.onlyBuiltDependencies`)
+- [x] `supabase init` → `supabase/config.toml`
+- [x] Migration `20260427121400_init.sql` mit Schema (posts/events/faqs/partners + translations + RLS + Trigger)
+- [x] `supabase/seed.sql` mit Beispiel-Daten
+- [x] `lib/supabase/{env,client,server}.ts` aktiviert
+- [x] `lib/supabase/queries.ts` mit i18n-Joins + `.returns<T>()`
+- [x] `src/types/database.ts` hand-rolled
+- [x] `app/[locale]/{blog,faq,termine}/page.tsx` ersetzen Coming-Soon-Stubs (Graceful-Degradation-Fallback)
+- [x] `app/[locale]/blog/[slug]/page.tsx` mit `generateStaticParams` + `dynamicParams`
+- [x] `app/api/revalidate/route.ts` mit `REVALIDATE_SECRET`-Check + `revalidatePath`
+- [x] Sections: PostCard, PostArticle, EventCard, FaqAccordion
+- [x] Messages erweitert (`pages.{blog,faq,termine}.empty.*` + Listen-Labels)
+
+**Wartet auf User-Action:**
+- [ ] Supabase-Projekt im Web anlegen (EU-Central), URL+Keys in `.env.local`
+- [ ] `pnpm exec supabase login`
+- [ ] `pnpm exec supabase link --project-ref <ref>`
+- [ ] `pnpm exec supabase db push` (spielt Migration ein)
+- [ ] `pnpm exec supabase db seed` (optional)
+- [ ] `pnpm gen:types` (überschreibt hand-rolled Types)
+- [ ] Webhook in Supabase Studio einrichten → `/api/revalidate?secret=…`
+- [ ] Verifikation: Test-Insert in `posts` → `/de/blog` zeigt frische Liste innerhalb 60 s
 
 ## M5 — Partner-Deutschlandkarte ⏳
 

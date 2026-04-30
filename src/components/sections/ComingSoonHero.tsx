@@ -7,9 +7,10 @@ import { RevealText } from "@/components/animations/RevealText";
 type Props = {
   pageKicker: string;
   pageTitle: string;
+  body?: string;
 };
 
-export async function ComingSoonHero({ pageKicker, pageTitle }: Props) {
+export async function ComingSoonHero({ pageKicker, pageTitle, body }: Props) {
   const t = await getTranslations("comingSoon");
 
   return (
@@ -26,7 +27,7 @@ export async function ComingSoonHero({ pageKicker, pageTitle }: Props) {
         delay={0.15}
         className="max-w-2xl text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/75 md:text-lg"
       >
-        {t("body")}
+        {body ?? t("body")}
       </FadeInOnScroll>
 
       <FadeInOnScroll delay={0.3} className="pt-2">
