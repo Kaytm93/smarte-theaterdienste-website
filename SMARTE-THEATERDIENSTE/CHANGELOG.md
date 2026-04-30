@@ -3,7 +3,7 @@
 ## 2026-04-27 — Session 4: M4 (Vorbereitung) Dynamic Content
 
 **Commits:**
-- `<wird nach Push ergänzt>` M4 prep: Schema, Supabase-Helper, Page-Skeletons, Revalidate-Endpunkt
+- `2aad962` M4 prep: Schema, Supabase-Helper, Page-Skeletons, Revalidate-Endpunkt
 
 **User-Entscheidungen vorab (via AskUserQuestion):**
 - Pfad: „M4 vorbereiten – Projekt kommt später" — alle offline-möglichen Schritte erledigen, Cloud-Projekt + `.env.local` legt der User parallel an
