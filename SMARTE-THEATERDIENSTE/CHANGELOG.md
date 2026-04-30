@@ -3,7 +3,7 @@
 ## 2026-04-30 — Session 6: Production-Deploy + Revalidate live
 
 **Commits:**
-- `TBD` M8: Vercel Production-Deploy und Revalidate live
+- `ee34c65` M8: Vercel Production-Deploy und Revalidate live
 
 **Was passierte:**
 - Vercel-CLI per Device-Login authentifiziert (`kaytm93`), Projekt `kaytm93s-projects/smarte-theaterdienste-website` angelegt/verlinkt.
