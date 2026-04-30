@@ -7,8 +7,9 @@
   → Workaround: User legt Repo an, gibt SSH-URL, Claude pusht via vorhandenen SSH-Key.
 - **Homebrew fehlt.** Tools wie `gh`, `supabase` CLI müssen über alternative Wege (npm global, Binärdownload, dev-dep).
 
-### Supabase-Webhook im Studio
-- **Webhook noch nicht angelegt.** Voraussetzung ist Production-Deployment. Sobald Vercel-URL existiert: Studio → Database → Webhooks → New Hook auf `posts/post_translations/events/event_translations/faqs/faq_translations`, Method POST, URL `https://<vercel-domain>/api/revalidate?secret=<REVALIDATE_SECRET>`.
+### Vercel-GitHub-Integration
+- **Production läuft, aber GitHub ist noch nicht mit Vercel verbunden.** `vercel link` hat das Projekt angelegt, `vercel git connect https://github.com/Kaytm93/smarte-theaterdienste-website` scheitert aber mit `Failed to connect ... Make sure there aren't any typos and that you have access to the repository if it's private.`
+  → Vermutlich fehlt der Vercel-GitHub-App Zugriff auf das persönliche Repo. Workaround: Deploys per `vercel deploy --prod`; dauerhaft im Vercel-Dashboard unter Project → Settings → Git verbinden.
 
 ### Externe Abhängigkeiten
 - **Bestehende Website war 2026-04-25 mit 503 nicht erreichbar.** Die geplante Orientierung an https://smarte-theaterdienste.de/de für Designsprache und Inhaltsstruktur konnte nur teilweise stattfinden (Plan basiert primär auf Miro-Inhalten + User-Beschreibung).
@@ -55,3 +56,6 @@
 | 2026-04-30 | `supabase db seed` zielt nur auf lokale DB, nicht auf Cloud | Stattdessen `pnpm exec supabase db query --linked -f supabase/seed.sql` — pipet die SQL via Management API ein. Verifiziert mit count-Query (3/3/2/4/5/10/4 wie erwartet). |
 | 2026-04-30 | `pnpm exec next build` brach mit "cookies() inside generateStaticParams" | `getSupabaseServer()` ruft `cookies()`. In Next.js 16 ist das in `generateStaticParams` (Build-Zeit ohne HTTP-Request) verboten. Lösung: neuer `getSupabaseAnon()`-Helper (`@supabase/supabase-js` `createClient` ohne Session). Siehe [[ENTSCHEIDUNGEN#ADR-31]]. |
 | 2026-04-30 | Pages wechselten von ● SSG auf ƒ Dynamic, sobald Supabase-Env gesetzt war | Cookie-Lesen in den Queries triggert Dynamic-Switch. Alle Public-Read-Queries auf `getSupabaseAnon()` umgestellt → Pages wieder ● SSG mit 60s ISR. Cookie-Server-Client bleibt für spätere Auth-Features. |
+| 2026-04-30 | Vercel-Deployment fehlte | Vercel-CLI per Device-Login authentifiziert, Projekt `kaytm93s-projects/smarte-theaterdienste-website` angelegt, Production-Env-Vars gesetzt, finaler Production-Deploy auf `https://smarte-theaterdienste-website.vercel.app` erfolgreich. |
+| 2026-04-30 | Lokale Env-Dateien konnten beim Vercel-CLI-Deploy ins Upload-Bundle geraten | `.vercelignore` ergänzt: `.env*`, `.vercel/`, `.claude/`, `.next/`, `node_modules/`, Obsidian-Config und `supabase/.temp/` werden nicht hochgeladen. Finaler Redeploy lief ohne `.env`-Warnung. |
+| 2026-04-30 | Supabase-Revalidate-Webhook fehlte | Statt Studio-Hook direkt in der Cloud-DB eingerichtet: `pg_net` aktiviert, `public.revalidate_nextjs_cache()` angelegt, Trigger auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`. Test-Update erzeugte `net._http_response.status_code = 200`. |

@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-04-30 | Stand: M4 abgeschlossen, Supabase Cloud live, Pages rendern echte Daten
+> Letzte Aktualisierung: 2026-04-30 | Stand: M4 abgeschlossen, Production live auf Vercel, Supabase-Revalidate aktiv
 
 ---
 
@@ -61,9 +61,9 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
-**Hosting:** Vercel (Preview pro Branch, ISR, on-demand revalidate). Noch nicht eingerichtet.
+**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`). CLI-Deploy funktioniert. GitHub-Integration ist noch nicht verbunden, weil `vercel git connect` an GitHub-App/Rechten scheitert.
 
-**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migration `20260427121400_init.sql` und Seed live. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET.
+**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migration `20260427121400_init.sql` und Seed live. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`.
 
 ---
 
@@ -102,8 +102,8 @@ smarte-theaterdienste-website/
 │   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
 │   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams
 │   │   ├── faq/page.tsx                        ← Accordion (Supabase) mit ComingSoonHero-Fallback
-│   │   ├── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase) mit ComingSoonHero-Fallback
-│   │   └── api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath
+│   │   └── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase) mit ComingSoonHero-Fallback
+│   ├── app/api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath
 │   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge
 │   ├── components/
 │   │   ├── ui/                                 ← shadcn (radix-nova) Primitives
@@ -151,6 +151,7 @@ smarte-theaterdienste-website/
 ├── pnpm-lock.yaml
 ├── .env.example                                ← Supabase, Resend, Revalidate-Secret
 ├── .gitignore                                  ← Vault-aware
+├── .vercelignore                               ← schließt lokale Env-/Tooling-/Vault-Cache-Dateien vom CLI-Deploy aus
 ├── README.md
 ├── CLAUDE.md → @AGENTS.md + Vault-Hinweis
 └── AGENTS.md                                   ← Next.js 16 Warnung
@@ -196,4 +197,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **Vercel-Deployment** — Site funktioniert vollständig (Supabase live, Pages rendern echte Daten lokal). Vercel-Setup + Webhook im Supabase-Studio sind die letzten Production-Schritte vor dem Go-Live. Alternativ M5/M6 weiterbauen.
+Aktuell offen: **M5 Partner-Karte** oder **M8-Restpolish**. Hosting + Supabase-Revalidate sind live. Vor dauerhaftem CI/CD sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.

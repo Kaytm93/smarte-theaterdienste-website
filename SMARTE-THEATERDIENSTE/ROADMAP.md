@@ -5,11 +5,11 @@
 | **M1**| ✅ done       | Setup & Infra              | Next.js 16, next-intl, Supabase-Skeleton, GitHub-Push, Obsidian-Vault                |
 | **M2**| ✅ done       | Design-System              | Tokens, Typo, Header/Footer, LanguageSwitcher, shadcn init, Animation-Primitives     |
 | **M3**| ✅ done       | Statische Seiten DE        | Alle SSG-Routen mit Inhalten aus Miro, Akzentfarbe, Coming-Soon-Stubs, EN-Stub        |
-| M4    | 🟡 prepared   | Dynamic Content            | Code komplett vorbereitet — wartet auf Supabase-Cloud-Projekt + `.env.local` (User)   |
+| **M4**| ✅ done       | Dynamic Content            | Supabase Cloud live, echte Daten, Types generiert, ISR + Revalidate aktiv             |
 | M5    | ⏳ pending    | Partner-Deutschlandkarte   | SVG, Hotspots, Side-Panel, GSAP-Polish                                                |
 | M6    | ⏳ pending    | Animation-Polish           | Comic-Strip, Parallax, Reveals, Reduced-Motion finalisieren                          |
 | M7    | ⏳ pending    | i18n EN                    | Vollständige Übersetzungen, hreflang, Switcher                                        |
-| M8    | ⏳ pending    | Production-Polish          | SEO, OG-Images, Sitemap, Lighthouse ≥95, A11y-Audit, Vercel-Deploy                   |
+| M8    | 🟡 partial    | Production-Polish          | Vercel live; SEO, OG-Images, Sitemap, Lighthouse ≥95 und A11y-Audit offen            |
 
 ---
 
@@ -65,7 +65,7 @@
 - [x] Landing erweitert: ComicStrip-Skeleton (4 Frames) + Pitch-TextSection
 - [x] Verifikation: `pnpm exec tsc --noEmit` clean, `pnpm exec eslint .` clean, `pnpm build` clean (29 SSG-Pages), Routen + Slug-Mapping + Coming-Soon im Browser geprüft
 
-## M4 — Dynamic Content 🟡 prepared
+## M4 — Dynamic Content ✅
 
 **Offline (✅ erledigt 2026-04-27):**
 - [x] `pnpm add -D supabase` (CLI als dev-dep, mit `pnpm.onlyBuiltDependencies`)
@@ -81,15 +81,15 @@
 - [x] Sections: PostCard, PostArticle, EventCard, FaqAccordion
 - [x] Messages erweitert (`pages.{blog,faq,termine}.empty.*` + Listen-Labels)
 
-**Wartet auf User-Action:**
-- [ ] Supabase-Projekt im Web anlegen (EU-Central), URL+Keys in `.env.local`
-- [ ] `pnpm exec supabase login`
-- [ ] `pnpm exec supabase link --project-ref <ref>`
-- [ ] `pnpm exec supabase db push` (spielt Migration ein)
-- [ ] `pnpm exec supabase db seed` (optional)
-- [ ] `pnpm gen:types` (überschreibt hand-rolled Types)
-- [ ] Webhook in Supabase Studio einrichten → `/api/revalidate?secret=…`
-- [ ] Verifikation: Test-Insert in `posts` → `/de/blog` zeigt frische Liste innerhalb 60 s
+**Cloud-Finalisierung (✅ erledigt 2026-04-30):**
+- [x] Supabase-Projekt im Web angelegt (EU-Central), URL+Keys in `.env.local`
+- [x] `pnpm exec supabase login`
+- [x] `pnpm exec supabase link --project-ref hyirpaloozcautcxhbqk`
+- [x] `pnpm exec supabase db push` (Migration live)
+- [x] `pnpm exec supabase db query --linked -f supabase/seed.sql` (Seed live)
+- [x] `pnpm gen:types` (echte Database-Types mit Relationships)
+- [x] Revalidate-Webhook per `pg_net`-Trigger auf 6 Tabellen eingerichtet
+- [x] Verifikation: Live-Routen 200, `/api/revalidate` 401/200, Trigger-Test → `net._http_response.status_code = 200`
 
 ## M5 — Partner-Deutschlandkarte ⏳
 
@@ -123,5 +123,7 @@
 - [ ] `robots.ts`
 - [ ] Lighthouse-Audit ≥ 95 (alle 4 Kategorien)
 - [ ] axe-core / WAVE: keine kritischen Issues
-- [ ] Vercel-Projekt anlegen, Domains konfigurieren
+- [x] Vercel-Projekt anlegen + Production-Deploy (`https://smarte-theaterdienste-website.vercel.app`)
+- [ ] Vercel-GitHub-Integration im Dashboard verbinden (CLI scheitert an GitHub-App/Rechten)
+- [ ] Custom Domain konfigurieren
 - [ ] CI: GitHub Actions mit `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`

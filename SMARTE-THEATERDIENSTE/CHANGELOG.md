@@ -1,5 +1,32 @@
 # 📝 Changelog
 
+## 2026-04-30 — Session 6: Production-Deploy + Revalidate live
+
+**Commits:**
+- `TBD` M8: Vercel Production-Deploy und Revalidate live
+
+**Was passierte:**
+- Vercel-CLI per Device-Login authentifiziert (`kaytm93`), Projekt `kaytm93s-projects/smarte-theaterdienste-website` angelegt/verlinkt.
+- Production-Env-Vars in Vercel gesetzt: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `REVALIDATE_SECRET`, `NEXT_PUBLIC_SITE_URL=https://smarte-theaterdienste-website.vercel.app`.
+- Production deployed und aliasiert auf `https://smarte-theaterdienste-website.vercel.app`.
+- `.vercelignore` ergänzt, damit lokale `.env*`, `.vercel/`, `.claude/`, `.next/`, `node_modules/`, Obsidian-Config und `supabase/.temp/` nicht ins Vercel-CLI-Deployment-Bundle gelangen. Nach Entfernen von `.env.example` aus dem Bundle war der finale Build ohne `.env`-Warnung.
+- Vercel-GitHub-Integration versucht (`vercel git connect https://github.com/Kaytm93/smarte-theaterdienste-website`), aber Vercel lehnt mit fehlendem Zugriff/App-Rechten ab. Production-Deploys funktionieren bis zur Dashboard-Verknüpfung per CLI.
+- Supabase-Revalidate direkt in der Cloud-DB eingerichtet:
+  - `pg_net` aktiviert
+  - `public.revalidate_nextjs_cache()` angelegt
+  - Trigger auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`
+- Verifikation:
+  - Lokal: `pnpm exec tsc --noEmit`, `pnpm exec eslint .`, `pnpm exec next build` clean
+  - Vercel: finaler `vercel deploy --prod --force` clean, alle Pages ● SSG/ISR, `/api/revalidate` ƒ Dynamic
+  - Live-Smoke: `/de`, `/en`, `/de/blog`, `/de/blog/kickoff-datenraum-kultur`, `/de/faq`, `/de/termine`, `/en/blog`, `/api/revalidate` jeweils HTTP 200
+  - Revalidate-Auth: POST mit falschem Secret HTTP 401, POST mit gültigem Secret HTTP 200 (`paths.length = 2`)
+  - Trigger-Test: no-op `UPDATE` in `post_translations` erzeugte `net._http_response.status_code = 200`, `timed_out = false`
+
+**Status am Ende:** Site ist live in Production, Supabase-Content rendert auf der Production-Domain, On-Demand-Revalidate ist aktiv. Offen bleibt nur die automatische Vercel-GitHub-Integration im Dashboard.
+**Nächster Schritt:** M5 Partner-Karte oder M8-Restpolish (SEO, OG-Images, Sitemap, Lighthouse, A11y).
+
+---
+
 ## 2026-04-30 — Session 5: M4 finalisiert (Cloud verheiratet)
 
 **Commits:**

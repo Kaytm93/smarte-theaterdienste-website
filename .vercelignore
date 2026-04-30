@@ -1,0 +1,12 @@
+.env
+.env.*
+
+.claude/
+.vercel/
+.next/
+node_modules/
+
+SMARTE-THEATERDIENSTE/.obsidian/
+SMARTE-THEATERDIENSTE/.trash/
+
+supabase/.temp/

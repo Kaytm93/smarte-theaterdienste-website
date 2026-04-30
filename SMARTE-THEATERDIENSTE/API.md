@@ -1,6 +1,6 @@
 # 🔌 API & Datenmodell
 
-> **Stand: M4 vorbereitet.** Migration-SQL liegt in `supabase/migrations/20260427121400_init.sql`. Cloud-Projekt + `supabase db push` stehen aus (User-Action).
+> **Stand: M4 abgeschlossen.** Supabase Cloud `hyirpaloozcautcxhbqk` ist live, Migration + Seed sind eingespielt, `src/types/database.ts` wurde per `pnpm gen:types` aus der Cloud generiert. Production-Revalidate läuft über `pg_net`-Trigger in der Cloud-DB.
 
 ---
 
@@ -31,6 +31,7 @@ Identisch zu `routing.locales` aus `src/lib/i18n/routing.ts`. Erweiterung späte
 ### Trigger & Indizes
 
 - `set_updated_at()`-Trigger setzt `updated_at = now()` bei jedem `UPDATE`.
+- `revalidate_nextjs_cache_*`-Trigger auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations` rufen `public.revalidate_nextjs_cache()` auf. Diese Funktion sendet per `net.http_post` an `https://smarte-theaterdienste-website.vercel.app/api/revalidate?secret=<REVALIDATE_SECRET>`.
 - Indizes:
   - `posts_published_at_idx` partial (`status = 'published'`), absteigend
   - `events_starts_at_idx` absteigend
@@ -126,11 +127,18 @@ Pages haben `export const revalidate = 60` als Untergrenze für ISR. Webhook set
 - `401` wenn Secret falsch / fehlt
 - `500` wenn `REVALIDATE_SECRET` env-var nicht gesetzt ist (defensive Konfiguration)
 
-### Webhook in Supabase Studio einrichten
+### Cloud-Webhook-Implementierung (Stand 2026-04-30)
 
-1. Database → Webhooks → New Hook
-2. Tabelle: pro Tabelle einen Hook (oder ein Hook pro relevant Tabelle)
-3. Events: `INSERT`, `UPDATE`, `DELETE`
-4. URL: `https://<deployment>/api/revalidate?secret=<REVALIDATE_SECRET>`
-5. HTTP Method: POST
-6. Test: kleines `UPDATE posts SET title = title WHERE …` in einer Translations-Tabelle → `/de/blog` zeigt frische Liste innerhalb < 60 s
+Der Webhook wurde nicht als Repo-Migration committed, weil die Trigger-Funktion die Production-URL mit `REVALIDATE_SECRET` enthält. Stattdessen wurde er direkt in der verlinkten Cloud-DB eingerichtet, analog zu einem Supabase-Studio-Hook:
+
+- Extension: `pg_net`
+- Funktion: `public.revalidate_nextjs_cache()`
+- Trigger: `revalidate_nextjs_cache_posts`, `revalidate_nextjs_cache_post_translations`, `revalidate_nextjs_cache_events`, `revalidate_nextjs_cache_event_translations`, `revalidate_nextjs_cache_faqs`, `revalidate_nextjs_cache_faq_translations`
+- Events: `INSERT`, `UPDATE`, `DELETE`
+- Payload: `{ type, table, schema, record, old_record }`
+
+Verifikation:
+- Live-POST an `/api/revalidate?secret=<REVALIDATE_SECRET>` mit `{ "table": "posts" }` → HTTP 200, `paths.length = 2`
+- No-op-Update in `post_translations` → Eintrag in `net._http_response` mit `status_code = 200`, `timed_out = false`
+
+Wenn das `REVALIDATE_SECRET` rotiert oder die Production-Domain wechselt, muss `public.revalidate_nextjs_cache()` in Supabase aktualisiert werden. Studio-Alternative bleibt möglich: Database → Webhooks → Hook je Tabelle mit Method POST auf dieselbe URL.
