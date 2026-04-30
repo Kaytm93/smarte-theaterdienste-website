@@ -3,7 +3,7 @@
 ## 2026-04-30 — Session 5: M4 finalisiert (Cloud verheiratet)
 
 **Commits:**
-- `<sha>` M4 final: Supabase Cloud verheiratet, getSupabaseAnon, Pages live mit echten Daten
+- `3a31b05` M4 final: Supabase Cloud verheiratet, Pages live mit echten Daten
 
 **User-Lieferung vorab:**
 - Supabase-Cloud-Projekt `hyirpaloozcautcxhbqk` (EU-Central / Frankfurt) angelegt
