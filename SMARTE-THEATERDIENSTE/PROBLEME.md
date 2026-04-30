@@ -7,8 +7,8 @@
   → Workaround: User legt Repo an, gibt SSH-URL, Claude pusht via vorhandenen SSH-Key.
 - **Homebrew fehlt.** Tools wie `gh`, `supabase` CLI müssen über alternative Wege (npm global, Binärdownload, dev-dep).
 
-### Supabase: User-Action benötigt
-- **Cloud-Projekt + `.env.local` fehlen.** M4-Code ist komplett vorbereitet (Schema, Migration, Helper, Pages, Webhook), aber Pages zeigen aktuell ComingSoonHero, weil Env-Vars nicht gesetzt sind. Schritte siehe [[DASHBOARD#📋 Was Claude beim nächsten Mal tun soll]].
+### Supabase-Webhook im Studio
+- **Webhook noch nicht angelegt.** Voraussetzung ist Production-Deployment. Sobald Vercel-URL existiert: Studio → Database → Webhooks → New Hook auf `posts/post_translations/events/event_translations/faqs/faq_translations`, Method POST, URL `https://<vercel-domain>/api/revalidate?secret=<REVALIDATE_SECRET>`.
 
 ### Externe Abhängigkeiten
 - **Bestehende Website war 2026-04-25 mit 503 nicht erreichbar.** Die geplante Orientierung an https://smarte-theaterdienste.de/de für Designsprache und Inhaltsstruktur konnte nur teilweise stattfinden (Plan basiert primär auf Miro-Inhalten + User-Beschreibung).
@@ -51,3 +51,7 @@
 | 2026-04-26 | JSON-Parser-Fehler durch ASCII-Quote im DE-String | „…" mit U+0022 schloss JSON-String. Fix: U+201C („…") als typografisch korrektes Schlusszeichen verwenden. |
 | 2026-04-27 | `supabase` CLI als pnpm-dev-dep installiert kein Binär (postinstall blockiert) | `pnpm.onlyBuiltDependencies: ["supabase"]` in `package.json` ergänzt → `pnpm install` lädt das Go-Binär (`darwin_arm64.tar.gz`), `pnpm exec supabase --version` liefert `2.95.5`. |
 | 2026-04-27 | Typed Supabase-Joins kollabierten auf `never` ohne `Relationships`-Feld im hand-rolled `Database`-Type | `.returns<RowType[]>()`-Cast pro Query in `lib/supabase/queries.ts` — bypasst Inferenz, bleibt kompatibel mit `supabase gen types --linked`-Output. Cast kann später entfernt werden. |
+| 2026-04-30 | Supabase-Cloud-Projekt + `.env.local` fehlten | User legte Projekt `hyirpaloozcautcxhbqk` (EU-Frankfurt) an, lieferte URL + anon-key + service-role-key + PAT. Claude generierte `REVALIDATE_SECRET` lokal, schrieb `.env.local`, lief `supabase login --token`, `supabase link`, `supabase db push`, `db query --linked -f seed.sql`. Pages rendern jetzt Live-Daten. |
+| 2026-04-30 | `supabase db seed` zielt nur auf lokale DB, nicht auf Cloud | Stattdessen `pnpm exec supabase db query --linked -f supabase/seed.sql` — pipet die SQL via Management API ein. Verifiziert mit count-Query (3/3/2/4/5/10/4 wie erwartet). |
+| 2026-04-30 | `pnpm exec next build` brach mit "cookies() inside generateStaticParams" | `getSupabaseServer()` ruft `cookies()`. In Next.js 16 ist das in `generateStaticParams` (Build-Zeit ohne HTTP-Request) verboten. Lösung: neuer `getSupabaseAnon()`-Helper (`@supabase/supabase-js` `createClient` ohne Session). Siehe [[ENTSCHEIDUNGEN#ADR-31]]. |
+| 2026-04-30 | Pages wechselten von ● SSG auf ƒ Dynamic, sobald Supabase-Env gesetzt war | Cookie-Lesen in den Queries triggert Dynamic-Switch. Alle Public-Read-Queries auf `getSupabaseAnon()` umgestellt → Pages wieder ● SSG mit 60s ISR. Cookie-Server-Client bleibt für spätere Auth-Features. |

@@ -1,5 +1,52 @@
 # 📝 Changelog
 
+## 2026-04-30 — Session 5: M4 finalisiert (Cloud verheiratet)
+
+**Commits:**
+- `<sha>` M4 final: Supabase Cloud verheiratet, getSupabaseAnon, Pages live mit echten Daten
+
+**User-Lieferung vorab:**
+- Supabase-Cloud-Projekt `hyirpaloozcautcxhbqk` (EU-Central / Frankfurt) angelegt
+- Project URL, anon-key, service-role-key + Personal Access Token (PAT) geliefert
+
+**Was passierte:**
+- `.env.local` geschrieben (gitignored): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `REVALIDATE_SECRET` (lokal `openssl rand -hex 32`), `NEXT_PUBLIC_SITE_URL=http://localhost:3030`
+- `pnpm exec supabase login --token <pat>` (kein Browser-Flow nötig dank `--token`-Flag)
+- `pnpm exec supabase link --project-ref hyirpaloozcautcxhbqk` — config.toml verheiratet mit Cloud
+- `pnpm exec supabase db push` — Migration `20260427121400_init.sql` eingespielt
+- `pnpm exec supabase db query --linked -f supabase/seed.sql` — Seed via Management API (regulärer `supabase db seed` zielt nur auf lokale DB). Counts verifiziert: posts 3, post_translations 3, events 2, event_translations 4, faqs 5, faq_translations 10, partners 4
+- `pnpm gen:types` — `src/types/database.ts` regeneriert (406 Zeilen statt 214 hand-rolled, mit `Relationships`-Feldern pro Tabelle)
+- Build-Fehler entdeckt: `Route /[locale]/blog/[slug] used cookies() inside generateStaticParams.` — der cookie-bewusste Server-Client funktioniert in `generateStaticParams` nicht, weil dort kein HTTP-Request existiert
+- **Refactor**: neuer `getSupabaseAnon()` in `src/lib/supabase/server.ts` (`@supabase/supabase-js` `createClient` ohne Session). Alle Public-Read-Queries in `src/lib/supabase/queries.ts` auf Anon umgestellt — Pages bleiben dadurch ● SSG mit 60s ISR statt ƒ Dynamic. ADR-31.
+- `queries.ts` Header-Kommentar aktualisiert (Casts bleiben als explizite Row-Annotation)
+- Verifikation:
+  - `pnpm exec tsc --noEmit` clean
+  - `pnpm exec eslint .` clean
+  - `pnpm exec next build` clean: alle Pages ● SSG, `/blog/[slug]` prerendert 4 Routen (kickoff-datenraum-kultur DE+EN, erste-pilotpartner-gewonnen DE+EN — letzte ohne EN-Translation rendert auf Anfrage 404 via `notFound()`)
+  - Browser-Tests (Preview-MCP `smarte-theaterdienste`):
+    - `/de/blog`: 2 Posts mit Kicker AKTUELLES, Datum, Excerpt, Weiterlesen-Link
+    - `/de/blog/kickoff-datenraum-kultur`: PageHero + ReactMarkdown (H2, Bullet-Liste, Italic), Back-Link
+    - `/de/faq`: 5 Accordion-Items in `position`-Reihenfolge
+    - `/de/termine`: BEVORSTEHEND (12. Juni) mit Anmelden-Button + VERGANGEN (20. Februar), DE-Datumsformat, Markdown-Body
+    - `/en/blog`: nur 1 Post (Kickoff) — post2 ohne EN-Translation korrekt gefiltert
+    - `/api/revalidate`: HTTP 401 ohne/falsches Secret, HTTP 200 mit `?secret=...`, Response listet matched paths
+    - Console-Logs error-frei
+
+**Deltas in queries.ts:**
+- Import: `getSupabaseServer` → `getSupabaseAnon`
+- Alle 4 Helper (`listPublishedPosts`, `getPostBySlug`, `listAllPostSlugs`, `listEventsByStatus`, `listPublishedFaqs`) nutzen jetzt `getSupabaseAnon()` statt `await getSupabaseServer()` (kein await mehr nötig)
+- `listAllPostSlugs` Kommentar warnt vor Build-Zeit-Kontext
+
+**Was bewusst NICHT lief:**
+- Vercel-Deployment (User-Action, nächste Session)
+- Webhook im Supabase-Studio (braucht Production-URL erst)
+- Hand-rolled `.returns<T>()`-Casts entfernt — bewusst behalten als explizite Row-Annotation, Header-Kommentar angepasst
+
+**Status am Ende:** M4 abgeschlossen. Site ist lokal voll funktionsfähig mit Live-Daten aus Supabase Cloud. Build clean, alle Routen prerendert. EN-Locale-Filter funktioniert sauber (post2 ohne EN-Translation wird korrekt aus `/en/blog` ausgeblendet, würde auf `/en/blog/erste-pilotpartner-gewonnen` einen 404 zeigen).
+**Nächster Schritt:** Vercel-Deployment + Webhook im Supabase-Studio. Alternativ M5 (Partner-Karte) oder M6 (Animation-Polish).
+
+---
+
 ## 2026-04-27 — Session 4: M4 (Vorbereitung) Dynamic Content
 
 **Commits:**

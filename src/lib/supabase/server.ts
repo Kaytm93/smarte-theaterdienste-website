@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import type { Database } from "@/types/database";
 import { getSupabaseEnv } from "./env";
@@ -22,5 +23,15 @@ export async function getSupabaseServer() {
         }
       },
     },
+  });
+}
+
+// Anon-Client ohne Cookie-Bindung — fuer Kontexte ohne HTTP-Request,
+// z. B. generateStaticParams (Build-Zeit). RLS greift trotzdem ueber den
+// anon-Key.
+export function getSupabaseAnon() {
+  const { url, anonKey } = getSupabaseEnv();
+  return createClient<Database>(url, anonKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
   });
 }

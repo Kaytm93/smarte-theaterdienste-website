@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-04-27 | Stand: M4 Code vorbereitet, wartet auf Supabase-Cloud-Projekt
+> Letzte Aktualisierung: 2026-04-30 | Stand: M4 abgeschlossen, Supabase Cloud live, Pages rendern echte Daten
 
 ---
 
@@ -63,7 +63,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 
 **Hosting:** Vercel (Preview pro Branch, ISR, on-demand revalidate). Noch nicht eingerichtet.
 
-**Datenbank:** Supabase Cloud. Projekt noch nicht angelegt — erfolgt in M4.
+**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migration `20260427121400_init.sql` und Seed live. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET.
 
 ---
 
@@ -116,11 +116,11 @@ smarte-theaterdienste-website/
 │   ├── lib/
 │   │   ├── i18n/{routing,request,navigation}.ts
 │   │   ├── content/loader.ts                   ← `loadContent(key, locale)` — typisierte JSON-Bundle-Registry
-│   │   ├── supabase/                           ← env.ts, server.ts, client.ts, queries.ts (M4 aktiv)
+│   │   ├── supabase/                           ← env.ts, server.ts (cookie-Server + getSupabaseAnon), client.ts, queries.ts
 │   │   ├── gsap/registerScrollTrigger.ts
 │   │   └── utils.ts                            ← cn(), shadcn helper
 │   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.* (inkl. blog/faq/termine empty.* und Listen-Labels)
-│   ├── types/database.ts                       ← Hand-rolled Database-Type, ersetzt durch `pnpm gen:types`
+│   ├── types/database.ts                       ← Generated Supabase types (`pnpm gen:types`, mit Relationships)
 │   ├── content/{de,en}/                        ← Page-Content (umfangreich):
 │   │   ├── team.json                            ←   4 Ansprechpersonen
 │   │   ├── projekt.json                         ←   6 Sections + 2 Links
@@ -196,4 +196,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **M4 finalisieren** — Code ist vorbereitet. User legt das Supabase-Cloud-Projekt an, schreibt Keys in `.env.local`, dann `supabase login` + `supabase link` + `supabase db push` (+ optional `db seed`, `gen:types`). Pages rendern danach Daten ohne Code-Change.
+Aktuell offen: **Vercel-Deployment** — Site funktioniert vollständig (Supabase live, Pages rendern echte Daten lokal). Vercel-Setup + Webhook im Supabase-Studio sind die letzten Production-Schritte vor dem Go-Live. Alternativ M5/M6 weiterbauen.

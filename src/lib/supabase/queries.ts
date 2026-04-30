@@ -1,11 +1,13 @@
-import { getSupabaseServer } from "./server";
+import { getSupabaseAnon } from "./server";
 import type { Locale } from "@/lib/i18n/routing";
 
 // =============================================================================
 // Query-Helper fuer Server-Components.
+// Public-Read-Queries laufen ueber getSupabaseAnon (keine Cookies, kein
+// Dynamic-Switch) — so bleiben Pages SSG/ISR-faehig.
 // i18n-Pattern: !inner-Join auf *_translations + .eq(locale).
-// .returns<T>() umgeht die Relationship-Inferenz, bis `supabase gen types
-// --linked` die echten Relationships in src/types/database.ts schreibt.
+// .returns<T>() bleibt als explizite Row-Annotation — auch nach gen:types,
+// damit der Mapper unabhaengig von Inferenz-Aenderungen typsicher ist.
 // =============================================================================
 
 export type PostListItem = {
@@ -51,7 +53,7 @@ type PostListRow = {
 };
 
 export async function listPublishedPosts(locale: Locale): Promise<PostListItem[]> {
-  const supabase = await getSupabaseServer();
+  const supabase = getSupabaseAnon();
   const { data, error } = await supabase
     .from("posts")
     .select("slug, published_at, cover_image_url, post_translations!inner(title, excerpt, locale)")
@@ -79,7 +81,7 @@ type PostDetailRow = {
 };
 
 export async function getPostBySlug(slug: string, locale: Locale): Promise<PostDetail | null> {
-  const supabase = await getSupabaseServer();
+  const supabase = getSupabaseAnon();
   const { data, error } = await supabase
     .from("posts")
     .select("slug, published_at, cover_image_url, post_translations!inner(title, excerpt, body_md, locale)")
@@ -104,8 +106,10 @@ export async function getPostBySlug(slug: string, locale: Locale): Promise<PostD
   };
 }
 
+// Build-Zeit-tauglich: nutzt getSupabaseAnon, weil generateStaticParams
+// ohne HTTP-Request laeuft und cookies() dort verboten ist.
 export async function listAllPostSlugs(): Promise<string[]> {
-  const supabase = await getSupabaseServer();
+  const supabase = getSupabaseAnon();
   const { data, error } = await supabase
     .from("posts")
     .select("slug")
@@ -134,7 +138,7 @@ async function listEventsByStatus(
   locale: Locale,
   statuses: Array<"upcoming" | "past">,
 ): Promise<EventListItem[]> {
-  const supabase = await getSupabaseServer();
+  const supabase = getSupabaseAnon();
   const ascending = statuses.includes("upcoming");
   const { data, error } = await supabase
     .from("events")
@@ -180,7 +184,7 @@ type FaqRow = {
 };
 
 export async function listPublishedFaqs(locale: Locale): Promise<FaqItem[]> {
-  const supabase = await getSupabaseServer();
+  const supabase = getSupabaseAnon();
   const { data, error } = await supabase
     .from("faqs")
     .select("id, position, category, faq_translations!inner(question, answer_md, locale)")

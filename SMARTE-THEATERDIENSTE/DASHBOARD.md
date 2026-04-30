@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-04-27
+> Letzte Aktualisierung: 2026-04-30
 
 ## Status
 
@@ -9,20 +9,21 @@
 | Projekt-Setup | ✅ M1 abgeschlossen |
 | Design-System | ✅ M2 abgeschlossen |
 | Statische Seiten | ✅ M3 abgeschlossen |
-| Dynamische Inhalte (Supabase) | 🟡 M4 vorbereitet — wartet auf Cloud-Projekt + `.env.local` |
+| Dynamische Inhalte (Supabase) | ✅ M4 abgeschlossen — Cloud-Projekt live, Pages rendern echte Daten |
 | Partner-Karte | ⏳ M5 wartet |
 | Animation-Polish | ⏳ M6 wartet |
 | EN-Übersetzungen | ⏳ M7 wartet |
 | Production-Polish | ⏳ M8 wartet |
 | Vercel-Deployment | ⏳ noch nicht eingerichtet |
-| Supabase-Projekt | ⏳ User-Action erforderlich (Cloud-Projekt anlegen) |
+| Supabase-Webhook im Studio | ⏳ User-Action: Hook auf 7 Tabellen → `/api/revalidate` |
 
 ## Was gerade läuft
 
-**Nichts** — Session 4 (M4-Vorbereitung) beendet, alles auf `main` gepusht. Code rendert Pages mit Daten, sobald `.env.local` + Cloud-DB live sind. Ohne Env-Vars zeigen Blog/FAQ/Termine weiter ComingSoonHero.
+**Nichts** — Session 5 (M4-Finalisierung) beendet, alles auf `main` gepusht. Live-Daten aus Supabase Cloud (Projekt `hyirpaloozcautcxhbqk`, EU-Frankfurt) rendern auf `/de/blog`, `/de/faq`, `/de/termine`, `/en/blog`. Locale-Filter sauber: post2 hat keine EN-Translation und wird auf `/en/blog` korrekt ausgeblendet.
 
 ## Letzte Aktivität
 
+- **2026-04-30** — M4 Finalisierung: Supabase-Cloud-Projekt verheiratet (`supabase link --project-ref hyirpaloozcautcxhbqk`), Migration `20260427121400_init.sql` per `db push` gespielt, `seed.sql` per `db query --linked` eingespielt (3 Posts, 2 Events, 5 FAQs, 4 Partners), `pnpm gen:types` schreibt jetzt echte Database-Types mit Relationships (406 Zeilen statt 214 hand-rolled). Build-Fehler `cookies() inside generateStaticParams` durch neuen `getSupabaseAnon()`-Client gelöst (siehe ADR-31), alle Public-Read-Queries auf Anon umgestellt — Pages wieder ● SSG mit 60s ISR. Browser-Test grün auf `/de/blog`, `/de/blog/[slug]` (Markdown-Body), `/de/faq`, `/de/termine`, `/en/blog`. `/api/revalidate` 401/200 wie erwartet.
 - **2026-04-27** — M4 Vorbereitung: Supabase-CLI als dev-dep, Schema-Migration + Seed (posts/post_translations, events/event_translations, faqs/faq_translations, partners) mit RLS, hand-rolled `src/types/database.ts`, lib/supabase/{env,server,client,queries}.ts aktiviert, neue Sections (PostCard, PostArticle, EventCard, FaqAccordion), Pages für Blog/FAQ/Termine ersetzt + `/blog/[slug]`, `/api/revalidate` mit Secret-Check + `revalidatePath`. Graceful-Degradation: ohne Env-Vars greift ComingSoonHero. (siehe [[CHANGELOG]])
 - **2026-04-26 (Abend)** — M3 Statische Seiten DE: alle Routen aus `routing.ts` als Server-Components, Akzentfarbe Datenraum-Blau gesetzt, Sections-Component-Library (PageHero, TextSection, ContactCard/TeamGrid, UseCaseCard, StepCard, ComingSoonHero, ComicStrip), Content-Loader mit JSON-Bundles pro Locale, Landing erweitert. Coming-Soon-Stubs für Blog/FAQ/Termine. Impressum/Datenschutz mit sichtbaren TODO-Platzhaltern.
 - **2026-04-26** — M2 Design-System: shadcn (Radix-Nova) initialisiert, Header/Footer/LanguageSwitcher/MobileNav, Animation-Primitives (FadeInOnScroll, RevealText, ParallaxImage), Tokens ausgebaut, Hero-Page integriert
@@ -32,51 +33,35 @@
 
 ## 📋 Was Claude beim nächsten Mal tun soll
 
-**Default-Nächster-Schritt: M4 finalisieren — Cloud-Projekt verheiraten**
+**Default-Nächster-Schritt: Vercel-Deployment einrichten** — Site funktioniert vollständig (Supabase live, Daten rendern), nur Hosting fehlt.
 
-Vorbedingung: User legt **Supabase-Cloud-Projekt** an (https://supabase.com/dashboard, EU-Central Frankfurt) und schreibt in `.env.local`:
-```
-NEXT_PUBLIC_SUPABASE_URL="https://<ref>.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJ..."
-SUPABASE_SERVICE_ROLE_KEY="eyJ..."
-REVALIDATE_SECRET="<openssl rand -hex 32>"
-```
+Schritte:
+1. Vercel-Account verheiraten mit GitHub-Repo `Kaytm93/smarte-theaterdienste-website`
+2. Env-Vars in Vercel-Project-Settings setzen (gleiche Werte wie `.env.local`):
+   - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`, `REVALIDATE_SECRET`
+   - `NEXT_PUBLIC_SITE_URL` auf Production-URL setzen
+3. Deploy → Production-URL notieren
+4. **Supabase-Webhook nachträglich anlegen** (Studio → Database → Webhooks → New Hook):
+   - Method: POST · URL: `https://<vercel-domain>/api/revalidate?secret=<REVALIDATE_SECRET>`
+   - Tabellen aktivieren: `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`
+   - Events: insert/update/delete
+   - Test: Insert in `posts` → `/de/blog` zeigt frische Liste innerhalb 60s
 
-Dann 3 Befehle (User erledigt selbst oder Claude in nächster Session):
-```bash
-pnpm exec supabase login                              # einmalig, opens browser
-pnpm exec supabase link --project-ref <ref>           # verheiratet config.toml mit Cloud
-pnpm exec supabase db push                            # spielt 20260427121400_init.sql ein
-```
+**Alternative Pfade:**
+- **M5 Partner-Karte** — Daten liegen in `partners`-Tabelle (lat/lng), SVG-Komponente fehlt. Pure Frontend, keine Cloud-Blocker.
+- **Echte Assets ziehen** — Portraits Sophie Moriarty, Partner-Logos als SVG, Hero-Visual.
+- **M6 Animation-Polish** — Comic-Strip-Variante (pinned scroll vs. vertical), GSAP-Feinschliff.
+- **Echte Inhalte einpflegen** — über Supabase-Studio Posts/Events/FAQs erweitern; Webhook revalidiert automatisch sobald live.
 
-Empfohlen direkt danach:
-```bash
-pnpm exec supabase db seed                            # spielt seed.sql ein (3 Posts, 2 Events, 5 FAQs, 4 Partners)
-pnpm gen:types                                        # generiert echte src/types/database.ts (mit Relationships)
-```
-
-Nach Cloud-Setup:
-1. **Supabase Studio → Database → Webhooks → New Hook**
-   - Tabellen: `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`
-   - Method: POST, URL: `https://<deployment>/api/revalidate?secret=<REVALIDATE_SECRET>`
-   - Test-Insert in `posts` → `/de/blog` zeigt frische Liste innerhalb 60s
-2. `pnpm dev` → `/de/blog`, `/de/blog/[slug]`, `/de/faq`, `/de/termine` zeigen Daten
-3. `pnpm build` muss clean bleiben
-
-**Falls User andere Prioritäten setzt:**
-- **Vercel-Deployment vorziehen** — sinnvoll: Site funktioniert auch ohne Supabase (graceful degradation)
-- **Echte Assets nachziehen** — Portraits Sophie Moriarty, Partner-Logos als SVG, Hero-Bild für Landing
-- **M5 Partner-Karte** — Daten liegen schon in `partners`-Tabelle (lat/lng), Komponente fehlt
-
-**Was in M4-Restschritten passiert (nach Cloud-Setup):**
-- Echte `src/types/database.ts` via `pnpm gen:types` → ersetzt hand-rolled Version, bringt Relationships
-- `.returns<T>()`-Casts in `queries.ts` können entfernt werden, sobald Relationships da sind (optional)
+**Bekannte Restposten in M4 (kein Blocker):**
+- `.returns<T>()`-Casts in `queries.ts` bewusst behalten als explizite Row-Annotation (siehe Header-Kommentar). Können bei Bedarf entfernt werden.
+- `getSupabaseServer()` (cookie-bewusst) liegt unbenutzt — wird für Forms/Auth ab M5+ relevant.
 
 ---
 
-## Bekannte offene Fragen für M4+
+## Bekannte offene Fragen für M5+
 
-- **Supabase-Region:** EU-Central (Frankfurt) wegen DSGVO
 - **CMS-Frontend für Inhalte:** Direkt Supabase-Studio reicht für Bühnenverein-Team? Oder leichtgewichtiger Admin-Bereich später
 - **Comic-Strip auf Landing:** pinned horizontal scroll (mehr Wow) vs. vertical stagger (mobile-friendlich)? Entscheidung in M6 (aktuell statisches 4-Card-Grid als Skeleton)
 - **Echte Asset-Lieferung:** Portrait-Fotos (© Sophie Moriarty), Partner-Logos als SVG, Hero-Visual
@@ -84,5 +69,5 @@ Nach Cloud-Setup:
 ## Bekannte Tooling-Lücken (siehe [[PROBLEME]])
 
 - `gh` CLI fehlt — GitHub-Repo wurde manuell vom User erstellt
-- `supabase` CLI nicht global (npm-Postinstall verbietet es) — wird in M4 als dev-dep installiert
+- `supabase` CLI nicht global (npm-Postinstall verbietet es) — als dev-dep installiert ✅
 - Homebrew nicht installiert
