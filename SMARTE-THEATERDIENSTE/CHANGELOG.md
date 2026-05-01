@@ -4,7 +4,7 @@
 
 **Commits:**
 - `134b442` docs(agents): Vault-Routine auch in AGENTS.md spiegeln (Codex-Diff aufgeräumt)
-- _(M5-Commit folgt am Sessionende)_
+- `66e2bb5` M5: Partner-Deutschlandkarte – Wikimedia-SVG + Hotspots aus Supabase
 
 **Was passierte:**
 - Codex-Resultate gesichtet: M8-Production-Deploy (Vercel + `pg_net`-Revalidate) ist live, alle Routen rendern HTTP 200, Vaults waren in Sync. Codex hatte einen uncommitteten Diff in `AGENTS.md` hinterlassen (Vault-Routine 1:1 wie in `CLAUDE.md`, damit nicht-Claude-Agenten dieselben Pflichten kennen). Sauber als kleinen Docs-Commit gepusht.
