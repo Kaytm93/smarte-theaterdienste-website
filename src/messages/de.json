@@ -86,7 +86,22 @@
     "mitwirkung": {
       "kicker": "Schritt für Schritt",
       "title": "So funktioniert die Mitwirkung",
-      "lead": "Zwei technische Schritte trennen euer Theater vom Datenraum – wir begleiten beide."
+      "lead": "Zwei technische Schritte trennen euer Theater vom Datenraum – wir begleiten beide.",
+      "map": {
+        "heading": "Wer schon dabei ist",
+        "lead": "Pilot-Theater und Datenraum-Partner aus ganz Deutschland. Klick auf einen Punkt, um mehr zu erfahren.",
+        "imageAlt": "Karte von Deutschland mit den Standorten der Datenraum-Kultur-Partner",
+        "statusLabel": "Status",
+        "statuses": {
+          "partner": "Partner",
+          "pilot": "Pilot-Theater",
+          "interested": "Interessiert"
+        },
+        "viewWebsite": "Zur Website",
+        "noLocation": "Kein Standort hinterlegt",
+        "empty": "Sobald die ersten Partner verzeichnet sind, erscheinen sie hier auf der Karte.",
+        "selectHint": "Wähle einen Punkt auf der Karte"
+      }
     },
     "impressum": {
       "kicker": "Rechtliches",

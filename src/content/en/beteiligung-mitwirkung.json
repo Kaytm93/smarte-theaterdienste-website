@@ -11,10 +11,5 @@
       "title": "Connect to the data-space connector",
       "body": "The connector handles authentication and data transfer into the Cultural Data Space. You keep data sovereignty – you decide what who is allowed to see."
     }
-  ],
-  "mapPlaceholder": {
-    "heading": "Pilot theatres & partners",
-    "body": "An interactive map of Germany with all pilot theatres and data space partners is coming in milestone 5. Until then: give us a call, we'll tell you who is already involved."
-  },
-  "partners": ["Cultural Data Space", "GENESIS"]
+  ]
 }

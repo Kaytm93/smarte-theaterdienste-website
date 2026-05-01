@@ -1,5 +1,41 @@
 # 📝 Changelog
 
+## 2026-05-01 — Session 7: M5 Partner-Deutschlandkarte
+
+**Commits:**
+- `134b442` docs(agents): Vault-Routine auch in AGENTS.md spiegeln (Codex-Diff aufgeräumt)
+- _(M5-Commit folgt am Sessionende)_
+
+**Was passierte:**
+- Codex-Resultate gesichtet: M8-Production-Deploy (Vercel + `pg_net`-Revalidate) ist live, alle Routen rendern HTTP 200, Vaults waren in Sync. Codex hatte einen uncommitteten Diff in `AGENTS.md` hinterlassen (Vault-Routine 1:1 wie in `CLAUDE.md`, damit nicht-Claude-Agenten dieselben Pflichten kennen). Sauber als kleinen Docs-Commit gepusht.
+- **SVG-Asset:** `Germany_location_map.svg` (NordNordWest, Wikimedia Commons, public domain) via `curl` aus `https://upload.wikimedia.org/wikipedia/commons/0/0d/...` nach `public/maps/germany.svg` (463 KB). Bounding-Box laut Wikimedia: N=55.1°, S=47.2°, W=5.5°, E=15.5°, Equirectangular mit "150% N/S-Stretch" (im Asset bereits eingebacken — lineares Mapping über Bounding-Box trifft die Position korrekt).
+- **Query:** `listPartners()` in `src/lib/supabase/queries.ts` ergänzt (kein i18n-Join — Partner-Namen sind Eigennamen, Status wird via Messages lokalisiert). Returnt `Partner[]` mit `id, slug, name, lat, lng, status, websiteUrl, logoUrl`.
+- **Components:**
+  - `src/components/sections/PartnerMap.tsx` (Server-Wrapper) — `isSupabaseConfigured()`-Gate, Empty-State falls keine Partner, sonst delegiert an Client.
+  - `src/components/sections/PartnerMapClient.tsx` (Client) — `useGSAP` mit `prefers-reduced-motion`-Guard, Pulse-Ring (random stagger), Linear-Mapping-Funktion `projectLatLng`, State-Management für `selectedId`, Side-Panel als `<aside>` (sticky auf `lg:`). Hotspots als `<button>`-Layer absolut über dem `<img>`, mit Status-Badge in Akzentfarbe, Coordinates und optionalem Website-Link.
+  - Layout: `lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]`, mobile stacked.
+- **Page:** `src/app/[locale]/beteiligung/mitwirkung/page.tsx` — alter `mapPlaceholder`-Block entfernt, durch `<PartnerMap />` ersetzt, `export const revalidate = 60` ergänzt (analog zu Blog/FAQ/Termine). Obsolete `mapPlaceholder` und `partners`-Felder aus `src/content/{de,en}/beteiligung-mitwirkung.json` entfernt.
+- **i18n:** `pages.mitwirkung.map.{heading,lead,imageAlt,statusLabel,statuses.{partner,pilot,interested},viewWebsite,noLocation,empty,selectHint}` in DE und EN.
+- **ADR-34** dokumentiert die Wahl der Wikimedia-Karte und das lineare Equirectangular-Mapping.
+- Verifikation:
+  - `pnpm exec tsc --noEmit` clean
+  - `pnpm exec eslint .` clean
+  - `pnpm exec next build` clean: alle Pages SSG/ISR, `/beteiligung/mitwirkung` bleibt ● mit 1m/1y revalidate.
+  - Browser-Test (Preview-MCP `smarte-theaterdienste`):
+    - `/de/beteiligung/mitwirkung`: 4 Hotspots an erwarteten Prozent-Coords (Bühnenverein 14.6/52.7, Fraunhofer 45/19.6, Akademie 19.7/45.4, NFDI4Culture 31.9/63.0). Initial-Panel zeigt "Wähle einen Punkt" + Partner-Liste als Buttons. Klick auf Fraunhofer-Hotspot → Panel: PARTNER · Fraunhofer-Institut · 53.55° N · 10.00° E.
+    - `/en/participation/contribute`: Status-Labels lokalisiert (Partner / Pilot theatre / Interested), Hint "Pick a marker on the map".
+    - Console error-frei in beiden Locales.
+- Initial wurde `[filter:saturate(0)_brightness(0.95)] opacity-80` an die Karte gehängt — auf JPEG-Screenshots (Preview-MCP) wurde das Asset zu Weiß komprimiert, weil die Wikimedia-Karte ohnehin nur pale-yellow Germany / pale-blue Wasser / dünne graue Grenzen verwendet. Filter und niedrige Opacity entfernt; SVG rendert jetzt im Container mit `bg-muted/40` und voller Sichtbarkeit der Original-Farben.
+
+**Was bewusst NICHT lief:**
+- Kein Production-Redeploy auf Vercel — kommt beim nächsten Bedarf per `pnpm dlx vercel@latest deploy --prod`. Lokal verifiziert reicht für diese Session.
+- Kein Webhook-Trigger auf `partners` — die Karte ist mit `revalidate=60` ohnehin aktuell genug; falls feinere Reaktion gewünscht, später analog zu posts/events/faqs nachziehen.
+
+**Status am Ende:** M5 abgeschlossen. Site ist lokal voll funktionsfähig mit interaktiver Partner-Karte; Hotspots aus Live-Daten, GSAP-Pulse, Side-Panel mit Detail-State, beide Locales. Production-Deploy steht aus.
+**Nächster Schritt:** M6 Animation-Polish (Comic-Strip-Variante entscheiden, Hover-States, View-Transitions) oder M8-Restpolish (SEO/OG/Sitemap/Lighthouse). Optional vorab: Production-Redeploy.
+
+---
+
 ## 2026-04-30 — Session 6: Production-Deploy + Revalidate live
 
 **Commits:**

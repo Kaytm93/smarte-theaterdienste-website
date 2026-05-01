@@ -6,7 +6,7 @@
 | **M2**| ✅ done       | Design-System              | Tokens, Typo, Header/Footer, LanguageSwitcher, shadcn init, Animation-Primitives     |
 | **M3**| ✅ done       | Statische Seiten DE        | Alle SSG-Routen mit Inhalten aus Miro, Akzentfarbe, Coming-Soon-Stubs, EN-Stub        |
 | **M4**| ✅ done       | Dynamic Content            | Supabase Cloud live, echte Daten, Types generiert, ISR + Revalidate aktiv             |
-| M5    | ⏳ pending    | Partner-Deutschlandkarte   | SVG, Hotspots, Side-Panel, GSAP-Polish                                                |
+| **M5**| ✅ done       | Partner-Deutschlandkarte   | Wikimedia-SVG, 4 Hotspots aus Supabase, Side-Panel mit Detail-State, GSAP-Pulse       |
 | M6    | ⏳ pending    | Animation-Polish           | Comic-Strip, Parallax, Reveals, Reduced-Motion finalisieren                          |
 | M7    | ⏳ pending    | i18n EN                    | Vollständige Übersetzungen, hreflang, Switcher                                        |
 | M8    | 🟡 partial    | Production-Polish          | Vercel live; SEO, OG-Images, Sitemap, Lighthouse ≥95 und A11y-Audit offen            |
@@ -91,13 +91,15 @@
 - [x] Revalidate-Webhook per `pg_net`-Trigger auf 6 Tabellen eingerichtet
 - [x] Verifikation: Live-Routen 200, `/api/revalidate` 401/200, Trigger-Test → `net._http_response.status_code = 200`
 
-## M5 — Partner-Deutschlandkarte ⏳
+## M5 — Partner-Deutschlandkarte ✅
 
-- [ ] SVG Deutschland-Karte als Asset
-- [ ] `<PartnerMap>` Component mit Hotspot-Pins (lat/lng → SVG-Coords)
-- [ ] Side-Panel mit Partner-Details (Slide-In)
-- [ ] GSAP: pulsing Hotspots, Panel-Transition
-- [ ] Auf `/beteiligung/mitwirkung` einbauen
+- [x] SVG Deutschland-Karte als Asset (`public/maps/germany.svg`, Wikimedia public domain, 463 KB)
+- [x] `<PartnerMap>` Server-Wrapper + `<PartnerMapClient>` mit Hotspot-Pins (lat/lng → Prozent-Coords linear gemappt)
+- [x] Side-Panel mit Partner-Details (sticky on `lg:`, Status-Badge + Coords + Website-Link)
+- [x] GSAP: pulsing Hotspots (random stagger, scale+fade ring), Selected-Highlight via Tailwind
+- [x] Auf `/beteiligung/mitwirkung` einbauen (alter `mapPlaceholder`-Block ersetzt, `revalidate=60`)
+- [x] Graceful Degradation: kein Supabase oder leere Tabelle → Empty-State (siehe ADR-27)
+- [x] EN-Locale: Status-Labels lokalisiert (Partner / Pilot theatre / Interested), Slug `/en/participation/contribute`
 
 ## M6 — Animation-Polish ⏳
 

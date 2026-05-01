@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-04-30 | Stand: M4 abgeschlossen, Production live auf Vercel, Supabase-Revalidate aktiv
+> Letzte Aktualisierung: 2026-05-01 | Stand: M5 lokal abgeschlossen (Partner-Karte), Production-Redeploy steht aus
 
 ---
 
@@ -96,7 +96,7 @@ smarte-theaterdienste-website/
 │   │   ├── projekt/semantische-standards/page.tsx
 │   │   ├── beteiligung/page.tsx                ← PageHero + 2 TextSections + 3 CTA-Links
 │   │   ├── beteiligung/anwendungsbeispiele/page.tsx ← 3 UseCaseCards
-│   │   ├── beteiligung/mitwirkung/page.tsx     ← 2 StepCards + Map-Platzhalter (M5)
+│   │   ├── beteiligung/mitwirkung/page.tsx     ← 2 StepCards + <PartnerMap> (M5), revalidate=60
 │   │   ├── impressum/page.tsx                  ← TODO-Platzhalter
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter
 │   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
@@ -110,7 +110,8 @@ smarte-theaterdienste-website/
 │   │   ├── layout/                             ← Header.tsx, Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx
 │   │   ├── sections/                           ← PageHero, TextSection, ContactCard, TeamGrid,
 │   │   │                                          UseCaseCard, StepCard, ComingSoonHero (jetzt mit body-Prop), ComicStrip,
-│   │   │                                          PostCard, PostArticle, EventCard, FaqAccordion (neu in M4)
+│   │   │                                          PostCard, PostArticle, EventCard, FaqAccordion (M4),
+│   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5)
 │   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage
 │   │   └── forms/                              ← LEER (Newsletter/Beta-Anmeldung später)
 │   ├── lib/
@@ -141,6 +142,7 @@ smarte-theaterdienste-website/
 │   ├── config.toml                            │
 │   └── .gitignore                             │
 ├── public/                                     ← Logos, Bilder (Assets folgen vom User)
+│   ├── maps/germany.svg                        ← Wikimedia public-domain Locator-Map (M5)
 │   └── team/                                   ← (Portraits folgen, © Sophie Moriarty)
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
 │
@@ -197,4 +199,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **M5 Partner-Karte** oder **M8-Restpolish**. Hosting + Supabase-Revalidate sind live. Vor dauerhaftem CI/CD sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
+Aktuell offen: **M6 Animation-Polish**, **M7 EN-Übersetzungen**, **M8-Restpolish** (SEO/OG/Sitemap/Lighthouse) und ein **Production-Redeploy**, damit die Partner-Karte aus M5 auch unter `https://smarte-theaterdienste-website.vercel.app` läuft. Vor dauerhaftem CI/CD sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.

@@ -86,7 +86,22 @@
     "mitwirkung": {
       "kicker": "Step by step",
       "title": "How participation works",
-      "lead": "Two technical steps separate your theatre from the data space – we accompany both."
+      "lead": "Two technical steps separate your theatre from the data space – we accompany both.",
+      "map": {
+        "heading": "Who's already on board",
+        "lead": "Pilot theatres and Cultural Data Space partners across Germany. Click a marker to learn more.",
+        "imageAlt": "Map of Germany showing the locations of Cultural Data Space partners",
+        "statusLabel": "Status",
+        "statuses": {
+          "partner": "Partner",
+          "pilot": "Pilot theatre",
+          "interested": "Interested"
+        },
+        "viewWebsite": "Visit website",
+        "noLocation": "No location on file",
+        "empty": "Once the first partners are listed, they'll appear here on the map.",
+        "selectHint": "Pick a marker on the map"
+      }
     },
     "impressum": {
       "kicker": "Legal",

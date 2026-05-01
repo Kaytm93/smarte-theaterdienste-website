@@ -41,6 +41,17 @@ export type FaqItem = {
   answerMd: string;
 };
 
+export type Partner = {
+  id: string;
+  slug: string;
+  name: string;
+  lat: number | null;
+  lng: number | null;
+  status: "partner" | "pilot" | "interested";
+  websiteUrl: string | null;
+  logoUrl: string | null;
+};
+
 // ----------------------------------------------------------------------------
 // Posts
 // ----------------------------------------------------------------------------
@@ -182,6 +193,44 @@ type FaqRow = {
   category: string | null;
   faq_translations: Array<{ question: string; answer_md: string }>;
 };
+
+// ----------------------------------------------------------------------------
+// Partners (keine Translations — Namen sind Eigennamen, Status wird im UI
+// lokalisiert)
+// ----------------------------------------------------------------------------
+
+type PartnerRow = {
+  id: string;
+  slug: string;
+  name: string;
+  lat: number | null;
+  lng: number | null;
+  status: "partner" | "pilot" | "interested";
+  website_url: string | null;
+  logo_url: string | null;
+};
+
+export async function listPartners(): Promise<Partner[]> {
+  const supabase = getSupabaseAnon();
+  const { data, error } = await supabase
+    .from("partners")
+    .select("id, slug, name, lat, lng, status, website_url, logo_url")
+    .order("name", { ascending: true })
+    .returns<PartnerRow[]>();
+
+  if (error || !data) return [];
+
+  return data.map((row) => ({
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    lat: row.lat,
+    lng: row.lng,
+    status: row.status,
+    websiteUrl: row.website_url,
+    logoUrl: row.logo_url,
+  }));
+}
 
 export async function listPublishedFaqs(locale: Locale): Promise<FaqItem[]> {
   const supabase = getSupabaseAnon();
