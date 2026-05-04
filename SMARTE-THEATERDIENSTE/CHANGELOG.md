@@ -1,5 +1,31 @@
 # 📝 Changelog
 
+## 2026-05-04 — Session 8: M5 Production-Deploy
+
+**Commits:**
+- `<wird nach Push ergänzt>` M5 deploy: Partner-Karte production-live
+
+**Was passierte:**
+- Vault-Routine angestoßen, Plan via ExitPlanMode genehmigt (Pfad „Production-Redeploy + M5 live").
+- Pre-Deploy: `git status` clean, `pnpm exec tsc --noEmit` und `pnpm exec eslint .` jeweils ohne Output (= grün), `pnpm build` erfolgreich — alle Pages SSG/ISR, `/beteiligung/mitwirkung` weiterhin ● mit `1m / 1y` revalidate.
+- Deploy: `pnpm dlx vercel@latest deploy --prod --yes` aus dem Projekt-Root. Build remote in 28s, gesamter Deploy in 48s. Production-Alias automatisch auf den neuen Build umgezogen.
+  - Deploy-ID: `dpl_EEYezucGpDjM74fE3cwFY36DuqEj`
+  - Build-URL: `https://smarte-theaterdienste-website-2j4ft8p95-kaytm93s-projects.vercel.app`
+  - Aliased: `https://smarte-theaterdienste-website.vercel.app`
+- Smoke-Test in Production:
+  - `/de`, `/de/beteiligung/mitwirkung`, `/en/participation/contribute`, `/de/blog`, `/de/faq`, `/de/termine` jeweils HTTP 200.
+  - `/de/beteiligung/mitwirkung` enthält im SSG-HTML alle vier Partner aus dem Supabase-Seed (Bühnenverein, Akademie für Darstellende Künste, Fraunhofer, acatech) — bestätigt, dass die Karten-Hotspots Live-Daten aus der Cloud-DB rendern.
+- Vault aktualisiert (DASHBOARD/CHANGELOG/PROBLEME/KONTEXT), Commit + Push, Obsidian-Sync.
+
+**Was bewusst NICHT lief:**
+- Vercel-GitHub-Integration im Dashboard: weiterhin offen — `vercel git connect` schlägt an GitHub-App-Rechten fehl. Workaround unverändert: Production-Deploys per CLI.
+- Kein neuer Migration-/Seed-Push (DB-Stand identisch zur letzten Session).
+
+**Status am Ende:** M5 ist live in Production. Die Partner-Deutschlandkarte ist unter `https://smarte-theaterdienste-website.vercel.app/de/beteiligung/mitwirkung` und `/en/participation/contribute` öffentlich erreichbar; Hotspots, GSAP-Pulse und Side-Panel rendern aus Supabase-Daten.
+**Nächster Schritt:** M6 Animation-Polish (Comic-Strip-Variante entscheiden, Hover-States, View Transitions, Reduced-Motion) oder M8-Restpolish (SEO/OG-Images/Sitemap/Lighthouse). M7 EN-Übersetzungen ist parallel möglich.
+
+---
+
 ## 2026-05-01 — Session 7: M5 Partner-Deutschlandkarte
 
 **Commits:**

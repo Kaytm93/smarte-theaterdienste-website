@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-01 | Stand: M5 lokal abgeschlossen (Partner-Karte), Production-Redeploy steht aus
+> Letzte Aktualisierung: 2026-05-04 | Stand: M5 Partner-Karte ist in Production live; offen sind M6/M7/M8-Restpolish
 
 ---
 
@@ -199,4 +199,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **M6 Animation-Polish**, **M7 EN-Übersetzungen**, **M8-Restpolish** (SEO/OG/Sitemap/Lighthouse) und ein **Production-Redeploy**, damit die Partner-Karte aus M5 auch unter `https://smarte-theaterdienste-website.vercel.app` läuft. Vor dauerhaftem CI/CD sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
+Aktuell offen: **M6 Animation-Polish**, **M7 EN-Übersetzungen**, **M8-Restpolish** (SEO/OG/Sitemap/Lighthouse). Die Partner-Karte aus M5 ist seit 2026-05-04 unter `https://smarte-theaterdienste-website.vercel.app/de/beteiligung/mitwirkung` und `/en/participation/contribute` live (Deploy `dpl_EEYezucGpDjM74fE3cwFY36DuqEj`). Vor dauerhaftem CI/CD sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
