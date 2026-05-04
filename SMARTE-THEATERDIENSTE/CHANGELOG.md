@@ -3,7 +3,7 @@
 ## 2026-05-04 — Session 8: M5 Production-Deploy
 
 **Commits:**
-- `<wird nach Push ergänzt>` M5 deploy: Partner-Karte production-live
+- `a8045fb` M5 deploy: Partner-Karte production-live
 
 **Was passierte:**
 - Vault-Routine angestoßen, Plan via ExitPlanMode genehmigt (Pfad „Production-Redeploy + M5 live").
