@@ -344,6 +344,26 @@ Messages-Konvention: `pages.<route>.empty.{kicker,title,body}` für Empty-State,
 
 ---
 
+## ImageResponse / Satori Pattern (M8)
+
+`ImageResponse` aus `next/og` rendert über Satori. Satori ist **kein Browser-CSS** — die Liste der erlaubten `display`-Werte ist hart eingeschränkt: **`flex` | `block` | `contents` | `none` | `-webkit-box`**. Alles andere (insbesondere `inline-block`, `inline-flex`, `grid`) wirft beim Rendering `Error: Invalid value for CSS property "display"` und macht den Endpoint 500.
+
+```tsx
+// ❌ FALSCH — bricht in Production:
+<span style={{ display: "inline-block", width: 14, height: 14, borderRadius: 9999 }} />
+
+// ✅ RICHTIG:
+<span style={{ display: "flex", width: 14, height: 14, borderRadius: 9999 }} />
+```
+
+Weitere Satori-Stolperfallen:
+- Multi-Children-Container brauchen einen expliziten `display: "flex"` am Parent (sonst Layout-Fehler).
+- OKLCH-Farben rendern unzuverlässig — Akzentfarbe als Hex (`#2660d8`) statt `oklch(...)`. Siehe ADR-22 + ADR-35.
+- Kein `<br/>` und kein Mix aus Text-Node und Sibling-Elements im selben Flex-Container.
+- **Lokal mit `pnpm start` täuscht der Status-Header HTTP 200 vor**, obwohl der Stream-Body abbricht. In Production schreibt Vercel sauber 500 mit `x-matched-path: /500`. Validation also immer **mit Body-Check** (z. B. `curl -o /tmp/og.png && file /tmp/og.png` → erwartet `PNG image data, 1200 x 630, 8-bit/color RGBA`).
+
+---
+
 ## Commit-Message Style
 
 Format: `<Milestone-Tag>: <kurzer Titel>` + freie Body-Beschreibung.

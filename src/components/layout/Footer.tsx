@@ -28,14 +28,14 @@ export async function Footer() {
         </div>
 
         <div className="space-y-3 lg:col-span-1">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-foreground/55">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-foreground/65">
             {t("supportedBy")}
           </p>
           <ul className="grid grid-cols-3 gap-x-4 gap-y-3">
             {PARTNER_LOGOS.map((logo) => (
               <li
                 key={logo.key}
-                className="flex h-10 items-center justify-start text-xs text-foreground/55"
+                className="flex h-10 items-center justify-start text-xs text-foreground/65"
                 aria-label={t(`logoAlt.${logo.key}`)}
                 title={t(`logoAlt.${logo.key}`)}
               >
@@ -62,7 +62,7 @@ export async function Footer() {
           >
             {t("privacy")}
           </Link>
-          <p className="mt-4 text-xs text-foreground/50">© {year}</p>
+          <p className="mt-4 text-xs text-foreground/65">© {year}</p>
         </div>
       </div>
     </footer>

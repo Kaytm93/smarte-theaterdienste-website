@@ -1,5 +1,43 @@
 # 📝 Changelog
 
+## 2026-05-06 — Session 10: M8 Production-Validation (Redeploy + Lighthouse + a11y-Fix)
+
+**Commits:**
+- `<pending>` M8 deploy: SEO-Layer in Production + OG-Fix (Satori `inline-block`) + Footer-Kontrast
+
+**Was passierte:**
+
+- **Production-Redeploy 1** (`dpl_DyvfbCWXoauUGNBx9zV6NDDG6ZC4`): Pre-Deploy-Gates (`pnpm typecheck`, `pnpm lint`, `pnpm build`) clean, `pnpm dlx vercel@latest deploy --prod --yes` aus dem Projekt-Root. Build remote in 29s, Deploy in 53s. Alias auf neuen Build umgezogen.
+- **Smoke-Test gegen Production** über `/usr/bin/curl` (System-PATH hatte `curl` nicht — voller Pfad reicht). 12 von 14 Routen 200, aber **`/de/opengraph-image` und `/en/opengraph-image` lieferten 500** (`x-matched-path: /500`). Lokal hatte vorher `pnpm start --port 3030` mit `image/png` 200 geantwortet — der Status-Header war aber irreführend, weil das ImageResponse-Streaming intern bricht.
+- **Bug-Diagnose lokal:** `pnpm build && pnpm start` + curl → Logs zeigen `Error: Invalid value for CSS property "display". Allowed values: "flex" | "block" | "contents" | "none" | "-webkit-box". Received: "inline-block".` Satori (das ImageResponse-Engine in `next/og`) unterstützt `display: inline-block` schlicht nicht. Der Kicker-Dot in `src/app/[locale]/opengraph-image.tsx` (Zeile 56–64) hatte `display: "inline-block"` für einen 14×14-Akzent-Punkt.
+- **Fix:** `display: "inline-block"` → `display: "flex"` für den Akzent-Span. Lokal verifiziert: beide OG-Endpoints liefern jetzt valide 1200×630 PNGs (~87/90 KB, `8-bit/color RGBA, non-interlaced`).
+- **Production-Redeploy 2** (`dpl_29eiYsNZFNzbSQyfZtxnwWjmDXSn`): Re-Smoke gegen `/usr/bin/curl`-Suite — alle 14 Routen 200, OG-Endpoints jetzt `image/png`. Meta-Tags-Inspektion: canonical, hreflang DE/EN/x-default, og:title/description/url/image/type/width/height/alt, twitter:card=`summary_large_image`, twitter:image — alles wie spezifiziert. Sitemap und Robots korrekt.
+- **Lighthouse-Audit Run 1** gegen `https://smarte-theaterdienste-website.vercel.app/de` und `/en` über `pnpm dlx lighthouse@latest --headless`:
+  - DE: Performance 91, Accessibility 96, Best-Practices 100, SEO 100.
+  - EN: Performance 95, Accessibility 96, Best-Practices 100, SEO 100.
+  - Top-Findings A11y: `color-contrast` 0.00 (Footer-Captions/Liste). Top-Findings Perf: `unused-javascript`, `render-blocking-insight`, `network-dependency-tree-insight`, LCP 0.80–0.86 (DE schlechter wegen mehr Hero-Inhalt).
+- **axe-core via pa11y --runner axe** mit System-Chrome (`PUPPETEER_EXECUTABLE_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`, weil `pnpm dlx @axe-core/cli` und `pa11y` ohne Override Puppeteer/ChromeDriver-Postinstall brauchen, das pnpm blockt): 8 Color-Contrast-Errors, alle im Footer:
+  - `<p class="text-xs ... text-foreground/55">Gefördert von</p>` → 4.41:1 statt 4.5:1
+  - 6× `<span class="block truncate">` Partner-Liste mit ererbtem `text-foreground/55`
+  - `<p class="mt-4 text-xs text-foreground/50">© 2026</p>` → 4.30:1
+- **A11y-Fix in `src/components/layout/Footer.tsx`:** drei Stellen `text-foreground/55` und `text-foreground/50` auf `text-foreground/65` angehoben. Andere Vorkommen (`PageHero`, `PostArticle`, `EventCard`, `PartnerMap`, `termine/page.tsx`, `PostCard`, `PartnerMapClient`) bewusst unangetastet — die haben Lighthouse + axe nicht als Verstoß markiert (sie liegen entweder auf farbigen Backgrounds oder in größeren Schriftgrößen).
+- **Production-Redeploy 3** (`dpl_Fa2MYm6iZJYfPygJHaADhsyPYzcf`): Re-Smoke axe → `No issues found!` für DE und EN. Re-Lighthouse:
+  - **DE: Performance 96, Accessibility 100, Best-Practices 100, SEO 100.**
+  - **EN: Performance 96, Accessibility 100, Best-Practices 100, SEO 100.**
+  - Core Web Vitals: LCP 2.6/2.7s, FCP 1.2/1.3s, CLS 0, TBT 30 ms, Speed-Index 3.0/3.1s.
+- **`.gitignore`** um `audits/` ergänzt — Lighthouse-HTML-Reports sind 550 KB pro Run und gehören nicht versioniert.
+
+**Was bewusst NICHT lief:**
+- Lighthouse-CI als GitHub-Action — kommt erst, wenn die Custom-Domain live ist (sonst sind die Werte gegen die Vercel-Domain inkonsistent).
+- Per-Post-OG-Images für Blog-Detail (jetzt nur Default-Locale-OG).
+- Pa11y-/axe-CLI-Postinstall-Approval persistent in `package.json` — die einmalige `PUPPETEER_EXECUTABLE_PATH`-Umgehung reicht für ad-hoc-Audits.
+
+**Status am Ende:** M8 vollständig in Production validiert. Alle vier Lighthouse-Kategorien ≥ 95 in DE und EN, axe-core clean. SEO-Layer + Sitemap + Robots + OG + Icon + CI live; Production-Smoke und A11y-Audit dokumentiert in `audits/lighthouse-{de,en}.html` (lokal, gitignored).
+
+**Nächster Schritt (Default):** M6 Animation-Polish (Comic-Strip-Variante entscheiden, Hero-Parallax, Hover-States, View-Transitions). Erfordert eine User-Entscheidung zwischen pinned-horizontal-scroll vs. vertical-stagger für die Comic-Strip auf der Landing-Page. Alternativ M7 EN-Übersetzungen.
+
+---
+
 ## 2026-05-06 — Session 9: M8 Restpolish (SEO + Sitemap + Robots + lokalisiertes OG + CI)
 
 **Commits:**

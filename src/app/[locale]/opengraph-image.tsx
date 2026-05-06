@@ -55,7 +55,7 @@ export default async function OpengraphImage({
         >
           <span
             style={{
-              display: "inline-block",
+              display: "flex",
               width: 14,
               height: 14,
               borderRadius: 9999,

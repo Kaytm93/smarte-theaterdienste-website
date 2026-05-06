@@ -51,3 +51,6 @@ SMARTE-THEATERDIENSTE/.trash/
 # Supabase
 supabase/.branches
 supabase/.temp
+
+# Lokal generierte Audits (Lighthouse-HTML-Reports etc.)
+audits/
