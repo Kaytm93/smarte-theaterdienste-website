@@ -6,6 +6,7 @@ import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { getPostBySlug, listAllPostSlugs } from "@/lib/supabase/queries";
 import type { Locale } from "@/lib/i18n/routing";
 import { routing } from "@/lib/i18n/routing";
+import { buildAlternates } from "@/lib/seo/alternates";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -27,9 +28,28 @@ export async function generateMetadata({
   if (!isSupabaseConfigured()) return {};
   const post = await getPostBySlug(slug, locale);
   if (!post) return {};
+  const alternates = buildAlternates(locale, {
+    pathname: "/blog/[slug]",
+    params: { slug },
+  });
+  const description = post.excerpt ?? undefined;
   return {
     title: post.title,
-    description: post.excerpt ?? undefined,
+    description,
+    alternates,
+    openGraph: {
+      type: "article",
+      url: alternates.canonical,
+      title: post.title,
+      description,
+      ...(post.publishedAt ? { publishedTime: post.publishedAt } : {}),
+      ...(post.coverImageUrl ? { images: [post.coverImageUrl] } : {}),
+    },
+    twitter: {
+      title: post.title,
+      description,
+      ...(post.coverImageUrl ? { images: [post.coverImageUrl] } : {}),
+    },
   };
 }
 

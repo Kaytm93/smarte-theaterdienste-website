@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/lib/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,23 @@ import { ComicStrip } from "@/components/sections/ComicStrip";
 import { TextSection } from "@/components/sections/TextSection";
 import { loadContent } from "@/lib/content/loader";
 import type { Locale } from "@/lib/i18n/routing";
+import { pageMetadata } from "@/lib/seo/alternates";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const tMeta = await getTranslations({ locale, namespace: "meta" });
+  const tHero = await getTranslations({ locale, namespace: "hero" });
+  return pageMetadata({
+    locale,
+    href: "/",
+    titleAbsolute: tMeta("siteName"),
+    description: tHero("subtitle"),
+  });
+}
 
 export default async function HomePage({
   params,

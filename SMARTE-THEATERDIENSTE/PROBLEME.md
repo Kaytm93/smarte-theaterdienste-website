@@ -15,6 +15,10 @@
 - **Bestehende Website war 2026-04-25 mit 503 nicht erreichbar.** Die geplante Orientierung an https://smarte-theaterdienste.de/de für Designsprache und Inhaltsstruktur konnte nur teilweise stattfinden (Plan basiert primär auf Miro-Inhalten + User-Beschreibung).
   → ToDo: Bei nächster Session erneut fetchen, ggf. screenshotten, in INHALTE.md ergänzen.
 
+### Production-Validation für M8 (offen)
+- **Lighthouse-Audit gegen Production fehlt.** M8-Layer (SEO/OG/Sitemap/Robots/Icon/CI) ist lokal verifiziert, aber noch nicht auf `https://smarte-theaterdienste-website.vercel.app` deployed und gemessen. Nächster Schritt: `pnpm dlx vercel@latest deploy --prod --yes`, danach `pnpm dlx lighthouse https://smarte-theaterdienste-website.vercel.app/de --only-categories=performance,accessibility,best-practices,seo`. Ziel ≥ 95.
+- **axe-core-Run ausstehend.** Erst gegen Production sinnvoll: `pnpm dlx @axe-core/cli https://smarte-theaterdienste-website.vercel.app/de https://smarte-theaterdienste-website.vercel.app/en`.
+
 ## 🟡 Offene Fragen / Entscheidungen
 
 - **Comic-Strip Landing:** Variante A (pinned horizontal scroll) vs. B (vertical stagger). Aktuell statisches 4-Card-Grid als Skeleton in `<ComicStrip>`. Entscheidung: M6.
@@ -39,6 +43,8 @@
 
 | Datum | Problem | Lösung |
 |---|---|---|
+| 2026-05-06 | Twitter-Card fiel auf Default `summary` zurück, obwohl Layout `summary_large_image` setzt | `pageMetadata`-Helper überschrieb das `twitter`-Object komplett ohne `card`. Helper setzt jetzt selbst `card: "summary_large_image"`. Verifiziert via curl auf `/de/projekt`. |
+| 2026-05-06 | Top-Level `/icon` redirected auf `/de/icon` → 500 (`InvariantError: client reference manifest`) | i18n-Proxy-Matcher in `src/proxy.ts` erweitert um Convention-Files-Exclude: `icon|apple-icon|opengraph-image|twitter-image|manifest`. `/sitemap.xml` und `/robots.txt` waren schon durch `.*\..*`-Pattern abgedeckt. |
 | 2026-04-25 | `pnpm` nicht installiert | `npm install -g pnpm` (geht ohne sudo via nvm-Prefix) |
 | 2026-04-25 | Workspace-Pfad in User-Anweisung war Windows (`D:/...`) | macOS-Pfad mit User abgestimmt |
 | 2026-04-25 | Reference-Website 503 | Plan basiert auf Miro-Inhalten + User-Beschreibung; Site bei nächster Session erneut prüfen |

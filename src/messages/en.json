@@ -105,11 +105,13 @@
     },
     "impressum": {
       "kicker": "Legal",
-      "title": "Imprint"
+      "title": "Imprint",
+      "lead": "Legal information about the Smart Theatre Services project – responsible parties, contact details, and mandatory disclosures."
     },
     "datenschutz": {
       "kicker": "Legal",
-      "title": "Privacy"
+      "title": "Privacy",
+      "lead": "How we handle personal data on smarte-theaterdienste.de – purposes, legal bases, and your rights."
     },
     "blog": {
       "kicker": "News",

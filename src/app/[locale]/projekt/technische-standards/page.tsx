@@ -7,6 +7,7 @@ import { TextSection } from "@/components/sections/TextSection";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { loadContent } from "@/lib/content/loader";
 import type { Locale } from "@/lib/i18n/routing";
+import { pageMetadata } from "@/lib/seo/alternates";
 
 export async function generateMetadata({
   params,
@@ -18,7 +19,12 @@ export async function generateMetadata({
     locale,
     namespace: "pages.technischeStandards",
   });
-  return { title: t("title") };
+  return pageMetadata({
+    locale,
+    href: "/projekt/technische-standards",
+    title: t("title"),
+    description: t("lead"),
+  });
 }
 
 export default async function TechnischeStandardsPage({

@@ -105,11 +105,13 @@
     },
     "impressum": {
       "kicker": "Rechtliches",
-      "title": "Impressum"
+      "title": "Impressum",
+      "lead": "Rechtliche Angaben zum Projekt Smarte Theaterdienste – Verantwortliche, Kontakt und Pflichtinformationen."
     },
     "datenschutz": {
       "kicker": "Rechtliches",
-      "title": "Datenschutz"
+      "title": "Datenschutz",
+      "lead": "Wie wir mit personenbezogenen Daten auf smarte-theaterdienste.de umgehen – Zwecke, Rechtsgrundlagen und Rechte."
     },
     "blog": {
       "kicker": "Aktuelles",

@@ -6,6 +6,7 @@ import { ComingSoonHero } from "@/components/sections/ComingSoonHero";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { listPublishedFaqs } from "@/lib/supabase/queries";
 import type { Locale } from "@/lib/i18n/routing";
+import { pageMetadata } from "@/lib/seo/alternates";
 
 export const revalidate = 60;
 
@@ -16,7 +17,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pages.faq" });
-  return { title: t("title") };
+  return pageMetadata({
+    locale,
+    href: "/faq",
+    title: t("title"),
+    description: t("lead"),
+  });
 }
 
 export default async function FaqPage({

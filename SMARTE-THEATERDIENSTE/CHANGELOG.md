@@ -1,5 +1,64 @@
 # 📝 Changelog
 
+## 2026-05-06 — Session 9: M8 Restpolish (SEO + Sitemap + Robots + lokalisiertes OG + CI)
+
+**Commits:**
+- *(this session)* `M8: SEO-Layer + Sitemap + Robots + lokalisiertes OG + CI`
+
+**Was passierte:**
+
+- **Phase 1 — SEO-Foundation:**
+  - `src/lib/seo/site.ts` mit `getSiteUrl()` (liest `NEXT_PUBLIC_SITE_URL`, trimmt trailing slashes, Fallback `http://localhost:3030`).
+  - `src/lib/seo/alternates.ts` mit `buildAlternates(locale, href)` (Wrapper um `getPathname` aus `lib/i18n/navigation`) und High-Level-Helper `pageMetadata({ locale, href, title?, titleAbsolute?, description? })` der `title`/`description`/`alternates`/`openGraph`/`twitter` in einem Rutsch erzeugt.
+  - `src/app/[locale]/layout.tsx` setzt `metadataBase`, `title.template = "%s · ${siteName}"`, `openGraph.{type,siteName,locale,alternateLocale,title,description}`, Twitter-Card-Default `summary_large_image`, `robots.{index,follow}`. Layout-Default-Alternates werden bewusst weggelassen — jede Page setzt ihre eigenen.
+
+- **Phase 2 — Pro-Page-Metadata:**
+  - Alle 13 statischen Pages auf `pageMetadata({ locale, href, title: t("title"), description: t("lead") })` migriert: Home (`titleAbsolute: siteName`, `description: hero.subtitle`), Ansprechpersonen, Projekt + Technische/Semantische Standards, Beteiligung + Anwendungsbeispiele/Mitwirkung, Blog-Liste, FAQ, Termine, Impressum, Datenschutz.
+  - Blog-Detail (`/blog/[slug]/page.tsx`) nutzt direkt `buildAlternates(locale, { pathname: "/blog/[slug]", params: { slug } })` und baut OpenGraph mit `type: "article"`, `publishedTime`, `images: post.coverImageUrl ? [coverImageUrl] : undefined`, identisches Twitter-Image.
+
+- **Phase 3 — Sitemap + Robots:**
+  - `src/app/sitemap.ts` (Site-weit, **außerhalb** `[locale]/`): STATIC_HREFS × beide Locales mit pro-Eintrag `xhtml:link rel="alternate"`-Sprachen, `priority` 1 für Root, sonst 0.7, `changeFrequency` `weekly` für Blog, sonst `monthly`. Blog-Slugs werden gracefully geladen wenn `isSupabaseConfigured()` true ist; ohne Supabase nur Static-Pages.
+  - `src/app/robots.ts`: `User-Agent: *` allow `/`, disallow `/api/`, Sitemap-Pointer auf `${site}/sitemap.xml`.
+
+- **Phase 4 — Lokalisierte OG-Images + Icon:**
+  - `src/app/[locale]/opengraph-image.tsx`: `ImageResponse` 1200×630, Datenraum-Blau-Gradient (`#0b0f1a → #14213d`, ACCENT `#2660d8` als Hex statt OKLCH weil `ImageResponse` OKLCH unzuverlässig rendert), Locale-spezifischer Kicker („Datenraum Kultur · Use Case 3" / „Cultural Data Space · Use Case 3"), `siteName` und `siteDescription` aus `getTranslations({ locale, namespace: "meta" })`. Footer-Zeile mit Domain links und Locale-Kürzel rechts.
+  - `src/app/icon.tsx`: 32×32 ImageResponse mit „ST"-Initial auf Akzentfarbe.
+
+- **Phase 5 — Messages-Erweiterung:**
+  - `pages.impressum.lead` und `pages.datenschutz.lead` in `src/messages/de.json` und `src/messages/en.json` ergänzt — DE: „Rechtliche Angaben zum Projekt …", EN: „Legal information about the Smart Theatre Services project …" / „How we handle personal data …". Ohne diese Keys hätte `t("lead")` undefined zurückgegeben und die Description wäre leer geblieben.
+
+- **Phase 6 — CI:**
+  - `package.json`: neuer Script-Eintrag `"typecheck": "tsc --noEmit"`.
+  - `.github/workflows/ci.yml`: Trigger `push` auf `main` + alle `pull_request`, ubuntu-latest, pnpm/action-setup@v4 (v10), actions/setup-node@v4 (Node 20, pnpm-Cache), `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm typecheck`, `pnpm build` mit `NEXT_PUBLIC_SITE_URL=https://smarte-theaterdienste-website.vercel.app` und absichtlich **ohne Supabase-Env** — der Build fällt graceful auf den ComingSoonHero-Fallback (siehe ADR-31), bleibt SSG-clean und prüft strukturell durch.
+
+- **Bugs beim Verifizieren entdeckt + behoben:**
+  - **Twitter-Card-Override:** `pageMetadata` erzeugte ein neues `twitter`-Object ohne `card` → Pro-Page-Twitter fiel auf Next.js-Default `summary` zurück, obwohl das Layout `summary_large_image` setzt. Fix: Helper setzt jetzt selbst `card: "summary_large_image"`.
+  - **Proxy-Matcher fängt Top-Level Convention Files:** `/icon` (kein Punkt im Pfad) wurde von `createMiddleware`-Matcher gematched und auf `/de/icon` redirected → 500 (`InvariantError: client reference manifest for route "/[locale]" does not exist`). Matcher in `src/proxy.ts` jetzt `(?!api|_next|_vercel|icon|apple-icon|opengraph-image|twitter-image|manifest|.*\\..*)` — Top-Level-Convention-Pfade ohne Extension werden ausgeschlossen, damit Next.js sie direkt rendern kann. Sitemap.xml und robots.txt waren schon durch `.*\..*` abgedeckt.
+
+- **Verifikation:**
+  - `pnpm typecheck`, `pnpm lint`, `pnpm build` clean. Build-Output zeigt `/sitemap.xml` und `/robots.txt` als ○ Static, `/icon` als ○ Static, `/[locale]/opengraph-image` als ƒ Dynamic.
+  - `pnpm start --port 3030`:
+    - `curl /sitemap.xml` → XML mit allen 13 Static-Hrefs × 2 Locales + xhtml:link-Alternates DE/EN, plus `/<locale>/blog/<slug>` (zwei Slugs aus dem Seed: `kickoff-datenraum-kultur`, `erste-pilotpartner-gewonnen`).
+    - `curl /robots.txt` → `User-Agent: *`, `Allow: /`, `Disallow: /api/`, `Host`, `Sitemap`.
+    - `curl /de` → `<title>Smarte Theaterdienste</title>`, `<link rel="canonical">`, drei `<link rel="alternate" hreflang="...">` (de/en/x-default), `og:title/url/image/type`, `twitter:card="summary_large_image"`.
+    - `curl /en/contact-persons` → canonical + alternates korrekt mit Slug-Übersetzung (`/de/ansprechpersonen` ↔ `/en/contact-persons`).
+    - `curl /de/blog/kickoff-datenraum-kustur` → `og:type="article"`, alternates.
+    - `curl -I /de/opengraph-image` und `/en/opengraph-image` → 200, Content-Type `image/png`.
+    - `curl /icon` → 200, 528 Byte PNG (`32x32 RGBA`).
+    - HTML enthält `<link rel="icon" href="/icon?...">` korrekt verlinkt.
+
+**Was bewusst NICHT lief:**
+- Production-Redeploy auf Vercel — separate Mini-Aufgabe für die nächste Session.
+- Lighthouse-Audit + axe-core gegen Production — sinnvoll erst nach Redeploy, sonst misst man den letzten M5-Stand ohne den neuen Meta-Layer.
+- Per-Post-OG-Images im Blog-Detail (jeder Post mit eigenem Titel-Bild) — Default-Locale-OG reicht für M8-Erstwurf.
+- Lighthouse-CI als GitHub-Action (`treosh/lighthouse-ci-action`) — bringt Werte mit, lohnt erst nach Custom-Domain.
+- M7 EN-Übersetzungen für Blog-Posts (zwei Posts haben nur DE-Translations) — Sitemap listet beide Locales als Best-Effort, EN-Pfade rendern bei fehlender Translation `notFound()`.
+
+**Status am Ende:** M8 Kern abgeschlossen — Suchmaschinen können Site indexieren mit hreflang DE/EN, Social-Shares zeigen lokalisiertes OG-Image (1200×630), CI prüft jeden Push auf main + jeden PR. Lokal alles grün; Production-Validation steht aus.
+**Nächster Schritt:** Production-Redeploy + Lighthouse-Audit ≥ 95 (Performance/Accessibility/Best-Practices/SEO), Findings nach `PROBLEME.md`. Alternativ M6 Animation-Polish.
+
+---
+
 ## 2026-05-04 — Session 8: M5 Production-Deploy
 
 **Commits:**

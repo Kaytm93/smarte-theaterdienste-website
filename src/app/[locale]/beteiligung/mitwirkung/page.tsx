@@ -6,6 +6,7 @@ import { PartnerMap } from "@/components/sections/PartnerMap";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { loadContent } from "@/lib/content/loader";
 import type { Locale } from "@/lib/i18n/routing";
+import { pageMetadata } from "@/lib/seo/alternates";
 
 export const revalidate = 60;
 
@@ -16,7 +17,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pages.mitwirkung" });
-  return { title: t("title") };
+  return pageMetadata({
+    locale,
+    href: "/beteiligung/mitwirkung",
+    title: t("title"),
+    description: t("lead"),
+  });
 }
 
 export default async function MitwirkungPage({
