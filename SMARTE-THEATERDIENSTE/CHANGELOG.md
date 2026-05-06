@@ -3,7 +3,7 @@
 ## 2026-05-06 — Session 9: M8 Restpolish (SEO + Sitemap + Robots + lokalisiertes OG + CI)
 
 **Commits:**
-- *(this session)* `M8: SEO-Layer + Sitemap + Robots + lokalisiertes OG + CI`
+- `b85490a` M8: SEO-Layer + Sitemap + Robots + lokalisiertes OG + CI
 
 **Was passierte:**
 
