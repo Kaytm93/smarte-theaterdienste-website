@@ -3,7 +3,7 @@
 ## 2026-05-06 — Session 10: M8 Production-Validation (Redeploy + Lighthouse + a11y-Fix)
 
 **Commits:**
-- `<pending>` M8 deploy: SEO-Layer in Production + OG-Fix (Satori `inline-block`) + Footer-Kontrast
+- `57f59b7` M8 deploy: SEO-Layer in Production + OG-Bug-Fix + Footer-Kontrast
 
 **Was passierte:**
 
