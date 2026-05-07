@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M7 / M8 abgeschlossen und production-validiert; M8-Sitemap-Lastmod-Polish lokal validiert. Nächster sinnvoller Schritt: echte Assets/Cover-Bilder.
+> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M7 / M8 abgeschlossen und production-validiert; M8-Sitemap-Lastmod-Polish production-live. Nächster sinnvoller Schritt: echte Assets/Cover-Bilder.
 
 ---
 
@@ -61,7 +61,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
-**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, aktueller Deploy `dpl_Cqvw9ssuYNY1eiFjSfwMMifE4ibe`). CLI-Deploy funktioniert. GitHub-Integration ist noch nicht verbunden, weil `vercel git connect` an GitHub-App/Rechten scheitert.
+**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, aktueller Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`). CLI-Deploy funktioniert. GitHub-Integration ist noch nicht verbunden, weil `vercel git connect` an GitHub-App/Rechten scheitert.
 
 **Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migrationen `20260427121400_init.sql` und `20260507120000_m7_english_post_translations.sql` sind live; Seed ist mit M7-Content synchron. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`.
 

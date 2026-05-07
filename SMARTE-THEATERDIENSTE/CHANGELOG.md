@@ -3,7 +3,8 @@
 ## 2026-05-07 — Session 14: M8 Sitemap-Lastmod-Polish
 
 **Commits / Deploy-Basis:**
-- `PENDING` M8: Sitemap-Lastmod und Sitemap-Revalidate
+- `37d80ca` M8: Sitemap-Lastmod und Sitemap-Revalidate
+- Production-Deploy: `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`
 
 **Was passierte:**
 
@@ -13,8 +14,9 @@
 - **Supabase-Query:** `src/lib/supabase/queries.ts` ergänzt `PostSitemapEntry` und `listPublishedPostSitemapEntries()` (`slug`, `published_at`, `status='published'`, sortiert absteigend).
 - **Revalidate:** `src/app/api/revalidate/route.ts` nutzt strukturierte Revalidate-Targets statt Tupeln und invalidiert bei `posts` / `post_translations` zusätzlich `/sitemap.xml`. Ein gültiger Revalidate-Smoke für `posts` liefert jetzt `["/[locale]/blog:page","/[locale]/blog/[slug]:page","/sitemap.xml"]`.
 - **Verifikation lokal:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean. `pnpm start --port 3030` + `/usr/bin/curl /sitemap.xml` zeigt Blog-`lastmod` aus Supabase: `erste-pilotpartner-gewonnen` → `2026-04-02T09:00:00+00:00`, `kickoff-datenraum-kultur` → `2026-03-15T10:00:00+00:00`; `/de/blog` HTTP 200; falsches Revalidate-Secret bleibt HTTP 401.
+- **Production-Deploy + Smoke:** `pnpm dlx vercel@latest deploy --prod --yes` erfolgreich: Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`, Alias `https://smarte-theaterdienste-website.vercel.app`. Production-`/sitemap.xml` zeigt dieselben Blog-`lastmod`-Werte; `/de/blog` und `/en/blog/erste-pilotpartner-gewonnen` HTTP 200; Revalidate-POST fuer `posts` liefert `"/sitemap.xml"` in `paths`.
 
-**Status am Ende:** Sitemap-Lastmod-Polish lokal abgeschlossen. Nächster sinnvoller Schritt bleibt Asset-Lieferung/-Einbau: Hero-Visual, Blog-Cover-Bilder, Portraits und Partner-Logos.
+**Status am Ende:** Sitemap-Lastmod-Polish ist production-live. Nächster sinnvoller Schritt bleibt Asset-Lieferung/-Einbau: Hero-Visual, Blog-Cover-Bilder, Portraits und Partner-Logos.
 
 ## 2026-05-07 — Session 13: M7 EN-Quality-Review
 

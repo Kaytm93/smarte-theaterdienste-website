@@ -57,9 +57,20 @@ Zusätzlich geprüft:
   - falsches Secret: `{"revalidated":false,"message":"Unauthorized."}`
   - gueltiges Secret fuer `{"table":"posts"}`: `paths` enthaelt `"/[locale]/blog:page"`, `"/[locale]/blog/[slug]:page"` und `"/sitemap.xml"`
 
+## Production
+
+- Commit: `37d80ca` — `M8: Sitemap-Lastmod und Sitemap-Revalidate`
+- Deploy: `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`
+- Alias: `https://smarte-theaterdienste-website.vercel.app`
+- Production-Smoke:
+  - `/sitemap.xml` zeigt Blog-`lastmod` aus Supabase (`2026-04-02T09:00:00+00:00`, `2026-03-15T10:00:00+00:00`)
+  - `/de/blog` HTTP 200
+  - `/en/blog/erste-pilotpartner-gewonnen` HTTP 200
+  - Revalidate-POST fuer `{"table":"posts"}` liefert `"/sitemap.xml"` in `paths`
+
 ## Ergebnis
 
-Der Sitemap-Restposten ist lokal abgeschlossen. Suchmaschinen bekommen fuer Blog-Inhalte jetzt semantisch richtige `lastmod`-Werte aus Supabase statt Build-Zeitpunkt. Bei Post-Updates wird die Sitemap ueber den bestehenden Revalidate-Webhook mit invalidiert.
+Der Sitemap-Restposten ist production-live. Suchmaschinen bekommen fuer Blog-Inhalte jetzt semantisch richtige `lastmod`-Werte aus Supabase statt Build-Zeitpunkt. Bei Post-Updates wird die Sitemap ueber den bestehenden Revalidate-Webhook mit invalidiert.
 
 ## Offene Folgeaufgaben
 
