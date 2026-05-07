@@ -5,7 +5,7 @@
       "heading": "What is a JSON file?",
       "body": [
         "JSON (JavaScript Object Notation) is an open text format that stores data as nested key-value pairs. Humans can read it, machines can process it reliably.",
-        "For the Cultural Data Space, we follow Schema.org vocabulary for events and extend it with culture-specific additions."
+        "For the Cultural Data Space, we use Schema.org's event vocabulary and extend it with culture-specific additions."
       ]
     },
     {
@@ -27,8 +27,8 @@
       "eyebrow": "Data flow",
       "heading": "Sending and receiving via the data space",
       "body": [
-        "The Cultural Data Space acts as broker: data senders (theatres) and data users (platforms, archives) meet here on the basis of agreed standards.",
-        "Every sender decides who may use which data – data sovereignty stays with the houses."
+        "The Cultural Data Space acts as a broker: data senders (theatres) and data recipients (platforms, archives) meet here on the basis of agreed standards.",
+        "Every sender decides who may use which data - theatres remain in control."
       ]
     },
     {

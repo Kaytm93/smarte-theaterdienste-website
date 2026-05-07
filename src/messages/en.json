@@ -48,7 +48,7 @@
   },
   "team": {
     "phoneLabel": "Phone",
-    "mailLabel": "E-Mail",
+    "mailLabel": "Email",
     "photoCredit": "© Sophie Moriarty",
     "portraitFallback": "Photo coming"
   },
@@ -56,12 +56,12 @@
     "ansprechpersonen": {
       "kicker": "Behind the project",
       "title": "Contact persons",
-      "lead": "Four people carrying this project day to day. Reach out directly – by phone or e-mail."
+      "lead": "Four people moving this project forward day to day. Reach out directly - by phone or email."
     },
     "projekt": {
       "kicker": "Project description",
       "title": "Machine-readable theatre programmes",
-      "lead": "What this project is, why it matters, and who's behind it."
+      "lead": "What this project is, why it matters, and who is behind it."
     },
     "technischeStandards": {
       "kicker": "Technical standards",
@@ -76,7 +76,7 @@
     "beteiligung": {
       "kicker": "Get involved",
       "title": "Join the data space",
-      "lead": "Beta testers, theatres, platforms – we're looking for partners for the next steps."
+      "lead": "Beta testers, theatres and platforms: we are looking for partners for the next steps."
     },
     "anwendungsbeispiele": {
       "kicker": "Use cases",
@@ -86,7 +86,7 @@
     "mitwirkung": {
       "kicker": "Step by step",
       "title": "How participation works",
-      "lead": "Two technical steps separate your theatre from the data space – we accompany both.",
+      "lead": "Your theatre can connect to the data space in two technical steps - we accompany both.",
       "map": {
         "heading": "Who's already on board",
         "lead": "Pilot theatres and Cultural Data Space partners across Germany. Click a marker to learn more.",
@@ -129,7 +129,7 @@
     "faq": {
       "kicker": "Answers",
       "title": "Frequently asked questions",
-      "lead": "The five questions that reach us most often — answered briefly and honestly.",
+      "lead": "The five questions we hear most often - answered briefly and honestly.",
       "empty": {
         "kicker": "Answers",
         "title": "FAQ in progress",

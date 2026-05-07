@@ -1,5 +1,26 @@
 # 📝 Changelog
 
+## 2026-05-07 — Session 13: M7 EN-Quality-Review
+
+**Commits / Deploy-Basis:**
+- `PENDING_M7_COMMIT` M7: EN-Quality-Review und Blog-Translations
+
+**Was passierte:**
+
+- **Vault- und Pattern-Check:** `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE`, `API` gelesen. Zusätzlich relevante Next.js-16-Docs aus `node_modules/next/dist/docs/01-app/02-guides/internationalization.md` und `01-getting-started/06-fetching-data.md` geprüft.
+- **Strukturvergleich i18n:** Node-Check auf `messages/{de,en}.json` und alle `src/content/{de,en}/*.json`: keine fehlenden oder zusätzlichen Keys. JSON-Parse für `src/messages/en.json` und 9 EN-Content-Dateien OK.
+- **EN-Copy-Review:** Punktuelle Glättungen in `src/messages/en.json` und `src/content/en/{landing,projekt,projekt-technische-standards,projekt-semantische-standards,beteiligung,beteiligung-anwendungsbeispiele,beteiligung-mitwirkung,team}.json`. Keine Routing-/Komponentenänderungen.
+- **Supabase-Translations:** Live-DB-Check zeigte `{de}` für `erste-pilotpartner-gewonnen` und `{NULL}` für `wip-konnektor-roadmap`. Neue Migration `supabase/migrations/20260507120000_m7_english_post_translations.sql` ergänzt/aktualisiert `post_translations`: `kickoff-datenraum-kultur` EN geglättet, `erste-pilotpartner-gewonnen` EN ergänzt, Draft `wip-konnektor-roadmap` DE/EN ergänzt. `supabase/seed.sql` synchronisiert denselben Stand.
+- **Cloud-Migration:** `pnpm exec supabase db push --yes` erfolgreich. Kontrollquery danach: alle drei Posts `kickoff-datenraum-kultur`, `erste-pilotpartner-gewonnen`, `wip-konnektor-roadmap` haben `{de,en}`.
+- **Verifikation lokal:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean. Build generiert 36/36 Pages und jetzt auch `/en/blog/erste-pilotpartner-gewonnen`.
+- **Production-Deploy:** `pnpm dlx vercel@latest deploy --prod --yes` erfolgreich:
+  - Deploy-ID: `dpl_Cqvw9ssuYNY1eiFjSfwMMifE4ibe`
+  - Build-URL: `https://smarte-theaterdienste-website-bs6r7bz5q-kaytm93s-projects.vercel.app`
+  - Alias: `https://smarte-theaterdienste-website.vercel.app`
+- **Production-Smoke:** `/en/contact-persons`, `/en/participation/contribute`, `/en/blog`, `/en/blog/erste-pilotpartner-gewonnen` jeweils HTTP 200 über `/usr/bin/curl`; HTML enthält die neuen EN-Texte und den zweiten EN-Blogpost.
+
+**Status am Ende:** M7 ist production-validiert. Nächster sinnvoller Schritt: echte Assets und Cover-Bilder einpflegen, damit Hero/Team/Footer und ViewTransition-Morphs visuell final werden.
+
 ## 2026-05-07 — Session 12: M6 Production-Validation
 
 **Commits / Deploy-Basis:**

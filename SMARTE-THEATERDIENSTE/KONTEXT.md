@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M8 abgeschlossen und production-validiert. M7 zu ~99 % gepflegt (nur Draft-Post-EN fehlt).
+> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M7 / M8 abgeschlossen und production-validiert. Nächster sinnvoller Schritt: echte Assets/Cover-Bilder.
 
 ---
 
@@ -61,9 +61,9 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
-**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, aktueller Deploy `dpl_5fe7wA8PULdKp8UT8JodihG5YXv2`). CLI-Deploy funktioniert. GitHub-Integration ist noch nicht verbunden, weil `vercel git connect` an GitHub-App/Rechten scheitert.
+**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, aktueller Deploy `dpl_Cqvw9ssuYNY1eiFjSfwMMifE4ibe`). CLI-Deploy funktioniert. GitHub-Integration ist noch nicht verbunden, weil `vercel git connect` an GitHub-App/Rechten scheitert.
 
-**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migration `20260427121400_init.sql` und Seed live. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`.
+**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migrationen `20260427121400_init.sql` und `20260507120000_m7_english_post_translations.sql` sind live; Seed ist mit M7-Content synchron. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`.
 
 ---
 
@@ -131,10 +131,10 @@ smarte-theaterdienste-website/
 │   │   ├── supabase/                           ← env.ts, server.ts (cookie-Server + getSupabaseAnon), client.ts, queries.ts
 │   │   ├── gsap/registerScrollTrigger.ts
 │   │   └── utils.ts                            ← cn(), shadcn helper
-│   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.* (inkl. blog/faq/termine empty.* und Listen-Labels)
+│   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.* (M7: EN reviewt + strukturgleich)
 │   ├── types/database.ts                       ← Generated Supabase types (`pnpm gen:types`, mit Relationships)
 │   ├── types/react-canary.d.ts                 ← M6: `/// <reference types="react/canary" />` für `<ViewTransition>`-Typen
-│   ├── content/{de,en}/                        ← Page-Content (umfangreich):
+│   ├── content/{de,en}/                        ← Page-Content (umfangreich, M7: EN reviewt + strukturgleich):
 │   │   ├── team.json                            ←   4 Ansprechpersonen
 │   │   ├── projekt.json                         ←   6 Sections + 2 Links
 │   │   ├── projekt-technische-standards.json
@@ -149,8 +149,10 @@ smarte-theaterdienste-website/
 │   └── proxy.ts                                ← next-intl Routing-Proxy (Next.js 16!); Matcher excluded `icon|apple-icon|opengraph-image|twitter-image|manifest` (Top-Level Convention Files)
 │
 ├── supabase/                                   ← config.toml (project_id=smarte-theaterdienste-website),
-│   ├── migrations/20260427121400_init.sql     │   migrations/ (Schema-SQL für Push), seed.sql (Beispiel-Daten)
-│   ├── seed.sql                               │
+│   ├── migrations/
+│   │   ├── 20260427121400_init.sql             ← M4 Schema + RLS
+│   │   └── 20260507120000_m7_english_post_translations.sql ← M7 Blog-Translations
+│   ├── seed.sql                                ← Beispiel-Daten inkl. M7 Blog-Translations
 │   ├── config.toml                            │
 │   └── .gitignore                             │
 ├── public/                                     ← Logos, Bilder (Assets folgen vom User)
@@ -211,4 +213,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **M7 EN-Quality-Review** (klein, 99 % schon da), **echte Asset-/Cover-Lieferung** (Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits, Partner-Logos), **M8 Erweiterungen** (Per-Post-OG, `lastModified` in Sitemap, Lighthouse-CI), **Custom Domain**. M5 + M6 + M8 sind die größten Code-Milestones und sind production-validiert. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
+Aktuell offen: **echte Asset-/Cover-Lieferung** (Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits, Partner-Logos), **M8 Erweiterungen** (Per-Post-OG, `lastModified` in Sitemap, Lighthouse-CI), **Custom Domain**. M5 + M6 + M7 + M8 sind production-validiert. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.

@@ -18,13 +18,26 @@ insert into public.post_translations (post_id, locale, title, excerpt, body_md) 
    E'## Worum geht es\n\nMaschinenlesbare Spielpläne sollen den Weg vom Theater zur Plattform deutlich verkürzen. Statt PDF-Tabellen wandert ein strukturiertes JSON in den Datenraum.\n\n- Open Standard\n- DSGVO-konform\n- Anschlussfähig an bestehende ERP-Lösungen\n\n*Der Auftakt war herzlich, das Mittagsbüfett ehrlich gut.*'),
   ('11111111-1111-1111-1111-111111111111', 'en',
    'Kickoff: Cultural Data Space Use Case 3 launches',
-   'Together with the Bühnenverein, Fraunhofer and the first theatre houses we officially opened Use Case 3.',
-   E'## What this is about\n\nMachine-readable programmes shorten the path from theatre to platform. Instead of PDF tables, a structured JSON moves into the data space.\n\n- Open standard\n- GDPR-compliant\n- Compatible with existing ERP\n\n*The kickoff was warm, the lunch buffet honestly good.*'),
+   'Together with the Bühnenverein, Fraunhofer and the first theatres, we officially opened Use Case 3.',
+   E'## What this is about\n\nMachine-readable programmes shorten the path from theatre to platform. Instead of PDF tables, structured JSON moves into the data space.\n\n- Open standard\n- GDPR-compliant\n- Compatible with existing ERP systems\n\n*The kickoff was warm, and the lunch buffet was honestly good.*'),
 
   ('22222222-2222-2222-2222-222222222222', 'de',
    'Erste Pilotpartner gewonnen',
    'Drei Häuser starten den Beta-Test der Schnittstelle. Wir berichten, was wir aus den ersten Tagen gelernt haben.',
-   E'## Drei Häuser, drei Setups\n\nVon klassischer ERP-Anbindung bis zur händischen Pflege via CMS — die Vielfalt an Theater-Setups ist die größte Stärke und gleichzeitig die größte Herausforderung.\n\nWir freuen uns über das Vertrauen und liefern in den nächsten Wochen den ersten Iterationsstand des Konnektors.')
+   E'## Drei Häuser, drei Setups\n\nVon klassischer ERP-Anbindung bis zur händischen Pflege via CMS — die Vielfalt an Theater-Setups ist die größte Stärke und gleichzeitig die größte Herausforderung.\n\nWir freuen uns über das Vertrauen und liefern in den nächsten Wochen den ersten Iterationsstand des Konnektors.'),
+  ('22222222-2222-2222-2222-222222222222', 'en',
+   'First pilot partners confirmed',
+   'Three theatres are starting the beta test for the interface. We report what we learned in the first few days.',
+   E'## Three theatres, three setups\n\nFrom a classic ERP connection to manual maintenance through a CMS, the range of theatre setups is both the project''s greatest strength and its biggest challenge.\n\nWe appreciate the trust and will deliver the first iteration of the connector over the coming weeks.'),
+
+  ('33333333-3333-3333-3333-333333333333', 'de',
+   'Konnektor-Roadmap: Was als Nächstes kommt',
+   'Ein Arbeitsstand zu den nächsten Iterationen des Konnektors, von Validierung bis Dokumentation.',
+   E'## In Arbeit\n\nDer Konnektor wird in kurzen Iterationen mit Pilotpartnern weiterentwickelt. Im Fokus stehen aktuell Datenvalidierung, Authentifizierung und die Dokumentation für Webagenturen.\n\nDieser Beitrag bleibt als Entwurf, bis Roadmap und Zeitplan final abgestimmt sind.'),
+  ('33333333-3333-3333-3333-333333333333', 'en',
+   'Connector roadmap: what comes next',
+   'A working note on the next connector iterations, from validation to documentation.',
+   E'## In progress\n\nThe connector is being developed in short iterations with pilot partners. Current priorities are data validation, authentication and documentation for web agencies.\n\nThis post stays in draft until the roadmap and timeline are final.')
 on conflict (post_id, locale) do nothing;
 
 -- ---- EVENTS ------------------------------------------------------------

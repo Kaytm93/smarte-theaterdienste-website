@@ -1,5 +1,5 @@
 {
-  "intro": "Two technical steps separate your house from the Cultural Data Space. We accompany both.",
+  "intro": "Your theatre can connect to the Cultural Data Space in two technical steps. We accompany both.",
   "steps": [
     {
       "step": 1,
@@ -8,8 +8,8 @@
     },
     {
       "step": 2,
-      "title": "Connect to the data-space connector",
-      "body": "The connector handles authentication and data transfer into the Cultural Data Space. You keep data sovereignty – you decide what who is allowed to see."
+      "title": "Connect to the data space connector",
+      "body": "The connector handles authentication and data transfer into the Cultural Data Space. You keep data sovereignty - you decide who is allowed to see what."
     }
   ]
 }

@@ -7,9 +7,9 @@
 | **M3**| ✅ done       | Statische Seiten DE        | Alle SSG-Routen mit Inhalten aus Miro, Akzentfarbe, Coming-Soon-Stubs, EN-Stub        |
 | **M4**| ✅ done       | Dynamic Content            | Supabase Cloud live, echte Daten, Types generiert, ISR + Revalidate aktiv             |
 | **M5**| ✅ done       | Partner-Deutschlandkarte   | Wikimedia-SVG, 4 Hotspots aus Supabase, Side-Panel mit Detail-State, GSAP-Pulse       |
-| M6    | ⏳ pending    | Animation-Polish           | Comic-Strip, Parallax, Reveals, Reduced-Motion finalisieren                          |
-| M7    | ⏳ pending    | i18n EN                    | Vollständige Übersetzungen, hreflang, Switcher                                        |
-| M8    | 🟡 partial    | Production-Polish          | Vercel live; SEO, OG-Images, Sitemap, Lighthouse ≥95 und A11y-Audit offen            |
+| **M6**| ✅ done       | Animation-Polish           | Comic-Strip-Stagger, Hero-Choreografie, Card-Hover, View Transitions, Reduced-Motion |
+| **M7**| ✅ done       | i18n EN                    | EN-Copy-Review, vollständige statische EN-Struktur, Supabase-Blog-Translations       |
+| **M8**| ✅ done       | Production-Polish          | SEO, OG-Images, Sitemap, Robots, CI, Lighthouse/A11y production-validiert            |
 
 ---
 
@@ -101,31 +101,31 @@
 - [x] Graceful Degradation: kein Supabase oder leere Tabelle → Empty-State (siehe ADR-27)
 - [x] EN-Locale: Status-Labels lokalisiert (Partner / Pilot theatre / Interested), Slug `/en/participation/contribute`
 
-## M6 — Animation-Polish ⏳
+## M6 — Animation-Polish ✅
 
-- [ ] Comic-Strip: Variante A (pinned horizontal) oder B (vertical stagger) — Entscheidung
-- [ ] Hero-Parallax
-- [ ] Hover-States Cards (`scale 1.02` + shadow)
-- [ ] View Transitions API (progressive)
-- [ ] Reduced-Motion: alle Animationen sofort End-State
-- [ ] ScrollTrigger.refresh() nach Page-Transitions
+- [x] Comic-Strip: Variante B (vertical stagger) entschieden und umgesetzt
+- [x] Hero-Choreografie mit Stagger-Konstante + statischem Akzent-Blob (Hero-Parallax erst mit echtem Hero-Visual)
+- [x] Hover-States Cards projektweit standardisiert
+- [x] View Transitions API progressiv für Blog-Cover verdrahtet
+- [x] Reduced-Motion: ViewTransition-CSS + Animations-End-State
+- [x] ScrollTrigger.refresh() nach Page-Transitions über Layout-globalen Refresher
 
-## M7 — i18n EN ⏳
+## M7 — i18n EN ✅
 
-- [ ] Vollständige `messages/en.json`
-- [ ] EN-Content in `content/en/`
-- [ ] Supabase-Translations für DB-Inhalte (Translate-Helper oder manuell)
-- [ ] hreflang in `generateMetadata` pro Page
-- [ ] LanguageSwitcher final testen
+- [x] Vollständige `messages/en.json` strukturgleich zu DE und copy-reviewt
+- [x] EN-Content in `content/en/` strukturgleich zu DE und copy-reviewt
+- [x] Supabase-Translations für Blog-Inhalte vollständig: alle drei Posts `{de,en}`
+- [x] hreflang in `generateMetadata` pro Page (M8 SEO-Layer)
+- [x] LanguageSwitcher path-preserving und production-validiert aus früheren M8/M6-Smokes
 
-## M8 — Production-Polish ⏳
+## M8 — Production-Polish ✅
 
-- [ ] OG-Images per Locale (Next.js `opengraph-image.tsx`, async params!)
-- [ ] `sitemap.ts` (Async `id` für `generateSitemaps` falls nötig)
-- [ ] `robots.ts`
-- [ ] Lighthouse-Audit ≥ 95 (alle 4 Kategorien)
-- [ ] axe-core / WAVE: keine kritischen Issues
+- [x] OG-Images per Locale (Next.js `opengraph-image.tsx`, async params!)
+- [x] `sitemap.ts` mit Locale-Alternates und Blog-Slugs
+- [x] `robots.ts`
+- [x] Lighthouse-Audit ≥ 95 (DE/EN: Performance 96, A11y 100, Best Practices 100, SEO 100)
+- [x] axe-core / WAVE: keine kritischen Issues (pa11y axe clean)
 - [x] Vercel-Projekt anlegen + Production-Deploy (`https://smarte-theaterdienste-website.vercel.app`)
 - [ ] Vercel-GitHub-Integration im Dashboard verbinden (CLI scheitert an GitHub-App/Rechten)
 - [ ] Custom Domain konfigurieren
-- [ ] CI: GitHub Actions mit `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`
+- [x] CI: GitHub Actions mit `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`
