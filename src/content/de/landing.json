@@ -3,10 +3,24 @@
     "eyebrow": "Das Problem · Die Perspektive",
     "heading": "Vom isolierten Spielplan zum vernetzten Datenraum",
     "frames": [
-      { "caption": "Spielplan als PDF: schön für Menschen, sperrig für Maschinen.", "hue": 30 },
-      { "caption": "Plattformen pflegen jeden Eintrag aufwendig nach – manuell.", "hue": 60 },
-      { "caption": "Eine offene JSON-Schnittstelle macht Daten maschinenlesbar.", "hue": 240 },
-      { "caption": "Datenraum Kultur verteilt sie an alle, die sie brauchen.", "hue": 250 }
+      {
+        "image": "/comic-strip/frame-1-zeit.jpg",
+        "alt": "Theater-Mitarbeiter am Schreibtisch beim Telefonat – Sprechblase „Ja, ich habe Zeit.“",
+        "title": "Bereit für den Datenraum",
+        "caption": "Theater bekommen eine offene Schnittstelle und entscheiden selbst, was sie teilen."
+      },
+      {
+        "image": "/comic-strip/frame-2-bescheid.jpg",
+        "alt": "Theater-Mitarbeiter am Schreibtisch – Gedankenblase „Alle wissen Bescheid.“",
+        "title": "Spielpläne werden lesbar",
+        "caption": "Eine standardisierte JSON-Schnittstelle macht jeden Termin maschinenlesbar."
+      },
+      {
+        "image": "/comic-strip/frame-3-verbindungen.jpg",
+        "alt": "Theater-Mitarbeiter am Schreibtisch – Sprechblase „Ich hab Verbindungen ohne Ende.“",
+        "title": "Verbindungen ohne Ende",
+        "caption": "Über den Datenraum Kultur erreichen die Daten Plattformen, Archive und Dienste – ohne Copy & Paste."
+      }
     ]
   },
   "pitch": {

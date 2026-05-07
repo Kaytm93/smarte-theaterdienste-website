@@ -7,13 +7,19 @@ type Props = {
 };
 
 export function StepCard({ step, title, body }: Props) {
+  const stepLabel = step.toString().padStart(2, "0");
   return (
-    <Card className="h-full border-border/60 bg-card/50 transition-all duration-300 ease-out hover:border-border hover:shadow-sm motion-reduce:transition-none">
-      <CardContent className="space-y-4 p-6">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-brand)] text-sm font-semibold text-[var(--accent-brand-foreground)]">
-          {step}
+    <Card className="h-full rounded-2xl border border-border/70 bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow,border-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <CardContent className="space-y-5 p-7">
+        <div className="flex items-baseline gap-3">
+          <span className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent-brand)]">
+            Step
+          </span>
+          <span className="font-mono text-2xl font-semibold tracking-tight text-foreground">
+            {stepLabel}
+          </span>
         </div>
-        <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+        <h3 className="text-lg font-semibold leading-snug tracking-tight">{title}</h3>
         <p className="text-sm leading-[var(--leading-relaxed)] text-foreground/70">
           {body}
         </p>

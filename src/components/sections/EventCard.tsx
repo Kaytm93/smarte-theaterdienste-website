@@ -13,6 +13,10 @@ type Props = {
 
 export function EventCard({ event, locale, registerLabel }: Props) {
   const start = new Date(event.startsAt);
+  const day = start.toLocaleDateString(locale, { day: "2-digit" });
+  const monthShort = start
+    .toLocaleDateString(locale, { month: "short" })
+    .replace(/\.$/, "");
   const dateLabel = start.toLocaleDateString(locale, {
     weekday: "long",
     day: "2-digit",
@@ -27,21 +31,32 @@ export function EventCard({ event, locale, registerLabel }: Props) {
 
   return (
     <FadeInOnScroll className="h-full">
-      <Card className="h-full border-border/60 bg-card/50 transition-all duration-300 ease-out hover:border-border hover:shadow-sm motion-reduce:transition-none">
-        <CardContent className="flex h-full flex-col gap-4 p-6">
-          <div className="flex flex-col gap-1">
-            <time
-              dateTime={event.startsAt}
-              className="text-xs font-medium uppercase tracking-[0.18em] text-[var(--accent-brand)]"
+      <Card className="h-full rounded-2xl border border-border/70 bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow,border-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[var(--shadow-sm)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+        <CardContent className="flex h-full flex-col gap-5 p-6">
+          <div className="flex items-start gap-4">
+            <div
+              aria-hidden
+              className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-xl border border-[var(--accent-brand)]/20 bg-[var(--accent-brand)]/[0.07] text-[var(--accent-brand)]"
             >
-              {dateLabel} · {timeLabel}
-            </time>
-            {event.location ? (
-              <span className="text-xs text-foreground/55">{event.location}</span>
-            ) : null}
+              <span className="text-base font-semibold leading-none">{day}</span>
+              <span className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.16em]">
+                {monthShort}
+              </span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <time
+                dateTime={event.startsAt}
+                className="text-xs font-medium uppercase tracking-[0.16em] text-foreground/55"
+              >
+                {dateLabel} · {timeLabel}
+              </time>
+              {event.location ? (
+                <span className="text-sm text-foreground/70">{event.location}</span>
+              ) : null}
+            </div>
           </div>
 
-          <h3 className="text-lg font-semibold leading-tight tracking-tight">
+          <h3 className="text-lg font-semibold leading-snug tracking-tight">
             {event.title}
           </h3>
 

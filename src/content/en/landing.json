@@ -3,10 +3,24 @@
     "eyebrow": "The problem · The perspective",
     "heading": "From isolated programmes to a connected data space",
     "frames": [
-      { "caption": "A programme as a PDF: useful for people, awkward for machines.", "hue": 30 },
-      { "caption": "Platforms re-enter every event by hand.", "hue": 60 },
-      { "caption": "An open JSON interface makes data machine-readable.", "hue": 240 },
-      { "caption": "The Cultural Data Space distributes it to approved services.", "hue": 250 }
+      {
+        "image": "/comic-strip/frame-1-zeit.jpg",
+        "alt": "Theatre clerk on the phone – speech bubble “Yes, I have time.”",
+        "title": "Ready for the data space",
+        "caption": "Theatres get an open interface and decide themselves what to share."
+      },
+      {
+        "image": "/comic-strip/frame-2-bescheid.jpg",
+        "alt": "Theatre clerk at the desk – thought bubble “Everyone knows.”",
+        "title": "Programmes become readable",
+        "caption": "A standardised JSON interface makes every event machine-readable."
+      },
+      {
+        "image": "/comic-strip/frame-3-verbindungen.jpg",
+        "alt": "Theatre clerk on the phone – speech bubble “I have endless connections.”",
+        "title": "Endless connections",
+        "caption": "Through the Cultural Data Space data flows to platforms, archives and services – without copy & paste."
+      }
     ]
   },
   "pitch": {

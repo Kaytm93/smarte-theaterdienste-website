@@ -14,25 +14,29 @@ export function TextSection({ eyebrow, heading, body, className }: Props) {
   return (
     <FadeInOnScroll
       className={cn(
-        "mx-auto max-w-[var(--container-max)] px-4 py-10 sm:px-6 lg:px-8",
+        "mx-auto max-w-[var(--container-max)] px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24",
         className
       )}
     >
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-16">
-        <div className="space-y-2">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-20">
+        <div className="space-y-3 lg:sticky lg:top-[calc(var(--header-height)+2rem)] lg:self-start">
           {eyebrow ? (
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-[var(--accent-brand)]">
+            <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent-brand)]">
+              <span
+                aria-hidden
+                className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent-brand)]"
+              />
               {eyebrow}
             </p>
           ) : null}
           {heading ? (
-            <h2 className="text-balance font-semibold leading-[var(--leading-snug)] tracking-tight text-[length:var(--text-h2)]">
+            <h2 className="text-balance font-semibold leading-[var(--leading-snug)] tracking-[var(--tracking-heading)] text-[length:var(--text-h2)]">
               {heading}
             </h2>
           ) : null}
         </div>
 
-        <div className="max-w-prose space-y-4 text-base leading-[var(--leading-relaxed)] text-foreground/80 md:text-lg">
+        <div className="max-w-prose space-y-5 text-base leading-[var(--leading-relaxed)] text-foreground/75 md:text-lg">
           {paragraphs.map((paragraph, i) => (
             <p key={i} className="text-pretty">
               {paragraph}

@@ -1,13 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { registerScrollTrigger } from "@/lib/gsap/registerScrollTrigger";
 
 type Frame = {
+  image: string;
+  alt: string;
+  title: string;
   caption: string;
-  hue: number;
 };
 
 type Props = {
@@ -30,14 +33,14 @@ export function ComicStripFrames({ frames }: Props) {
       }
 
       gsap.from(items, {
-        y: 24,
+        y: 28,
         opacity: 0,
-        duration: 0.7,
+        duration: 0.75,
         ease: "power2.out",
-        stagger: 0.12,
+        stagger: 0.14,
         scrollTrigger: {
           trigger: root,
-          start: "top 80%",
+          start: "top 82%",
           toggleActions: "play none none none",
         },
       });
@@ -48,26 +51,40 @@ export function ComicStripFrames({ frames }: Props) {
   return (
     <div
       ref={ref}
-      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+      className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3"
     >
       {frames.map((frame, i) => (
         <figure
-          key={i}
+          key={frame.image}
           data-comic-frame
-          className="group flex flex-col gap-3 overflow-hidden rounded-lg border border-border/60 bg-card/50 p-4 transition-colors duration-300 hover:border-border hover:shadow-sm motion-reduce:transition-none"
+          className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] transition-[transform,box-shadow,border-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
         >
-          <div
-            className="aspect-[4/3] rounded-md"
-            style={{
-              background: `linear-gradient(135deg, oklch(0.92 0.04 ${frame.hue}), oklch(0.78 0.08 ${frame.hue}))`,
-            }}
-            aria-hidden
-          />
-          <figcaption className="flex items-baseline gap-2 text-sm text-foreground/80">
-            <span className="font-mono text-xs text-foreground/40">
+          <div className="relative aspect-[4/3] overflow-hidden bg-foreground/[0.04]">
+            <Image
+              src={frame.image}
+              alt={frame.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"
+            />
+            <span
+              aria-hidden
+              className="absolute left-4 top-4 inline-flex h-7 items-center justify-center rounded-full bg-white/95 px-3 font-mono text-[10px] font-semibold tracking-[0.18em] text-foreground/80 shadow-[var(--shadow-xs)]"
+            >
               0{i + 1}
             </span>
-            <span>{frame.caption}</span>
+          </div>
+          <figcaption className="flex flex-col gap-2 p-5 sm:p-6">
+            <h3 className="text-base font-semibold leading-snug tracking-tight text-foreground">
+              {frame.title}
+            </h3>
+            <p className="text-sm leading-[var(--leading-relaxed)] text-foreground/70">
+              {frame.caption}
+            </p>
           </figcaption>
         </figure>
       ))}

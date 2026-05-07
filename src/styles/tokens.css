@@ -1,6 +1,6 @@
 /* Design tokens — semantische Erweiterungen jenseits der shadcn-Theme-Vars.
  * Lebt parallel zu globals.css; shadcn besetzt --background/--foreground/--primary/...,
- * hier definieren wir Spacing, Typo-Scale, Easings, Layout-Maße. */
+ * hier definieren wir Spacing, Typo-Scale, Easings, Layout-Maße und visuelle Akzente. */
 
 :root {
   /* Spacing scale (rem-basiert, an Tailwind v4 0.25rem-Grid angelehnt) */
@@ -14,19 +14,24 @@
   --space-2xl: 4rem;      /* 64px */
   --space-3xl: 6rem;      /* 96px */
   --space-4xl: 8rem;      /* 128px */
+  --space-5xl: 12rem;     /* 192px */
 
   /* Typo-Scale — fluid via clamp() für Display & Headings */
-  --text-display: clamp(2.5rem, 5vw + 1rem, 5rem);
-  --text-h1: clamp(2rem, 3vw + 1rem, 3.5rem);
-  --text-h2: clamp(1.5rem, 1.5vw + 1rem, 2.25rem);
-  --text-h3: clamp(1.25rem, 0.75vw + 1rem, 1.5rem);
+  --text-display: clamp(2.75rem, 5.2vw + 1rem, 5.5rem);
+  --text-h1: clamp(2.25rem, 3.4vw + 1rem, 3.75rem);
+  --text-h2: clamp(1.625rem, 1.8vw + 1rem, 2.5rem);
+  --text-h3: clamp(1.25rem, 0.85vw + 1rem, 1.625rem);
   --text-body: 1rem;
   --text-caption: 0.875rem;
   --text-overline: 0.75rem;
 
+  /* Letter-Spacing für Display-Schrift */
+  --tracking-display: -0.022em;
+  --tracking-heading: -0.012em;
+
   /* Line-Heights */
-  --leading-tight: 1.05;
-  --leading-snug: 1.2;
+  --leading-tight: 1.04;
+  --leading-snug: 1.18;
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
 
@@ -46,9 +51,28 @@
   --container-prose: 42rem;      /* ~672px für Lesetexte */
   --header-height: 4rem;         /* 64px sticky */
 
-  /* Akzent-Slot — Datenraum-Blau (kühl, technisch, vertrauenserweckend).
-     Tailwind-Utility-Bridge `--color-accent-brand` kommt in globals.css `@theme inline`.
-     Foreground-Variante ist der Textkontrast auf Akzent-Flächen (weiß auf Blau). */
+  /* Akzentfarben.
+     Primärakzent „Datenraum-Blau" — kühl, technisch, vertrauenserweckend.
+     Sekundärakzent „Bühnen-Magenta" — vom Bühnenverein-Logo und den Comic-Sprechblasen. */
   --accent-brand: oklch(0.55 0.16 250);
   --accent-brand-foreground: oklch(0.985 0 0);
+  --accent-secondary: oklch(0.58 0.20 345);
+  --accent-secondary-foreground: oklch(0.985 0 0);
+
+  /* Surface-Schichten — subtile Tonstufen für Cards, Sections, Eyebrows */
+  --surface-base: oklch(1 0 0);
+  --surface-1: oklch(0.987 0.003 250);
+  --surface-2: oklch(0.972 0.005 250);
+  --surface-elevated: oklch(0.995 0.002 250);
+
+  /* Glow- und Visual-Tinten (nur für dekorative Elemente) */
+  --glow-blue: color-mix(in oklch, var(--accent-brand) 22%, transparent);
+  --glow-magenta: color-mix(in oklch, var(--accent-secondary) 18%, transparent);
+  --grid-line: color-mix(in oklch, var(--foreground) 6%, transparent);
+
+  /* Schatten-System (dezent, sehr nah am Schweizer Polish-Standard) */
+  --shadow-xs: 0 1px 2px oklch(0.145 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px oklch(0.145 0 0 / 0.06), 0 1px 2px oklch(0.145 0 0 / 0.04);
+  --shadow-md: 0 4px 12px oklch(0.145 0 0 / 0.08), 0 2px 4px oklch(0.145 0 0 / 0.04);
+  --shadow-lg: 0 12px 32px oklch(0.145 0 0 / 0.10), 0 4px 8px oklch(0.145 0 0 / 0.04);
 }

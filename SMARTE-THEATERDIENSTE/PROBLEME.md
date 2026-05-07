@@ -24,12 +24,17 @@
 - **Newsletter-Signup:** Im Miro nicht erwähnt — User-Wunsch? Falls ja, später.
 - **Kontaktformular Empfänger-Adresse:** Aktuell Placeholder in `.env.example`. Echte Adresse vom User.
 - **Echte Inhalte vom User benötigt:**
-  - Portraits Sophie Moriarty für `public/team/{sina-schmidt,peter-retzlaff,claudia-groenniger,madeleine-scheuerpflug}.jpg` (Fallback aktuell: Initialen)
-  - Partner-Logos als SVG für `public/logos/{buehnenverein,akademie,fraunhofer,acatech,nfdi4culture,bkm}.svg` (Footer zeigt aktuell nur Text)
-  - Hero-Visual für Landing (optional, sonst bleibt textbasiert)
+  - Portraits Sophie Moriarty für `public/team/{sina-schmidt,peter-retzlaff,claudia-groenniger,madeleine-scheuerpflug}.jpg` (Fallback aktuell: Initialen mit Surface-Gradient-Hintergrund)
+  - Blog-Cover-Bilder für `public/blog/{kickoff-datenraum-kultur,erste-pilotpartner-gewonnen,wip-konnektor-roadmap}.jpg` und `cover_image_url`-Pflege in Supabase
+  - Partner-Logos in SVG (aktuell PNG aus alter Website unter `public/logos/`, funktioniert produktiv, SVG wäre cleaner für Retina/Print)
   - Echte Impressum-/Datenschutz-Texte vom Bühnenverein-Auftraggeber (aktuell sichtbarer TODO-Marker)
   - E-Mails der Ansprechpersonen verifizieren (aktuell vermutet `vorname.nachname@buehnenverein.de`)
   → Konkrete Lieferliste + Dashboard-Schritte stehen in `GO_LIVE_CHECKLIST.md`.
+
+  **Erledigt in Session 17 (2026-05-07):**
+  - Hero-Visual: Theater-Parade-Foto unter `public/hero/theater-parade.jpg`.
+  - ComicStrip-Bilder: 3 Schwarzweiß-Telefon-Szenen unter `public/comic-strip/frame-{1-zeit,2-bescheid,3-verbindungen}.jpg`.
+  - Footer-Partner-Logos (PNG): Bühnenverein, Akademie, Fraunhofer, acatech, NFDI4Culture, BKM, Hamburg unter `public/logos/`.
 
 ## 🟢 Wissenswert (keine Bugs, aber Aufmerksamkeit nötig)
 
@@ -43,6 +48,8 @@
 
 | Datum | Problem | Lösung |
 |---|---|---|
+| 2026-05-07 | Hero-Visual, ComicStrip-Frames und Partner-Logos waren noch Platzhalter (Text-Frames, Initialen-Bubbles, Text-Logos im Footer). | User lieferte Comic-Strip-Frames (3 Schwarzweiß-Telefon-Szenen), Theater-Parade-Foto und 7 Partner-Logos aus alter Website. Assets nach `public/comic-strip/`, `public/hero/`, `public/logos/` einsortiert (AVIF→JPG via `sips`). ComicStrip-Schema in `landing.json` umgestellt auf `{image, alt, title, caption}`, ComicStripFrames rendert echte `<Image>`-Komponenten. Hero-Layout neu mit Theater-Parade-Polaroid + Layered Glow-Background. Footer mit `<Image>`-basiertem Logo-Grid. ([[CHANGELOG#2026-05-07 — Session 17 M10 Design-Refresh]]) |
+| 2026-05-07 | Turbopack-Cache liess `/de/beteiligung/anwendungsbeispiele`, `/de/beteiligung/mitwirkung`, `/de/projekt/{technische,semantische}-standards` als 404 zurückkommen, obwohl die Pages fehlerfrei waren — Single-Segment-Routes funktionierten parallel weiter. | `rm -rf .next && pnpm dev` neu gestartet → alle nested Routes wieder 200. Klassisches stale-Turbopack-Cache-Problem nach grösseren File-Strukturveränderungen, kein Code-Bug. |
 | 2026-05-07 | `[locale]/blog/[slug]/page.tsx` setzte `twitter`-Object ohne `card`, dadurch fiel `twitter:card` auf Default `summary` statt auf den Layout-Default `summary_large_image` zurück (Page-`twitter` überschreibt Layout-`twitter` komplett). Bei der Per-Post-OG-Erweiterung deutlich sichtbar geworden. | `card: "summary_large_image"` explizit auch in der Page gesetzt. Verifiziert via curl: `<meta name="twitter:card" content="summary_large_image"/>`. |
 | 2026-05-07 | Vercel-GitHub-Integration war via `vercel git connect` nicht herstellbar. | User hat im Vercel-Dashboard manuell unter `Settings → Git` das Repo `Kaytm93/smarte-theaterdienste-website` verbunden. Push auf `main` triggert ab jetzt automatischen Production-Deploy. |
 | 2026-05-07 | Go-live-Aufgaben waren im Dashboard verteilt: Assets, Vercel-GitHub, Domain/DNS und Rechtstexte waren offen, aber noch nicht als konkrete User-Lieferliste dokumentiert. Zusätzlich verwies der Impressum-Platzhalter noch auf `§ 5 TMG`. | Neue `GO_LIVE_CHECKLIST.md` mit exakten Asset-Pfaden, Bildformaten, Vercel-GitHub-Schritten, Domain-/DNS-Ablauf und Legal-Lieferumfang. `src/content/{de,en}/legal.json` nutzt jetzt `§ 5 DDG` statt `§ 5 TMG`. |

@@ -24,7 +24,9 @@
     "title": "Smart Theatre Services",
     "subtitle": "Machine-readable theatre programmes as part of Germany's digital strategy – letting data flow where culture becomes visible.",
     "ctaPrimary": "Become a beta tester",
-    "ctaSecondary": "How it works"
+    "ctaSecondary": "How it works",
+    "heroImageAlt": "Black-and-white photograph of a theatre troupe in costume, with a young man in top hat and tailcoat in front.",
+    "heroImageCaption": "Stage, data, open interface"
   },
   "footer": {
     "imprint": "Imprint",

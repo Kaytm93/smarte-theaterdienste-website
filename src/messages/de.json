@@ -24,7 +24,9 @@
     "title": "Smarte Theaterdienste",
     "subtitle": "Maschinenlesbare Theaterspielpläne als Teil der Digitalstrategie des Bundes – damit Daten dorthin fließen, wo Kultur sichtbar wird.",
     "ctaPrimary": "Beta-Tester:in werden",
-    "ctaSecondary": "So funktioniert's"
+    "ctaSecondary": "So funktioniert's",
+    "heroImageAlt": "Schwarzweiß-Aufnahme einer Theatergruppe in Kostümen, im Vordergrund ein junger Mann mit Zylinder und Frack.",
+    "heroImageCaption": "Bühne, Daten, offene Schnittstelle"
   },
   "footer": {
     "imprint": "Impressum",

@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M7 / M8 abgeschlossen und production-validiert; Asset-/Go-live-Handoff konkretisiert. Nächster sinnvoller Schritt: User liefert echte Assets, Domain-Entscheidung und finale Rechtstexte.
+> Letzte Aktualisierung: 2026-05-07 | Stand: M5–M9 production-validiert, M10 Design-Refresh lokal komplett (Hero-Visual, ComicStrip mit echten Bildern, Footer-Logos, Card-Polish). Nächster sinnvoller Schritt: Push & Auto-Deploy validieren, restliche User-Assets (Portraits/Blog-Cover), Domain-Entscheidung und finale Rechtstexte.
 
 ---
 
@@ -160,8 +160,21 @@ smarte-theaterdienste-website/
 │   ├── seed.sql                                ← Beispiel-Daten inkl. M7 Blog-Translations
 │   ├── config.toml                            │
 │   └── .gitignore                             │
-├── public/                                     ← Logos, Bilder (Assets folgen vom User)
+├── public/                                     ← Logos, Bilder
 │   ├── maps/germany.svg                        ← Wikimedia public-domain Locator-Map (M5)
+│   ├── hero/theater-parade.jpg                 ← M10: Theater-Parade-Foto (Schwarzweiss, alte Website)
+│   ├── comic-strip/                            ← M10: 3 Schwarzweiss-Telefon-Frames mit lila Sprechblasen
+│   │   ├── frame-1-zeit.jpg
+│   │   ├── frame-2-bescheid.jpg
+│   │   └── frame-3-verbindungen.jpg
+│   ├── logos/                                  ← M10: Echte Partner-Logos (PNG, aus alter Website)
+│   │   ├── buehnenverein.png
+│   │   ├── akademie.png
+│   │   ├── fraunhofer.png
+│   │   ├── acatech.png
+│   │   ├── nfdi4culture.png
+│   │   ├── bkm.png
+│   │   └── hamburg.png
 │   └── team/                                   ← (Portraits folgen, © Sophie Moriarty)
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
 │   └── GO_LIVE_CHECKLIST.md                    ← Asset-/Domain-/Vercel-/Legal-Handoff fuer den User

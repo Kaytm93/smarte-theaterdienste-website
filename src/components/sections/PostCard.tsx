@@ -23,20 +23,20 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
 
   return (
     <FadeInOnScroll className="h-full">
-      <Card className="group h-full overflow-hidden border-border/60 bg-card/50 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-border hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <Card className="group h-full overflow-hidden rounded-2xl border border-border/70 bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow,border-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
         <Link
           href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
           className="flex h-full flex-col"
         >
           {post.coverImageUrl ? (
-            <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+            <div className="relative aspect-[16/9] overflow-hidden bg-foreground/[0.04]">
               <ViewTransition name={`post-cover-${post.slug}`}>
                 <Image
                   src={post.coverImageUrl}
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               </ViewTransition>
             </div>
@@ -50,7 +50,7 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
                 {formattedDate}
               </time>
             ) : null}
-            <h3 className="text-lg font-semibold leading-tight tracking-tight">
+            <h3 className="text-lg font-semibold leading-snug tracking-tight">
               {post.title}
             </h3>
             {post.excerpt ? (
@@ -58,8 +58,11 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
                 {post.excerpt}
               </p>
             ) : null}
-            <span className="mt-auto pt-2 text-sm font-medium text-[var(--accent-brand)]">
-              {readMoreLabel} →
+            <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-[var(--accent-brand)]">
+              {readMoreLabel}
+              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0">
+                →
+              </span>
             </span>
           </CardContent>
         </Link>

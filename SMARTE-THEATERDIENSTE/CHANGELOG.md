@@ -1,5 +1,32 @@
 # 📝 Changelog
 
+## 2026-05-07 — Session 17: M10 Design-Refresh – Tokens, Hero-Visual, ComicStrip mit echten Bildern, Footer-Logos
+
+**Commits / Deploy-Basis:**
+- (folgt mit diesem Push)
+
+**Was passierte:**
+
+- **Asset-Lieferung vom User**: 50er-Jahre-Schwarzweiß-Comic-Frames (Mann am Telefon, lila Sprechblasen „Ja, ich habe Zeit." / „Alle wissen Bescheid." / „Ich hab Verbindungen ohne Ende."), Theater-Parade-Foto und 7 Partner-Logos (Bühnenverein, Akademie, Fraunhofer, acatech, NFDI4Culture, BKM, Hamburg) aus dem alten Smarte-Theaterdienste-Site.
+- **Asset-Pfade:** `public/comic-strip/frame-{1-zeit,2-bescheid,3-verbindungen}.jpg`, `public/hero/theater-parade.jpg` (AVIF→JPG via `sips`), `public/logos/{buehnenverein,akademie,fraunhofer,acatech,nfdi4culture,bkm,hamburg}.png`.
+- **Tokens-Refresh** (`src/styles/tokens.css`): Sekundärakzent „Bühnen-Magenta" `oklch(0.58 0.20 345)` (von Bühnenverein-Logo + Comic-Sprechblasen), Surface-Skala `--surface-{base,1,2,elevated}`, Glow-Tinten `--glow-{blue,magenta}` via `color-mix(in oklch, ...)`, Schatten-System `--shadow-{xs,sm,md,lg}`, Letter-Spacing-Tokens `--tracking-{display,heading}`. Display-Typo skaliert jetzt bis 5.5rem (vorher 5rem), `--space-5xl: 12rem` ergänzt.
+- **Tailwind-Bridge** (`globals.css`): `--color-accent-secondary*` und `--color-surface-{1,2,elevated}` an `@theme inline` gebunden. Neue Utility-Klassen `.bg-grid-pattern` (radial-mask Grid 64×64 px) und `.bg-noise` (data-uri SVG turbulence) für dekorative Hintergründe.
+- **Hero komplett neu** (`src/app/[locale]/page.tsx`): Layered Background mit Surface-Wash + Grid-Pattern + zwei Glow-Blobs (Datenraum-Blau rechts oben, Magenta links unten, beide `blur-3xl`). Zwei-Spalten-Layout (Text links / Theater-Parade-Polaroid rechts) auf `lg`, gestackt auf Mobile. Polaroid hat dezenten Magenta/Blau-Gradient-Glow im Hintergrund, Caption-Footer mit „Use Case 03". Bullet-Kicker, größere Display-Typo mit `--tracking-display`. Ghost-Variant für „So funktioniert's"-CTA mit `→`-Pfeil. Neue Messages `hero.heroImageAlt` / `hero.heroImageCaption` in DE+EN.
+- **ComicStrip mit echten Bildern** (`src/components/sections/ComicStrip{,Frames}.tsx`): 3 statt 4 Frames (passend zu den 3 Telefon-Szenen). `landing.json` umgestellt auf `{image, alt, title, caption}`-Schema. Frames sind jetzt `rounded-2xl` Cards mit echtem `<Image>` (`fill`, optimiert), Frame-Number-Pill (01/02/03) als white-bg Badge im Bild, Title + Caption-Body, sanftes Bild-Zoom (1.04) on Hover. Magenta-Eyebrow mit Bullet, Surface-1-Wash am Section-Top.
+- **PageHero/TextSection-Refresh**: PageHero bekommt dasselbe Layered-Background-Pattern wie der Landing-Hero (Surface-Wash + Glow-Blob), Bullet-Kicker. TextSection nutzt Sticky-Sidebar-Heading (`lg:sticky lg:top-[calc(var(--header-height)+2rem)]`), klarere Hierarchie zwischen Eyebrow, Heading und Body.
+- **Cards einheitlich** (`PostCard`/`EventCard`/`UseCaseCard`/`StepCard`/`ContactCard`): `rounded-2xl`, `bg-[var(--surface-elevated)]`, `border-border/70`, `shadow-[var(--shadow-xs)]`, einheitliche Hover-Lift (`-translate-y-0.5` + `hover:shadow-[var(--shadow-md)]` + `hover:border-foreground/20`), `motion-reduce:`-Modifier konsequent. Pro Card-Type:
+  - **PostCard**: Cover-Image mit `1.04`-Zoom auf Hover, Lese-Mehr-Pfeil mit `translate-x-0.5`-Animation.
+  - **EventCard**: neuer Date-Badge (Day + Month-Short als kleines, eingerahmtes Quadrat in Akzent-Tint).
+  - **UseCaseCard**: Icon-Container mit Glow-Halo (subtle blur-md hinter dem `rounded-2xl`-Icon-Bg), `ring-1 ring-[var(--accent-brand)]/15`.
+  - **StepCard**: ersetzt runde Step-Number-Badge durch Mono-Label „Step 01" — minimalistischer und besser zur Schnittstellen-Sprache passend.
+  - **ContactCard**: `Phone`/`Mail`-Icons aus `lucide-react`, Magenta-Quote-Border (`border-l-2 border-[var(--accent-secondary)]/60`), Surface-Gradient-Fallback statt grauer Box für fehlende Portraits.
+- **Footer mit echten Logos** (`src/components/layout/Footer.tsx`): Text-Fallback durch echte `<Image>`-Komponenten ersetzt (6 Logos im Grid, `object-contain`, `opacity-70 hover:opacity-100`-Schema). Surface-1-Background, dezenter Top-Gradient als visuelle Trennung. Bullet-Eyebrow „Gefördert von".
+- **Header polish** (`src/components/layout/Header.tsx`): ST-Initial-Badge im Logo (`rounded-md` Akzent-Bg mit Mono-Schrift), `backdrop-blur-md` (statt `backdrop-blur`).
+- **ComingSoonHero** (`src/components/sections/ComingSoonHero.tsx`): dasselbe Layered-Background-Pattern wie PageHero/Landing-Hero, Bullet-Kicker. Konsistente Visual-Sprache projektweit.
+- **Verifikation:** `pnpm typecheck` clean, `pnpm lint` clean, `pnpm build` clean (37/37 Pages SSG/ISR). Preview-MCP grün auf `/de` (Hero mit Theater-Parade, ComicStrip mit 3 echten Bildern + lila Sprechblasen, Pitch-Section), `/de/beteiligung/anwendungsbeispiele` (3 UseCaseCards), `/de/beteiligung/mitwirkung` (StepCards 01/02 mit Mono-Labels), `/en` (alle EN-Strings rendern, „CULTURAL DATA SPACE · USE CASE 3"-Kicker). Mobile (375×812): kein Horizontal-Overflow, Stacked-Layout sauber, Glow-Blobs sichtbar. Console 0 Errors / 0 Warnings. Cache-Reset (`rm -rf .next`) war nötig zwischendrin, weil Turbopack vom Vortag stale-Cache hatte und nested-Routes als 404 zurückgab.
+
+**Status am Ende:** Design-Refresh komplett — die Site hat jetzt eine modern-cleane, kulturaffine Visual-Sprache mit echten Bildern statt Platzhaltern: Theater-Parade als Hero-Visual, 3 Schwarzweiß-Telefon-Frames als ComicStrip-Story, 6 Partner-Logos im Footer. Tokens-System ist erweitert und konsistent. Mobile responsive ohne Overflow. Restposten aus [[GO_LIVE_CHECKLIST]] bleiben: Portraits Sophie Moriarty, Blog-Cover-Bilder, Custom-Domain-DNS, finale Impressum-/Datenschutz-Texte.
+
 ## 2026-05-07 — Session 16: M9 PWA-Manifest, Per-Post-OG, Lighthouse-CI
 
 **Commits / Deploy-Basis:**
