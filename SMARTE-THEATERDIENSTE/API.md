@@ -94,6 +94,7 @@ Quelle: `src/lib/supabase/queries.ts`. Alle Funktionen sind async, akzeptieren `
 | `listPublishedPosts(locale)` | posts + post_translations | `status='published'`, sortiert nach `published_at desc` |
 | `getPostBySlug(slug, locale)` | posts + post_translations | `status='published'`, `slug=…` (single) |
 | `listAllPostSlugs()` | posts | `status='published'`, gibt nur `slug[]` (für `generateStaticParams`) |
+| `listPublishedPostSitemapEntries()` | posts | `status='published'`, gibt `slug` + `published_at` für `/sitemap.xml`-`lastmod` |
 | `listUpcomingEvents(locale)` | events + event_translations | `status='upcoming'`, sortiert aufsteigend |
 | `listPastEvents(locale)` | events + event_translations | `status='past'`, sortiert absteigend |
 | `listPublishedFaqs(locale)` | faqs + faq_translations | `is_published=true`, sortiert nach `position asc` |
@@ -126,7 +127,7 @@ Endpunkt: `src/app/api/revalidate/route.ts`. Methode: `POST`.
 
 | Tabelle | revalidatePath-Aufruf |
 |---|---|
-| `posts`, `post_translations` | `/[locale]/blog` (page) + `/[locale]/blog/[slug]` (page) |
+| `posts`, `post_translations` | `/[locale]/blog` (page) + `/[locale]/blog/[slug]` (page) + `/sitemap.xml` |
 | `events`, `event_translations` | `/[locale]/termine` (page) |
 | `faqs`, `faq_translations` | `/[locale]/faq` (page) |
 

@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M7 / M8 abgeschlossen und production-validiert. Nächster sinnvoller Schritt: echte Assets/Cover-Bilder.
+> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M7 / M8 abgeschlossen und production-validiert; M8-Sitemap-Lastmod-Polish lokal validiert. Nächster sinnvoller Schritt: echte Assets/Cover-Bilder.
 
 ---
 
@@ -90,7 +90,7 @@ smarte-theaterdienste-website/
 │   └── ci.yml                                  ← M8: lint + typecheck + build auf push/PR (pnpm 10, Node 20)
 ├── src/
 │   ├── app/
-│   │   ├── sitemap.ts                          ← M8: STATIC_HREFS × Locales + xhtml:link-Alternates + Blog-Slugs (graceful)
+│   │   ├── sitemap.ts                          ← M8: STATIC_HREFS × Locales + xhtml:link-Alternates + Blog-Slugs (graceful); Session 14: stabile lastModified-Werte, Blog aus `published_at`
 │   │   ├── robots.ts                           ← M8: Allow / · Disallow /api/ · Sitemap-Pointer
 │   │   └── icon.tsx                            ← M8: 32×32 ImageResponse mit „ST"-Initial
 │   ├── app/[locale]/
@@ -110,7 +110,7 @@ smarte-theaterdienste-website/
 │   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams
 │   │   ├── faq/page.tsx                        ← Accordion (Supabase) mit ComingSoonHero-Fallback
 │   │   └── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase) mit ComingSoonHero-Fallback
-│   ├── app/api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath
+│   ├── app/api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath; Post-Änderungen invalidieren auch `/sitemap.xml`
 │   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge
 │   ├── components/
 │   │   ├── ui/                                 ← shadcn (radix-nova) Primitives
@@ -128,7 +128,7 @@ smarte-theaterdienste-website/
 │   │   ├── i18n/{routing,request,navigation}.ts
 │   │   ├── content/loader.ts                   ← `loadContent(key, locale)` — typisierte JSON-Bundle-Registry
 │   │   ├── seo/                                ← M8: site.ts (`getSiteUrl()`), alternates.ts (`buildAlternates`, `pageMetadata`)
-│   │   ├── supabase/                           ← env.ts, server.ts (cookie-Server + getSupabaseAnon), client.ts, queries.ts
+│   │   ├── supabase/                           ← env.ts, server.ts (cookie-Server + getSupabaseAnon), client.ts, queries.ts (`listPublishedPostSitemapEntries` fuer Sitemap)
 │   │   ├── gsap/registerScrollTrigger.ts
 │   │   └── utils.ts                            ← cn(), shadcn helper
 │   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.* (M7: EN reviewt + strukturgleich)
@@ -213,4 +213,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **echte Asset-/Cover-Lieferung** (Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits, Partner-Logos), **M8 Erweiterungen** (Per-Post-OG, `lastModified` in Sitemap, Lighthouse-CI), **Custom Domain**. M5 + M6 + M7 + M8 sind production-validiert. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
+Aktuell offen: **echte Asset-/Cover-Lieferung** (Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits, Partner-Logos), **M8 Erweiterungen** (Per-Post-OG, Lighthouse-CI, Manifest/PWA sobald Assets stehen), **Custom Domain**. M5 + M6 + M7 + M8 sind production-validiert. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.

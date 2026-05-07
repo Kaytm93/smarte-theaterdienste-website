@@ -22,6 +22,11 @@ export type PostDetail = PostListItem & {
   bodyMd: string;
 };
 
+export type PostSitemapEntry = {
+  slug: string;
+  publishedAt: string | null;
+};
+
 export type EventListItem = {
   slug: string;
   title: string;
@@ -129,6 +134,23 @@ export async function listAllPostSlugs(): Promise<string[]> {
 
   if (error || !data) return [];
   return data.map((row) => row.slug);
+}
+
+export async function listPublishedPostSitemapEntries(): Promise<PostSitemapEntry[]> {
+  const supabase = getSupabaseAnon();
+  const { data, error } = await supabase
+    .from("posts")
+    .select("slug, published_at")
+    .eq("status", "published")
+    .order("published_at", { ascending: false })
+    .returns<Array<{ slug: string; published_at: string | null }>>();
+
+  if (error || !data) return [];
+
+  return data.map((row) => ({
+    slug: row.slug,
+    publishedAt: row.published_at,
+  }));
 }
 
 // ----------------------------------------------------------------------------

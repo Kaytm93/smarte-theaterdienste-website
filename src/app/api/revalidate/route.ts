@@ -16,19 +16,26 @@ type SupabaseWebhookPayload = {
   old_record?: Record<string, unknown> | null;
 };
 
-const TABLE_TO_PATHS: Record<string, Array<[string, "page" | "layout"]>> = {
+type RevalidateTarget = {
+  path: string;
+  type?: "page" | "layout";
+};
+
+const TABLE_TO_PATHS: Record<string, RevalidateTarget[]> = {
   posts: [
-    ["/[locale]/blog", "page"],
-    ["/[locale]/blog/[slug]", "page"],
+    { path: "/[locale]/blog", type: "page" },
+    { path: "/[locale]/blog/[slug]", type: "page" },
+    { path: "/sitemap.xml" },
   ],
   post_translations: [
-    ["/[locale]/blog", "page"],
-    ["/[locale]/blog/[slug]", "page"],
+    { path: "/[locale]/blog", type: "page" },
+    { path: "/[locale]/blog/[slug]", type: "page" },
+    { path: "/sitemap.xml" },
   ],
-  events: [["/[locale]/termine", "page"]],
-  event_translations: [["/[locale]/termine", "page"]],
-  faqs: [["/[locale]/faq", "page"]],
-  faq_translations: [["/[locale]/faq", "page"]],
+  events: [{ path: "/[locale]/termine", type: "page" }],
+  event_translations: [{ path: "/[locale]/termine", type: "page" }],
+  faqs: [{ path: "/[locale]/faq", type: "page" }],
+  faq_translations: [{ path: "/[locale]/faq", type: "page" }],
 };
 
 export async function POST(request: NextRequest) {
@@ -65,9 +72,11 @@ export async function POST(request: NextRequest) {
 
   const revalidated: string[] = [];
   for (const table of tables) {
-    for (const [path, type] of TABLE_TO_PATHS[table] ?? []) {
-      revalidatePath(path, type);
-      revalidated.push(`${path}:${type}`);
+    for (const target of TABLE_TO_PATHS[table] ?? []) {
+      revalidatePath(target.path, target.type);
+      revalidated.push(
+        target.type ? `${target.path}:${target.type}` : target.path,
+      );
     }
   }
 

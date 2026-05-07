@@ -1,5 +1,21 @@
 # 📝 Changelog
 
+## 2026-05-07 — Session 14: M8 Sitemap-Lastmod-Polish
+
+**Commits / Deploy-Basis:**
+- `PENDING` M8: Sitemap-Lastmod und Sitemap-Revalidate
+
+**Was passierte:**
+
+- **Vault- und Pattern-Check:** `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE`, `API` gelesen. Zusätzlich relevante Next.js-16-Dokumentation aus `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/01-metadata/sitemap.md`, `01-app/03-api-reference/04-functions/revalidatePath.md` und `01-app/02-guides/how-revalidation-works.md` geprüft.
+- **Scope-Entscheidung:** Der Dashboard-Default bleibt echte Assets/Cover-Bilder. Da im Repo aktuell keine gelieferten Assets vorhanden sind (`public/` enthält nur Standard-SVGs + `maps/germany.svg`), wurde der kleinste unblockierte technische Restposten aus den optionalen M8-Erweiterungen umgesetzt.
+- **Sitemap-Lastmod:** `src/app/sitemap.ts` nutzt nicht mehr pauschal `new Date()`. Statische Seiten bekommen ein stabiles `STATIC_CONTENT_LAST_MODIFIED`, Blog-Liste und Blog-Detail-URLs bekommen echte `published_at`-Werte aus Supabase. Blog-Detail-URLs werden über `getPathname()` erzeugt, damit die i18n-Routing-Schicht Quelle der Wahrheit bleibt.
+- **Supabase-Query:** `src/lib/supabase/queries.ts` ergänzt `PostSitemapEntry` und `listPublishedPostSitemapEntries()` (`slug`, `published_at`, `status='published'`, sortiert absteigend).
+- **Revalidate:** `src/app/api/revalidate/route.ts` nutzt strukturierte Revalidate-Targets statt Tupeln und invalidiert bei `posts` / `post_translations` zusätzlich `/sitemap.xml`. Ein gültiger Revalidate-Smoke für `posts` liefert jetzt `["/[locale]/blog:page","/[locale]/blog/[slug]:page","/sitemap.xml"]`.
+- **Verifikation lokal:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean. `pnpm start --port 3030` + `/usr/bin/curl /sitemap.xml` zeigt Blog-`lastmod` aus Supabase: `erste-pilotpartner-gewonnen` → `2026-04-02T09:00:00+00:00`, `kickoff-datenraum-kultur` → `2026-03-15T10:00:00+00:00`; `/de/blog` HTTP 200; falsches Revalidate-Secret bleibt HTTP 401.
+
+**Status am Ende:** Sitemap-Lastmod-Polish lokal abgeschlossen. Nächster sinnvoller Schritt bleibt Asset-Lieferung/-Einbau: Hero-Visual, Blog-Cover-Bilder, Portraits und Partner-Logos.
+
 ## 2026-05-07 — Session 13: M7 EN-Quality-Review
 
 **Commits / Deploy-Basis:**
