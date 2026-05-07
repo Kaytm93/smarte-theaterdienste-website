@@ -14,6 +14,7 @@
 - **`@axe-core/cli` und `pa11y` brauchen Puppeteer-/ChromeDriver-Postinstall**, das pnpm standardmäßig blockiert. Workaround: `PUPPETEER_EXECUTABLE_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" CHROME_PATH="..." pnpm dlx pa11y@latest <URL> --runner axe`. Wenn axe-Audits regelmäßig laufen sollen, in `package.json` unter `pnpm.onlyBuiltDependencies` zusätzlich `chromedriver` und/oder `puppeteer` whitelisten.
 - **`curl` nicht im Shell-PATH der MCP-Bash-Sessions** (existiert aber unter `/usr/bin/curl`). Im Shell-Skript explizit den vollen Pfad nehmen oder am Anfang `CURL=/usr/bin/curl`.
 - **Lighthouse 12.x verlangt Node ≥ 22.19**, lokal läuft 20.19.4. Lighthouse warnt aber, nicht failed — Audits laufen erfolgreich durch.
+- **Production-Blog-ISR-Cache nach Session 19:** Nach Push auf `main` waren Production-Routen 200 und die neue Navigation sichtbar, aber `/de/blog` wurde weiter als `x-vercel-cache: HIT` ohne `PostCoverVisual`-Fallback ausgeliefert. `POST /api/revalidate` mit `{ "table": "posts" }` lieferte `revalidated: true`, der HTML-Cache zeigte direkt danach trotzdem noch keinen `ORIF`-/`Use Case 03`-Fallback. Naechste Session: Vercel-Deploy/ISR-Cache erneut prüfen, ggf. redeployen oder konkrete Locale-Pfade zusätzlich invalidieren.
 
 ## 🟡 Offene Fragen / Entscheidungen
 
