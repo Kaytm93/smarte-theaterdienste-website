@@ -3,7 +3,7 @@
 ## 2026-05-08 — Session 19: M12 Website-QA und UX-Polish
 
 **Commits / Deploy-Basis:**
-- `TBD` M12: Website-QA und UX-Polish
+- `e927a90` M12: Website-QA und UX-Polish
 
 **Was passierte:**
 
