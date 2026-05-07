@@ -3,7 +3,7 @@
 ## 2026-05-07 — Session 13: M7 EN-Quality-Review
 
 **Commits / Deploy-Basis:**
-- `PENDING_M7_COMMIT` M7: EN-Quality-Review und Blog-Translations
+- `84b743b` M7: EN-Quality-Review und Blog-Translations
 
 **Was passierte:**
 
