@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M7 / M8 abgeschlossen und production-validiert; M8-Sitemap-Lastmod-Polish production-live. Nächster sinnvoller Schritt: echte Assets/Cover-Bilder.
+> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M7 / M8 abgeschlossen und production-validiert; Asset-/Go-live-Handoff konkretisiert. Nächster sinnvoller Schritt: User liefert echte Assets, Domain-Entscheidung und finale Rechtstexte.
 
 ---
 
@@ -104,7 +104,7 @@ smarte-theaterdienste-website/
 │   │   ├── beteiligung/page.tsx                ← PageHero + 2 TextSections + 3 CTA-Links
 │   │   ├── beteiligung/anwendungsbeispiele/page.tsx ← 3 UseCaseCards
 │   │   ├── beteiligung/mitwirkung/page.tsx     ← 2 StepCards + <PartnerMap> (M5), revalidate=60
-│   │   ├── impressum/page.tsx                  ← TODO-Platzhalter
+│   │   ├── impressum/page.tsx                  ← TODO-Platzhalter (Legal-Referenz auf § 5 DDG aktualisiert)
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter
 │   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
 │   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams
@@ -142,7 +142,7 @@ smarte-theaterdienste-website/
 │   │   ├── beteiligung.json                     ←   Pitch + 3 Links
 │   │   ├── beteiligung-anwendungsbeispiele.json ←   3 Use Cases
 │   │   ├── beteiligung-mitwirkung.json          ←   2 Schritte + Map-Platzhalter
-│   │   ├── legal.json                           ←   imprint/privacy mit todo-Flag
+│   │   ├── legal.json                           ←   imprint/privacy mit todo-Flag; Impressum-Hinweis nutzt § 5 DDG
 │   │   └── landing.json                         ←   Comic-Strip-Frames + Pitch
 │   ├── styles/tokens.css                       ← Spacing/Typo/Easings/Container; --accent-brand: Datenraum-Blau
 │   ├── types/                                  ← Generated Supabase types ab M4
@@ -159,6 +159,7 @@ smarte-theaterdienste-website/
 │   ├── maps/germany.svg                        ← Wikimedia public-domain Locator-Map (M5)
 │   └── team/                                   ← (Portraits folgen, © Sophie Moriarty)
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
+│   └── GO_LIVE_CHECKLIST.md                    ← Asset-/Domain-/Vercel-/Legal-Handoff fuer den User
 │
 ├── next.config.ts                              ← withNextIntl + remotePatterns + experimental.viewTransition (M6)
 ├── components.json                             ← shadcn config (radix-nova, neutral baseColor, css-vars)
@@ -213,4 +214,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **echte Asset-/Cover-Lieferung** (Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits, Partner-Logos), **M8 Erweiterungen** (Per-Post-OG, Lighthouse-CI, Manifest/PWA sobald Assets stehen), **Custom Domain**. M5 + M6 + M7 + M8 sind production-validiert. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
+Aktuell offen: **echte Asset-/Cover-Lieferung** (Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits, Partner-Logos), **Custom Domain**, **Vercel-GitHub-Integration** und **finale Impressum-/Datenschutztexte**. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.

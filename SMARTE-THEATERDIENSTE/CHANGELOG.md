@@ -1,5 +1,21 @@
 # 📝 Changelog
 
+## 2026-05-07 — Session 15: Asset-/Go-live-Handoff
+
+**Commits / Deploy-Basis:**
+- Wird nach Commit ergaenzt
+
+**Was passierte:**
+
+- **Vault- und Projektcheck:** `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE`, `CHANGELOG` und `ENTSCHEIDUNGEN` gelesen. Zusaetzlich Projektstruktur, `public/`, Team-/Legal-Content, Blog-Cover-Pfade, Footer-Logo-Fallback, Supabase-Seed und `next.config.ts` geprueft.
+- **Aktuelle externe Quellen verifiziert:** Vercel-Dokumentation zu GitHub-Integration, fehlenden GitHub-Repos, Custom Domains/DNS und Environment Variables geprueft; fuer Legal-Hinweise `§ 5 DDG` und Art. 13 DSGVO gegen aktuelle Quellen abgeglichen.
+- **Go-live-Handoff:** Neue `GO_LIVE_CHECKLIST.md` im Vault angelegt. Sie dokumentiert konkrete Lieferpfade und Anforderungen fuer Hero-Visual, Blog-Cover-Bilder, Team-Portraits und Partner-Logos; ausserdem Schritte fuer Vercel-GitHub-Integration, Custom Domain/DNS, `NEXT_PUBLIC_SITE_URL`-Folgearbeiten, Supabase-`cover_image_url`-Pflege und finale Impressum-/Datenschutztexte.
+- **Legal-Platzhalter aktualisiert:** `src/content/de/legal.json` und `src/content/en/legal.json` verweisen im Impressum-Hinweis jetzt auf `§ 5 DDG` statt `§ 5 TMG`. Die Seiten bleiben bewusst TODO-Platzhalter, bis der Auftraggeber finale Texte liefert.
+- **Vault aktualisiert:** `START_HIER.md` verlinkt die neue Checkliste; `KONTEXT.md`, `DASHBOARD.md` und `PROBLEME.md` dokumentieren den neuen Handoff-Stand.
+- **Verifikation:** JSON-Parse, `pnpm typecheck`, `pnpm lint`, `pnpm build`.
+
+**Status am Ende:** Technischer Produktionsstand bleibt unveraendert live. Naechster echter Umsetzungsschritt ist blockiert durch User-Lieferungen: Assets, Vercel-GitHub-Freigabe, Domain-Entscheidung/DNS und finale Rechtstexte.
+
 ## 2026-05-07 — Session 14: M8 Sitemap-Lastmod-Polish
 
 **Commits / Deploy-Basis:**

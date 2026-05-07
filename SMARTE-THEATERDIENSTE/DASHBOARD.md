@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-05-07 (Session 14)
+> Letzte Aktualisierung: 2026-05-07 (Session 15)
 
 ## Status
 
@@ -18,13 +18,15 @@
 | Supabase-Revalidate | ✅ live via `pg_net`-Trigger auf 6 Tabellen → `/api/revalidate` |
 | GitHub Actions CI | ✅ lint + typecheck + build auf push/PR |
 | Vercel-GitHub-Integration | ⏳ User-Action: GitHub-App/Rechte im Vercel-Dashboard verbinden |
+| Go-live-Handoff | ✅ konkrete Checkliste erstellt: [[GO_LIVE_CHECKLIST]] |
 
 ## Was gerade läuft
 
-**Nichts** — Session 14 (M8 Sitemap-Lastmod-Polish) beendet und production-live. `/sitemap.xml` nutzt fuer statische Seiten ein stabiles Content-Datum und fuer Blog-Liste/-Details echte `published_at`-Werte aus Supabase; Post-Revalidate invalidiert jetzt auch `/sitemap.xml`. Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`, Alias `https://smarte-theaterdienste-website.vercel.app`.
+**User-Handoff offen** — die Website ist technisch production-validiert. Codex hat die konkrete Asset-/Go-live-Checkliste angelegt und den Legal-Platzhalter von `§ 5 TMG` auf `§ 5 DDG` aktualisiert. Naechster unblockierter Schritt: Kay liefert Assets, Domain-Entscheidung, Vercel-GitHub-Freigabe und finale Rechtstexte gemaess [[GO_LIVE_CHECKLIST]].
 
 ## Letzte Aktivität
 
+- **2026-05-07** — Session 15 Asset-/Go-live-Handoff: Vault gelesen, Projektstruktur/Platzhalter geprueft und aktuelle Vercel-/Domain-/Legal-Quellen verifiziert. Neue Datei `GO_LIVE_CHECKLIST.md` beschreibt exakt benoetigte Asset-Dateinamen, Bildmasse, Supabase-`cover_image_url`-Pflege, Vercel-GitHub-Verbindung, Custom-Domain-DNS, `NEXT_PUBLIC_SITE_URL`-Folgeschritte sowie Impressum-/Datenschutz-Lieferumfang. Legal-Platzhalter in `src/content/{de,en}/legal.json` von `§ 5 TMG` auf `§ 5 DDG` aktualisiert. Verifikation: JSON-Parse, `pnpm typecheck`, `pnpm lint`, `pnpm build`.
 - **2026-05-07** — Session 14 M8 Sitemap-Lastmod-Polish: Vault + Next.js-16-Sitemap-/Revalidate-Doku gelesen. Da echte Assets noch fehlen, kleinsten unblockierten M8-Restposten umgesetzt: neuer Query-Helper `listPublishedPostSitemapEntries()` liefert `slug` + `published_at`, `src/app/sitemap.ts` ersetzt pauschales `new Date()` durch `STATIC_CONTENT_LAST_MODIFIED` fuer statische Seiten und `published_at` fuer Blog-Liste/-Details, Blog-Detail-URLs werden ueber `getPathname()` statt Stringbau erzeugt. `/api/revalidate` nutzt strukturierte Targets und invalidiert bei `posts` / `post_translations` jetzt zusaetzlich `/sitemap.xml`. Commit `37d80ca`; Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean; `next start --port 3030` + `/usr/bin/curl /sitemap.xml` zeigt Blog-`lastmod` aus Supabase (`2026-04-02T09:00:00+00:00`, `2026-03-15T10:00:00+00:00`); Production-Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`; Production-Smoke: `/sitemap.xml` zeigt dieselben Blog-`lastmod`-Werte, `/de/blog` und `/en/blog/erste-pilotpartner-gewonnen` HTTP 200, Revalidate-Smoke mit gueltigem Secret fuer `posts` liefert `["/[locale]/blog:page","/[locale]/blog/[slug]:page","/sitemap.xml"]`.
 - **2026-05-07** — Session 13 M7 EN-Quality-Review: Vault gelesen, Next.js-16-i18n/Data-Docs geprüft, EN-Key-Sync per Node validiert (`messages` und alle `src/content/{de,en}/*.json` strukturgleich). Punktuelle Copy-Korrekturen in `src/messages/en.json` und acht `src/content/en/*.json` (Contact, Participation, Use Cases, Standards, Landing, Team). Live-Supabase-Check zeigte zusätzlich zum im Dashboard bekannten Draft-Post auch fehlende EN-Translation für den veröffentlichten Post `erste-pilotpartner-gewonnen`; neue Migration `20260507120000_m7_english_post_translations.sql` ergänzt/aktualisiert `kickoff-datenraum-kultur` EN, `erste-pilotpartner-gewonnen` EN und Draft `wip-konnektor-roadmap` DE/EN. `supabase db push --yes` gegen Cloud erfolgreich; Kontrollquery: alle drei Posts `{de,en}`. `supabase/seed.sql` synchronisiert denselben Content für lokale Resets. Verifikation: JSON-Parse OK, `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (36/36 Pages, `/en/blog/erste-pilotpartner-gewonnen` generiert). Production-Deploy per `pnpm dlx vercel@latest deploy --prod --yes`: `dpl_Cqvw9ssuYNY1eiFjSfwMMifE4ibe`, Alias aktualisiert. Production-Smoke: `/en/contact-persons`, `/en/participation/contribute`, `/en/blog`, `/en/blog/erste-pilotpartner-gewonnen` jeweils HTTP 200 und enthalten die neuen EN-Texte.
 - **2026-05-07** — Session 12 M6 Production-Validation: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean. `pnpm dlx vercel@latest deploy --prod --yes` erfolgreich: Deploy `dpl_5fe7wA8PULdKp8UT8JodihG5YXv2`, Production-URL `https://smarte-theaterdienste-website-ikpqd33d9-kaytm93s-projects.vercel.app`, Alias `https://smarte-theaterdienste-website.vercel.app`. Remote-Build clean, 36/36 statische Pages generiert, `experimental.viewTransition` aktiv. Production-Smoke über `/usr/bin/curl`: 13 Routen/Assets alle 200. Playwright-Check: `/de` Hero + 4 Comic-Frames, Stagger nach Scroll vollständig (`opacity:1`, identity transform), Mobile 375×812 ohne Horizontal-Overflow, `/de/blog → /de/blog/erste-pilotpartner-gewonnen` Soft-Navigation funktioniert, Console 0 Errors/Warnings. Einschränkung: ViewTransition-Morphs visuell weiterhin nicht prüfbar, weil Live-Daten `cover_image_url=null` haben.
@@ -44,7 +46,7 @@
 
 ## 📋 Was Claude beim nächsten Mal tun soll
 
-**Default-Nächster-Schritt: Asset-/Cover-Image-Pfad.** M5, M6, M7 und M8 sind production-validiert. Der kleinste sinnvolle Fortschritt ist jetzt echte Assets einzupflegen: Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits und Partner-Logos. Alternativ können die optionalen M8-Erweiterungen oder Custom Domain / Vercel-GitHub-Integration folgen.
+**Default-Nächster-Schritt: User liefert Go-live-Material gemaess [[GO_LIVE_CHECKLIST]].** M5, M6, M7 und M8 sind production-validiert. Der kleinste sinnvolle Fortschritt ist jetzt echte Assets einzupflegen: Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits und Partner-Logos. Parallel kann Kay im Vercel-Dashboard die GitHub-Integration verbinden und die Custom Domain entscheiden/DNS setzen.
 
 **Pfade nach Wahl:**
 1. **Hero-Visual + Cover-Images von User einsammeln/einpflegen** — sobald geliefert, Hero-Blob durch `<ParallaxImage>` ersetzen, Posts in Supabase mit `cover_image_url` befüllen (dann werden ViewTransition-Morphs sichtbar).

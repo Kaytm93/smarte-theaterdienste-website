@@ -15,6 +15,7 @@
 | [[CHANGELOG]]        | 👥 Beide  | Was wurde wann gemacht                                    |
 | [[INHALTE]]          | 👥 Beide  | Vollständige Inhalts­struktur aus dem Miro-Board          |
 | [[API]]              | 🤖 Claude | Supabase-Schema, Server Actions, Endpoints (ab M4)        |
+| [[GO_LIVE_CHECKLIST]] | 👤 Nutzer | Assets, Vercel-Git, Domain/DNS, Rechtstexte               |
 
 ## Schnellzugriff
 - [[PROBLEME#🔴 Offen|🔴 Offene Bugs]]
@@ -22,6 +23,7 @@
 - [[ROADMAP|💡 Milestones M1–M8]]
 - [[INHALTE|📄 Inhalte & Tonality]]
 - [[KONTEXT#Wichtigste Dateipfade|📁 Dateipfade]]
+- [[GO_LIVE_CHECKLIST|🚀 Go-live-Checkliste]]
 
 ---
 
