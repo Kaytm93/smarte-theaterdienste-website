@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-05-07 (Session 15)
+> Letzte Aktualisierung: 2026-05-07 (Session 16)
 
 ## Status
 
@@ -17,15 +17,19 @@
 | Vercel-Deployment | ✅ live: https://smarte-theaterdienste-website.vercel.app (Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`) — Sitemap-Lastmod production-live |
 | Supabase-Revalidate | ✅ live via `pg_net`-Trigger auf 6 Tabellen → `/api/revalidate` |
 | GitHub Actions CI | ✅ lint + typecheck + build auf push/PR |
-| Vercel-GitHub-Integration | ⏳ User-Action: GitHub-App/Rechte im Vercel-Dashboard verbinden |
+| Vercel-GitHub-Integration | ✅ verbunden (Session 16) — Auto-Deploy bei Push erwartet |
+| PWA-Manifest | ✅ `/manifest.webmanifest` rendert (Session 16) |
+| Per-Post OG-Images | ✅ `/[locale]/blog/[slug]/opengraph-image` rendert (Session 16) |
+| Lighthouse-CI | ✅ Workflow `lighthouse.yml` (manuell + wöchentlich Mo 06:00 UTC) |
 | Go-live-Handoff | ✅ konkrete Checkliste erstellt: [[GO_LIVE_CHECKLIST]] |
 
 ## Was gerade läuft
 
-**User-Handoff offen** — die Website ist technisch production-validiert. Codex hat die konkrete Asset-/Go-live-Checkliste angelegt und den Legal-Platzhalter von `§ 5 TMG` auf `§ 5 DDG` aktualisiert. Naechster unblockierter Schritt: Kay liefert Assets, Domain-Entscheidung, Vercel-GitHub-Freigabe und finale Rechtstexte gemaess [[GO_LIVE_CHECKLIST]].
+**Vercel-GitHub-Integration verbunden, drei M8-Erweiterungen live im Code.** PWA-Manifest, Per-Post-OG-Images für Blog-Details und Lighthouse-CI-Workflow stehen. Push auf `main` triggert ab jetzt automatischen Vercel-Deploy — wird mit diesem Push erstmals validiert. User-Restposten gemäss [[GO_LIVE_CHECKLIST]] bleiben: Assets (Hero/Cover/Portraits/Logos), Custom-Domain-DNS, finale Impressum-/Datenschutztexte.
 
 ## Letzte Aktivität
 
+- **2026-05-07** — Session 16 M9 PWA/Per-Post-OG/Lighthouse-CI: Vercel-GitHub-Integration verbunden (User-Action). Drei optionale M8-Erweiterungen ohne User-Asset-Abhängigkeit umgesetzt: (1) `src/app/manifest.ts` rendert `/manifest.webmanifest` mit `siteName`/`siteDescription` aus `messages/de.json` (Default-Locale), `theme_color: #2660d8`, `display: standalone`, Icons via existierendem `/icon`. (2) `src/app/[locale]/blog/[slug]/opengraph-image.tsx` rendert per-Post OG-Image (Title + lokalisiertes `published_at`, Hex-Farben + `display: flex` gemäss MUSTER.md Satori-Patterns). (3) `.github/workflows/lighthouse.yml` + `.github/lighthouserc.json` mit `treosh/lighthouse-ci-action@v12` gegen 6 Production-URLs, Asserts: A11y/SEO ≥0.95 als Error, Performance/BP ≥0.9 als Warn, `temporaryPublicStorage`. Trigger: `workflow_dispatch` + Cron Mo 06:00 UTC (kein Push-Trigger wegen Race-Condition mit Vercel-Auto-Deploy). Nebenfund + Fix: `[locale]/blog/[slug]/page.tsx` hatte `twitter`-Object ohne `card` → fiel auf Default `summary` zurück; jetzt explizit `card: "summary_large_image"`. Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (neue Routen `/manifest.webmanifest` ○ Static, beide OG-Routen ƒ Dynamic). Dev-Server: `/manifest.webmanifest` 200 mit valider JSON, `/de/blog/erste-pilotpartner-gewonnen/opengraph-image` und `/en/blog/kickoff-datenraum-kultur/opengraph-image` jeweils 200 PNG 1200×630 (Body-Stream sauber, MUSTER.md verlangt explizit Body-Check). HTML der Blog-Detail enthält `<link rel="manifest">`, `og:image` zeigt auf Per-Post-Pfad, `twitter:card=summary_large_image`. Keine Server-Errors.
 - **2026-05-07** — Session 15 Asset-/Go-live-Handoff: Vault gelesen, Projektstruktur/Platzhalter geprueft und aktuelle Vercel-/Domain-/Legal-Quellen verifiziert. Neue Datei `GO_LIVE_CHECKLIST.md` beschreibt exakt benoetigte Asset-Dateinamen, Bildmasse, Supabase-`cover_image_url`-Pflege, Vercel-GitHub-Verbindung, Custom-Domain-DNS, `NEXT_PUBLIC_SITE_URL`-Folgeschritte sowie Impressum-/Datenschutz-Lieferumfang. Legal-Platzhalter in `src/content/{de,en}/legal.json` von `§ 5 TMG` auf `§ 5 DDG` aktualisiert. Verifikation: JSON-Parse, `pnpm typecheck`, `pnpm lint`, `pnpm build`.
 - **2026-05-07** — Session 14 M8 Sitemap-Lastmod-Polish: Vault + Next.js-16-Sitemap-/Revalidate-Doku gelesen. Da echte Assets noch fehlen, kleinsten unblockierten M8-Restposten umgesetzt: neuer Query-Helper `listPublishedPostSitemapEntries()` liefert `slug` + `published_at`, `src/app/sitemap.ts` ersetzt pauschales `new Date()` durch `STATIC_CONTENT_LAST_MODIFIED` fuer statische Seiten und `published_at` fuer Blog-Liste/-Details, Blog-Detail-URLs werden ueber `getPathname()` statt Stringbau erzeugt. `/api/revalidate` nutzt strukturierte Targets und invalidiert bei `posts` / `post_translations` jetzt zusaetzlich `/sitemap.xml`. Commit `37d80ca`; Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean; `next start --port 3030` + `/usr/bin/curl /sitemap.xml` zeigt Blog-`lastmod` aus Supabase (`2026-04-02T09:00:00+00:00`, `2026-03-15T10:00:00+00:00`); Production-Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`; Production-Smoke: `/sitemap.xml` zeigt dieselben Blog-`lastmod`-Werte, `/de/blog` und `/en/blog/erste-pilotpartner-gewonnen` HTTP 200, Revalidate-Smoke mit gueltigem Secret fuer `posts` liefert `["/[locale]/blog:page","/[locale]/blog/[slug]:page","/sitemap.xml"]`.
 - **2026-05-07** — Session 13 M7 EN-Quality-Review: Vault gelesen, Next.js-16-i18n/Data-Docs geprüft, EN-Key-Sync per Node validiert (`messages` und alle `src/content/{de,en}/*.json` strukturgleich). Punktuelle Copy-Korrekturen in `src/messages/en.json` und acht `src/content/en/*.json` (Contact, Participation, Use Cases, Standards, Landing, Team). Live-Supabase-Check zeigte zusätzlich zum im Dashboard bekannten Draft-Post auch fehlende EN-Translation für den veröffentlichten Post `erste-pilotpartner-gewonnen`; neue Migration `20260507120000_m7_english_post_translations.sql` ergänzt/aktualisiert `kickoff-datenraum-kultur` EN, `erste-pilotpartner-gewonnen` EN und Draft `wip-konnektor-roadmap` DE/EN. `supabase db push --yes` gegen Cloud erfolgreich; Kontrollquery: alle drei Posts `{de,en}`. `supabase/seed.sql` synchronisiert denselben Content für lokale Resets. Verifikation: JSON-Parse OK, `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (36/36 Pages, `/en/blog/erste-pilotpartner-gewonnen` generiert). Production-Deploy per `pnpm dlx vercel@latest deploy --prod --yes`: `dpl_Cqvw9ssuYNY1eiFjSfwMMifE4ibe`, Alias aktualisiert. Production-Smoke: `/en/contact-persons`, `/en/participation/contribute`, `/en/blog`, `/en/blog/erste-pilotpartner-gewonnen` jeweils HTTP 200 und enthalten die neuen EN-Texte.
@@ -46,7 +50,7 @@
 
 ## 📋 Was Claude beim nächsten Mal tun soll
 
-**Default-Nächster-Schritt: User liefert Go-live-Material gemaess [[GO_LIVE_CHECKLIST]].** M5, M6, M7 und M8 sind production-validiert. Der kleinste sinnvolle Fortschritt ist jetzt echte Assets einzupflegen: Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits und Partner-Logos. Parallel kann Kay im Vercel-Dashboard die GitHub-Integration verbinden und die Custom Domain entscheiden/DNS setzen.
+**Default-Nächster-Schritt: User liefert Go-live-Material gemaess [[GO_LIVE_CHECKLIST]].** M5–M8 production-validiert, Session 16 hat PWA-Manifest, Per-Post-OG-Images und Lighthouse-CI ergänzt; Vercel-GitHub-Integration ist jetzt verbunden. Der kleinste sinnvolle Fortschritt ist jetzt echte Assets einzupflegen: Hero-Visual, Blog-Cover-Bilder, Portraits und Partner-Logos. Parallel kann Kay die Custom Domain entscheiden/DNS setzen und die finalen Impressum-/Datenschutztexte liefern.
 
 **Pfade nach Wahl:**
 1. **Hero-Visual + Cover-Images von User einsammeln/einpflegen** — sobald geliefert, Hero-Blob durch `<ParallaxImage>` ersetzen, Posts in Supabase mit `cover_image_url` befüllen (dann werden ViewTransition-Morphs sichtbar).

@@ -1,0 +1,27 @@
+name: Lighthouse
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Wöchentlich Montag 06:00 UTC gegen Production.
+    - cron: "0 6 * * 1"
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Lighthouse against Production
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://smarte-theaterdienste-website.vercel.app/de
+            https://smarte-theaterdienste-website.vercel.app/en
+            https://smarte-theaterdienste-website.vercel.app/de/blog
+            https://smarte-theaterdienste-website.vercel.app/de/blog/erste-pilotpartner-gewonnen
+            https://smarte-theaterdienste-website.vercel.app/de/beteiligung/mitwirkung
+            https://smarte-theaterdienste-website.vercel.app/de/faq
+          configPath: ./.github/lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true

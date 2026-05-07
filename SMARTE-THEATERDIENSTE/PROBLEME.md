@@ -7,10 +7,6 @@
   → Workaround: User legt Repo an, gibt SSH-URL, Claude pusht via vorhandenen SSH-Key.
 - **Homebrew fehlt.** Tools wie `gh`, `supabase` CLI müssen über alternative Wege (npm global, Binärdownload, dev-dep).
 
-### Vercel-GitHub-Integration
-- **Production läuft, aber GitHub ist noch nicht mit Vercel verbunden.** `vercel link` hat das Projekt angelegt, `vercel git connect https://github.com/Kaytm93/smarte-theaterdienste-website` scheitert aber mit `Failed to connect ... Make sure there aren't any typos and that you have access to the repository if it's private.`
-  → Vermutlich fehlt der Vercel-GitHub-App Zugriff auf das persönliche Repo. Workaround: Deploys per `vercel deploy --prod`; dauerhaft im Vercel-Dashboard unter Project → Settings → Git verbinden.
-
 ### Externe Abhängigkeiten
 - **Bestehende Website war 2026-04-25 mit 503 nicht erreichbar.** Die geplante Orientierung an https://smarte-theaterdienste.de/de für Designsprache und Inhaltsstruktur konnte nur teilweise stattfinden (Plan basiert primär auf Miro-Inhalten + User-Beschreibung).
   → ToDo: Bei nächster Session erneut fetchen, ggf. screenshotten, in INHALTE.md ergänzen.
@@ -47,6 +43,8 @@
 
 | Datum | Problem | Lösung |
 |---|---|---|
+| 2026-05-07 | `[locale]/blog/[slug]/page.tsx` setzte `twitter`-Object ohne `card`, dadurch fiel `twitter:card` auf Default `summary` statt auf den Layout-Default `summary_large_image` zurück (Page-`twitter` überschreibt Layout-`twitter` komplett). Bei der Per-Post-OG-Erweiterung deutlich sichtbar geworden. | `card: "summary_large_image"` explizit auch in der Page gesetzt. Verifiziert via curl: `<meta name="twitter:card" content="summary_large_image"/>`. |
+| 2026-05-07 | Vercel-GitHub-Integration war via `vercel git connect` nicht herstellbar. | User hat im Vercel-Dashboard manuell unter `Settings → Git` das Repo `Kaytm93/smarte-theaterdienste-website` verbunden. Push auf `main` triggert ab jetzt automatischen Production-Deploy. |
 | 2026-05-07 | Go-live-Aufgaben waren im Dashboard verteilt: Assets, Vercel-GitHub, Domain/DNS und Rechtstexte waren offen, aber noch nicht als konkrete User-Lieferliste dokumentiert. Zusätzlich verwies der Impressum-Platzhalter noch auf `§ 5 TMG`. | Neue `GO_LIVE_CHECKLIST.md` mit exakten Asset-Pfaden, Bildformaten, Vercel-GitHub-Schritten, Domain-/DNS-Ablauf und Legal-Lieferumfang. `src/content/{de,en}/legal.json` nutzt jetzt `§ 5 DDG` statt `§ 5 TMG`. |
 | 2026-05-07 | M8-Sitemap-Restposten: `lastmod` wurde in `src/app/sitemap.ts` pauschal mit `new Date()` gesetzt; Blog-URLs zeigten dadurch Build-Zeit statt Inhaltsdatum. Außerdem wurde die Sitemap bei Post-Revalidate nicht gezielt invalidiert. | Neuer Query-Helper `listPublishedPostSitemapEntries()` liefert `slug` + `published_at`; Sitemap nutzt fuer statische Seiten `STATIC_CONTENT_LAST_MODIFIED` und fuer Blog-Liste/-Details echte `published_at`-Werte. `/api/revalidate` invalidiert bei `posts` und `post_translations` jetzt zusätzlich `/sitemap.xml`. Lokal verifiziert via `pnpm typecheck`, `pnpm lint`, `pnpm build`, `curl /sitemap.xml` und Revalidate-Smoke; production-live mit Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`. |
 | 2026-05-07 | M7 EN-Translation-Lücke in Supabase: `wip-konnektor-roadmap` hatte keine Übersetzungen; zusätzlich fehlte live auch EN für den veröffentlichten Post `erste-pilotpartner-gewonnen` | Neue Migration `20260507120000_m7_english_post_translations.sql` ergänzt/aktualisiert Blog-Translations (`kickoff-datenraum-kultur` EN geglättet, `erste-pilotpartner-gewonnen` EN ergänzt, Draft `wip-konnektor-roadmap` DE/EN ergänzt). `supabase db push --yes` erfolgreich; Kontrollquery zeigt für alle drei Posts `{de,en}`. `seed.sql` synchronisiert denselben Stand für lokale Resets. Production-Smoke: `/en/blog` und `/en/blog/erste-pilotpartner-gewonnen` HTTP 200 mit neuen Texten. |

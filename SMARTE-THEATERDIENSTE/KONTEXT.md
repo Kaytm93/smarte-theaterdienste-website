@@ -86,13 +86,17 @@ Autoritative Quelle für diese Version: `node_modules/next/dist/docs/` im Projek
 
 ```
 smarte-theaterdienste-website/
-├── .github/workflows/
-│   └── ci.yml                                  ← M8: lint + typecheck + build auf push/PR (pnpm 10, Node 20)
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml                              ← M8: lint + typecheck + build auf push/PR (pnpm 10, Node 20)
+│   │   └── lighthouse.yml                      ← M9 (Session 16): treosh/lighthouse-ci-action@v12 gegen 6 Production-URLs, manuell + Cron Mo 06:00 UTC
+│   └── lighthouserc.json                       ← M9: Asserts (A11y/SEO ≥0.95 error · Performance/BP ≥0.9 warn), preset desktop, temporaryPublicStorage
 ├── src/
 │   ├── app/
 │   │   ├── sitemap.ts                          ← M8: STATIC_HREFS × Locales + xhtml:link-Alternates + Blog-Slugs (graceful); Session 14: stabile lastModified-Werte, Blog aus `published_at`
 │   │   ├── robots.ts                           ← M8: Allow / · Disallow /api/ · Sitemap-Pointer
-│   │   └── icon.tsx                            ← M8: 32×32 ImageResponse mit „ST"-Initial
+│   │   ├── icon.tsx                            ← M8: 32×32 ImageResponse mit „ST"-Initial
+│   │   └── manifest.ts                         ← M9 (Session 16): MetadataRoute.Manifest, siteName/description aus Default-Locale, theme_color #2660d8, Icons via /icon
 │   ├── app/[locale]/
 │   │   ├── layout.tsx                          ← Root html/body, NextIntlClientProvider, Header+Footer, Fonts; M8: metadataBase, OG/Twitter-Defaults, robots
 │   │   ├── opengraph-image.tsx                 ← M8: 1200×630 ImageResponse pro Locale (DE/EN), Datenraum-Blau, siteName/siteDescription
@@ -107,7 +111,8 @@ smarte-theaterdienste-website/
 │   │   ├── impressum/page.tsx                  ← TODO-Platzhalter (Legal-Referenz auf § 5 DDG aktualisiert)
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter
 │   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
-│   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams
+│   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams; Session 16: twitter.card=summary_large_image
+│   │   ├── blog/[slug]/opengraph-image.tsx     ← M9 (Session 16): Per-Post 1200×630 OG mit Title + lokalisiertem published_at
 │   │   ├── faq/page.tsx                        ← Accordion (Supabase) mit ComingSoonHero-Fallback
 │   │   └── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase) mit ComingSoonHero-Fallback
 │   ├── app/api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath; Post-Änderungen invalidieren auch `/sitemap.xml`

@@ -1,5 +1,22 @@
 # 📝 Changelog
 
+## 2026-05-07 — Session 16: M9 PWA-Manifest, Per-Post-OG, Lighthouse-CI
+
+**Commits / Deploy-Basis:**
+- (folgt nach Push) — Vercel-GitHub-Integration jetzt verbunden, Auto-Deploy bei Push erwartet.
+
+**Was passierte:**
+
+- **Vercel-GitHub-Integration:** User hat im Vercel-Dashboard die Verbindung wiederhergestellt. Restposten aus DASHBOARD damit erledigt; Push auf `main` triggert ab jetzt automatischen Production-Build.
+- **Scope-Entscheidung:** Kombi aus drei optionalen M8-Erweiterungen, die ohne User-Assets/Texte umsetzbar sind: PWA-Manifest, Per-Post-OG-Images, Lighthouse-CI als GitHub-Action.
+- **PWA-Manifest:** Neuer Top-Level-Handler `src/app/manifest.ts` rendert `/manifest.webmanifest` als `MetadataRoute.Manifest`. `name`/`short_name`/`description` aus `messages/de.json` (Default-Locale, da Manifest nicht locale-prefixed ist), `theme_color: #2660d8` (Datenraum-Blau), `background_color: #ffffff`, Icons aus existierendem `/icon` (32×32) + `/favicon.ico`. `display: standalone`. Layout fügt `<link rel="manifest">` automatisch ein (Next.js Metadata Convention).
+- **Per-Post-OG-Image:** Neuer Handler `src/app/[locale]/blog/[slug]/opengraph-image.tsx` mit denselben Satori-Patterns wie Top-Level-OG (`display: flex`, Hex-Farben statt OKLCH, siehe MUSTER.md). Liest Post via `getPostBySlug(slug, locale)`, rendert Title (max 1040px-Breite, fontSize 80) + lokalisiertes `published_at` (Locale-Format `de-DE` / `en-US`). Bei fehlender Supabase-Env oder unbekanntem Slug Fallback auf `siteName`. `coverImageUrl`-Override im `generateMetadata` der Page bleibt: hat ein Post ein echtes Cover, gewinnt das; sonst nimmt Next.js automatisch das hier generierte Per-Post-OG.
+- **Twitter-Card-Bug-Fix:** Beim Verifizieren entdeckt — `[locale]/blog/[slug]/page.tsx` setzte `twitter`-Object ohne `card`, daher fiel die Page auf Layout-Default zurück, der wiederum von Next.js auf `summary` reduziert wurde (Layout-`twitter` wird von Page-`twitter` komplett überschrieben). Fix: `card: "summary_large_image"` explizit auch in der Page setzen. Verifiziert über curl: `<meta name="twitter:card" content="summary_large_image"/>`.
+- **Lighthouse-CI:** Neuer Workflow `.github/workflows/lighthouse.yml` (Trigger: `workflow_dispatch` + Cron Mo 06:00 UTC) plus Config `.github/lighthouserc.json`. Läuft `treosh/lighthouse-ci-action@v12` gegen 6 Production-URLs (DE-Landing/Blog/Blog-Detail/Mitwirkung/FAQ + EN-Landing). Asserts: Performance ≥0.9 warn, Accessibility ≥0.95 error, Best-Practices ≥0.9 warn, SEO ≥0.95 error. `temporaryPublicStorage: true` hostet Reports öffentlich für 7 Tage, kein eigener LHCI-Server nötig. Bewusste Entscheidung gegen Push-Trigger: würde mit Vercel-Auto-Deploy in Race-Condition geraten und gegen alten Stand laufen.
+- **Verifikation:** `pnpm typecheck` clean, `pnpm lint` clean, `pnpm build` clean — neue Routen `/manifest.webmanifest` (○ Static), `/-/opengraph-image` (ƒ Dynamic), `/-/blog/-/opengraph-image` (ƒ Dynamic). Dev-Server (Port 3000): `/manifest.webmanifest` → 200 mit `application/manifest+json`, valides JSON; `/de/blog/erste-pilotpartner-gewonnen/opengraph-image` → 200 PNG 1200×630 (66.5 kB, Body-Stream sauber); `/en/blog/kickoff-datenraum-kultur/opengraph-image` → 200 PNG 1200×630 (83.7 kB); Top-Level `/de/opengraph-image` → 200 PNG 1200×630 (86.9 kB). HTML der Blog-Detail enthält `<link rel="manifest">`, `og:image` zeigt auf Per-Post-Pfad mit `og:image:width=1200`/`og:image:height=630`, `twitter:card=summary_large_image`. Keine Server-Errors.
+
+**Status am Ende:** Drei M8-Erweiterungen umgesetzt. Auto-Deploy via Vercel-GitHub-Integration soll beim nächsten Push starten — wird mit dieser Session direkt validiert.
+
 ## 2026-05-07 — Session 15: Asset-/Go-live-Handoff
 
 **Commits / Deploy-Basis:**
