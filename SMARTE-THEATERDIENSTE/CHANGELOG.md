@@ -3,7 +3,7 @@
 ## 2026-05-07 — Session 11: M6 Animation-Polish
 
 **Commits:**
-- _wird beim Push ergänzt_
+- `860a761` M6: Animation-Polish – ComicStrip stagger, Hero-Choreografie, Card-Hover, View Transitions, ScrollTrigger refresh
 
 **Was passierte:**
 
