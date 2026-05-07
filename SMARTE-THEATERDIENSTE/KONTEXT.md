@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-06 | Stand: M8 Kern abgeschlossen (SEO + Sitemap + Robots + OG + CI). Production-Redeploy + Lighthouse-Audit offen, ebenso M6/M7.
+> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M8 abgeschlossen (M8 production-validiert; M6 lokal grün, Production-Deploy offen). M7 zu ~99 % gepflegt (nur Draft-Post-EN fehlt).
 
 ---
 
@@ -116,10 +116,13 @@ smarte-theaterdienste-website/
 │   │   ├── ui/                                 ← shadcn (radix-nova) Primitives
 │   │   ├── layout/                             ← Header.tsx, Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx
 │   │   ├── sections/                           ← PageHero, TextSection, ContactCard, TeamGrid,
-│   │   │                                          UseCaseCard, StepCard, ComingSoonHero (jetzt mit body-Prop), ComicStrip,
-│   │   │                                          PostCard, PostArticle, EventCard, FaqAccordion (M4),
+│   │   │                                          UseCaseCard, StepCard, ComingSoonHero (jetzt mit body-Prop),
+│   │   │                                          ComicStrip (Server-Wrapper) + ComicStripFrames (Client, GSAP-Stagger, M6),
+│   │   │                                          PostCard, PostArticle (mit ViewTransition-Wrap, M6),
+│   │   │                                          EventCard, FaqAccordion (M4),
 │   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5)
-│   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage
+│   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage,
+│   │   │                                          ScrollTriggerRefresher (Layout-globaler usePathname-Listener, M6)
 │   │   └── forms/                              ← LEER (Newsletter/Beta-Anmeldung später)
 │   ├── lib/
 │   │   ├── i18n/{routing,request,navigation}.ts
@@ -130,6 +133,7 @@ smarte-theaterdienste-website/
 │   │   └── utils.ts                            ← cn(), shadcn helper
 │   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.* (inkl. blog/faq/termine empty.* und Listen-Labels)
 │   ├── types/database.ts                       ← Generated Supabase types (`pnpm gen:types`, mit Relationships)
+│   ├── types/react-canary.d.ts                 ← M6: `/// <reference types="react/canary" />` für `<ViewTransition>`-Typen
 │   ├── content/{de,en}/                        ← Page-Content (umfangreich):
 │   │   ├── team.json                            ←   4 Ansprechpersonen
 │   │   ├── projekt.json                         ←   6 Sections + 2 Links
@@ -154,7 +158,7 @@ smarte-theaterdienste-website/
 │   └── team/                                   ← (Portraits folgen, © Sophie Moriarty)
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
 │
-├── next.config.ts                              ← withNextIntl + remotePatterns
+├── next.config.ts                              ← withNextIntl + remotePatterns + experimental.viewTransition (M6)
 ├── components.json                             ← shadcn config (radix-nova, neutral baseColor, css-vars)
 ├── tsconfig.json                               ← @/* → ./src/*
 ├── package.json
@@ -207,4 +211,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **Production-Redeploy + Lighthouse-Audit** (M8-Validation), danach **M6 Animation-Polish** und **M7 EN-Übersetzungen**. Die Partner-Karte aus M5 ist seit 2026-05-04 unter `https://smarte-theaterdienste-website.vercel.app/de/beteiligung/mitwirkung` und `/en/participation/contribute` live (Deploy `dpl_EEYezucGpDjM74fE3cwFY36DuqEj`). M8-Layer (SEO, Sitemap, Robots, OG, CI) ist seit 2026-05-06 im Repo, lokal verifiziert; auf Production deployen + Lighthouse messen ist der nächste Schritt. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
+Aktuell offen: **M6-Production-Deploy** (Code ist auf `main`, Build clean, lokal grün), **M7 EN-Quality-Review** (klein, 99 % schon da), **M8 Erweiterungen** (Per-Post-OG, lastModified, Lighthouse-CI), **Custom Domain**, **echte Asset-Lieferung** (Hero-Visual, Cover-Bilder, Portraits, Partner-Logos). M5 + M6 + M8 sind die größten Code-Milestones. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.

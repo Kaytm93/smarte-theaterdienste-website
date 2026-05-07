@@ -1,5 +1,51 @@
 # 📝 Changelog
 
+## 2026-05-07 — Session 11: M6 Animation-Polish
+
+**Commits:**
+- _wird beim Push ergänzt_
+
+**Was passierte:**
+
+- **User-Entscheidung:** M6 jetzt, Comic-Strip-Variante "egal — du entscheidest" → Variante B (vertical stagger reveal) gewählt. Mobile-friendly + pragmatischer als pinned-horizontal.
+- **Plan-Agent validierte drei Risiko-Punkte:**
+  1. View Transitions in Next.js 16 sind offiziell hinter `experimental.viewTransition: true` (Schema-Eintrag in `node_modules/next/dist/server/config-schema.js:316`, vollständige Doc unter `node_modules/next/dist/docs/01-app/02-guides/view-transitions.md`). Reacts `<ViewTransition>` aus `react` ist der Pfad — kein manueller `document.startViewTransition`.
+  2. Hero ohne Image: kein Text-Scrub (kollidiert mit `RevealText`), kein parallaxer Blob (zieht Aufmerksamkeit auf sich selbst), sondern Stagger-Konstante + statischer Akzent-Blob.
+  3. ScrollTrigger-Refresh nach Soft-Navigation: zentrale Client-Component im Layout, die `usePathname()` beobachtet — `revertOnUpdate` aus `@gsap/react` löst das nicht.
+
+- **Implementierung (13 Files berührt + 3 neue):**
+  - `src/components/sections/ComicStripFrames.tsx` (NEU): Client-Component, `useGSAP` + `registerScrollTrigger` + `prefers-reduced-motion`-Gate. `gsap.from` auf `[data-comic-frame]` mit `y: 24, opacity: 0 → 1, duration 0.7, stagger 0.12, ease "power2.out"`.
+  - `ComicStrip.tsx`: Server-Wrapper, der bisherige `<FadeInOnScroll>`-Wrap entfällt, delegiert an `ComicStripFrames`.
+  - `src/app/[locale]/page.tsx`: Hero-Section mit `STAGGER = 0.08`-Konstante, Delays kaskadieren Kicker 0 → Title 0 → Subtitle 0.16 → CTA 0.24. Section bekommt `relative overflow-hidden`. Neuer `<div aria-hidden>` mit `bg-[oklch(0.55_0.16_250/_0.10)] blur-3xl` als statischer Akzent-Blob rechts oben. Hero-Children alle `relative`.
+  - `PostCard.tsx` (klickbar): `transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0`.
+  - `UseCaseCard`, `EventCard`, `StepCard`, `ContactCard` (statisch): `transition-all duration-300 ease-out hover:border-border hover:shadow-sm motion-reduce:transition-none`. StepCard hatte vorher gar keinen Hover.
+  - `ComicStrip-Figure`: `hover:shadow-sm` zusätzlich, mit `motion-reduce:transition-none`.
+  - `next.config.ts`: `experimental: { viewTransition: true }` ergänzt.
+  - `src/types/react-canary.d.ts` (NEU): `/// <reference types="react/canary" />` — bringt die `ViewTransition`-Typen aus `@types/react/canary.d.ts` projektweit ins TS-Programm.
+  - `PostCard.tsx`: Cover-Image in `<ViewTransition name={`post-cover-${post.slug}`}>` aus `react`.
+  - `PostArticle.tsx`: identisch (selber Slug-basierter Name) — bildet das Morph-Pair.
+  - `globals.css`: `@media (prefers-reduced-motion: reduce)`-Regel auf `::view-transition-{old,new,group}(*)` mit `animation-duration: 0s !important; animation-delay: 0s !important;`.
+  - `src/components/animations/ScrollTriggerRefresher.tsx` (NEU): Client-Component, `usePathname()` aus `@/lib/i18n/navigation`, `useEffect([pathname])` ruft `requestAnimationFrame` → `ScrollTrigger.refresh()`. Render `null`.
+  - `src/app/[locale]/layout.tsx`: `ScrollTriggerRefresher` direkt nach `NextIntlClientProvider` eingehängt.
+
+- **Verifikation:**
+  - `pnpm typecheck` initial mit Konflikten in `.next/types/*\ 2.ts` (macOS-Finder-Duplikate) — nach `find .next/types -name "* 2.ts" -delete` clean.
+  - `pnpm lint` clean.
+  - `pnpm build` clean. Alle Pages weiter ● SSG. View-Transition-Flag löste keinen Dynamic-Switch aus.
+  - Preview-MCP (Port 3000): erster Start scheiterte am Turbopack-Cache-Konflikt (`Failed to open SST file`); nach `rm -rf .next` + Restart sauber.
+  - `/de`: Hero rendert mit Akzent-Blob, 4 ComicStrip-Frames mit `[data-comic-frame]`. Nach Scroll-into-View + 1500 ms wait alle bei `opacity:1, transform:matrix(1,0,0,1,0,0)` — Stagger lief vollständig durch.
+  - Desktop 1280×800: 4-Spalten-Grid; Mobile 375×812: vertikal gestapelt.
+  - `/de/blog`: PostCards `transitionDuration: 0.3s, transitionProperty: all, group`-Class.
+  - Soft-Navigation `/de/blog → /de/blog/<slug> → zurück` funktioniert; ScrollTriggerRefresher feuert.
+  - View-Transition-Pfad nur strukturell verifiziert: alle drei Posts in `seed.sql` haben `cover_image_url=null`. Build-/Type-Sauberkeit + offizielle Next.js-Doc als Validierung.
+  - Reduced-Motion-CSS aktiv (CSSOM-Check über `document.styleSheets`-Iteration).
+  - `/en` rendert identisch (Title "Smart Theatre Services").
+  - Console-Logs: keine Errors.
+
+- **Neue ADRs:** ADR-37 (View Transitions API), ADR-38 (Hero ohne Image — Stagger + statischer Blob), ADR-39 (Layout-globaler ScrollTriggerRefresher).
+
+---
+
 ## 2026-05-06 — Session 10: M8 Production-Validation (Redeploy + Lighthouse + a11y-Fix)
 
 **Commits:**

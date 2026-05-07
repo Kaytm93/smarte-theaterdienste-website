@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/lib/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollTriggerRefresher } from "@/components/animations/ScrollTriggerRefresher";
 import { getSiteUrl } from "@/lib/seo/site";
 import "../globals.css";
 
@@ -83,6 +84,7 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <NextIntlClientProvider>
+          <ScrollTriggerRefresher />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

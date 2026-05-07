@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import { Card, CardContent } from "@/components/ui/card";
@@ -22,20 +23,22 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
 
   return (
     <FadeInOnScroll className="h-full">
-      <Card className="group h-full overflow-hidden border-border/60 bg-card/50 transition-colors hover:border-border">
+      <Card className="group h-full overflow-hidden border-border/60 bg-card/50 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-border hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0">
         <Link
           href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
           className="flex h-full flex-col"
         >
           {post.coverImageUrl ? (
             <div className="relative aspect-[16/9] overflow-hidden bg-muted">
-              <Image
-                src={post.coverImageUrl}
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 33vw, 100vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              <ViewTransition name={`post-cover-${post.slug}`}>
+                <Image
+                  src={post.coverImageUrl}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </ViewTransition>
             </div>
           ) : null}
           <CardContent className="flex flex-1 flex-col gap-3 p-6">

@@ -12,7 +12,7 @@ export function UseCaseCard({ useCase }: { useCase: UseCase }) {
   const Icon = ICONS[useCase.icon as keyof typeof ICONS] ?? Sparkles;
 
   return (
-    <Card className="h-full border-border/60 bg-card/50 transition-colors hover:border-border">
+    <Card className="h-full border-border/60 bg-card/50 transition-all duration-300 ease-out hover:border-border hover:shadow-sm motion-reduce:transition-none">
       <CardContent className="space-y-4 p-6">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-brand)]/10 text-[var(--accent-brand)]">
           <Icon className="h-5 w-5" aria-hidden />

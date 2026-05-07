@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-05-06 (Session 10)
+> Letzte Aktualisierung: 2026-05-07 (Session 11)
 
 ## Status
 
@@ -11,20 +11,21 @@
 | Statische Seiten | ✅ M3 abgeschlossen |
 | Dynamische Inhalte (Supabase) | ✅ M4 abgeschlossen — Cloud-Projekt live, Pages rendern echte Daten |
 | Partner-Karte | ✅ M5 abgeschlossen + production-live auf `/beteiligung/mitwirkung` |
-| Animation-Polish | ⏳ M6 wartet |
-| EN-Übersetzungen | ⏳ M7 wartet |
+| Animation-Polish | ✅ **M6 abgeschlossen** — ComicStrip vertical stagger, Hero-Choreografie + Akzent-Blob, Card-Hover projektweit standardisiert, View Transitions API verdrahtet, ScrollTriggerRefresher für Soft-Nav |
+| EN-Übersetzungen | 🟢 M7 großteils da (Messages + Content-JSONs auf 99 % gepflegt; nur Draft-Post fehlt EN-Translation in Supabase) |
 | Production-Polish | ✅ **M8 vollständig validiert** — SEO/Sitemap/Robots/OG/Icon/CI live; Lighthouse Perf 96 / A11y 100 / BP 100 / SEO 100 (DE & EN); axe-core clean |
-| Vercel-Deployment | ✅ live: https://smarte-theaterdienste-website.vercel.app (Deploy `dpl_Fa2MYm6iZJYfPygJHaADhsyPYzcf`) |
+| Vercel-Deployment | ✅ live: https://smarte-theaterdienste-website.vercel.app (Deploy `dpl_Fa2MYm6iZJYfPygJHaADhsyPYzcf`) — M6-Code noch nicht deployed |
 | Supabase-Revalidate | ✅ live via `pg_net`-Trigger auf 6 Tabellen → `/api/revalidate` |
 | GitHub Actions CI | ✅ lint + typecheck + build auf push/PR |
 | Vercel-GitHub-Integration | ⏳ User-Action: GitHub-App/Rechte im Vercel-Dashboard verbinden |
 
 ## Was gerade läuft
 
-**Nichts** — Session 10 (M8 Production-Validation) beendet. Drei Production-Redeploys nötig: erster Deploy entdeckte einen Satori-Bug im OG-Image (`display: inline-block` wird nicht unterstützt), zweiter Deploy fixte das, dritter Deploy fixte den Footer-Color-Contrast (8 axe-Errors → 0). Beide Locales jetzt: Performance 96 / Accessibility 100 / Best-Practices 100 / SEO 100. Core Web Vitals: LCP 2.6–2.7 s, CLS 0, TBT 30 ms. axe-core via pa11y bestätigt: keine Violations. M8 ist damit vollständig abgeschlossen und in Production validiert.
+**Nichts** — Session 11 (M6 Animation-Polish) beendet. ComicStrip ist jetzt vertical-stagger (Variante B, mobile-friendly), Hero hat eine konsolidierte Stagger-Konstante (0.08 s) plus statischen Akzent-Blob im Hintergrund (kein Parallax bis Hero-Visual geliefert wird), alle 6 Card-Komponenten teilen sich ein einheitliches Hover-Pattern (klickbare Cards mit `hover:-translate-y-0.5 hover:shadow-lg`, statische Cards mit `hover:shadow-sm`), View Transitions sind über `experimental.viewTransition: true` aktiv und PostCard↔Blog-Detail haben einen Slug-basierten ViewTransition-Wrap (sichtbar erst sobald Posts ein `cover_image_url` haben), und der Layout-globale `ScrollTriggerRefresher` ruft nach jedem `usePathname`-Wechsel ein `requestAnimationFrame` → `ScrollTrigger.refresh()`. Alles `prefers-reduced-motion`-aware. Lokal verifiziert (Build + Browser via Preview-MCP). Production-Deploy noch offen.
 
 ## Letzte Aktivität
 
+- **2026-05-07** — Session 11 M6 Animation-Polish: User-Entscheidung „M6 jetzt, Comic-Strip-Variante egal" → Variante B (vertical stagger) entschieden. Plan-Agent validierte drei Risiko-Punkte (View Transitions in Next.js 16 hinter `experimental.viewTransition: true`, Hero ohne Image lieber Stagger-Konstante + statischer Blob als Text-Scrub, ScrollTrigger-Refresh über zentralen Layout-Listener auf `usePathname()`). Implementierung: `src/components/sections/ComicStripFrames.tsx` (NEU, Client-Component mit `useGSAP`+ScrollTrigger-Stagger), `ComicStrip.tsx` als Server-Wrapper schlanker; `page.tsx` Hero mit `STAGGER=0.08`-Konstante kaskadiert (Kicker 0 / Title 0 / Subtitle 0.16 / CTA 0.24) + dekorativem `[oklch(0.55_0.16_250/_0.10)] blur-3xl`-Blob; alle Card-Komponenten (`PostCard`, `EventCard`, `UseCaseCard`, `StepCard`, `ContactCard`, ComicStrip-Figure) auf einheitliches Hover-Schema mit `motion-reduce:`-Tailwind-Modifier; `next.config.ts` `experimental.viewTransition: true`; `PostCard` und `PostArticle` Cover-Images in `<ViewTransition name="post-cover-${slug}">` aus `react`; `src/types/react-canary.d.ts` (NEU) mit `/// <reference types="react/canary" />` für TS-Typen; `globals.css` mit `@media (prefers-reduced-motion: reduce)`-Regel auf `::view-transition-{old,new,group}(*)`; `src/components/animations/ScrollTriggerRefresher.tsx` (NEU) im Layout direkt nach `NextIntlClientProvider` eingehängt. Verifikation: `pnpm typecheck`/`lint`/`build` clean (alle Pages weiter SSG); Preview-MCP grün auf `/de`, `/de/blog`, Blog-Detail-Navigation, Mobile (375×812), Desktop (1280×800), EN-Locale; keine Console-Errors. View-Transition-Pfad nur strukturell verifiziert, weil alle Posts in `seed.sql` `cover_image_url=null` haben — das ViewTransition-Element rendert konditional. ADR-37 (View Transitions API), ADR-38 (Hero ohne Image), ADR-39 (Layout-globaler ScrollTriggerRefresher).
 - **2026-05-06** — Session 10 M8 Production-Validation: drei Production-Redeploys, OG-Bug-Fix (Satori-`inline-block`), Footer-Color-Contrast-Fix (axe-Score 0/8 → 0/0). Final-Lighthouse: DE/EN beide Performance 96 / A11y 100 / BP 100 / SEO 100. Smoke-Test gegen `/usr/bin/curl` (System-PATH hat `curl` nicht — voller Pfad reicht), 14 Routen alle 200 nach Final-Deploy. Deployment-IDs: `dpl_DyvfbCWXoauUGNBx9zV6NDDG6ZC4` (initial), `dpl_29eiYsNZFNzbSQyfZtxnwWjmDXSn` (OG-Fix), `dpl_Fa2MYm6iZJYfPygJHaADhsyPYzcf` (final, A11y-Fix). axe-core über `pa11y --runner axe` mit System-Chrome (`PUPPETEER_EXECUTABLE_PATH`-Override) — `@axe-core/cli` und `pa11y` standardmäßig brauchen Puppeteer/ChromeDriver-Postinstall, das pnpm blockt. `audits/lighthouse-{de,en}.html` lokal generiert, `.gitignore` um `audits/` ergänzt. Footer-Klassen `text-foreground/55` und `text-foreground/50` → `text-foreground/65` (drei Stellen in `src/components/layout/Footer.tsx`). OG-Fix in `src/app/[locale]/opengraph-image.tsx:58`: `display: "inline-block"` → `display: "flex"`. Siehe ADR-36.
 - **2026-05-06** — M8 Restpolish: SEO-Layer komplett. Neue Helper `src/lib/seo/site.ts` (`getSiteUrl()`) und `src/lib/seo/alternates.ts` (`buildAlternates(locale, href)` + `pageMetadata({ locale, href, title?, description? })`). Layout-`generateMetadata` setzt `metadataBase`, `title.template`, OpenGraph (mit `locale`/`alternateLocale`), Twitter-Card-Default und Robots. Alle 14 statischen Pages migriert auf `pageMetadata`-Helper; Blog-Detail nutzt direkt `buildAlternates` + custom OG (`type=article`, `publishedTime`, `images: [coverImageUrl]`). Sitemap auf App-Ebene (`src/app/sitemap.ts`) mit STATIC_HREFS × beide Locales und xhtml:link-Alternates; Blog-Slugs gracefully wenn `isSupabaseConfigured()` false ist. Robots (`src/app/robots.ts`) verweist auf Sitemap und sperrt `/api/`. Lokalisiertes OG-Image unter `src/app/[locale]/opengraph-image.tsx` rendert per `ImageResponse` (1200×630) mit Datenraum-Blau-Gradient, lokalisierter Kicker, `siteName`/`siteDescription` aus Messages. Top-Level `src/app/icon.tsx` (32×32 ST-Initial-Badge). Bug-Fix beim Verifizieren entdeckt: `pageMetadata` setzte kein `twitter.card` → Pages fielen auf Next.js-Default `summary` zurück; Helper jetzt mit `card: "summary_large_image"` ergänzt. Zweiter Bug: i18n-Proxy-Matcher fing `/icon` ab → 307 → `/de/icon` → 500. Matcher um `icon|apple-icon|opengraph-image|twitter-image|manifest` exkludiert (Top-Level Convention Files). Messages-Erweiterung: `pages.impressum.lead` und `pages.datenschutz.lead` in DE und EN ergänzt (sonst rendert `description: undefined`). `package.json` Script `typecheck: "tsc --noEmit"`. Neuer GitHub-Actions-Workflow `.github/workflows/ci.yml` (pnpm 10, Node 20, lint + typecheck + build, ohne Supabase-Env → graceful ComingSoonHero-Fallback wie ADR-31). Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build` jeweils clean; `pnpm start --port 3030` + curl-Suite gegen `/sitemap.xml`, `/robots.txt`, `/icon`, `/de/opengraph-image`, `/en/opengraph-image`, `/de/blog/kickoff-datenraum-kultur` — alle 200, alle erwarteten Meta-Tags da, hreflang DE/EN/x-default, og:type=article für Blog-Detail. ADR-35 dokumentiert die SEO-Architektur.
 - **2026-05-04** — M5 Production-Deploy: `pnpm dlx vercel@latest deploy --prod --yes` aus dem Projekt-Root. Build in 28s remote, Deploy in 48s. Production-Alias `https://smarte-theaterdienste-website.vercel.app` automatisch auf neuen Build (`dpl_EEYezucGpDjM74fE3cwFY36DuqEj`) umgezogen. Pre-Deploy `tsc --noEmit`, `eslint .`, `pnpm build` jeweils clean. Smoke-Test gegen Production: `/de`, `/de/beteiligung/mitwirkung`, `/en/participation/contribute`, `/de/blog`, `/de/faq`, `/de/termine` alle HTTP 200; SSG-HTML enthält alle 4 Partner aus dem Supabase-Seed → Karten-Hotspots rendern Live-Daten. Vault-Updates + Commit + Obsidian-Sync.
@@ -40,13 +41,14 @@
 
 ## 📋 Was Claude beim nächsten Mal tun soll
 
-**Default-Nächster-Schritt: M6 Animation-Polish** — M8 ist abgeschlossen und in Production grün, Lighthouse alle Kategorien ≥ 96. Animation-Polish ist der nächste logische Milestone vor M7 (EN-Übersetzungen), weil M6 das visuelle Profil schärft, bevor man EN-Content darauf legt.
+**Default-Nächster-Schritt: M6 in Production deployen + Visual-Verify der View Transitions.** M6-Code ist auf `main` und lokal grün, aber die View-Transition-Morphs sind erst nach Production-Deploy + dem Hinzufügen wenigstens eines `cover_image_url`-Werts in `posts` real sichtbar. Production-Deploy via `pnpm dlx vercel@latest deploy --prod` (Routine, siehe Session 8/10).
 
 **Pfade nach Wahl:**
-1. **M6 Animation-Polish** — Comic-Strip-Variante entscheiden (pinned horizontal vs. vertical stagger), Hero-Parallax, Hover-States auf Cards, View-Transitions zwischen Routen, ScrollTrigger-Refresh nach Page-Transitions. **Erfordert User-Entscheidung zur Comic-Strip-Variante** — aktuell statisches 4-Card-Grid als Skeleton in `<ComicStrip>`.
-2. **M7 EN-Übersetzungen** — vollständige `messages/en.json`-Pflege (Lücken aus M3 prüfen), EN-Content in `content/en/`, Supabase-Translations für DB-Inhalte (zwei Posts haben aktuell nur DE-Translations → `/en/blog/<slug>` rendert für die `notFound()`). `hreflang` und Sitemap sind M8 schon abgedeckt.
+1. **M6-Validation in Production** — `pnpm typecheck`/`lint`/`build` lokal, dann `vercel deploy --prod`. Smoke-Test auf der Live-Site: ComicStrip-Stagger sichtbar, Card-Hover, Soft-Nav-Refresh. Optional: schnelle Lighthouse-Wiederholung (Performance darf nicht unter 90 fallen).
+2. **M7 EN-Quality-Review** — kleinerer Scope als gedacht. Messages und Content-JSONs sind strukturell synchron (154 Zeilen je `messages/{de,en}.json`); inhaltliches Korrekturlesen + Draft-Post (`wip-konnektor-roadmap`) EN-Translation in Supabase nachpflegen. hreflang und Sitemap sind M8 schon abgedeckt.
 3. **M8 Erweiterungen (optional)** — Per-Post-OG-Images für Blog-Detail (jetzt nur Default-Locale-OG), `lastModified` aus `published_at` statt `now` in der Sitemap, Lighthouse-CI als GitHub-Action (`treosh/lighthouse-ci-action`), `manifest.ts` (PWA, sobald echte Icons + Hero-Visual stehen). Performance kann unter Custom-Domain möglicherweise auf 100 — aktuell 96 wegen `unused-javascript`/`render-blocking-insight`/`network-dependency-tree-insight`.
 4. **Custom Domain anbinden** — Vercel-Dashboard → Project → Settings → Domains, `smarte-theaterdienste.de` (oder Sub-Domain) eintragen, DNS umstellen, Production-Env-Var `NEXT_PUBLIC_SITE_URL` darauf umbiegen, Sitemap und canonical regenerieren.
+5. **Hero-Visual + Cover-Images von User einsammeln** — sobald geliefert, Hero-Blob durch `<ParallaxImage>` ersetzen, Posts in Supabase mit `cover_image_url` befüllen (dann werden ViewTransition-Morphs sichtbar).
 
 **Optionale Mini-Tasks vor dem nächsten Milestone:**
 - **Vercel-GitHub-Integration manuell verbinden:** Vercel Dashboard → Project → Settings → Git → Connected Git Repository. CLI-Connect scheiterte mit `Failed to connect Kaytm93/smarte-theaterdienste-website to project`, vermutlich weil die Vercel-GitHub-App noch keinen Repo-Zugriff hat.
@@ -63,11 +65,10 @@
 
 ---
 
-## Bekannte offene Fragen für M5+
+## Bekannte offene Fragen für M7+
 
 - **CMS-Frontend für Inhalte:** Direkt Supabase-Studio reicht für Bühnenverein-Team? Oder leichtgewichtiger Admin-Bereich später
-- **Comic-Strip auf Landing:** pinned horizontal scroll (mehr Wow) vs. vertical stagger (mobile-friendlich)? Entscheidung in M6 (aktuell statisches 4-Card-Grid als Skeleton)
-- **Echte Asset-Lieferung:** Portrait-Fotos (© Sophie Moriarty), Partner-Logos als SVG, Hero-Visual
+- **Echte Asset-Lieferung:** Portrait-Fotos (© Sophie Moriarty), Partner-Logos als SVG, Hero-Visual, Blog-Cover-Bilder (für sichtbare View Transitions)
 
 ## Bekannte Tooling-Lücken (siehe [[PROBLEME]])
 

@@ -27,7 +27,7 @@ export function EventCard({ event, locale, registerLabel }: Props) {
 
   return (
     <FadeInOnScroll className="h-full">
-      <Card className="h-full border-border/60 bg-card/50">
+      <Card className="h-full border-border/60 bg-card/50 transition-all duration-300 ease-out hover:border-border hover:shadow-sm motion-reduce:transition-none">
         <CardContent className="flex h-full flex-col gap-4 p-6">
           <div className="flex flex-col gap-1">
             <time

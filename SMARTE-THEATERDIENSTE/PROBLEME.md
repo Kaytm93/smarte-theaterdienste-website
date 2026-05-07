@@ -25,7 +25,6 @@
 
 ## 🟡 Offene Fragen / Entscheidungen
 
-- **Comic-Strip Landing:** Variante A (pinned horizontal scroll) vs. B (vertical stagger). Aktuell statisches 4-Card-Grid als Skeleton in `<ComicStrip>`. Entscheidung: M6.
 - **Newsletter-Signup:** Im Miro nicht erwähnt — User-Wunsch? Falls ja, später.
 - **Kontaktformular Empfänger-Adresse:** Aktuell Placeholder in `.env.example`. Echte Adresse vom User.
 - **Echte Inhalte vom User benötigt:**
@@ -47,6 +46,10 @@
 
 | Datum | Problem | Lösung |
 |---|---|---|
+| 2026-05-07 | M6 Animation-Polish offen, Comic-Strip-Variante als Designentscheidung blockierend | Variante B (vertical stagger reveal) entschieden — mobile-friendly, keine Pinning-Komplexität. ComicStrip in Server-Wrapper + Client-`ComicStripFrames` (GSAP-Stagger 0.12 s, `useGSAP` + `prefers-reduced-motion`-Gate) gesplittet. Hero-Stagger via `STAGGER=0.08` konsolidiert + statischer Akzent-Blob (kein Parallax bis Hero-Visual da). Alle Cards auf einheitliches Hover-Schema. View Transitions API verdrahtet (`experimental.viewTransition` + `<ViewTransition name="post-cover-${slug}">`). Layout-globaler `ScrollTriggerRefresher` für Soft-Nav-Refresh. `globals.css` Reduced-Motion-Regel auf `::view-transition-{old,new,group}(*)`. ADR-37 / ADR-38 / ADR-39. |
+| 2026-05-07 | TypeScript kannte `<ViewTransition>`-Export von `react` nicht (Symbol nur in `@types/react/canary.d.ts`, nicht im Default-Export) | `src/types/react-canary.d.ts` mit `/// <reference types="react/canary" />` zieht die Canary-Typen projektweit ins TS-Programm. Runtime ist über Nexts gebundeltes `react` in `node_modules/next/dist/compiled/react/cjs/react.production.js` ohnehin verfügbar (exportiert `ViewTransition = REACT_VIEW_TRANSITION_TYPE`). |
+| 2026-05-07 | `pnpm typecheck` brach mit Konflikten in `.next/types/cache-life.d 2.ts` und `.next/types/routes.d 2.ts` | macOS-Finder-Style "duplicate" Dateien aus dem `.next`-Cache. `find .next/types -name "* 2.ts" -delete`. Cache wird beim nächsten Build neu generiert. |
+| 2026-05-07 | Preview-Dev-Server crashte direkt nach `pnpm build` mit `Failed to open SST file …/00000954.sst` | Turbopack-Cache aus `pnpm build` und Dev-Server kollidieren bei gemischter Nutzung. `rm -rf .next` vor dem Dev-Start löst das; permanent: nur `pnpm dev` ODER `pnpm build` pro Session. |
 | 2026-05-06 | `/de/opengraph-image` und `/en/opengraph-image` lieferten 500 in Production (lokal `pnpm start` HTTP 200, aber stream broken) | Satori (das Engine hinter `next/og`'s `ImageResponse`) unterstützt kein `display: inline-block`. Der 14×14-Akzent-Punkt im Kicker hatte genau das. Fix in `src/app/[locale]/opengraph-image.tsx:58` von `inline-block` auf `flex`. ADR-36. Beide Endpoints liefern jetzt valide 1200×630 PNGs. |
 | 2026-05-06 | Lighthouse-Accessibility 96/100, axe-core-Run zeigt 8 Color-Contrast-Errors im Footer (`text-foreground/55` → 4.41:1, `text-foreground/50` → 4.30:1, Ziel 4.5:1) | Drei Stellen in `src/components/layout/Footer.tsx` von `/55` und `/50` auf `/65` angehoben. axe-clean nach Redeploy, A11y-Score 100/100. Andere `text-foreground/55`-Vorkommen (PageHero, EventCard, etc.) bewusst unangetastet — sie liegen entweder auf farbigen Backgrounds oder in größeren Schriften und wurden weder von Lighthouse noch axe als Verstoß markiert. |
 | 2026-05-06 | Twitter-Card fiel auf Default `summary` zurück, obwohl Layout `summary_large_image` setzt | `pageMetadata`-Helper überschrieb das `twitter`-Object komplett ohne `card`. Helper setzt jetzt selbst `card: "summary_large_image"`. Verifiziert via curl auf `/de/projekt`. |

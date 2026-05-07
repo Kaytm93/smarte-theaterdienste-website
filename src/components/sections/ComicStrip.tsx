@@ -1,4 +1,4 @@
-import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
+import { ComicStripFrames } from "./ComicStripFrames";
 
 type Frame = {
   caption: string;
@@ -23,30 +23,7 @@ export function ComicStrip({ eyebrow, heading, frames }: Props) {
         </h2>
       </div>
 
-      <FadeInOnScroll>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {frames.map((frame, i) => (
-            <figure
-              key={i}
-              className="group flex flex-col gap-3 overflow-hidden rounded-lg border border-border/60 bg-card/50 p-4 transition-colors hover:border-border"
-            >
-              <div
-                className="aspect-[4/3] rounded-md"
-                style={{
-                  background: `linear-gradient(135deg, oklch(0.92 0.04 ${frame.hue}), oklch(0.78 0.08 ${frame.hue}))`,
-                }}
-                aria-hidden
-              />
-              <figcaption className="flex items-baseline gap-2 text-sm text-foreground/80">
-                <span className="font-mono text-xs text-foreground/40">
-                  0{i + 1}
-                </span>
-                <span>{frame.caption}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </FadeInOnScroll>
+      <ComicStripFrames frames={frames} />
     </section>
   );
 }

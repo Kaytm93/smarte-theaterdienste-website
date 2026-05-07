@@ -19,7 +19,7 @@ export async function ContactCard({ member }: { member: TeamMember }) {
   const t = await getTranslations("team");
 
   return (
-    <Card className="overflow-hidden border-border/60 bg-card/50 transition-colors hover:border-border">
+    <Card className="overflow-hidden border-border/60 bg-card/50 transition-all duration-300 ease-out hover:border-border hover:shadow-sm motion-reduce:transition-none">
       <div
         className="relative aspect-[4/5] w-full bg-muted"
         aria-label={t("portraitFallback")}

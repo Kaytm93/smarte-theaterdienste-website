@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { Link } from "@/lib/i18n/navigation";
@@ -47,14 +48,16 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
 
       {post.coverImageUrl ? (
         <FadeInOnScroll className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-muted">
-          <Image
-            src={post.coverImageUrl}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 1024px, 100vw"
-            priority
-            className="object-cover"
-          />
+          <ViewTransition name={`post-cover-${post.slug}`}>
+            <Image
+              src={post.coverImageUrl}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              priority
+              className="object-cover"
+            />
+          </ViewTransition>
         </FadeInOnScroll>
       ) : null}
 

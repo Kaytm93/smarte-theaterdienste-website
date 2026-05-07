@@ -8,7 +8,7 @@ type Props = {
 
 export function StepCard({ step, title, body }: Props) {
   return (
-    <Card className="h-full border-border/60 bg-card/50">
+    <Card className="h-full border-border/60 bg-card/50 transition-all duration-300 ease-out hover:border-border hover:shadow-sm motion-reduce:transition-none">
       <CardContent className="space-y-4 p-6">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-brand)] text-sm font-semibold text-[var(--accent-brand-foreground)]">
           {step}
