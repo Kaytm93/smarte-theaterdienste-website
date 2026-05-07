@@ -3,7 +3,7 @@
 ## 2026-05-07 — Session 18: M11 Original-Site-Transfer – DACH-Karte, ORIF-Materialien, FAQ
 
 **Commits / Deploy-Basis:**
-- Commit-SHA wird nach dem ersten Session-Commit nachgetragen.
+- `c3a2245` M11: Original-Site-Inhalte uebertragen
 
 **Was passierte:**
 
