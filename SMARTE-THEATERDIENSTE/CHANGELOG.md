@@ -1,5 +1,26 @@
 # 📝 Changelog
 
+## 2026-05-07 — Session 12: M6 Production-Validation
+
+**Commits / Deploy-Basis:**
+- `7f3ad43` docs(vault): CHANGELOG mit Session-11-Commit-SHA verlinken (Production-Deploy-Basis; enthält M6-Code über `860a761`)
+- `TBD` M6 deploy: Animation-Polish production-validiert
+
+**Was passierte:**
+
+- **Pre-Deploy-Gates:** `pnpm typecheck`, `pnpm lint`, `pnpm build` jeweils clean. Build lokal mit Next.js 16.2.4 / Turbopack; `experimental.viewTransition` aktiv; 36/36 statische Pages generiert, Blog/FAQ/Termine/Mitwirkung weiter ISR (`1m / 1y`).
+- **Production-Deploy:** `pnpm dlx vercel@latest deploy --prod --yes` aus dem Projekt-Root. Remote-Build clean in Vercel (`iad1`), Build-Cache aus Deploy `dpl_Fa2MYm6iZJYfPygJHaADhsyPYzcf` wiederverwendet. Neuer Deploy:
+  - Deploy-ID: `dpl_5fe7wA8PULdKp8UT8JodihG5YXv2`
+  - Build-URL: `https://smarte-theaterdienste-website-ikpqd33d9-kaytm93s-projects.vercel.app`
+  - Alias: `https://smarte-theaterdienste-website.vercel.app`
+- **HTTP-Smoke gegen Production:** `/de`, `/en`, `/de/blog`, `/en/blog`, `/de/blog/kickoff-datenraum-kultur`, `/en/blog/kickoff-datenraum-kultur`, `/de/beteiligung/mitwirkung`, `/en/participation/contribute`, `/de/opengraph-image`, `/en/opengraph-image`, `/icon`, `/sitemap.xml`, `/robots.txt` jeweils HTTP 200 über `/usr/bin/curl`.
+- **Browser-Check via Playwright-CLI:** `/de` rendert Hero mit Titel `Smarte Theaterdienste`, Akzent-Blob und 4 `[data-comic-frame]`-Frames. Nach Scroll + 1500 ms sind alle Frames `opacity: 1`, `transform: matrix(1, 0, 0, 1, 0, 0)` und sichtbar. CSSOM enthält die Reduced-Motion-Regel für `::view-transition`.
+- **Mobile-Check:** Viewport 375×812, Comic-Frames gestapelt mit Breite 328 px, kein Horizontal-Overflow.
+- **Soft-Navigation:** `/de/blog → /de/blog/erste-pilotpartner-gewonnen` per Link-Klick funktioniert; Detailseite rendert `Erste Pilotpartner gewonnen`; Console: 0 Errors / 0 Warnings.
+- **Einschränkung:** Der ViewTransition-Morph ist live weiterhin nur strukturell prüfbar, nicht visuell, weil die Live-Posts keine `cover_image_url` haben (`coverImages: 0`). Sobald Cover-Bilder gepflegt werden, kann der Morph real sichtbar verifiziert werden.
+
+**Status am Ende:** M6 ist production-validiert. Nächster sinnvoller Schritt: M7 EN-Quality-Review oder Cover-/Hero-Asset-Pflege für sichtbare ViewTransition-Morphs.
+
 ## 2026-05-07 — Session 11: M6 Animation-Polish
 
 **Commits:**

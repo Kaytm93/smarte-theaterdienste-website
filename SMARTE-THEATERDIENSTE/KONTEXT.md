@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M8 abgeschlossen (M8 production-validiert; M6 lokal grün, Production-Deploy offen). M7 zu ~99 % gepflegt (nur Draft-Post-EN fehlt).
+> Letzte Aktualisierung: 2026-05-07 | Stand: M5 / M6 / M8 abgeschlossen und production-validiert. M7 zu ~99 % gepflegt (nur Draft-Post-EN fehlt).
 
 ---
 
@@ -61,7 +61,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
-**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`). CLI-Deploy funktioniert. GitHub-Integration ist noch nicht verbunden, weil `vercel git connect` an GitHub-App/Rechten scheitert.
+**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, aktueller Deploy `dpl_5fe7wA8PULdKp8UT8JodihG5YXv2`). CLI-Deploy funktioniert. GitHub-Integration ist noch nicht verbunden, weil `vercel git connect` an GitHub-App/Rechten scheitert.
 
 **Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migration `20260427121400_init.sql` und Seed live. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`.
 
@@ -211,4 +211,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **M6-Production-Deploy** (Code ist auf `main`, Build clean, lokal grün), **M7 EN-Quality-Review** (klein, 99 % schon da), **M8 Erweiterungen** (Per-Post-OG, lastModified, Lighthouse-CI), **Custom Domain**, **echte Asset-Lieferung** (Hero-Visual, Cover-Bilder, Portraits, Partner-Logos). M5 + M6 + M8 sind die größten Code-Milestones. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
+Aktuell offen: **M7 EN-Quality-Review** (klein, 99 % schon da), **echte Asset-/Cover-Lieferung** (Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits, Partner-Logos), **M8 Erweiterungen** (Per-Post-OG, `lastModified` in Sitemap, Lighthouse-CI), **Custom Domain**. M5 + M6 + M8 sind die größten Code-Milestones und sind production-validiert. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
