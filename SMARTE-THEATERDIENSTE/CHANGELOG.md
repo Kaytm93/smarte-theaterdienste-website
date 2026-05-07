@@ -4,7 +4,7 @@
 
 **Commits / Deploy-Basis:**
 - `7f3ad43` docs(vault): CHANGELOG mit Session-11-Commit-SHA verlinken (Production-Deploy-Basis; enthält M6-Code über `860a761`)
-- `TBD` M6 deploy: Animation-Polish production-validiert
+- `17a7155` M6 deploy: Animation-Polish production-validiert
 
 **Was passierte:**
 
