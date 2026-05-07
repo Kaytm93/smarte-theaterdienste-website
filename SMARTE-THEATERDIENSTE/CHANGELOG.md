@@ -3,7 +3,7 @@
 ## 2026-05-07 — Session 15: Asset-/Go-live-Handoff
 
 **Commits / Deploy-Basis:**
-- Wird nach Commit ergaenzt
+- `9abdbe0` M9: Asset- und Go-live-Handoff
 
 **Was passierte:**
 
