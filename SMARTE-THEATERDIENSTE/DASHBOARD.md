@@ -14,7 +14,7 @@
 | Animation-Polish | ✅ **M6 abgeschlossen** — ComicStrip vertical stagger, Hero-Choreografie + Akzent-Blob, Card-Hover projektweit standardisiert, View Transitions API verdrahtet, ScrollTriggerRefresher für Soft-Nav |
 | EN-Übersetzungen | ✅ **M7 abgeschlossen** — EN-Copy reviewt, statische EN-Dateien strukturgleich, Blog-Translations in Supabase vollständig |
 | Production-Polish | ✅ **M8 vollständig validiert** — SEO/Sitemap/Robots/OG/Icon/CI live; Lighthouse Perf 96 / A11y 100 / BP 100 / SEO 100 (DE & EN); axe-core clean; Sitemap-Lastmod-Polish production-live |
-| Vercel-Deployment | ✅ live: https://smarte-theaterdienste-website.vercel.app (Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`) — Sitemap-Lastmod production-live |
+| Vercel-Deployment | ✅ live: https://smarte-theaterdienste-website.vercel.app (Deploy `dpl_CdZyBYew1ESqpqqASWwnoxmE1xLB`) — Design-Refresh M10 production-live |
 | Supabase-Revalidate | ✅ live via `pg_net`-Trigger auf 6 Tabellen → `/api/revalidate` |
 | GitHub Actions CI | ✅ lint + typecheck + build auf push/PR |
 | Vercel-GitHub-Integration | ✅ verbunden (Session 16) — Auto-Deploy bei Push erwartet |
@@ -26,7 +26,7 @@
 
 ## Was gerade läuft
 
-**M10 Design-Refresh komplett.** Die Site hat eine moderne, kulturaffine Visual-Sprache mit echten Assets: Theater-Parade-Foto im Hero, 3 Schwarzweiß-Telefon-Comic-Frames mit lila Sprechblasen im ComicStrip, 6 Partner-Logos im Footer. Tokens erweitert um Sekundär-Akzent (Bühnen-Magenta), Surface-Skala, Glow-Tinten, Schatten-System. Cards einheitlich `rounded-2xl` mit Hover-Lift. PageHero/TextSection mit Sticky-Sidebar-Heading. Console 0 Errors, Build clean (37/37 Pages SSG). Restposten aus [[GO_LIVE_CHECKLIST]]: Portraits Sophie Moriarty, Blog-Cover-Bilder, Custom-Domain-DNS, finale Impressum-/Datenschutztexte.
+**M10 Design-Refresh production-live.** Deploy `dpl_CdZyBYew1ESqpqqASWwnoxmE1xLB` per CLI (Auto-Deploys wurden mehrfach durch nachfolgende Pushes auto-cancelled). Smoke gegen `https://smarte-theaterdienste-website.vercel.app`: 14 Pfade/Assets alle 200, HTML referenziert neue Hero-/Comic-/Logo-Pfade. Restposten aus [[GO_LIVE_CHECKLIST]]: Portraits Sophie Moriarty, Blog-Cover-Bilder, Custom-Domain-DNS, finale Impressum-/Datenschutztexte.
 
 ## Letzte Aktivität
 

@@ -4,6 +4,8 @@
 
 **Commits / Deploy-Basis:**
 - `6435528` M10: Design-Refresh – Hero-Visual, ComicStrip mit echten Bildern, Footer-Logos, Tokens
+- `bfb3c06` docs(vault): Session-17 Commit-SHA nachtragen
+- Production-Deploy `dpl_CdZyBYew1ESqpqqASWwnoxmE1xLB` (manuell, weil Auto-Deploys mehrfach „Canceled" wurden — vermutlich durch nachfolgende Pushes auto-cancelled). Smoke-Test gegen `https://smarte-theaterdienste-website.vercel.app`: 14 Pfade/Assets alle HTTP 200, HTML enthält die neuen Referenzen auf `theater-parade.jpg`, `comic-strip/frame-{1-zeit,2-bescheid,3-verbindungen}.jpg` und `logos/*.png`.
 
 **Was passierte:**
 
