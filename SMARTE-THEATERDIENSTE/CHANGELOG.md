@@ -3,7 +3,7 @@
 ## 2026-05-07 — Session 17: M10 Design-Refresh – Tokens, Hero-Visual, ComicStrip mit echten Bildern, Footer-Logos
 
 **Commits / Deploy-Basis:**
-- (folgt mit diesem Push)
+- `6435528` M10: Design-Refresh – Hero-Visual, ComicStrip mit echten Bildern, Footer-Logos, Tokens
 
 **Was passierte:**
 
