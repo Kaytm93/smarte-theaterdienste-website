@@ -3,7 +3,7 @@
 ## 2026-05-07 — Session 16: M9 PWA-Manifest, Per-Post-OG, Lighthouse-CI
 
 **Commits / Deploy-Basis:**
-- (folgt nach Push) — Vercel-GitHub-Integration jetzt verbunden, Auto-Deploy bei Push erwartet.
+- `1e3f325` M9: PWA-Manifest, Per-Post-OG-Images, Lighthouse-CI — erster Push nach reaktivierter Vercel-GitHub-Integration, Auto-Deploy erwartet.
 
 **Was passierte:**
 
