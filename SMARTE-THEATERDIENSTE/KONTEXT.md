@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-07 | Stand: M5–M9 production-validiert, M10 Design-Refresh lokal komplett (Hero-Visual, ComicStrip mit echten Bildern, Footer-Logos, Card-Polish). Nächster sinnvoller Schritt: Push & Auto-Deploy validieren, restliche User-Assets (Portraits/Blog-Cover), Domain-Entscheidung und finale Rechtstexte.
+> Letzte Aktualisierung: 2026-05-07 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt (DACH-Netzwerkkarte, 141er-Statistik, ORIF-Materialien, Portraits, FAQ/Termine). Nächster sinnvoller Schritt: Auto-Deploy nach Push validieren, Blog-Cover, Domain-Entscheidung und finale Rechtstexte.
 
 ---
 
@@ -61,9 +61,9 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
-**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, aktueller Deploy `dpl_FH5hja9zd9E81kigJt7vZYi5q5yw`). CLI-Deploy funktioniert. GitHub-Integration ist noch nicht verbunden, weil `vercel git connect` an GitHub-App/Rechten scheitert.
+**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, letzter validierter M10-Deploy `dpl_CdZyBYew1ESqpqqASWwnoxmE1xLB`). GitHub-Integration ist verbunden; Push auf `main` triggert Auto-Deploy.
 
-**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migrationen `20260427121400_init.sql` und `20260507120000_m7_english_post_translations.sql` sind live; Seed ist mit M7-Content synchron. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`.
+**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migrationen `20260427121400_init.sql`, `20260507120000_m7_english_post_translations.sql` und `20260507153000_m11_original_site_content.sql` sind live. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`. M11-Check: 21 veröffentlichte FAQs, 42 FAQ-Translations, 4 Original-Website-Termine als `past`.
 
 ---
 
@@ -100,21 +100,21 @@ smarte-theaterdienste-website/
 │   ├── app/[locale]/
 │   │   ├── layout.tsx                          ← Root html/body, NextIntlClientProvider, Header+Footer, Fonts; M8: metadataBase, OG/Twitter-Defaults, robots
 │   │   ├── opengraph-image.tsx                 ← M8: 1200×630 ImageResponse pro Locale (DE/EN), Datenraum-Blau, siteName/siteDescription
-│   │   ├── page.tsx                            ← Landing: Hero + ComicStrip-Skeleton + Pitch-TextSection
-│   │   ├── ansprechpersonen/page.tsx           ← PageHero + TeamGrid (4 Personen)
+│   │   ├── page.tsx                            ← Landing: Hero + Benefits + DACH-Netzwerkkarte + ComicStrip + Stakeholder-Benefits + Pitch
+│   │   ├── ansprechpersonen/page.tsx           ← PageHero + TeamGrid (4 Personen, Portraits via Sanity-CDN aus alter Website)
 │   │   ├── projekt/page.tsx                    ← PageHero + 6 TextSections + CTA-Links
 │   │   ├── projekt/technische-standards/page.tsx
 │   │   ├── projekt/semantische-standards/page.tsx
 │   │   ├── beteiligung/page.tsx                ← PageHero + 2 TextSections + 3 CTA-Links
 │   │   ├── beteiligung/anwendungsbeispiele/page.tsx ← 3 UseCaseCards
-│   │   ├── beteiligung/mitwirkung/page.tsx     ← 2 StepCards + <PartnerMap> (M5), revalidate=60
+│   │   ├── beteiligung/mitwirkung/page.tsx     ← 3 StepCards + Tanzarchiv-Zitat + <PartnerMap> (M5), revalidate=60
 │   │   ├── impressum/page.tsx                  ← TODO-Platzhalter (Legal-Referenz auf § 5 DDG aktualisiert)
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter
 │   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
 │   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams; Session 16: twitter.card=summary_large_image
 │   │   ├── blog/[slug]/opengraph-image.tsx     ← M9 (Session 16): Per-Post 1200×630 OG mit Title + lokalisiertem published_at
-│   │   ├── faq/page.tsx                        ← Accordion (Supabase) mit ComingSoonHero-Fallback
-│   │   └── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase) mit ComingSoonHero-Fallback
+│   │   ├── faq/page.tsx                        ← Accordion (Supabase; M11: 21 Original-FAQ-Einträge) mit ComingSoonHero-Fallback
+│   │   └── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase; M11: 4 Original-Events als past) mit ComingSoonHero-Fallback
 │   ├── app/api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath; Post-Änderungen invalidieren auch `/sitemap.xml`
 │   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge
 │   ├── components/
@@ -125,7 +125,8 @@ smarte-theaterdienste-website/
 │   │   │                                          ComicStrip (Server-Wrapper) + ComicStripFrames (Client, GSAP-Stagger, M6),
 │   │   │                                          PostCard, PostArticle (mit ViewTransition-Wrap, M6),
 │   │   │                                          EventCard, FaqAccordion (M4),
-│   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5)
+│   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5),
+│   │   │                                          FeatureGrid, NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer)
 │   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage,
 │   │   │                                          ScrollTriggerRefresher (Layout-globaler usePathname-Listener, M6)
 │   │   └── forms/                              ← LEER (Newsletter/Beta-Anmeldung später)
@@ -140,15 +141,15 @@ smarte-theaterdienste-website/
 │   ├── types/database.ts                       ← Generated Supabase types (`pnpm gen:types`, mit Relationships)
 │   ├── types/react-canary.d.ts                 ← M6: `/// <reference types="react/canary" />` für `<ViewTransition>`-Typen
 │   ├── content/{de,en}/                        ← Page-Content (umfangreich, M7: EN reviewt + strukturgleich):
-│   │   ├── team.json                            ←   4 Ansprechpersonen
+│   │   ├── team.json                            ←   4 Ansprechpersonen mit Sanity-CDN-Portraits aus alter Website
 │   │   ├── projekt.json                         ←   6 Sections + 2 Links
-│   │   ├── projekt-technische-standards.json
+│   │   ├── projekt-technische-standards.json     ←   ORIF-Erklärung + Ressourcen/Tools (Comic, Doku, Validator, Lektorat)
 │   │   ├── projekt-semantische-standards.json
 │   │   ├── beteiligung.json                     ←   Pitch + 3 Links
 │   │   ├── beteiligung-anwendungsbeispiele.json ←   3 Use Cases
-│   │   ├── beteiligung-mitwirkung.json          ←   2 Schritte + Map-Platzhalter
+│   │   ├── beteiligung-mitwirkung.json          ←   3 Schritte + Tanzarchiv-Zitat
 │   │   ├── legal.json                           ←   imprint/privacy mit todo-Flag; Impressum-Hinweis nutzt § 5 DDG
-│   │   └── landing.json                         ←   Comic-Strip-Frames + Pitch
+│   │   └── landing.json                         ←   Benefits + DACH-Netzwerkkarte + Comic-Strip-Frames + Stakeholder-Benefits + Pitch
 │   ├── styles/tokens.css                       ← Spacing/Typo/Easings/Container; --accent-brand: Datenraum-Blau
 │   ├── types/                                  ← Generated Supabase types ab M4
 │   └── proxy.ts                                ← next-intl Routing-Proxy (Next.js 16!); Matcher excluded `icon|apple-icon|opengraph-image|twitter-image|manifest` (Top-Level Convention Files)
@@ -156,7 +157,8 @@ smarte-theaterdienste-website/
 ├── supabase/                                   ← config.toml (project_id=smarte-theaterdienste-website),
 │   ├── migrations/
 │   │   ├── 20260427121400_init.sql             ← M4 Schema + RLS
-│   │   └── 20260507120000_m7_english_post_translations.sql ← M7 Blog-Translations
+│   │   ├── 20260507120000_m7_english_post_translations.sql ← M7 Blog-Translations
+│   │   └── 20260507153000_m11_original_site_content.sql ← M11 Original-FAQ + 2025-Events
 │   ├── seed.sql                                ← Beispiel-Daten inkl. M7 Blog-Translations
 │   ├── config.toml                            │
 │   └── .gitignore                             │
@@ -175,11 +177,11 @@ smarte-theaterdienste-website/
 │   │   ├── nfdi4culture.png
 │   │   ├── bkm.png
 │   │   └── hamburg.png
-│   └── team/                                   ← (Portraits folgen, © Sophie Moriarty)
+│   └── team/                                   ← Optional fuer lokale Portrait-Kopien; aktuell rendert Team remote via Sanity-CDN
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
 │   └── GO_LIVE_CHECKLIST.md                    ← Asset-/Domain-/Vercel-/Legal-Handoff fuer den User
 │
-├── next.config.ts                              ← withNextIntl + remotePatterns + experimental.viewTransition (M6)
+├── next.config.ts                              ← withNextIntl + remotePatterns (Supabase/Unsplash/Sanity) + experimental.viewTransition (M6)
 ├── components.json                             ← shadcn config (radix-nova, neutral baseColor, css-vars)
 ├── tsconfig.json                               ← @/* → ./src/*
 ├── package.json
@@ -232,4 +234,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **echte Asset-/Cover-Lieferung** (Hero-Visual, Blog-Cover-Bilder für sichtbare ViewTransition-Morphs, Portraits, Partner-Logos), **Custom Domain**, **Vercel-GitHub-Integration** und **finale Impressum-/Datenschutztexte**. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert. Vor dauerhaftem CI/CD-Push-Deploy sollte der User im Vercel-Dashboard die GitHub-Integration für `Kaytm93/smarte-theaterdienste-website` freigeben/verbinden; bis dahin deployt man per `pnpm dlx vercel@latest deploy --prod`.
+Aktuell offen: **Blog-Cover-Bilder** für sichtbare ViewTransition-Morphs, **Custom Domain** und **finale Impressum-/Datenschutztexte**. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert; M10 ist production-live; M11 wartet nach Push auf Auto-Deploy-Validierung.

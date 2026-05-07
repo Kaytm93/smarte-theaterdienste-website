@@ -88,10 +88,10 @@
     "mitwirkung": {
       "kicker": "Step by step",
       "title": "How participation works",
-      "lead": "Your theatre can connect to the data space in two technical steps - we accompany both.",
+      "lead": "Three clear steps lead from programme data to automated data sharing.",
       "map": {
         "heading": "Who's already on board",
-        "lead": "Pilot theatres and Cultural Data Space partners across Germany. Click a marker to learn more.",
+        "lead": "Pilot theatres and Cultural Data Space partners across Germany. The larger DACH network map is also available on the home page.",
         "imageAlt": "Map of Germany showing the locations of Cultural Data Space partners",
         "statusLabel": "Status",
         "statuses": {
@@ -131,7 +131,7 @@
     "faq": {
       "kicker": "Answers",
       "title": "Frequently asked questions",
-      "lead": "The five questions we hear most often - answered briefly and honestly.",
+      "lead": "Answers on basic knowledge, technology and safety, implementation and costs, and the Cultural Data Space.",
       "empty": {
         "kicker": "Answers",
         "title": "FAQ in progress",

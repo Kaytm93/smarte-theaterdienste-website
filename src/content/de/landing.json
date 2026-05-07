@@ -1,4 +1,68 @@
 {
+  "benefits": {
+    "eyebrow": "Bühne frei",
+    "heading": "Einfach und schnell zu mehr Sichtbarkeit und Vernetzung",
+    "lead": "Die Schnittstelle ORIF macht Spielpläne dort nutzbar, wo sie heute oft noch manuell nachgetragen werden.",
+    "features": [
+      {
+        "icon": "sparkles",
+        "title": "Effektivere Arbeitsprozesse",
+        "body": "Einmal implementieren, langfristig profitieren: Spielplandaten müssen nicht mehr in unterschiedliche Eingabemasken getippt werden. Die automatisierte Datenübertragung hält Informationen aktuell, ohne zusätzlichen Pflegeaufwand."
+      },
+      {
+        "icon": "megaphone",
+        "title": "Höhere Reichweite",
+        "body": "Maschinenlesbare Spielpläne können mit wenig Aufwand auf zahlreichen Plattformen erscheinen. ORIF baut Brücken zwischen Datensilos und übersetzt unterschiedliche Formate in einen gemeinsamen Standard."
+      },
+      {
+        "icon": "users",
+        "title": "Größeres Netzwerk",
+        "body": "Die Smarten Theaterdienste schaffen die Grundlage für eine digitale Vernetzung offener und geschützter Kulturdaten. Die Schnittstelle ist aber auch ohne Datenraum sofort für Häuser einsetzbar."
+      }
+    ]
+  },
+  "network": {
+    "eyebrow": "Wer spielt mit?",
+    "heading": "Über 140 Institutionen im Netzwerk",
+    "lead": "Theater, Verbände, Plattformen, Archive und Softwarepartner:innen aus Deutschland, Österreich und der Schweiz arbeiten bereits an maschinenlesbaren Spielplänen mit.",
+    "statValue": "141",
+    "statLabel": "Institutionen umfasst das Netzwerk derzeit.",
+    "image": "https://cdn.sanity.io/images/lc7slax2/production/5efc70ceb37c3730b6906ce9755adea8962c5a29-2550x1514.jpg",
+    "imageAlt": "Karte von Deutschland, Österreich und der Schweiz mit farbigen Punkten für Theater, Verbände und Plattformen im Netzwerk der Smarten Theaterdienste.",
+    "segments": [
+      { "value": "51", "label": "interessierte Theater und Opernhäuser" },
+      { "value": "30", "label": "Häuser im erweiterten Netzwerk" },
+      { "value": "30", "label": "Länder, Kommunen und Verbände" },
+      { "value": "30", "label": "Archive, Software, Ticketing und Plattformen" }
+    ]
+  },
+  "stakeholders": {
+    "eyebrow": "Vorteile",
+    "heading": "Vorteile für alle Beteiligten",
+    "lead": "Ob Theaterleitung, PR-Team, Künstlerisches Betriebsbüro oder technische Partner:innen: Alle profitieren von einem gemeinsamen Standard.",
+    "features": [
+      {
+        "icon": "building",
+        "title": "Theaterleitung",
+        "body": "Mit minimalem technischen Aufwand werden Spielpläne maschinenlesbar. Das erhöht die Sichtbarkeit der Aufführungen und positioniert Häuser als Vorreiter der digitalen Transformation."
+      },
+      {
+        "icon": "megaphone",
+        "title": "PR und Marketing",
+        "body": "Spielpläne können automatisch auf mehreren Plattformen veröffentlicht und in Echtzeit aktualisiert werden. Das spart manuellen Aufwand und stärkt die Kommunikation."
+      },
+      {
+        "icon": "archive",
+        "title": "Künstlerisches Betriebsbüro",
+        "body": "Raum-, Proben-, Produktions-, Ticket- und Gastspielplanung profitieren langfristig, weil Daten nahtlos in unterschiedliche Systeme eingebunden werden können."
+      },
+      {
+        "icon": "code",
+        "title": "Developer und Agenturen",
+        "body": "Vorhandene Spielplandaten müssen nur einmal auf das ORIF-Datenmodell gemappt werden und werden dadurch mit vielen Anwendungen kompatibel."
+      }
+    ]
+  },
   "comicStrip": {
     "eyebrow": "Das Problem · Die Perspektive",
     "heading": "Vom isolierten Spielplan zum vernetzten Datenraum",

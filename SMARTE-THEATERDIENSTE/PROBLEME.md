@@ -7,10 +7,6 @@
   → Workaround: User legt Repo an, gibt SSH-URL, Claude pusht via vorhandenen SSH-Key.
 - **Homebrew fehlt.** Tools wie `gh`, `supabase` CLI müssen über alternative Wege (npm global, Binärdownload, dev-dep).
 
-### Externe Abhängigkeiten
-- **Bestehende Website war 2026-04-25 mit 503 nicht erreichbar.** Die geplante Orientierung an https://smarte-theaterdienste.de/de für Designsprache und Inhaltsstruktur konnte nur teilweise stattfinden (Plan basiert primär auf Miro-Inhalten + User-Beschreibung).
-  → ToDo: Bei nächster Session erneut fetchen, ggf. screenshotten, in INHALTE.md ergänzen.
-
 ### Performance-Restposten (Lighthouse Performance 96/100, kein Blocker)
 - **Performance bleibt bei 96/100** — die drei Insights `unused-javascript`, `render-blocking-insight`, `network-dependency-tree-insight` ziehen den Score. Typische Next.js-/React-Themen, kein leichter Fix ohne Bundle-Tuning. Optionen für später: per-Page Suspense-Boundaries, dynamische Imports der GSAP-Animation-Primitives, Preload-Hinweise im Layout. Kein Blocker — alle anderen Kategorien 100/100, Core Web Vitals (LCP 2.6 s, CLS 0, TBT 30 ms) sind grün.
 
@@ -24,8 +20,8 @@
 - **Newsletter-Signup:** Im Miro nicht erwähnt — User-Wunsch? Falls ja, später.
 - **Kontaktformular Empfänger-Adresse:** Aktuell Placeholder in `.env.example`. Echte Adresse vom User.
 - **Echte Inhalte vom User benötigt:**
-  - Portraits Sophie Moriarty für `public/team/{sina-schmidt,peter-retzlaff,claudia-groenniger,madeleine-scheuerpflug}.jpg` (Fallback aktuell: Initialen mit Surface-Gradient-Hintergrund)
   - Blog-Cover-Bilder für `public/blog/{kickoff-datenraum-kultur,erste-pilotpartner-gewonnen,wip-konnektor-roadmap}.jpg` und `cover_image_url`-Pflege in Supabase
+  - Optional: lokale Portrait-Kopien für `public/team/{sina-schmidt,peter-retzlaff,claudia-groenniger,madeleine-scheuerpflug}.jpg`; aktuell rendert die Site die Original-Portraits stabil via altem Sanity-CDN.
   - Partner-Logos in SVG (aktuell PNG aus alter Website unter `public/logos/`, funktioniert produktiv, SVG wäre cleaner für Retina/Print)
   - Echte Impressum-/Datenschutz-Texte vom Bühnenverein-Auftraggeber (aktuell sichtbarer TODO-Marker)
   - E-Mails der Ansprechpersonen verifizieren (aktuell vermutet `vorname.nachname@buehnenverein.de`)
@@ -35,6 +31,7 @@
   - Hero-Visual: Theater-Parade-Foto unter `public/hero/theater-parade.jpg`.
   - ComicStrip-Bilder: 3 Schwarzweiß-Telefon-Szenen unter `public/comic-strip/frame-{1-zeit,2-bescheid,3-verbindungen}.jpg`.
   - Footer-Partner-Logos (PNG): Bühnenverein, Akademie, Fraunhofer, acatech, NFDI4Culture, BKM, Hamburg unter `public/logos/`.
+  - Portraits: 4 Ansprechpersonen-Portraits aus der alten Website via Sanity-CDN in `team.json` eingebunden.
 
 ## 🟢 Wissenswert (keine Bugs, aber Aufmerksamkeit nötig)
 
@@ -48,6 +45,7 @@
 
 | Datum | Problem | Lösung |
 |---|---|---|
+| 2026-05-07 | Original-Website-Inhalte waren nur teilweise übertragen; die alte Site war am 2026-04-25 noch 503 und die DACH-Netzwerkkarte/141er-Statistik, ORIF-Materialien, große FAQ und alte Termine fehlten im aktuellen Projekt. | Originalseite erneut gecrawlt (`/de`, `/de/konzeption`, `/de/material`, `/de/faq`, `/de/jetzt-mitmachen`) und Inhalte übertragen: Landing mit DACH-Netzwerkkarte + 141er-Statistik + Stakeholder-Vorteilen, Technische Standards mit ORIF-Materialien/Tools, Mitwirkung mit Drei-Punkte-Plan + Tanzarchiv-Zitat, Team-Portraits via Sanity-CDN, Supabase-Migration `20260507153000_m11_original_site_content.sql` mit 21 FAQ-Einträgen und 4 vergangenen 2025-Events. |
 | 2026-05-07 | Hero-Visual, ComicStrip-Frames und Partner-Logos waren noch Platzhalter (Text-Frames, Initialen-Bubbles, Text-Logos im Footer). | User lieferte Comic-Strip-Frames (3 Schwarzweiß-Telefon-Szenen), Theater-Parade-Foto und 7 Partner-Logos aus alter Website. Assets nach `public/comic-strip/`, `public/hero/`, `public/logos/` einsortiert (AVIF→JPG via `sips`). ComicStrip-Schema in `landing.json` umgestellt auf `{image, alt, title, caption}`, ComicStripFrames rendert echte `<Image>`-Komponenten. Hero-Layout neu mit Theater-Parade-Polaroid + Layered Glow-Background. Footer mit `<Image>`-basiertem Logo-Grid. ([[CHANGELOG#2026-05-07 — Session 17 M10 Design-Refresh]]) |
 | 2026-05-07 | Turbopack-Cache liess `/de/beteiligung/anwendungsbeispiele`, `/de/beteiligung/mitwirkung`, `/de/projekt/{technische,semantische}-standards` als 404 zurückkommen, obwohl die Pages fehlerfrei waren — Single-Segment-Routes funktionierten parallel weiter. | `rm -rf .next && pnpm dev` neu gestartet → alle nested Routes wieder 200. Klassisches stale-Turbopack-Cache-Problem nach grösseren File-Strukturveränderungen, kein Code-Bug. |
 | 2026-05-07 | `[locale]/blog/[slug]/page.tsx` setzte `twitter`-Object ohne `card`, dadurch fiel `twitter:card` auf Default `summary` statt auf den Layout-Default `summary_large_image` zurück (Page-`twitter` überschreibt Layout-`twitter` komplett). Bei der Per-Post-OG-Erweiterung deutlich sichtbar geworden. | `card: "summary_large_image"` explizit auch in der Page gesetzt. Verifiziert via curl: `<meta name="twitter:card" content="summary_large_image"/>`. |

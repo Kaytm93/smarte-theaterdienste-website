@@ -1,12 +1,12 @@
 # 🔌 API & Datenmodell
 
-> **Stand: M4 abgeschlossen, M7-Content-Migration live.** Supabase Cloud `hyirpaloozcautcxhbqk` ist live, Migration + Seed sind eingespielt, `src/types/database.ts` wurde per `pnpm gen:types` aus der Cloud generiert. Production-Revalidate läuft über `pg_net`-Trigger in der Cloud-DB. M7 ergänzt vollständige DE/EN-Blog-Translations per Migration `20260507120000_m7_english_post_translations.sql`.
+> **Stand: M4 abgeschlossen, M7- und M11-Content-Migrationen live.** Supabase Cloud `hyirpaloozcautcxhbqk` ist live, Migration + Seed sind eingespielt, `src/types/database.ts` wurde per `pnpm gen:types` aus der Cloud generiert. Production-Revalidate läuft über `pg_net`-Trigger in der Cloud-DB. M7 ergänzt vollständige DE/EN-Blog-Translations; M11 ergänzt Original-Website-FAQ und 2025-Events.
 
 ---
 
 ## Datenbank-Schema (Postgres / Supabase)
 
-Quelle der Wahrheit für das Schema: `supabase/migrations/20260427121400_init.sql`. M7-Content-Ergänzung: `supabase/migrations/20260507120000_m7_english_post_translations.sql`. Pattern: Parent-Tabelle mit Lifecycle-Feldern + separate `*_translations`-Tabelle pro Locale.
+Quelle der Wahrheit für das Schema: `supabase/migrations/20260427121400_init.sql`. Content-Ergänzungen: `supabase/migrations/20260507120000_m7_english_post_translations.sql` und `supabase/migrations/20260507153000_m11_original_site_content.sql`. Pattern: Parent-Tabelle mit Lifecycle-Feldern + separate `*_translations`-Tabelle pro Locale.
 
 ### Locale-Enum
 
@@ -37,6 +37,22 @@ Migration `20260507120000_m7_english_post_translations.sql` ist live und synchro
 - `wip-konnektor-roadmap`: DE/EN-Draft-Translations ergänzt
 
 Kontrollquery am 2026-05-07: alle drei Posts haben `array_agg(locale) = {de,en}`.
+
+### M11 Original-Site-Content
+
+Migration `20260507153000_m11_original_site_content.sql` ist live und uebertraegt Inhalte der alten Website `https://smarte-theaterdienste.de/de` in die Supabase-getriebenen Seiten:
+
+- **FAQ:** 21 veröffentlichte Einträge in Kategorien `grundwissen`, `technik-sicherheit`, `umsetzung-kosten`, `datenraum-kultur`
+- **FAQ-Translations:** 42 Zeilen (`de` + `en` je Eintrag)
+- **Events:** 4 vergangene 2025-Termine aus der alten Startseite (`Jahrestagung Bühnenverein`, `DataWeek Symposium`, `Theatertreff Berlin`, `Abschlussforum Datenraum Kultur`)
+
+Kontrollqueries am 2026-05-07:
+
+```sql
+select count(*) from public.faqs where is_published = true; -- 21
+select count(*) from public.faq_translations; -- 42
+select slug, status from public.events where slug like '%2025%'; -- 4 rows, status=past
+```
 
 ### Trigger & Indizes
 

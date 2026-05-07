@@ -1,5 +1,23 @@
 # 📝 Changelog
 
+## 2026-05-07 — Session 18: M11 Original-Site-Transfer – DACH-Karte, ORIF-Materialien, FAQ
+
+**Commits / Deploy-Basis:**
+- Commit-SHA wird nach dem ersten Session-Commit nachgetragen.
+
+**Was passierte:**
+
+- **Vault + Originalseite gelesen:** Pflichtdateien `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE` gelesen; wegen Supabase-FAQ/Termine zusätzlich `API.md`. Next.js-16-Docs zu App-Router Pages und Images geprüft. Alte Website `https://smarte-theaterdienste.de/de` war wieder erreichbar und wurde über `/de`, `/de/konzeption`, `/de/material`, `/de/faq`, `/de/jetzt-mitmachen` gecrawlt; zusätzlich Bühnenverein-Seite und ORIF-Doku geprüft.
+- **Landing erweitert:** Neue `FeatureGrid`-Sektionen für die alten Nutzenblöcke ("Effektivere Arbeitsprozesse", "Höhere Reichweite", "Größeres Netzwerk") und Stakeholder-Vorteile (Theaterleitung, PR/Marketing, Künstlerisches Betriebsbüro, Developer/Agenturen). Neue `NetworkMapSection` zeigt die DACH-Netzwerkkarte aus dem alten Sanity-CDN mit 141er-Statistik und Segmenten (51 interessierte Theater/Opernhäuser, 30 erweitertes Netzwerk, 30 Länder/Kommunen/Verbände, 30 Archive/Software/Ticketing/Plattformen).
+- **Technische Standards ergänzt:** ORIF als Open Repertoire Interchange Format präzisiert, Schema.org + GND ergänzt, Werkdaten/Aufführungsdaten erklärt. Neue `ResourceLinkGrid` mit Comic-Clip, Infomaterial, Musterkalkulation, ORIF-Dokumentation, Validator und Lektoratstool.
+- **Mitwirkung erweitert:** Zwei-Step-Ansatz durch alten Drei-Punkte-Plan "Implementieren / Automatisieren / Revolutionieren" ersetzt und Tanzarchiv-Leipzig-Zitat ergänzt.
+- **Portraits aus alter Website:** `ContactCard` rendert jetzt echte Portraits via `<Image>`; vier Ansprechpersonen-Portraits aus dem alten Sanity-CDN in `team.json` DE/EN eingebunden. Accessibility-Fix: `aria-label="Foto folgt"` bleibt nur beim Fallback, nicht bei echten Bildern.
+- **Supabase-Content-Migration:** Neue Migration `20260507153000_m11_original_site_content.sql` live gepusht. Ergebnis: 21 veröffentlichte FAQ-Einträge, 42 FAQ-Translations, 4 Original-Website-Termine von 2025 als `past` Events (`Jahrestagung Bühnenverein`, `DataWeek Symposium`, `Theatertreff Berlin`, `Abschlussforum Datenraum Kultur`). Kontrollqueries direkt gegen Remote-DB grün.
+- **Next Image RemotePattern:** `next.config.ts` erlaubt das alte Sanity-CDN (`cdn.sanity.io/images/lc7slax2/production/**`) für DACH-Karte und Portraits, ohne neue Binärdateien ins Repo zu legen.
+- **Verifikation:** JSON-Parse OK, `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (37/37 Pages). Playwright: `/de`, `/de/projekt/technische-standards`, `/de/faq`, `/de/ansprechpersonen`, Mobile 375×812 ohne Horizontal-Overflow, Console 0 Errors/Warnings. Curl-Smokes: `/de/termine` enthält alle 4 alten Events, `/en/project/technical-standards` enthält Ressourcen, `/en/faq` enthält neue FAQ-Fragen.
+
+**Status am Ende:** Original-Website-Inhalte sind in den wichtigsten sichtbaren Bereichen nachgezogen. Offen bleiben finale Legal-Texte, Blog-Cover-Bilder und Custom Domain. M11 wartet nach Push auf Vercel-Auto-Deploy-Validierung.
+
 ## 2026-05-07 — Session 17: M10 Design-Refresh – Tokens, Hero-Visual, ComicStrip mit echten Bildern, Footer-Logos
 
 **Commits / Deploy-Basis:**

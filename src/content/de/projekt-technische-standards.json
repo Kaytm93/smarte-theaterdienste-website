@@ -5,14 +5,23 @@
       "heading": "Was ist eine JSON-Datei?",
       "body": [
         "JSON (JavaScript Object Notation) ist ein offenes Textformat, in dem Daten strukturiert abgelegt werden – als verschachtelte Schlüssel-Wert-Paare. Menschen können es lesen, Maschinen können es verlässlich verarbeiten.",
-        "Für den Datenraum Kultur folgen wir Schema.org-Vokabular für Veranstaltungen und ergänzen es mit kulturspezifischen Erweiterungen."
+        "Für ORIF folgen wir Schema.org-Vokabular für Veranstaltungen und ergänzen theaterspezifische Kategorien nach den Empfehlungen der Gemeinsamen Normdatei (GND)."
       ]
     },
     {
       "eyebrow": "Transformation",
       "heading": "Vom Spielplan zur Schnittstelle",
       "body": [
-        "Theater veröffentlichen ihre Spielpläne meist über CMS-Systeme. Wir entwickeln Adapter, die aus dem CMS-Datenmodell automatisch eine standardisierte JSON-Schnittstelle generieren – ohne dass das Frontend angefasst werden muss."
+        "Theater veröffentlichen ihre Spielpläne meist über CMS-, Dispositions- oder Ticketing-Systeme. Die Webagentur oder Inhouse-IT verknüpft die Felder im Backend einmalig mit dem ORIF-Datenmodell.",
+        "Danach wird der Spielplan zusätzlich als maschinenlesbarer JSON-Link bereitgestellt. Die sichtbare Website bleibt unverändert, aber Plattformen, Archive und andere Dienste können die Daten automatisiert abrufen."
+      ]
+    },
+    {
+      "eyebrow": "Standard",
+      "heading": "Die Schnittstelle ORIF",
+      "body": [
+        "Das Open Repertoire Interchange Format (ORIF) baut auf Schema.org auf, damit Veranstaltungsdaten einheitlich erfasst und ausgetauscht werden können. Ziel ist ein offener, lizenzkostenfreier Standard, der an den Bedarfen der Kulturschaffenden ausgerichtet ist.",
+        "ORIF unterscheidet Werkdaten und Aufführungsdaten: Produktionsteam, Textvorlage und Beschreibung auf der einen Seite; Ort, Datum, Ticketinformation und Tagesbesetzung auf der anderen Seite."
       ]
     },
     {
@@ -40,6 +49,49 @@
       ]
     }
   ],
+  "resources": {
+    "eyebrow": "Material",
+    "heading": "Generalproben der Implementierung",
+    "lead": "Für Webagenturen, Entwickler:innen, Redaktionen und Entscheider:innen liegen die wichtigsten Materialien und Werkzeuge öffentlich bereit.",
+    "items": [
+      {
+        "title": "Comic-Clip",
+        "body": "Ein verständlicher Einstieg in maschinenlesbare Spielpläne ohne technische Vorkenntnisse.",
+        "href": "https://www.youtube.com/watch?v=cCCa7Yuzaf0&t=2s",
+        "label": "Zum Comic-Clip"
+      },
+      {
+        "title": "Infomaterial",
+        "body": "Projektflyer und Präsentation für interne Überzeugungsarbeit im Haus.",
+        "href": "https://datenraum2dbv-my.sharepoint.com/:f:/g/personal/schmidt_datenraum2dbv_onmicrosoft_com/EtOFiB0ySWJEl8ztmgBA630Bmk_-J7a-8cal-NVbnNd4ZQ?e=TucJsw",
+        "label": "Infomaterial öffnen"
+      },
+      {
+        "title": "Musterkalkulation",
+        "body": "Orientierung dazu, welche einmaligen Implementierungskosten bei einer Webagentur entstehen können.",
+        "href": "https://datenraum2dbv-my.sharepoint.com/:b:/g/personal/schmidt_datenraum2dbv_onmicrosoft_com/EZlygMCS2_pOgw0N1zxPiJABvVE-J6ODKpQDTInIv-Uoqg?e=i6p04N",
+        "label": "PDF öffnen"
+      },
+      {
+        "title": "ORIF-Dokumentation",
+        "body": "Die technische Spezifikation der JSON-Schnittstelle mit Beispiel-Datensatz und API-Referenz.",
+        "href": "https://buehnenverein.github.io/open-repertoire/",
+        "label": "Zur Dokumentation"
+      },
+      {
+        "title": "Validator",
+        "body": "Das Validierungstool prüft, ob eine implementierte ORIF-Schnittstelle technisch korrekt ist.",
+        "href": "https://buehnenverein.github.io/open-repertoire/validate/",
+        "label": "Zum Validator"
+      },
+      {
+        "title": "Lektoratstool",
+        "body": "Das Lektoratstool macht maschinenlesbare Spielplandaten wieder als Tabelle für Redaktionen lesbar.",
+        "href": "https://buehnenverein.github.io/open-repertoire/view/",
+        "label": "Zum Lektoratstool"
+      }
+    ]
+  },
   "links": [
     { "href": "/beteiligung/anwendungsbeispiele", "label": "Anwendungsbeispiele ansehen" }
   ]

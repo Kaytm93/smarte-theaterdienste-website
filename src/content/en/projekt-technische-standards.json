@@ -5,14 +5,23 @@
       "heading": "What is a JSON file?",
       "body": [
         "JSON (JavaScript Object Notation) is an open text format that stores data as nested key-value pairs. Humans can read it, machines can process it reliably.",
-        "For the Cultural Data Space, we use Schema.org's event vocabulary and extend it with culture-specific additions."
+        "For ORIF, we use Schema.org's event vocabulary and add theatre-specific categories based on the recommendations of the Integrated Authority File (GND)."
       ]
     },
     {
       "eyebrow": "Transformation",
       "heading": "From programme to interface",
       "body": [
-        "Theatres usually publish their programmes through CMS systems. We develop adapters that automatically generate a standardised JSON interface from the CMS data model – without touching the frontend."
+        "Theatres usually publish their programmes through CMS, planning or ticketing systems. The web agency or in-house IT team maps the backend fields to the ORIF data model once.",
+        "The programme is then also provided as a machine-readable JSON link. The visible website remains unchanged, while platforms, archives and other services can retrieve the data automatically."
+      ]
+    },
+    {
+      "eyebrow": "Standard",
+      "heading": "The ORIF interface",
+      "body": [
+        "The Open Repertoire Interchange Format (ORIF) builds on Schema.org so event data can be captured and exchanged consistently. The goal is an open, licence-free standard aligned with the needs of cultural practitioners.",
+        "ORIF distinguishes between creative work data and event data: production team, source material and descriptions on one side; venue, date, ticket information and daily cast on the other."
       ]
     },
     {
@@ -40,6 +49,49 @@
       ]
     }
   ],
+  "resources": {
+    "eyebrow": "Resources",
+    "heading": "Tools for implementation",
+    "lead": "The key materials and tools for web agencies, developers, editorial teams and decision-makers are available publicly.",
+    "items": [
+      {
+        "title": "Comic clip",
+        "body": "An accessible introduction to machine-readable theatre programmes without technical prerequisites.",
+        "href": "https://www.youtube.com/watch?v=cCCa7Yuzaf0&t=2s",
+        "label": "Watch clip"
+      },
+      {
+        "title": "Information package",
+        "body": "Project flyer and presentation material for internal stakeholder conversations.",
+        "href": "https://datenraum2dbv-my.sharepoint.com/:f:/g/personal/schmidt_datenraum2dbv_onmicrosoft_com/EtOFiB0ySWJEl8ztmgBA630Bmk_-J7a-8cal-NVbnNd4ZQ?e=TucJsw",
+        "label": "Open material"
+      },
+      {
+        "title": "Sample cost calculation",
+        "body": "Guidance on the one-off implementation costs that may arise when commissioning a web agency.",
+        "href": "https://datenraum2dbv-my.sharepoint.com/:b:/g/personal/schmidt_datenraum2dbv_onmicrosoft_com/EZlygMCS2_pOgw0N1zxPiJABvVE-J6ODKpQDTInIv-Uoqg?e=i6p04N",
+        "label": "Open PDF"
+      },
+      {
+        "title": "ORIF documentation",
+        "body": "The technical specification for the JSON interface with example data set and API reference.",
+        "href": "https://buehnenverein.github.io/open-repertoire/",
+        "label": "Open docs"
+      },
+      {
+        "title": "Validator",
+        "body": "The validation tool checks whether an implemented ORIF interface is technically correct.",
+        "href": "https://buehnenverein.github.io/open-repertoire/validate/",
+        "label": "Open validator"
+      },
+      {
+        "title": "Data viewer",
+        "body": "The data viewer turns machine-readable programme data back into a readable table for editorial checks.",
+        "href": "https://buehnenverein.github.io/open-repertoire/view/",
+        "label": "Open viewer"
+      }
+    ]
+  },
   "links": [
     { "href": "/beteiligung/anwendungsbeispiele", "label": "See application examples" }
   ]

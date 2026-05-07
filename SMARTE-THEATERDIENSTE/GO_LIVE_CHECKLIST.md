@@ -1,12 +1,14 @@
 # Go-live-Checkliste — Assets, Domain, Vercel, Rechtstexte
 
-> Stand: 2026-05-07. Diese Datei ist der konkrete Handoff fuer alles, was Kay/Projektteam noch liefern oder im Dashboard erledigen muss, bevor die Seite final unter eigener Domain laufen kann.
+> Stand: 2026-05-07. Diese Datei ist der konkrete Handoff fuer alles, was Kay/Projektteam noch liefern oder im Dashboard erledigen muss, bevor die Seite final unter eigener Domain laufen kann. Seit Session 17/18 erledigt: Hero-Visual, Partner-Logos, Team-Portraits via Sanity-CDN, Vercel-GitHub-Integration und Original-Site-Content-Abgleich.
 
 ## 1. Assets liefern
 
 Alle Dateien bitte ohne Text-Overlay, mit Nutzungsrechten fuer Web/Marketing und mit Credit-/Lizenzhinweis liefern. Wenn Dateinamen abweichen, vorher nicht umbenennen muessen — Codex kann sie nach Lieferung sauber einsortieren.
 
 ### Hero-Visual
+
+Status: erledigt in Session 17. Der Hero nutzt jetzt das finale Theaterraum-Bild unter `public/hero/theaterdatenraum-hero.jpg`.
 
 Zielpfad im Projekt:
 
@@ -21,8 +23,8 @@ Anforderung:
 - Alt-Text-Vorschlag mitliefern oder kurz beschreiben, was zu sehen ist.
 
 Nach Lieferung:
-- Hero-Blob auf der Landing wird durch `ParallaxImage` ersetzt.
-- Production-Build + visueller Check Desktop/Mobile.
+- Erledigt: Hero-Blob auf der Landing wurde durch `ParallaxImage` ersetzt.
+- Erledigt: Production-Build + visueller Check Desktop/Mobile.
 
 ### Blog-Cover-Bilder
 
@@ -47,6 +49,8 @@ Nach Lieferung:
 
 ### Team-Portraits
 
+Status: erledigt in Session 18 via Original-Site-Bilder aus dem Sanity-CDN. Lokale Kopien unter `public/team/` sind optional, falls das Projekt die Bilder spaeter unabhaengig vom alten CDN ausliefern soll.
+
 Zielpfade im Projekt:
 
 ```text
@@ -62,10 +66,12 @@ Anforderung:
 - Credit: `© Sophie Moriarty`, plus bestaetigte Web-Nutzungsrechte.
 
 Nach Lieferung:
-- `ContactCard` von Initialen-Fallback auf echte Portraits umstellen.
-- Alt-Texte/Portrait-Credits pruefen.
+- Erledigt: `ContactCard` rendert echte Portraits, wenn `portrait` gesetzt ist.
+- Erledigt: Alt-Texte/Portrait-Credits sind im Content hinterlegt.
 
 ### Partner-Logos
+
+Status: erledigt in Session 17 mit PNG-Assets in `public/logos/`. SVG-Versionen bleiben optional, falls druck- oder designseitig gewuenscht.
 
 Footer-Zielpfade:
 
@@ -93,26 +99,21 @@ Anforderung:
 - Aktuelle Partner-Websites mitliefern, damit `partners.website_url` und `partners.logo_url` in Supabase gesetzt werden koennen.
 
 Nach Lieferung:
-- Footer von Text-Fallback auf echte Logos umstellen.
-- Partner-Karte kann Logo/Website-Link anzeigen.
+- Erledigt: Footer rendert echte Logos.
+- Erledigt: Partner-Karte kann Logo/Website-Link anzeigen.
 
 ## 2. Vercel-GitHub-Integration verbinden
 
-Aktueller Stand: Production laeuft per CLI-Deploy. Automatische Deployments bei `git push` auf `main` sind noch nicht aktiv.
+Aktueller Stand: erledigt. Das GitHub-Repo `Kaytm93/smarte-theaterdienste-website` ist mit Vercel verbunden; `git push origin main` triggert Production-Deployments automatisch.
 
 Was Kay im Browser tun muss:
 
-1. Vercel Dashboard oeffnen: `https://vercel.com/dashboard`.
-2. Projekt waehlen: `kaytm93s-projects/smarte-theaterdienste-website`.
-3. `Settings -> Git` oeffnen.
-4. Unter `Connected Git Repository` das GitHub-Repo verbinden: `Kaytm93/smarte-theaterdienste-website`.
-5. Falls das Repo nicht angezeigt wird: In GitHub `Profile -> Settings -> Applications -> Installed GitHub Apps -> Vercel -> Configure` oeffnen und Zugriff auf genau dieses Repo erlauben.
-6. Danach zurueck zu Vercel und erneut verbinden.
-7. Production Branch auf `main` lassen.
+1. Kein aktueller Browser-Schritt offen.
+2. Production Branch bleibt `main`.
 
 Wichtig:
 - Bei persoenlichen GitHub-Repos muss laut Vercel die verbindende Person Repo-Owner sein, nicht nur Collaborator.
-- Nach erfolgreicher Verbindung reicht kuenftig `git push origin main`; Vercel erstellt dann automatisch Production-Deployments.
+- Nach erfolgreicher Verbindung reicht `git push origin main`; Vercel erstellt dann automatisch Production-Deployments.
 
 Quellen:
 - Vercel GitHub-Integration: https://vercel.com/docs/git/vercel-for-github
@@ -211,8 +212,8 @@ Ausserdem benoetigt:
 
 ## 6. Reihenfolge ab jetzt
 
-1. Kay liefert Assets + Rechts-/Kontakttexte.
-2. Codex baut Assets ein, setzt Supabase-URLs und ersetzt Legal-TODOs.
+1. Kay liefert Blog-Cover-Bilder + Rechts-/Kontakttexte.
+2. Codex baut Blog-Cover ein, setzt Supabase-URLs und ersetzt Legal-TODOs.
 3. `pnpm typecheck`, `pnpm lint`, `pnpm build`.
 4. Production-Deploy ueber Git-Integration oder CLI.
 5. Domain/Canonical/Sitemap/OG-Smoke gegen finale Domain.

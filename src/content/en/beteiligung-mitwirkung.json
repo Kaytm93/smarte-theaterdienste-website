@@ -1,15 +1,24 @@
 {
-  "intro": "Your theatre can connect to the Cultural Data Space in two technical steps. We accompany both.",
+  "intro": "ORIF makes your programme machine-readable. The path is deliberately pragmatic: implement once, pass data on automatically, then use new services and networking opportunities.",
   "steps": [
     {
       "step": 1,
-      "title": "Implement the JSON interface",
-      "body": "We review your CMS or programme system and develop the adapter that exposes your data as a standardised JSON interface. The frontend stays unchanged."
+      "title": "Implement",
+      "body": "Give your web agency or in-house IT team the link to the technical ORIF documentation. Depending on the site setup, the JSON interface can be integrated in a few development hours."
     },
     {
       "step": 2,
-      "title": "Connect to the data space connector",
-      "body": "The connector handles authentication and data transfer into the Cultural Data Space. You keep data sovereignty - you decide who is allowed to see what."
+      "title": "Automate",
+      "body": "Once the interface is built, its link can be shared with event platforms, archives or other partners. Programme data is then transferred automatically instead of being copied manually."
+    },
+    {
+      "step": 3,
+      "title": "Transform",
+      "body": "With ORIF, you become part of a growing community committed to digital networking and open data exchange. You help shape which theatre data becomes available and in what form."
     }
-  ]
+  ],
+  "quote": {
+    "body": "Historical and current programme data could be retrieved automatically through the interface. The Cultural Data Space catalogue service, standard templates for data-use agreements and professional exchange within the community would also be especially valuable for us.",
+    "source": "Dr. Melanie Gruss, Tanzarchiv Leipzig e.V. / NFDI4Culture"
+  }
 }

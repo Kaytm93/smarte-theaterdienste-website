@@ -4,6 +4,24 @@
 
 ---
 
+## Abgleich bestehende Website (2026-05-07)
+
+Die alte Website `https://smarte-theaterdienste.de/de` war wieder erreichbar und wurde in Session 18 als Inhaltsquelle gegen die aktuelle Next.js-Site geprüft.
+
+Übernommen:
+- Startseite: Nutzenblöcke "Effektivere Arbeitsprozesse", "Höhere Reichweite", "Größeres Netzwerk"; Stakeholder-Nutzen für Theaterleitung, PR/Marketing, Künstlerisches Betriebsbüro, Developer/Agenturen; DACH-Netzwerkkarte mit 141 Institutionen und Segmenten.
+- Konzeption/Material: ORIF als Open Repertoire Interchange Format, JSON-Erklärung, Werkdaten/Aufführungsdaten, Links zu Comic-Clip, Infomaterial, Musterkalkulation, ORIF-Dokumentation, Validator und Lektoratstool.
+- Jetzt mitmachen: Drei-Punkte-Plan "Implementieren / Automatisieren / Revolutionieren" und Tanzarchiv-Leipzig-Zitat.
+- FAQ: 21 Fragen/Antworten in Supabase übertragen, DE/EN.
+- Termine: vier 2025-Termine als vergangene Events in Supabase übertragen.
+- Ansprechpersonen: vier Portraits aus dem alten Sanity-CDN eingebunden.
+
+Nicht übernommen:
+- Finale Impressum-/Datenschutztexte bleiben bewusst offen, bis der Auftraggeber sie freigibt.
+- Historische Teammitglieder ohne aktuelle Kontaktfunktion bleiben nicht auf der Ansprechpersonen-Seite, damit diese Seite weiterhin konkrete Kontaktaufnahme unterstützt.
+
+---
+
 ## Tonality
 
 - **bildhaft, metaphorisch** („Besteckkasten", „Leitung legen", „Schnittstelle verpflanzen")

@@ -40,7 +40,7 @@ export default async function MitwirkungPage({
       <PageHero kicker={t("kicker")} title={t("title")} lead={content.intro} />
 
       <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-3">
           {content.steps.map((step) => (
             <StepCard
               key={step.step}
@@ -50,6 +50,16 @@ export default async function MitwirkungPage({
             />
           ))}
         </div>
+        {"quote" in content && content.quote ? (
+          <figure className="mt-8 rounded-2xl border border-border/70 bg-[var(--surface-elevated)] p-6 shadow-[var(--shadow-xs)]">
+            <blockquote className="max-w-4xl text-pretty text-lg leading-[var(--leading-relaxed)] text-foreground/75">
+              „{content.quote.body}“
+            </blockquote>
+            <figcaption className="mt-4 text-sm font-medium text-foreground/60">
+              {content.quote.source}
+            </figcaption>
+          </figure>
+        ) : null}
       </FadeInOnScroll>
 
       <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 pb-24 sm:px-6 lg:px-8">

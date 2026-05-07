@@ -6,7 +6,7 @@
       "role": "Projektkoordination",
       "phone": "+49 (0)151 65 02 60 84",
       "email": "sina.schmidt@buehnenverein.de",
-      "portrait": "/team/sina-schmidt.jpg",
+      "portrait": "https://cdn.sanity.io/images/lc7slax2/production/40f2e2ef0483cb8e1dcd8aea8e1b9c3632292986-1200x1500.jpg",
       "quote": "Wir bauen die Leitung, damit Spielpläne dorthin fließen, wo Kultur stattfindet."
     },
     {
@@ -15,7 +15,7 @@
       "role": "Technical Advisor",
       "phone": "+49 (0)151 11 13 18 47",
       "email": "peter.retzlaff@buehnenverein.de",
-      "portrait": "/team/peter-retzlaff.jpg",
+      "portrait": "https://cdn.sanity.io/images/lc7slax2/production/0440d81e3026bdff5a30361acbcec26f81ccf554-1200x1500.jpg",
       "quote": "Eine gute Schnittstelle ist unsichtbar – sie spart einfach Zeit."
     },
     {
@@ -24,7 +24,7 @@
       "role": "Projektreferentin",
       "phone": "+49 (0)151 61 02 18 81",
       "email": "claudia.groenniger@buehnenverein.de",
-      "portrait": "/team/claudia-groenniger.jpg"
+      "portrait": "https://cdn.sanity.io/images/lc7slax2/production/be68695b09af37bcb2a41220e756bc138e160345-1200x1500.jpg"
     },
     {
       "id": "madeleine-scheuerpflug",
@@ -32,7 +32,7 @@
       "role": "Studentische Mitarbeiterin",
       "phone": "+49 (0)170 102 54 73",
       "email": "madeleine.scheuerpflug@buehnenverein.de",
-      "portrait": "/team/madeleine-scheuerpflug.jpg"
+      "portrait": "https://cdn.sanity.io/images/lc7slax2/production/7ef2a83670fb51e2be8af41d2d066bba8e7a83ec-1200x1500.jpg"
     }
   ]
 }

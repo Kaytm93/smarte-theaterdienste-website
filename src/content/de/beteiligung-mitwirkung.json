@@ -1,15 +1,24 @@
 {
-  "intro": "Zwei technische Schritte trennen euer Haus vom Datenraum Kultur. Wir begleiten beide.",
+  "intro": "Mit ORIF wird euer Spielplan maschinenlesbar. Der Einstieg ist bewusst pragmatisch: einmal implementieren, automatisiert weitergeben, danach neue Dienste und Vernetzung nutzen.",
   "steps": [
     {
       "step": 1,
-      "title": "JSON-Schnittstelle implementieren",
-      "body": "Wir prüfen euer CMS oder Spielplan-System und entwickeln gemeinsam den Adapter, der eure Daten als standardisierte JSON-Schnittstelle bereitstellt. Frontend bleibt unverändert."
+      "title": "Implementieren",
+      "body": "Gebt eurer Webagentur oder Inhouse-IT den Link zur technischen ORIF-Dokumentation. Je nach Aufbau der Seite integriert der IT-Dienstleister die JSON-Schnittstelle in wenigen Arbeitsstunden."
     },
     {
       "step": 2,
-      "title": "Anschluss an den DRK-Konnektor",
-      "body": "Der Konnektor übernimmt Authentifizierung und Datenübertragung in den Datenraum Kultur. Ihr behaltet die Datensouveränität – ihr entscheidet, was wer sehen darf."
+      "title": "Automatisieren",
+      "body": "Ist die Schnittstelle eingebaut, kann der Link an Veranstaltungsplattformen, Archive oder andere Partner:innen weitergegeben werden. Spielplandaten werden dann automatisch übertragen statt manuell kopiert."
+    },
+    {
+      "step": 3,
+      "title": "Revolutionieren",
+      "body": "Durch ORIF werdet ihr Teil einer wachsenden Community, die digitale Vernetzung und offenen Datenaustausch voranbringt. Ihr beeinflusst mit, welche Theaterdaten künftig verfügbar sind und in welcher Form."
     }
-  ]
+  ],
+  "quote": {
+    "body": "Historische und aktuelle Spielplandaten könnten durch die Schnittstelle automatisch abgerufen werden. Besonders wertvoll wären für uns zudem der Katalogservice des Datenraum Kultur, standardisierte Vorlagen für Datennutzungsverträge sowie der fachliche Austausch innerhalb der Community.",
+    "source": "Dr. Melanie Gruß, Tanzarchiv Leipzig e.V. / NFDI4Culture"
+  }
 }

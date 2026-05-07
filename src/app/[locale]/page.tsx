@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { RevealText } from "@/components/animations/RevealText";
 import { ComicStrip } from "@/components/sections/ComicStrip";
+import { FeatureGrid } from "@/components/sections/FeatureGrid";
+import { NetworkMapSection } from "@/components/sections/NetworkMapSection";
 import { TextSection } from "@/components/sections/TextSection";
 import { loadContent } from "@/lib/content/loader";
 import type { Locale } from "@/lib/i18n/routing";
@@ -131,10 +133,35 @@ export default async function HomePage({
         </div>
       </section>
 
+      <FeatureGrid
+        eyebrow={landing.benefits.eyebrow}
+        heading={landing.benefits.heading}
+        lead={landing.benefits.lead}
+        features={landing.benefits.features}
+      />
+
+      <NetworkMapSection
+        eyebrow={landing.network.eyebrow}
+        heading={landing.network.heading}
+        lead={landing.network.lead}
+        statValue={landing.network.statValue}
+        statLabel={landing.network.statLabel}
+        image={landing.network.image}
+        imageAlt={landing.network.imageAlt}
+        segments={landing.network.segments}
+      />
+
       <ComicStrip
         eyebrow={landing.comicStrip.eyebrow}
         heading={landing.comicStrip.heading}
         frames={landing.comicStrip.frames}
+      />
+
+      <FeatureGrid
+        eyebrow={landing.stakeholders.eyebrow}
+        heading={landing.stakeholders.heading}
+        lead={landing.stakeholders.lead}
+        features={landing.stakeholders.features}
       />
 
       <TextSection

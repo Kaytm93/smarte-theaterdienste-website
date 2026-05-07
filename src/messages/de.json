@@ -88,10 +88,10 @@
     "mitwirkung": {
       "kicker": "Schritt für Schritt",
       "title": "So funktioniert die Mitwirkung",
-      "lead": "Zwei technische Schritte trennen euer Theater vom Datenraum – wir begleiten beide.",
+      "lead": "Drei klare Schritte führen vom Spielplan zur automatisierten Datenweitergabe.",
       "map": {
         "heading": "Wer schon dabei ist",
-        "lead": "Pilot-Theater und Datenraum-Partner aus ganz Deutschland. Klick auf einen Punkt, um mehr zu erfahren.",
+        "lead": "Pilot-Theater und Datenraum-Partner aus ganz Deutschland. Die große DACH-Netzwerkkarte findest du zusätzlich auf der Startseite.",
         "imageAlt": "Karte von Deutschland mit den Standorten der Datenraum-Kultur-Partner",
         "statusLabel": "Status",
         "statuses": {
@@ -131,7 +131,7 @@
     "faq": {
       "kicker": "Antworten",
       "title": "Häufige Fragen",
-      "lead": "Die fünf Fragen, die uns am häufigsten erreichen — kurz und ehrlich beantwortet.",
+      "lead": "Antworten zu Grundwissen, Technik und Sicherheit, Umsetzung und Kosten sowie zum Datenraum Kultur.",
       "empty": {
         "kicker": "Antworten",
         "title": "FAQ wird aufgebaut",

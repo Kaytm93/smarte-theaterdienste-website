@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-05-07 (Session 17)
+> Letzte Aktualisierung: 2026-05-07 (Session 18)
 
 ## Status
 
@@ -23,13 +23,15 @@
 | Lighthouse-CI | ✅ Workflow `lighthouse.yml` (manuell + wöchentlich Mo 06:00 UTC) |
 | Go-live-Handoff | ✅ konkrete Checkliste erstellt: [[GO_LIVE_CHECKLIST]] |
 | Design-Refresh M10 | ✅ Session 17 — Tokens/Hero-Visual/ComicStrip mit echten Bildern/Footer-Logos/Card-Polish |
+| Original-Site-Abgleich M11 | ✅ Session 18 — DACH-Netzwerkkarte, 141er-Statistik, ORIF-Materialien, Portraits, FAQ/Termine aus alter Website übertragen |
 
 ## Was gerade läuft
 
-**M10 Design-Refresh production-live.** Deploy `dpl_CdZyBYew1ESqpqqASWwnoxmE1xLB` per CLI (Auto-Deploys wurden mehrfach durch nachfolgende Pushes auto-cancelled). Smoke gegen `https://smarte-theaterdienste-website.vercel.app`: 14 Pfade/Assets alle 200, HTML referenziert neue Hero-/Comic-/Logo-Pfade. Restposten aus [[GO_LIVE_CHECKLIST]]: Portraits Sophie Moriarty, Blog-Cover-Bilder, Custom-Domain-DNS, finale Impressum-/Datenschutztexte.
+**M11 Original-Site-Abgleich umgesetzt.** Die alte Website `https://smarte-theaterdienste.de/de` war wieder erreichbar und wurde gegen die aktuelle Next.js-Site abgeglichen. Übertragen wurden u. a. die DACH-Netzwerkkarte mit 141er-Statistik, Stakeholder-Nutzen, ORIF-Materialien/Tools, Drei-Punkte-Mitwirkung, Portraits aus dem alten Sanity-CDN sowie 21 FAQ-Einträge und 4 vergangene Events per Supabase-Migration. Restposten: Blog-Cover-Bilder, Custom-Domain-DNS, finale Impressum-/Datenschutztexte.
 
 ## Letzte Aktivität
 
+- **2026-05-07** — Session 18 M11 Original-Site-Transfer: Alte Website (`/de`, `/de/konzeption`, `/de/material`, `/de/faq`, `/de/jetzt-mitmachen`) gecrawlt und Inhaltslücken gegen die aktuelle Site geschlossen. Neue Landing-Sections: `FeatureGrid` für "Bühne frei" und Stakeholder-Vorteile, `NetworkMapSection` mit DACH-Karte aus Sanity-CDN, 141er-Statistik und Netzwerksegmenten. Technische Standards um ORIF-Erklärung plus `ResourceLinkGrid` mit Comic-Clip, Infomaterial, Musterkalkulation, ORIF-Doku, Validator und Lektoratstool ergänzt. Mitwirkung auf alten Drei-Punkte-Plan (Implementieren/Automatisieren/Revolutionieren) plus Tanzarchiv-Zitat erweitert. Team-Portraits aus alter Site via Sanity-CDN eingebunden; `ContactCard` rendert echte `<Image>`-Portraits und behält Initialen-Fallback nur ohne Portrait. Neue Supabase-Migration `20260507153000_m11_original_site_content.sql` live gepusht: 21 veröffentlichte FAQ-Einträge × DE/EN (=42 Translations) und 4 vergangene 2025-Events. Verifikation: JSON-Parse, `pnpm typecheck`, `pnpm lint`, `pnpm build` clean; Playwright-Snapshots auf `/de`, `/de/projekt/technische-standards`, `/de/faq`, `/de/ansprechpersonen`, Mobile 375×812 ohne Horizontal-Overflow, Console 0 Errors/Warnings; Curl-Smokes für `/de/termine`, `/en/project/technical-standards`, `/en/faq`.
 - **2026-05-07** — Session 17 M10 Design-Refresh: User lieferte 3 Comic-Frames (Schwarzweiß-Telefon-Szenen mit lila Sprechblasen „Ja, ich habe Zeit." / „Alle wissen Bescheid." / „Ich hab Verbindungen ohne Ende."), 1 Theater-Parade-Foto und 7 Partner-Logos. Assets nach `public/comic-strip/`, `public/hero/`, `public/logos/` einsortiert (AVIF→JPG via `sips`). Tokens (`src/styles/tokens.css`) um Sekundärakzent „Bühnen-Magenta" `oklch(0.58 0.20 345)`, Surface-Skala (`--surface-{base,1,2,elevated}`), Glow-Tinten (`color-mix(in oklch, ...)`) und Schatten-System (`--shadow-{xs,sm,md,lg}`) erweitert. `globals.css` bridges + neue Utility-Klassen `.bg-grid-pattern` und `.bg-noise`. Hero komplett neu: Layered Background (Surface-Wash + Grid + zwei Glow-Blobs Blau/Magenta) + Theater-Parade-Polaroid mit Akzent-Hauch + Caption „Use Case 03". ComicStrip: 3 echte Frames als `rounded-2xl` Cards mit Frame-Number-Pills (01/02/03), Title + Caption, Bild-Zoom on Hover; `landing.json` umgestellt auf `{image, alt, title, caption}`-Schema; neue Messages `hero.heroImageAlt`/`hero.heroImageCaption`. PageHero/TextSection: Sticky-Sidebar-Heading, Layered Glow. Cards (PostCard/EventCard/UseCaseCard/StepCard/ContactCard) auf einheitliches `rounded-2xl`-Schema mit `--surface-elevated`-Bg und konsistentem Hover-Lift. EventCard mit Date-Badge, UseCaseCard mit Glow-Halo am Icon, StepCard mit Mono-„Step 01"-Label, ContactCard mit Phone/Mail-Icons + Magenta-Quote-Border. Footer mit echten 6 Partner-Logos (Bühnenverein/Akademie/Fraunhofer/acatech/NFDI4Culture/BKM). Header mit ST-Initial-Badge. ComingSoonHero auf dasselbe Background-Pattern angeglichen. Verifikation: `pnpm typecheck`/`lint`/`build` clean, 37/37 Pages SSG; Preview-MCP grün auf `/de`, `/de/beteiligung/anwendungsbeispiele`, `/de/beteiligung/mitwirkung`, `/en`, Mobile 375×812 ohne Horizontal-Overflow, 0 Console-Errors. Cache-Reset (`rm -rf .next`) zwischendurch nötig wegen stale-Turbopack-Cache (404 auf nested Routes).
 - **2026-05-07** — Session 16 M9 PWA/Per-Post-OG/Lighthouse-CI: Vercel-GitHub-Integration verbunden (User-Action). Drei optionale M8-Erweiterungen ohne User-Asset-Abhängigkeit umgesetzt: (1) `src/app/manifest.ts` rendert `/manifest.webmanifest` mit `siteName`/`siteDescription` aus `messages/de.json` (Default-Locale), `theme_color: #2660d8`, `display: standalone`, Icons via existierendem `/icon`. (2) `src/app/[locale]/blog/[slug]/opengraph-image.tsx` rendert per-Post OG-Image (Title + lokalisiertes `published_at`, Hex-Farben + `display: flex` gemäss MUSTER.md Satori-Patterns). (3) `.github/workflows/lighthouse.yml` + `.github/lighthouserc.json` mit `treosh/lighthouse-ci-action@v12` gegen 6 Production-URLs, Asserts: A11y/SEO ≥0.95 als Error, Performance/BP ≥0.9 als Warn, `temporaryPublicStorage`. Trigger: `workflow_dispatch` + Cron Mo 06:00 UTC (kein Push-Trigger wegen Race-Condition mit Vercel-Auto-Deploy). Nebenfund + Fix: `[locale]/blog/[slug]/page.tsx` hatte `twitter`-Object ohne `card` → fiel auf Default `summary` zurück; jetzt explizit `card: "summary_large_image"`. Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (neue Routen `/manifest.webmanifest` ○ Static, beide OG-Routen ƒ Dynamic). Dev-Server: `/manifest.webmanifest` 200 mit valider JSON, `/de/blog/erste-pilotpartner-gewonnen/opengraph-image` und `/en/blog/kickoff-datenraum-kultur/opengraph-image` jeweils 200 PNG 1200×630 (Body-Stream sauber, MUSTER.md verlangt explizit Body-Check). HTML der Blog-Detail enthält `<link rel="manifest">`, `og:image` zeigt auf Per-Post-Pfad, `twitter:card=summary_large_image`. Keine Server-Errors.
 - **2026-05-07** — Session 15 Asset-/Go-live-Handoff: Vault gelesen, Projektstruktur/Platzhalter geprueft und aktuelle Vercel-/Domain-/Legal-Quellen verifiziert. Neue Datei `GO_LIVE_CHECKLIST.md` beschreibt exakt benoetigte Asset-Dateinamen, Bildmasse, Supabase-`cover_image_url`-Pflege, Vercel-GitHub-Verbindung, Custom-Domain-DNS, `NEXT_PUBLIC_SITE_URL`-Folgeschritte sowie Impressum-/Datenschutz-Lieferumfang. Legal-Platzhalter in `src/content/{de,en}/legal.json` von `§ 5 TMG` auf `§ 5 DDG` aktualisiert. Verifikation: JSON-Parse, `pnpm typecheck`, `pnpm lint`, `pnpm build`.
@@ -52,19 +54,16 @@
 
 ## 📋 Was Claude beim nächsten Mal tun soll
 
-**Default-Nächster-Schritt: User liefert restliche Go-live-Materialien gemaess [[GO_LIVE_CHECKLIST]].** M5–M8 production-validiert, Session 16 hat PWA-Manifest/Per-Post-OG-Images/Lighthouse-CI ergänzt, Session 17 hat den kompletten Design-Refresh mit echten Bildern (Hero-Visual, ComicStrip, Partner-Logos) eingespielt. Offen sind noch: Portraits Sophie Moriarty (4 Personen), Blog-Cover-Bilder (3 Posts), Custom Domain mit DNS, finale Impressum-/Datenschutz-Texte.
+**Default-Nächster-Schritt: verbleibende Go-live-Lücken schließen.** M5–M8 production-validiert, Session 16 hat PWA-Manifest/Per-Post-OG-Images/Lighthouse-CI ergänzt, Session 17 den Design-Refresh mit echten Bildern eingespielt, Session 18 alte Website-Inhalte nachgezogen. Offen sind noch: Blog-Cover-Bilder (3 Posts), Custom Domain mit DNS, finale Impressum-/Datenschutz-Texte.
 
 **Pfade nach Wahl:**
-1. **Hero-Visual + Cover-Images von User einsammeln/einpflegen** — sobald geliefert, Hero-Blob durch `<ParallaxImage>` ersetzen, Posts in Supabase mit `cover_image_url` befüllen (dann werden ViewTransition-Morphs sichtbar).
-2. **Portraits + Partner-Logos einpflegen** — Portraits Sophie Moriarty nach `public/team/`, Partner-Logos nach `public/logos/`, Footer/Team-Karten von Text-/Initialen-Fallback auf echte Assets umstellen.
+1. **Blog-Cover-Images einpflegen** — Posts in Supabase mit `cover_image_url` befüllen (dann werden ViewTransition-Morphs sichtbar).
+2. **Portraits optional lokal spiegeln** — aktuell werden die vier Portraits stabil über das alte Sanity-CDN gerendert; lokale `public/team/*.jpg`-Kopien wären nur für Unabhängigkeit vom alten CDN nötig.
 3. **M8 Erweiterungen (optional)** — Per-Post-OG-Images für Blog-Detail (jetzt nur Default-Locale-OG), Lighthouse-CI als GitHub-Action (`treosh/lighthouse-ci-action`), `manifest.ts` (PWA, sobald echte Icons + Hero-Visual stehen). Performance kann unter Custom-Domain möglicherweise auf 100 — aktuell 96 wegen `unused-javascript`/`render-blocking-insight`/`network-dependency-tree-insight`.
 4. **Custom Domain anbinden** — Vercel-Dashboard → Project → Settings → Domains, `smarte-theaterdienste.de` (oder Sub-Domain) eintragen, DNS umstellen, Production-Env-Var `NEXT_PUBLIC_SITE_URL` darauf umbiegen, Sitemap und canonical regenerieren.
-5. **Vercel-GitHub-Integration manuell verbinden** — Vercel Dashboard → Project → Settings → Git → Connected Git Repository. CLI-Connect scheiterte mit `Failed to connect Kaytm93/smarte-theaterdienste-website to project`, vermutlich weil die Vercel-GitHub-App noch keinen Repo-Zugriff hat.
-
 **Optionale Mini-Tasks vor dem nächsten Milestone:**
-- **Vercel-GitHub-Integration manuell verbinden:** Vercel Dashboard → Project → Settings → Git → Connected Git Repository. CLI-Connect scheiterte mit `Failed to connect Kaytm93/smarte-theaterdienste-website to project`, vermutlich weil die Vercel-GitHub-App noch keinen Repo-Zugriff hat.
 - **Custom Domain planen:** Falls `smarte-theaterdienste.de` auf das neue Projekt zeigen soll, Domain in Vercel hinzufügen und DNS umstellen.
-- **Echte Assets ziehen** — Portraits Sophie Moriarty, Partner-Logos als SVG, Hero-Visual, Partner-`website_url`/`logo_url` in Supabase nachpflegen (aktuell nur Geo-Coords gesetzt).
+- **Partner-`website_url`/`logo_url` in Supabase nachpflegen** — aktuell nur Geo-Coords gesetzt.
 
 **Bekannte Restposten in M4 (kein Blocker):**
 - `.returns<T>()`-Casts in `queries.ts` bewusst behalten als explizite Row-Annotation (siehe Header-Kommentar). Können bei Bedarf entfernt werden.
@@ -79,7 +78,7 @@
 ## Bekannte offene Fragen für nächste Schritte
 
 - **CMS-Frontend für Inhalte:** Direkt Supabase-Studio reicht für Bühnenverein-Team? Oder leichtgewichtiger Admin-Bereich später
-- **Echte Asset-Lieferung:** Portrait-Fotos (© Sophie Moriarty), Partner-Logos als SVG, Hero-Visual, Blog-Cover-Bilder (für sichtbare View Transitions)
+- **Echte Asset-Lieferung:** Blog-Cover-Bilder (für sichtbare View Transitions), optional lokale Portrait-Kopien und Partner-Logos als SVG
 
 ## Bekannte Tooling-Lücken (siehe [[PROBLEME]])
 

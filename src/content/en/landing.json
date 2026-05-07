@@ -1,4 +1,68 @@
 {
+  "benefits": {
+    "eyebrow": "Curtain up",
+    "heading": "More visibility and networking, with less manual effort",
+    "lead": "The ORIF interface makes theatre programmes usable wherever they still have to be copied by hand today.",
+    "features": [
+      {
+        "icon": "sparkles",
+        "title": "More efficient workflows",
+        "body": "Implement once, benefit over time: programme data no longer has to be typed into different input masks. Automated transfer keeps information up to date without additional maintenance."
+      },
+      {
+        "icon": "megaphone",
+        "title": "Greater reach",
+        "body": "Machine-readable programmes can appear on many platforms with little extra effort. ORIF builds bridges between data silos and translates different formats into one shared standard."
+      },
+      {
+        "icon": "users",
+        "title": "A larger network",
+        "body": "Smart Theatre Services lay the groundwork for connecting open and protected cultural data. The interface can also be used by a theatre immediately, even before using the data space."
+      }
+    ]
+  },
+  "network": {
+    "eyebrow": "Who plays along?",
+    "heading": "More than 140 institutions in the network",
+    "lead": "Theatres, associations, platforms, archives and software partners from Germany, Austria and Switzerland are already working with machine-readable programmes.",
+    "statValue": "141",
+    "statLabel": "institutions are currently part of the network.",
+    "image": "https://cdn.sanity.io/images/lc7slax2/production/5efc70ceb37c3730b6906ce9755adea8962c5a29-2550x1514.jpg",
+    "imageAlt": "Map of Germany, Austria and Switzerland with coloured dots marking theatres, associations and platforms in the Smart Theatre Services network.",
+    "segments": [
+      { "value": "51", "label": "interested theatres and opera houses" },
+      { "value": "30", "label": "houses in the wider network" },
+      { "value": "30", "label": "states, municipalities and associations" },
+      { "value": "30", "label": "archives, software, ticketing and platforms" }
+    ]
+  },
+  "stakeholders": {
+    "eyebrow": "Benefits",
+    "heading": "Benefits for every stakeholder",
+    "lead": "Whether theatre management, PR team, artistic administration or technical partners: everyone benefits from a shared standard.",
+    "features": [
+      {
+        "icon": "building",
+        "title": "Theatre management",
+        "body": "With minimal technical effort, programmes become machine-readable. This increases visibility and positions the theatre as a pioneer of digital transformation."
+      },
+      {
+        "icon": "megaphone",
+        "title": "PR and marketing",
+        "body": "Programmes can be published automatically on multiple platforms and updated in real time. That means less manual work and stronger communications."
+      },
+      {
+        "icon": "archive",
+        "title": "Artistic administration",
+        "body": "Venue, rehearsal, production, ticket and touring planning all benefit when data can be connected seamlessly across systems."
+      },
+      {
+        "icon": "code",
+        "title": "Developers and agencies",
+        "body": "Existing programme data only needs to be mapped once to the ORIF data model and can then become compatible with many applications."
+      }
+    ]
+  },
   "comicStrip": {
     "eyebrow": "The problem · The perspective",
     "heading": "From isolated programmes to a connected data space",
