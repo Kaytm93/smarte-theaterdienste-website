@@ -33,7 +33,7 @@ export default async function DatenschutzPage({
 
   return (
     <>
-      <PageHero kicker={t("kicker")} title={t("title")} />
+      <PageHero kicker={t("kicker")} title={t("title")} lead={t("lead")} />
       <TextSection
         eyebrow={legal.privacy.todo ? "TODO" : undefined}
         body={legal.privacy.body}

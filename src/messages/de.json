@@ -12,7 +12,8 @@
     "contact": "Ansprechpersonen",
     "events": "Termine",
     "language": "Sprache",
-    "menu": "Menü"
+    "menu": "Menü",
+    "menuDescription": "Hauptnavigation der Website"
   },
   "langSwitcher": {
     "label": "Sprache wechseln zu {target}",
@@ -32,6 +33,7 @@
     "imprint": "Impressum",
     "privacy": "Datenschutz",
     "supportedBy": "Gefördert von",
+    "siteMap": "Sitemap",
     "rights": "Ein Projekt des Deutschen Bühnenvereins",
     "logoAlt": {
       "buehnenverein": "Deutscher Bühnenverein",

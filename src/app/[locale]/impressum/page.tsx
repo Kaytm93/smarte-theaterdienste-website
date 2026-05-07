@@ -33,7 +33,7 @@ export default async function ImpressumPage({
 
   return (
     <>
-      <PageHero kicker={t("kicker")} title={t("title")} />
+      <PageHero kicker={t("kicker")} title={t("title")} lead={t("lead")} />
       <TextSection
         eyebrow={legal.imprint.todo ? "TODO" : undefined}
         body={legal.imprint.body}

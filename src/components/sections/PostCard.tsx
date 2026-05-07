@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Link } from "@/lib/i18n/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
+import { PostCoverVisual } from "@/components/sections/PostCoverVisual";
 import type { PostListItem } from "@/lib/supabase/queries";
 import type { Locale } from "@/lib/i18n/routing";
 
@@ -28,9 +29,9 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
           href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
           className="flex h-full flex-col"
         >
-          {post.coverImageUrl ? (
-            <div className="relative aspect-[16/9] overflow-hidden bg-foreground/[0.04]">
-              <ViewTransition name={`post-cover-${post.slug}`}>
+          <div className="relative aspect-[16/9] overflow-hidden bg-foreground/[0.04]">
+            <ViewTransition name={`post-cover-${post.slug}`}>
+              {post.coverImageUrl ? (
                 <Image
                   src={post.coverImageUrl}
                   alt=""
@@ -38,9 +39,15 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
                   sizes="(min-width: 1024px) 33vw, 100vw"
                   className="object-cover transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
-              </ViewTransition>
-            </div>
-          ) : null}
+              ) : (
+                <PostCoverVisual
+                  title={post.title}
+                  eyebrow={formattedDate}
+                  className="transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+              )}
+            </ViewTransition>
+          </div>
           <CardContent className="flex flex-1 flex-col gap-3 p-6">
             {formattedDate ? (
               <time

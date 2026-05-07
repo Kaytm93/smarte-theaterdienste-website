@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { href: "/projekt", key: "project" },
   { href: "/beteiligung", key: "participation" },
   { href: "/blog", key: "blog" },
+  { href: "/termine", key: "events" },
   { href: "/faq", key: "faq" },
   { href: "/ansprechpersonen", key: "contact" },
 ] as const;
@@ -36,7 +37,7 @@ export async function Header() {
 
         <nav
           aria-label={t("menu")}
-          className="hidden md:flex md:items-center md:gap-7"
+          className="hidden lg:flex lg:items-center lg:gap-6"
         >
           {NAV_ITEMS.map((item) => (
             <Link
@@ -50,7 +51,7 @@ export async function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <LanguageSwitcher />
           </div>
           <MobileNav />

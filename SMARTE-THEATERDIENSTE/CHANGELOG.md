@@ -1,5 +1,22 @@
 # 📝 Changelog
 
+## 2026-05-08 — Session 19: M12 Website-QA und UX-Polish
+
+**Commits / Deploy-Basis:**
+- `TBD` M12: Website-QA und UX-Polish
+
+**Was passierte:**
+
+- **Vault + Next.js-16-Docs gelesen:** `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE` und wegen Live-Daten/FAQ/Termine zusätzlich `API.md`. Relevante Next.js-16-Dokumente aus `node_modules/next/dist/docs/` gelesen: Linking/Navigating, Images, View Transitions, Accessibility und Production Checklist.
+- **Website als Tester geprüft:** Playwright-CLI gegen lokale Site und production-like Build. Geprüft wurden 28 DE/EN-Routen auf HTTP-Status, H1, Console, Horizontal-Overflow, sichtbare TODOs und Bildzustände; zusätzlich Hero-CTA, LanguageSwitcher mit lokalisierten Slugs, Blog-Liste → Detail → zurück, FAQ-Accordion, PartnerMap-Auswahl, ComicStrip-Animation und Mobile-Menü.
+- **Navigation/Orientierung verbessert:** `Termine` ist jetzt in Desktop-Header und MobileNav sichtbar. Header-/LanguageSwitcher-Breakpoints wurden von `md` auf `lg` verschoben, damit die erweiterte Navigation auf Tabletbreiten nicht gedrängt wirkt. Footer hat jetzt eine echte Sitemap-Navigation (Projekt, Beteiligung, Blog, Termine, FAQ, Ansprechpersonen) plus Legal-Links.
+- **Mobile-Menü-A11y gefixt:** Radix meldete im Test `Missing Description or aria-describedby`. `MobileNav` importiert und rendert jetzt eine `SheetDescription` mit i18n-Text (`nav.menuDescription`) als `sr-only`. Production-like Smoke danach: Console 0 Warnings/Errors.
+- **Blog optisch stabilisiert:** Neuer `PostCoverVisual`-Fallback für Posts ohne `cover_image_url`. Blogkarten und Blogdetails bekommen jetzt ein visuelles CSS-Cover mit Datum, ORIF-Marker, Grid/Glow-Hintergrund und demselben `ViewTransition`-Namen pro Slug. Echte Blog-Cover-Bilder bleiben optionaler Asset-Polish, aber die Seiten wirken nicht mehr textlastig.
+- **Legal-Seiten vervollständigt:** `impressum/page.tsx` und `datenschutz/page.tsx` geben die vorhandenen `pages.*.lead`-Texte wieder an `PageHero` weiter. Die TODO-Platzhalter bleiben bewusst sichtbar, bis finale Rechtstexte vom Auftraggeber geliefert werden.
+- **Verifikation:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (37/37 Pages). `pnpm start --port 3032` Smoke: `/de`, `/de/blog`, `/de/blog/erste-pilotpartner-gewonnen`, `/de/termine`, `/de/impressum`, `/en/events` HTTP 200, kein Horizontal-Overflow. Header/Mobile/Footer enthalten `Termine`; Blog-Fallbacks sichtbar (`ORIF` x2 auf Liste); Mobile-Sheet 0 Console-Warnings/Errors.
+
+**Status am Ende:** Website-QA-Funde sind umgesetzt. Offen bleiben finale Impressum-/Datenschutztexte, Custom-Domain-DNS und optional echte Blog-Cover-Bilder als Asset-Finish.
+
 ## 2026-05-07 — Session 18: M11 Original-Site-Transfer – DACH-Karte, ORIF-Materialien, FAQ
 
 **Commits / Deploy-Basis:**

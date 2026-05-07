@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-07 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt (DACH-Netzwerkkarte, 141er-Statistik, ORIF-Materialien, Portraits, FAQ/Termine). Nächster sinnvoller Schritt: Auto-Deploy nach Push validieren, Blog-Cover, Domain-Entscheidung und finale Rechtstexte.
+> Letzte Aktualisierung: 2026-05-08 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 19 Website-QA/UX-Polish production-build-validiert (Navigation, Mobile-A11y, Footer-Sitemap, Blog-Cover-Fallbacks, Legal-Leads). Nächster sinnvoller Schritt: Auto-Deploy nach Push validieren, Custom-Domain-Entscheidung und finale Rechtstexte.
 
 ---
 
@@ -108,8 +108,8 @@ smarte-theaterdienste-website/
 │   │   ├── beteiligung/page.tsx                ← PageHero + 2 TextSections + 3 CTA-Links
 │   │   ├── beteiligung/anwendungsbeispiele/page.tsx ← 3 UseCaseCards
 │   │   ├── beteiligung/mitwirkung/page.tsx     ← 3 StepCards + Tanzarchiv-Zitat + <PartnerMap> (M5), revalidate=60
-│   │   ├── impressum/page.tsx                  ← TODO-Platzhalter (Legal-Referenz auf § 5 DDG aktualisiert)
-│   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter
+│   │   ├── impressum/page.tsx                  ← TODO-Platzhalter mit sichtbarem Lead (Legal-Referenz auf § 5 DDG)
+│   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter mit sichtbarem Lead
 │   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
 │   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams; Session 16: twitter.card=summary_large_image
 │   │   ├── blog/[slug]/opengraph-image.tsx     ← M9 (Session 16): Per-Post 1200×630 OG mit Title + lokalisiertem published_at
@@ -124,6 +124,7 @@ smarte-theaterdienste-website/
 │   │   │                                          UseCaseCard, StepCard, ComingSoonHero (jetzt mit body-Prop),
 │   │   │                                          ComicStrip (Server-Wrapper) + ComicStripFrames (Client, GSAP-Stagger, M6),
 │   │   │                                          PostCard, PostArticle (mit ViewTransition-Wrap, M6),
+│   │   │                                          PostCoverVisual (Session 19: CSS-Cover-Fallback fuer Posts ohne cover_image_url),
 │   │   │                                          EventCard, FaqAccordion (M4),
 │   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5),
 │   │   │                                          FeatureGrid, NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer)
@@ -234,4 +235,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **Blog-Cover-Bilder** für sichtbare ViewTransition-Morphs, **Custom Domain** und **finale Impressum-/Datenschutztexte**. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert; M10 ist production-live; M11 wartet nach Push auf Auto-Deploy-Validierung.
+Aktuell offen: **Custom Domain** und **finale Impressum-/Datenschutztexte**. Echte Blog-Cover-Bilder bleiben ein finaler Asset-Polish, aber die Blog-Liste und Blog-Details haben seit Session 19 sichtbare CSS-Cover-Fallbacks und ViewTransition-Elemente auch ohne `cover_image_url`. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert; M10 ist production-live; M11/M12 warten nach Push auf Auto-Deploy-Validierung.

@@ -11,8 +11,18 @@ const PARTNER_LOGOS = [
   { key: "bkm", src: "/logos/bkm.png", aspect: "wide" as const },
 ] as const;
 
+const FOOTER_NAV = [
+  { href: "/projekt", key: "project" },
+  { href: "/beteiligung", key: "participation" },
+  { href: "/blog", key: "blog" },
+  { href: "/termine", key: "events" },
+  { href: "/faq", key: "faq" },
+  { href: "/ansprechpersonen", key: "contact" },
+] as const;
+
 export async function Footer() {
   const t = await getTranslations("footer");
+  const tNav = await getTranslations("nav");
   const tMeta = await getTranslations("meta");
   const year = new Date().getFullYear();
 
@@ -24,7 +34,7 @@ export async function Footer() {
       />
 
       <div className="mx-auto max-w-[var(--container-max)] px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr_0.8fr]">
+        <div className="grid gap-12 lg:grid-cols-[1.15fr_0.8fr_1.8fr_0.7fr]">
           <div className="space-y-3">
             <p className="text-sm font-semibold tracking-tight">
               {tMeta("siteName")}
@@ -33,6 +43,24 @@ export async function Footer() {
               {t("rights")}
             </p>
           </div>
+
+          <nav aria-label={t("siteMap")} className="space-y-4">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-foreground/65">
+              {t("siteMap")}
+            </p>
+            <ul className="grid grid-cols-2 gap-x-5 gap-y-2 text-sm text-foreground/65 lg:grid-cols-1">
+              {FOOTER_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="transition-colors hover:text-foreground"
+                  >
+                    {tNav(item.key)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <div className="space-y-5">
             <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-foreground/65">

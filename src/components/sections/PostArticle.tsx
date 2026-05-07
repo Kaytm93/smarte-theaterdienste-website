@@ -5,6 +5,7 @@ import { Link } from "@/lib/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { RevealText } from "@/components/animations/RevealText";
+import { PostCoverVisual } from "@/components/sections/PostCoverVisual";
 import type { PostDetail } from "@/lib/supabase/queries";
 import type { Locale } from "@/lib/i18n/routing";
 
@@ -46,9 +47,9 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
         ) : null}
       </header>
 
-      {post.coverImageUrl ? (
-        <FadeInOnScroll className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-muted">
-          <ViewTransition name={`post-cover-${post.slug}`}>
+      <FadeInOnScroll className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-muted">
+        <ViewTransition name={`post-cover-${post.slug}`}>
+          {post.coverImageUrl ? (
             <Image
               src={post.coverImageUrl}
               alt=""
@@ -57,9 +58,15 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
               priority
               className="object-cover"
             />
-          </ViewTransition>
-        </FadeInOnScroll>
-      ) : null}
+          ) : (
+            <PostCoverVisual
+              title={post.title}
+              eyebrow={formattedDate}
+              variant="article"
+            />
+          )}
+        </ViewTransition>
+      </FadeInOnScroll>
 
       <FadeInOnScroll
         delay={0.1}

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -18,6 +19,7 @@ const NAV_ITEMS = [
   { href: "/projekt", key: "project" },
   { href: "/beteiligung", key: "participation" },
   { href: "/blog", key: "blog" },
+  { href: "/termine", key: "events" },
   { href: "/faq", key: "faq" },
   { href: "/ansprechpersonen", key: "contact" },
 ] as const;
@@ -34,7 +36,7 @@ export function MobileNav() {
           variant="ghost"
           size="icon"
           aria-label={t("menu")}
-          className="md:hidden"
+          className="lg:hidden"
         >
           <Menu aria-hidden className="size-5" />
         </Button>
@@ -44,6 +46,9 @@ export function MobileNav() {
           <SheetTitle className="text-base font-medium">
             {t("menu")}
           </SheetTitle>
+          <SheetDescription className="sr-only">
+            {t("menuDescription")}
+          </SheetDescription>
         </SheetHeader>
         <nav className="flex flex-col gap-1 p-4">
           {NAV_ITEMS.map((item) => (
