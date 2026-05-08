@@ -4,6 +4,8 @@
 
 **Commits / Deploy-Basis:**
 - `724b3c7` M13: Miro-QA und Deutschlandkarten-Polish
+- `6f9e2ba` docs(vault): M13 Live-Deploy-Status dokumentieren
+- Production-Deploy `dpl_Cok3G8hfHbU7kDvf4k8HHHj6MYX3` via prebuilt output, Alias `https://smarte-theaterdienste-website.vercel.app`
 
 **Was passierte:**
 
@@ -12,9 +14,10 @@
 - **Mitwirkungsseite geschärft:** `src/content/{de,en}/beteiligung-mitwirkung.json` um einen Nutzenblock gegen manuelles Copy-and-paste und eine konkrete Webagentur-/IT-Checkliste ergänzt. `src/app/[locale]/beteiligung/mitwirkung/page.tsx` rendert die neuen Inhalte als drei Icon-Nutzenkarten und einen Implementierungsblock.
 - **Deutschlandkarte verbessert:** `src/components/sections/PartnerMapClient.tsx` macht die Karte auf Desktop kompakter, färbt Marker nach Status, ergänzt eine sichtbare Legende, Standortzähler und eine klickbare Standortliste im Initialzustand. `src/messages/{de,en}.json` ergänzt die nötigen Labels.
 - **Verifikation:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (37/37 Pages). Production-like Smoke auf `pnpm start --port 3032`: `/de`, `/de/beteiligung/mitwirkung`, `/en/participation/contribute`, `/de/faq`, `/de/termine`, `/de/blog`, `/de/impressum`, `/de/datenschutz` HTTP 200. Playwright Desktop/Mobile: Deutschlandkarte sichtbar, Marker/Legende/Liste funktionieren, Console 0 Errors/Warnings.
-- **Post-Push-Live-Status:** `main` wurde bis `bada4cb` gepusht. `https://smarte-theaterdienste-website.vercel.app/de/beteiligung/mitwirkung` blieb danach stale und zeigte noch keinen Session-20-Stand; `https://smarte-theaterdienste.de/de` blieb die alte Website. Ein manueller Vercel-Production-Deploy startete, hing aber im Remote-Build ohne Abschluss und wurde lokal abgebrochen. Nächster Live-Schritt: Vercel-Dashboard/Build-Logs prüfen und Alias neu deployen.
+- **Production-Deploy:** `main` wurde bis `6f9e2ba` gepusht. Vercel Production hatte `NEXT_PUBLIC_SITE_URL` leer gesetzt; das verursachte lokal bei `vercel build --prod` `TypeError: Invalid URL`. Variable per CLI auf `https://smarte-theaterdienste-website.vercel.app` korrigiert, dann `pnpm dlx vercel@latest build --prod --yes` und `pnpm dlx vercel@latest deploy --prebuilt --prod --yes` erfolgreich. Deploy `dpl_Cok3G8hfHbU7kDvf4k8HHHj6MYX3` ist READY.
+- **Production-Smoke:** Vercel-Alias `/de`, `/de/beteiligung/mitwirkung`, `/de/blog`, `/de/termine`, `/en/participation/contribute` jeweils HTTP 200. `/de/beteiligung/mitwirkung` enthält `Warum mitmachen?`, `Was die Webagentur konkret braucht`, `Termine` und die Kartenlegende. Custom Domain `https://smarte-theaterdienste.de/de` liefert weiterhin die alte Website von den alten A-Records.
 
-**Status am Ende:** Miro-Prioritäten für die Mitwirkungsseite sind umgesetzt und lokal production-like verifiziert. Offen bleiben Vercel-Redeploy-/Alias-Prüfung, Custom-Domain-DNS und finale Impressum-/Datenschutztexte.
+**Status am Ende:** Miro-Prioritäten für die Mitwirkungsseite sind umgesetzt und auf dem Vercel-Alias production-live. Offen bleiben Custom-Domain-DNS und finale Impressum-/Datenschutztexte.
 
 ## 2026-05-08 — Session 19: M12 Website-QA und UX-Polish
 

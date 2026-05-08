@@ -28,8 +28,12 @@ Die Website als Tester prüfen, besonders die Deutschlandkarte, Inhalte, Orienti
 
 - `https://smarte-theaterdienste.de/de` zeigt noch alte Inhalte und DNS-A-Records außerhalb von Vercel.
 - Repo-Pushes werden auf dieser Domain erst sichtbar, wenn `smarte-theaterdienste.de` im Vercel-Projekt hinterlegt und DNS umgestellt ist.
-- Der Vercel-Alias blieb nach Push stale und zeigte noch altes HTML ohne `Warum mitmachen?`, ohne neue Kartenlegende und ohne `Termine` im Header.
-- Ein manueller Vercel-Production-Deploy startete bis zur Build-URL `https://smarte-theaterdienste-website-326en9ftv-kaytm93s-projects.vercel.app`, hing dann mehrere Minuten ohne Remote-Build-Abschluss und wurde lokal abgebrochen.
+- Der Vercel-Alias blieb nach dem ersten Push stale und zeigte noch altes HTML ohne `Warum mitmachen?`, ohne neue Kartenlegende und ohne `Termine` im Header.
+- Ursache beim lokalen Prebuilt-Versuch: `NEXT_PUBLIC_SITE_URL` war in Vercel Production leer gesetzt und löste `TypeError: Invalid URL` in `generateMetadata` aus.
+- Fix: `NEXT_PUBLIC_SITE_URL` per Vercel-CLI auf `https://smarte-theaterdienste-website.vercel.app` gesetzt.
+- Danach erfolgreich: `vercel build --prod --yes` und `vercel deploy --prebuilt --prod --yes`.
+- Deploy: `dpl_Cok3G8hfHbU7kDvf4k8HHHj6MYX3`
+- Alias: `https://smarte-theaterdienste-website.vercel.app`
 
 ## Umsetzung
 
@@ -63,6 +67,13 @@ Die Website als Tester prüfen, besonders die Deutschlandkarte, Inhalte, Orienti
   - `/de/impressum` 200
   - `/de/datenschutz` 200
 - Playwright Desktop/Mobile auf der Kartenansicht: Karte, Marker, Legende und Standortliste sichtbar; Console 0 Errors/Warnings.
+- Production-Smoke nach Deploy:
+  - `/de` 200
+  - `/de/beteiligung/mitwirkung` 200
+  - `/de/blog` 200
+  - `/de/termine` 200
+  - `/en/participation/contribute` 200
+  - `/de/beteiligung/mitwirkung` enthält `Warum mitmachen?`, `Was die Webagentur konkret braucht`, `Termine` und die Kartenlegende.
 
 ## Commit
 
@@ -70,6 +81,6 @@ Die Website als Tester prüfen, besonders die Deutschlandkarte, Inhalte, Orienti
 
 ## Nächste Schritte
 
-1. Vercel-Alias nach Push/Redeploy auf die neuen Session-20-Inhalte prüfen.
-2. `smarte-theaterdienste.de` als Custom Domain in Vercel anbinden und DNS umstellen.
+1. `smarte-theaterdienste.de` als Custom Domain in Vercel anbinden und DNS umstellen.
+2. Danach `NEXT_PUBLIC_SITE_URL` auf die finale Domain setzen und neu deployen.
 3. Finale Impressum-/Datenschutztexte einpflegen.

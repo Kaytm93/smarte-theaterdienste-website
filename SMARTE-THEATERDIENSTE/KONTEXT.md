@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-08 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 19 Website-QA/UX-Polish production-build-validiert, Session 20 Miro-/Deutschlandkarten-QA umgesetzt (Nutzenblock, Webagentur-Checkliste, Kartenlegende/Standortliste). Nächster sinnvoller Schritt: Vercel-Alias nach Push/Redeploy prüfen, Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
+> Letzte Aktualisierung: 2026-05-08 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 19 Website-QA/UX-Polish production-build-validiert, Session 20 Miro-/Deutschlandkarten-QA production-live (Nutzenblock, Webagentur-Checkliste, Kartenlegende/Standortliste; Deploy `dpl_Cok3G8hfHbU7kDvf4k8HHHj6MYX3`). Nächster sinnvoller Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
 
 ---
 
@@ -61,7 +61,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
-**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, letzter validierter M10-Deploy `dpl_CdZyBYew1ESqpqqASWwnoxmE1xLB`). GitHub-Integration ist verbunden; Push auf `main` triggert Auto-Deploy. Achtung Session 20: `https://smarte-theaterdienste.de/de` zeigt noch auf alte Nicht-Vercel-A-Records und alte Inhalte; Repo-Pushes werden dort erst nach Domain-/DNS-Umstellung sichtbar.
+**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, letzter validierter M13-Deploy `dpl_Cok3G8hfHbU7kDvf4k8HHHj6MYX3`). GitHub-Integration ist verbunden; Push auf `main` triggert Auto-Deploy. Session 20 korrigierte `NEXT_PUBLIC_SITE_URL` in Vercel Production von leer auf den Vercel-Alias und deployte per `vercel build --prod --yes` + `vercel deploy --prebuilt --prod --yes`. Achtung: `https://smarte-theaterdienste.de/de` zeigt noch auf alte Nicht-Vercel-A-Records und alte Inhalte; Repo-Pushes werden dort erst nach Domain-/DNS-Umstellung sichtbar.
 
 **Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migrationen `20260427121400_init.sql`, `20260507120000_m7_english_post_translations.sql` und `20260507153000_m11_original_site_content.sql` sind live. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`. M11-Check: 21 veröffentlichte FAQs, 42 FAQ-Translations, 4 Original-Website-Termine als `past`.
 
@@ -235,4 +235,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **Custom Domain** und **finale Impressum-/Datenschutztexte**. Echte Blog-Cover-Bilder bleiben ein finaler Asset-Polish, aber die Blog-Liste und Blog-Details haben seit Session 19 sichtbare CSS-Cover-Fallbacks und ViewTransition-Elemente auch ohne `cover_image_url`. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert; M10 ist production-live; M11/M12 warten nach Push auf Auto-Deploy-Validierung.
+Aktuell offen: **Custom Domain** und **finale Impressum-/Datenschutztexte**. Echte Blog-Cover-Bilder bleiben ein finaler Asset-Polish, aber die Blog-Liste und Blog-Details haben seit Session 19 sichtbare CSS-Cover-Fallbacks und ViewTransition-Elemente auch ohne `cover_image_url`. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert; M10 ist production-live; M11/M12/M13 sind auf dem Vercel-Alias production-live. Die Custom Domain `smarte-theaterdienste.de` zeigt weiterhin auf die alte Website.
