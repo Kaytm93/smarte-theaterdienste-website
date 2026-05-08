@@ -65,7 +65,7 @@ Die Website als Tester prüfen, besonders die Deutschlandkarte, Inhalte, Orienti
 
 ## Commit
 
-- `pending` M13: Miro-QA und Deutschlandkarten-Polish
+- `724b3c7` M13: Miro-QA und Deutschlandkarten-Polish
 
 ## Nächste Schritte
 

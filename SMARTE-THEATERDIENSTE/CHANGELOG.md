@@ -3,7 +3,7 @@
 ## 2026-05-08 — Session 20: M13 Miro-Board-QA und Deutschlandkarten-Polish
 
 **Commits / Deploy-Basis:**
-- `pending` M13: Miro-QA und Deutschlandkarten-Polish
+- `724b3c7` M13: Miro-QA und Deutschlandkarten-Polish
 
 **Was passierte:**
 
