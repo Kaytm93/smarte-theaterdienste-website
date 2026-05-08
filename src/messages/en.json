@@ -104,7 +104,9 @@
         "viewWebsite": "Visit website",
         "noLocation": "No location on file",
         "empty": "Once the first partners are listed, they'll appear here on the map.",
-        "selectHint": "Pick a marker on the map"
+        "selectHint": "Pick a marker on the map",
+        "countLabel": "{count, plural, one {# location} other {# locations}}",
+        "legendLabel": "Legend"
       }
     },
     "impressum": {

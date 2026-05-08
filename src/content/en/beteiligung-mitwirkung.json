@@ -1,5 +1,23 @@
 {
   "intro": "ORIF makes your programme machine-readable. The path is deliberately pragmatic: implement once, pass data on automatically, then use new services and networking opportunities.",
+  "benefits": {
+    "eyebrow": "Why participate?",
+    "heading": "The interface removes routine work instead of creating new work.",
+    "items": [
+      {
+        "title": "Less copy and paste",
+        "body": "Programme data is maintained once and can then be passed on automatically to platforms, archives or internal services."
+      },
+      {
+        "title": "Predictable effort",
+        "body": "Your web agency or in-house IT team implements a JSON interface based on the ORIF documentation. After that, the export runs in the background."
+      },
+      {
+        "title": "A safe starting point",
+        "body": "The first transfer focuses on open programme data: information that is already published on your website."
+      }
+    ]
+  },
   "steps": [
     {
       "step": 1,
@@ -17,6 +35,17 @@
       "body": "With ORIF, you become part of a growing community committed to digital networking and open data exchange. You help shape which theatre data becomes available and in what form."
     }
   ],
+  "implementation": {
+    "eyebrow": "For production offices, comms and IT",
+    "heading": "What the web agency needs",
+    "body": "Participation deliberately separates the editorial and technical tracks: the theatre decides which programme data should be published; the technical implementation follows the ORIF documentation.",
+    "items": [
+      "Send the ORIF documentation and example JSON to the web agency",
+      "Estimate effort based on the existing CMS or programme system",
+      "Test the interface URL and then share it with partners",
+      "Contact the project team if questions come up"
+    ]
+  },
   "quote": {
     "body": "Historical and current programme data could be retrieved automatically through the interface. The Cultural Data Space catalogue service, standard templates for data-use agreements and professional exchange within the community would also be especially valuable for us.",
     "source": "Dr. Melanie Gruss, Tanzarchiv Leipzig e.V. / NFDI4Culture"

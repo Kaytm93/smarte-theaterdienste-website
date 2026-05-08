@@ -1,5 +1,20 @@
 # 📝 Changelog
 
+## 2026-05-08 — Session 20: M13 Miro-Board-QA und Deutschlandkarten-Polish
+
+**Commits / Deploy-Basis:**
+- `pending` M13: Miro-QA und Deutschlandkarten-Polish
+
+**Was passierte:**
+
+- **Vault + Miro gelesen:** Pflichtdateien `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE` und relevante Next.js-16-Dokumente geprüft. Das Miro-Board `Website DRK` als höhere Inhaltspriorität ausgewertet: interaktive Deutschlandkarte, klarere Nutzenargumente, Schritt-für-Schritt-Orientierung für KBB/Kommunikation/IT und Webagentur-Anforderungen.
+- **Live-/Domain-Befund:** `https://smarte-theaterdienste.de/de` zeigt aktuell noch alte Inhalte und DNS-A-Records außerhalb von Vercel. Änderungen aus diesem Repo werden dort erst sichtbar, wenn die Custom Domain auf das Vercel-Projekt zeigt. Der Vercel-Alias war beim Test außerdem noch stale gegenüber Session 19/20 und muss nach Push/Redeploy erneut geprüft werden.
+- **Mitwirkungsseite geschärft:** `src/content/{de,en}/beteiligung-mitwirkung.json` um einen Nutzenblock gegen manuelles Copy-and-paste und eine konkrete Webagentur-/IT-Checkliste ergänzt. `src/app/[locale]/beteiligung/mitwirkung/page.tsx` rendert die neuen Inhalte als drei Icon-Nutzenkarten und einen Implementierungsblock.
+- **Deutschlandkarte verbessert:** `src/components/sections/PartnerMapClient.tsx` macht die Karte auf Desktop kompakter, färbt Marker nach Status, ergänzt eine sichtbare Legende, Standortzähler und eine klickbare Standortliste im Initialzustand. `src/messages/{de,en}.json` ergänzt die nötigen Labels.
+- **Verifikation:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (37/37 Pages). Production-like Smoke auf `pnpm start --port 3032`: `/de`, `/de/beteiligung/mitwirkung`, `/en/participation/contribute`, `/de/faq`, `/de/termine`, `/de/blog`, `/de/impressum`, `/de/datenschutz` HTTP 200. Playwright Desktop/Mobile: Deutschlandkarte sichtbar, Marker/Legende/Liste funktionieren, Console 0 Errors/Warnings.
+
+**Status am Ende:** Miro-Prioritäten für die Mitwirkungsseite sind umgesetzt und lokal production-like verifiziert. Offen bleiben Vercel-Redeploy-/Alias-Prüfung, Custom-Domain-DNS und finale Impressum-/Datenschutztexte.
+
 ## 2026-05-08 — Session 19: M12 Website-QA und UX-Polish
 
 **Commits / Deploy-Basis:**

@@ -22,6 +22,29 @@ type Props = {
   partners: Partner[];
 };
 
+const STATUS_ORDER = ["pilot", "partner", "interested"] as const;
+
+const STATUS_STYLES = {
+  partner: {
+    dot: "bg-[var(--accent-brand)]",
+    soft: "bg-[var(--accent-brand)]/10 text-[var(--accent-brand)]",
+    ring: "ring-[var(--accent-brand)]",
+  },
+  pilot: {
+    dot: "bg-[var(--accent-secondary)]",
+    soft: "bg-[var(--accent-secondary)]/10 text-[var(--accent-secondary)]",
+    ring: "ring-[var(--accent-secondary)]",
+  },
+  interested: {
+    dot: "bg-foreground/55",
+    soft: "bg-foreground/10 text-foreground/70",
+    ring: "ring-foreground/45",
+  },
+} satisfies Record<
+  Partner["status"],
+  { dot: string; soft: string; ring: string }
+>;
+
 export function PartnerMapClient({ partners }: Props) {
   const t = useTranslations("pages.mitwirkung.map");
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -59,47 +82,76 @@ export function PartnerMapClient({ partners }: Props) {
   return (
     <div
       ref={containerRef}
-      className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]"
+      className="grid gap-6 lg:grid-cols-[minmax(320px,0.95fr)_minmax(320px,1fr)] lg:items-start"
     >
       {/* Map */}
-      <div className="relative aspect-[1073/1272] w-full overflow-hidden rounded-2xl border border-border/60 bg-muted/40">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/maps/germany.svg"
-          alt={t("imageAlt")}
-          className="absolute inset-0 size-full object-contain p-4"
-          draggable={false}
-        />
-        {placedPartners.map((partner) => {
-          const { x, y } = projectLatLng(partner.lat, partner.lng);
-          const isSelected = selectedId === partner.id;
-          return (
-            <button
-              key={partner.id}
-              type="button"
-              onClick={() => setSelectedId(partner.id)}
-              aria-label={`${partner.name} — ${t(`statuses.${partner.status}`)}`}
-              aria-pressed={isSelected}
-              className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full p-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              style={{ left: `${x}%`, top: `${y}%` }}
+      <div className="space-y-4">
+        <div className="relative mx-auto aspect-[1073/1272] w-full max-w-[620px] overflow-hidden rounded-2xl border border-border/60 bg-muted/40 shadow-[var(--shadow-xs)] lg:mx-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/maps/germany.svg"
+            alt={t("imageAlt")}
+            className="absolute inset-0 size-full object-contain p-4"
+            draggable={false}
+          />
+          {placedPartners.map((partner) => {
+            const { x, y } = projectLatLng(partner.lat, partner.lng);
+            const isSelected = selectedId === partner.id;
+            const statusStyle = STATUS_STYLES[partner.status];
+
+            return (
+              <button
+                key={partner.id}
+                type="button"
+                onClick={() => setSelectedId(partner.id)}
+                aria-label={`${partner.name} — ${t(`statuses.${partner.status}`)}`}
+                aria-pressed={isSelected}
+                className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full p-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                style={{ left: `${x}%`, top: `${y}%` }}
+              >
+                <span
+                  aria-hidden
+                  data-hotspot-pulse
+                  className={cn(
+                    "absolute left-1/2 top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full",
+                    statusStyle.dot,
+                  )}
+                />
+                <span
+                  aria-hidden
+                  className={cn(
+                    "block size-3.5 rounded-full border-2 border-background shadow-md transition-transform",
+                    statusStyle.dot,
+                    isSelected
+                      ? cn(
+                          "scale-125 ring-2 ring-offset-2 ring-offset-background",
+                          statusStyle.ring,
+                        )
+                      : "group-hover:scale-110",
+                  )}
+                />
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          aria-label={t("legendLabel")}
+          className="flex flex-wrap gap-2 text-xs text-foreground/65"
+        >
+          {STATUS_ORDER.map((status) => (
+            <span
+              key={status}
+              className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1"
             >
               <span
                 aria-hidden
-                data-hotspot-pulse
-                className="absolute left-1/2 top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--accent-brand)]"
+                className={cn("size-2 rounded-full", STATUS_STYLES[status].dot)}
               />
-              <span
-                aria-hidden
-                className={cn(
-                  "block size-3.5 rounded-full border-2 border-background bg-[var(--accent-brand)] shadow-md transition-transform",
-                  isSelected
-                    ? "scale-125 ring-2 ring-[var(--accent-brand)] ring-offset-2 ring-offset-background"
-                    : "group-hover:scale-110",
-                )}
-              />
-            </button>
-          );
-        })}
+              {t(`statuses.${status}`)}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Detail panel */}
@@ -134,16 +186,29 @@ export function PartnerMapClient({ partners }: Props) {
           </div>
         ) : (
           <div className="space-y-4">
-            <p className="text-sm text-foreground/55">{t("selectHint")}</p>
-            <ul className="space-y-1.5">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm text-foreground/55">{t("selectHint")}</p>
+              <p className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground/60">
+                {t("countLabel", { count: placedPartners.length })}
+              </p>
+            </div>
+            <ul className="space-y-2">
               {partners.map((partner) => (
                 <li key={partner.id}>
                   <button
                     type="button"
                     onClick={() => setSelectedId(partner.id)}
-                    className="text-left text-sm text-foreground/85 transition-colors hover:text-[var(--accent-brand)]"
+                    className="flex w-full items-center justify-between gap-4 rounded-xl border border-transparent px-3 py-2 text-left text-sm text-foreground/85 transition-colors hover:border-border/60 hover:bg-muted/60 hover:text-foreground"
                   >
-                    {partner.name}
+                    <span>{partner.name}</span>
+                    <span
+                      className={cn(
+                        "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium",
+                        STATUS_STYLES[partner.status].soft,
+                      )}
+                    >
+                      {t(`statuses.${partner.status}`)}
+                    </span>
                   </button>
                 </li>
               ))}

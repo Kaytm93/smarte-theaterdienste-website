@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-08 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 19 Website-QA/UX-Polish production-build-validiert (Navigation, Mobile-A11y, Footer-Sitemap, Blog-Cover-Fallbacks, Legal-Leads). Nächster sinnvoller Schritt: Auto-Deploy nach Push validieren, Custom-Domain-Entscheidung und finale Rechtstexte.
+> Letzte Aktualisierung: 2026-05-08 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 19 Website-QA/UX-Polish production-build-validiert, Session 20 Miro-/Deutschlandkarten-QA umgesetzt (Nutzenblock, Webagentur-Checkliste, Kartenlegende/Standortliste). Nächster sinnvoller Schritt: Vercel-Alias nach Push/Redeploy prüfen, Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
 
 ---
 
@@ -61,7 +61,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
-**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, letzter validierter M10-Deploy `dpl_CdZyBYew1ESqpqqASWwnoxmE1xLB`). GitHub-Integration ist verbunden; Push auf `main` triggert Auto-Deploy.
+**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, letzter validierter M10-Deploy `dpl_CdZyBYew1ESqpqqASWwnoxmE1xLB`). GitHub-Integration ist verbunden; Push auf `main` triggert Auto-Deploy. Achtung Session 20: `https://smarte-theaterdienste.de/de` zeigt noch auf alte Nicht-Vercel-A-Records und alte Inhalte; Repo-Pushes werden dort erst nach Domain-/DNS-Umstellung sichtbar.
 
 **Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migrationen `20260427121400_init.sql`, `20260507120000_m7_english_post_translations.sql` und `20260507153000_m11_original_site_content.sql` sind live. `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET. Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`. M11-Check: 21 veröffentlichte FAQs, 42 FAQ-Translations, 4 Original-Website-Termine als `past`.
 
@@ -107,7 +107,7 @@ smarte-theaterdienste-website/
 │   │   ├── projekt/semantische-standards/page.tsx
 │   │   ├── beteiligung/page.tsx                ← PageHero + 2 TextSections + 3 CTA-Links
 │   │   ├── beteiligung/anwendungsbeispiele/page.tsx ← 3 UseCaseCards
-│   │   ├── beteiligung/mitwirkung/page.tsx     ← 3 StepCards + Tanzarchiv-Zitat + <PartnerMap> (M5), revalidate=60
+│   │   ├── beteiligung/mitwirkung/page.tsx     ← Nutzenkarten + 3 StepCards + Tanzarchiv-Zitat + Webagentur-Checkliste + <PartnerMap> (M5, Session 20 Kartenpolish), revalidate=60
 │   │   ├── impressum/page.tsx                  ← TODO-Platzhalter mit sichtbarem Lead (Legal-Referenz auf § 5 DDG)
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter mit sichtbarem Lead
 │   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
@@ -126,7 +126,7 @@ smarte-theaterdienste-website/
 │   │   │                                          PostCard, PostArticle (mit ViewTransition-Wrap, M6),
 │   │   │                                          PostCoverVisual (Session 19: CSS-Cover-Fallback fuer Posts ohne cover_image_url),
 │   │   │                                          EventCard, FaqAccordion (M4),
-│   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5),
+│   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5; Session 20: Status-Legende, Standortzähler, Liste, kompaktere Desktop-Karte),
 │   │   │                                          FeatureGrid, NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer)
 │   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage,
 │   │   │                                          ScrollTriggerRefresher (Layout-globaler usePathname-Listener, M6)
@@ -148,7 +148,7 @@ smarte-theaterdienste-website/
 │   │   ├── projekt-semantische-standards.json
 │   │   ├── beteiligung.json                     ←   Pitch + 3 Links
 │   │   ├── beteiligung-anwendungsbeispiele.json ←   3 Use Cases
-│   │   ├── beteiligung-mitwirkung.json          ←   3 Schritte + Tanzarchiv-Zitat
+│   │   ├── beteiligung-mitwirkung.json          ←   Nutzenargumente, 3 Schritte, Tanzarchiv-Zitat, Webagentur-/IT-Checkliste
 │   │   ├── legal.json                           ←   imprint/privacy mit todo-Flag; Impressum-Hinweis nutzt § 5 DDG
 │   │   └── landing.json                         ←   Benefits + DACH-Netzwerkkarte + Comic-Strip-Frames + Stakeholder-Benefits + Pitch
 │   ├── styles/tokens.css                       ← Spacing/Typo/Easings/Container; --accent-brand: Datenraum-Blau

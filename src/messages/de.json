@@ -104,7 +104,9 @@
         "viewWebsite": "Zur Website",
         "noLocation": "Kein Standort hinterlegt",
         "empty": "Sobald die ersten Partner verzeichnet sind, erscheinen sie hier auf der Karte.",
-        "selectHint": "Wähle einen Punkt auf der Karte"
+        "selectHint": "Wähle einen Punkt auf der Karte",
+        "countLabel": "{count, plural, one {# Standort} other {# Standorte}}",
+        "legendLabel": "Legende"
       }
     },
     "impressum": {

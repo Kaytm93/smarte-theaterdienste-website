@@ -1,5 +1,23 @@
 {
   "intro": "Mit ORIF wird euer Spielplan maschinenlesbar. Der Einstieg ist bewusst pragmatisch: einmal implementieren, automatisiert weitergeben, danach neue Dienste und Vernetzung nutzen.",
+  "benefits": {
+    "eyebrow": "Warum mitmachen?",
+    "heading": "Die Schnittstelle nimmt Routinearbeit ab, statt neue Arbeit zu machen.",
+    "items": [
+      {
+        "title": "Weniger Copy-and-paste",
+        "body": "Spielplandaten werden einmal gepflegt und können danach automatisch an Plattformen, Archive oder interne Dienste weitergegeben werden."
+      },
+      {
+        "title": "Planbarer Aufwand",
+        "body": "Webagentur oder Inhouse-IT implementieren eine JSON-Schnittstelle auf Basis der ORIF-Dokumentation. Danach arbeitet der Export im Hintergrund."
+      },
+      {
+        "title": "Sicherer Einstieg",
+        "body": "Übertragen werden zunächst offene Spielplandaten, also Informationen, die ohnehin auf der Website veröffentlicht werden."
+      }
+    ]
+  },
   "steps": [
     {
       "step": 1,
@@ -17,6 +35,17 @@
       "body": "Durch ORIF werdet ihr Teil einer wachsenden Community, die digitale Vernetzung und offenen Datenaustausch voranbringt. Ihr beeinflusst mit, welche Theaterdaten künftig verfügbar sind und in welcher Form."
     }
   ],
+  "implementation": {
+    "eyebrow": "Für KBB, Kommunikation und IT",
+    "heading": "Was die Webagentur konkret braucht",
+    "body": "Die Mitwirkung ist bewusst in eine fachliche und eine technische Spur getrennt: Das Haus klärt, welche Spielplandaten veröffentlicht werden sollen; die technische Umsetzung folgt der ORIF-Dokumentation.",
+    "items": [
+      "ORIF-Dokumentation und Beispiel-JSON an die Webagentur weitergeben",
+      "Zeitaufwand anhand des vorhandenen CMS oder Spielplansystems schätzen lassen",
+      "Schnittstellen-URL testen und danach an Partner:innen weitergeben",
+      "Bei Fragen Kontakt zum Projektteam aufnehmen"
+    ]
+  },
   "quote": {
     "body": "Historische und aktuelle Spielplandaten könnten durch die Schnittstelle automatisch abgerufen werden. Besonders wertvoll wären für uns zudem der Katalogservice des Datenraum Kultur, standardisierte Vorlagen für Datennutzungsverträge sowie der fachliche Austausch innerhalb der Community.",
     "source": "Dr. Melanie Gruß, Tanzarchiv Leipzig e.V. / NFDI4Culture"
