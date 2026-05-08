@@ -28,7 +28,8 @@ Die Website als Tester prüfen, besonders die Deutschlandkarte, Inhalte, Orienti
 
 - `https://smarte-theaterdienste.de/de` zeigt noch alte Inhalte und DNS-A-Records außerhalb von Vercel.
 - Repo-Pushes werden auf dieser Domain erst sichtbar, wenn `smarte-theaterdienste.de` im Vercel-Projekt hinterlegt und DNS umgestellt ist.
-- Der Vercel-Alias muss nach Push/Redeploy erneut geprüft werden, weil er beim Test noch stale Stände gegenüber Session 19/20 ausgeliefert hat.
+- Der Vercel-Alias blieb nach Push stale und zeigte noch altes HTML ohne `Warum mitmachen?`, ohne neue Kartenlegende und ohne `Termine` im Header.
+- Ein manueller Vercel-Production-Deploy startete bis zur Build-URL `https://smarte-theaterdienste-website-326en9ftv-kaytm93s-projects.vercel.app`, hing dann mehrere Minuten ohne Remote-Build-Abschluss und wurde lokal abgebrochen.
 
 ## Umsetzung
 
