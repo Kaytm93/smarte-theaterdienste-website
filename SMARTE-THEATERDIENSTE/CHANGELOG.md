@@ -1,5 +1,20 @@
 # 📝 Changelog
 
+## 2026-05-10 — Session 21: Supabase-Content-Audit + Production-Redeploy
+
+**Commits / Deploy-Basis:**
+- Kein neuer Code-Commit (Hauptrepo-Index war stale, kein Worktree-Diff).
+- Production-Redeploy `dpl_27RdEi5zQuwELQLAUMZEM65rAvVs` (READY, target=production), Alias `https://smarte-theaterdienste-website.vercel.app`.
+
+**Was passierte:**
+
+- **Supabase-Content-Audit gegen alte Website:** User wollte Termine, Blog und FAQ aus `https://smarte-theaterdienste.de/de` in die Supabase einspielen. Live-Sitemap der alten Website + Crawls von `/de/faq`, `/de` und `/de/jetzt-mitmachen` zeigen, dass alle 21 FAQ-Einträge und alle vier 2025-Termine bereits in Session 18 (Migration `20260507153000_m11_original_site_content.sql`) übertragen wurden. Die alte Website hat keinen Blog (Sitemap listet nur `/`, `/konzeption`, `/material`, `/faq`, `/jetzt-mitmachen`, `/impressum`, `/datenschutz`, `/zugaenglichkeit`). Aktueller DB-Stand bestätigt per `supabase db query --linked`: 21 FAQs/42 FAQ-Translations, 6 Events (4 Original-2025-Events + 2 fiktive Seed-Demos), 3 fiktive Seed-Posts (`kickoff-datenraum-kultur`, `erste-pilotpartner-gewonnen`, `wip-konnektor-roadmap`).
+- **Hauptrepo-Index repariert:** Vor dem User-Wunsch „commiten/pushen" lag im Hauptrepo `/Users/kaygewinner/Desktop/Claude code/smarte-theaterdienste-website` ein gefährlicher Zustand: 184 staged-deletions für quasi alle Projektdateien (`src/`, `SMARTE-THEATERDIENSTE/`, `package.json`, `next.config.ts`, alle Migrationen) durch eine verwaiste `.git/index.lock` von 2026-05-09 13:51. Working Directory war intakt; nur der Index war desynchron. Lock entfernt, `git restore --staged .` non-destruktiv gegen HEAD ausgeführt. Status danach clean (nur erwartete untracked-Items: `.claude/worktrees/`, `.playwright-cli/`, `output/`, ein paar Finder-Duplikate `* 2.ext`).
+- **Production-Redeploy:** `pnpm dlx vercel@latest deploy --prod --yes` aus dem Hauptrepo. Remote-Build clean, Deploy `dpl_27RdEi5zQuwELQLAUMZEM65rAvVs` READY auf target=production.
+- **Production-Smoke:** `/usr/bin/curl` gegen Vercel-Alias zeigt HTTP 200 für `/de`, `/de/blog`, `/de/faq`, `/de/termine`, `/en`, `/en/faq`, `/sitemap.xml`, `/robots.txt`. Inhalts-Check: FAQ-Seite zeigt „Wie werden unsere Spielpläne maschinenlesbar", „Wozu maschinenlesbare Theaterspielpläne", „Was ist der Datenraum Kultur"; Termine-Seite zeigt alle vier Original-Events („Jahrestagung Bühnenverein", „DataWeek Symposium", „Theatertreff Berlin", „Abschlussforum"). Custom Domain `https://smarte-theaterdienste.de/de` zeigt weiterhin alte Inhalte (DNS-A-Records nicht auf Vercel).
+
+**Status am Ende:** Supabase-Stand ist gegenüber alter Website vollständig (FAQ + Termine in M11 erledigt, Blog existiert auf alter Site nicht). Drei fiktive Seed-Posts und zwei fiktive Seed-Events bleiben in der DB als Demo-Inhalte stehen — Entscheidung User offen, ob sie raus sollen oder durch echte Rückblick-Posts zu den 2025-Events ersetzt werden. Hauptrepo-Index repariert, Production-Redeploy `dpl_27RdEi5zQuwELQLAUMZEM65rAvVs` live.
+
 ## 2026-05-08 — Session 20: M13 Miro-Board-QA und Deutschlandkarten-Polish
 
 **Commits / Deploy-Basis:**
