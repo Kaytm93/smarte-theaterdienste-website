@@ -4,7 +4,8 @@
 
 **Commits / Deploy-Basis:**
 - `be7a9cc` M14: Editorial-Redesign im Zeitungsstil
-- Production-Deploy nach Commit/Push.
+- `05c1187` docs(vault): M14 Commit-SHA nachtragen
+- Production-Deploy `dpl_9Rgyirirvb1tiyLXoAszvHTpZnav` READY via `pnpm dlx vercel@latest deploy --prod --yes`; öffentlicher Alias `https://smarte-theaterdienste-website.vercel.app` smoke-getestet (`/de`, `/de/blog`, `/de/faq`, `/de/termine`, `/en` HTTP 200). Direkte Deployment-URL ist geschützt und antwortet ohne Vercel-Auth mit 401.
 
 **Was passierte:**
 
@@ -16,7 +17,7 @@
 - **Tooling-Fix:** `eslint.config.mjs` ignoriert `.vercel/**`, weil lokale Vercel-Build-Artefakte sonst den Projekt-Lint verschmutzen.
 - **Verifikation:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean. Production-like Server `pnpm start --port 3030`; Playwright Desktop 1440×1000 und Mobile 390×844: `/de` ohne Horizontal-Overflow, Console 0 Errors/Warnings, Mobile-Menü funktioniert. Routencheck auf `/de/blog`, `/de/beteiligung/mitwirkung`, `/de/faq`, `/de/termine`, `/en`: jeweils H1 sichtbar, kein Horizontal-Overflow, Console 0 Warnings/Errors.
 
-**Status am Ende:** Editorial-Redesign ist lokal production-validiert. Inhalte, Routing, Supabase-Queries und i18n-Keys bleiben kompatibel; nur `nav.edition` und `nav.dateline` wurden ergänzt. Nächster Projektschritt bleibt Custom-Domain-DNS oder finale Rechtstexte.
+**Status am Ende:** Editorial-Redesign ist lokal production-validiert und auf dem öffentlichen Vercel-Alias live. Inhalte, Routing, Supabase-Queries und i18n-Keys bleiben kompatibel; nur `nav.edition` und `nav.dateline` wurden ergänzt. Nächster Projektschritt bleibt Custom-Domain-DNS oder finale Rechtstexte.
 
 ## 2026-05-11 — Session 22: Codex-Plugin Website Design Ultra
 

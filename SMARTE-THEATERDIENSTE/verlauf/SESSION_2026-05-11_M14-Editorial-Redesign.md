@@ -39,7 +39,8 @@ User wollte die gesamte Website kreativer und zeitungshaftiger gestalten, mit sm
 ## Commit / Deploy
 
 - Commit: `be7a9cc`
-- Deploy: nach Commit/Push.
+- Deploy: `dpl_9Rgyirirvb1tiyLXoAszvHTpZnav` READY via `pnpm dlx vercel@latest deploy --prod --yes`.
+- Production-Smoke: `https://smarte-theaterdienste-website.vercel.app/de`, `/de/blog`, `/de/faq`, `/de/termine`, `/en` jeweils HTTP 200. Direkte Deployment-URL antwortet ohne Vercel-Auth mit 401.
 
 ## Ergebnis
 
