@@ -1,5 +1,33 @@
 # 📝 Changelog
 
+## 2026-05-11 — Session 24: Editorial-QA-Polish (Hero-Doppelungen aufgelöst, EN-Lokalisierung)
+
+**Commits / Deploy-Basis:**
+- `<TBD>` Session 24: Editorial-QA-Polish — Hero-Doppelungen + EN-Tags-Lokalisierung
+- Production-Deploy: nach Push (siehe unten)
+
+**Was passierte:**
+
+- **Vault gelesen:** `START_HIER`, `DASHBOARD`, `PROBLEME`, `MUSTER`. Plugin-Skills `plugins/website-design-ultra/skills/{core-rules,ui-states}/SKILL.md` als Editorial-Referenz manuell konsultiert (Codex-Plugin lädt nicht als Claude-Skill, Inhalte aber lesbar).
+- **Preview-Server im Worktree gestartet:** `pnpm install`, `.env.local` aus dem Hauptrepo kopiert (gitignored), `preview_start` auf Port 3000. Desktop 1440×900 und Mobile 375×812 für `/de`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/de/ansprechpersonen`, `/en` durchgegangen.
+- **Drei Editorial-Befunde identifiziert:**
+  1. **Hero-Stat-Strip dupliziert Body-Copy 1:1** zu den direkt darunter folgenden Sections (`FeatureGrid` mit 3 Karten und `NetworkMapSection` mit 141er-Stat). Strip zeigte komplette Texte von „141 Institutionen …", „Effektivere Arbeitsprozesse. Einmal implementieren …" und „Höhere Reichweite. Maschinenlesbare …" — und dieselben Strings erschienen 50–200 px tiefer noch einmal mit eigener Headline.
+  2. **„Use Case 03" stand 3× im Hero-Bereich**: linker Kicker `Datenraum Kultur · Use Case 3`, mittlerer Span `Use Case 03`, Bild-Caption-Mono `Use Case 03`.
+  3. **EN-Hero zeigte deutschen Eigennamen** im zweiten Kicker-Span — `JSON · ORIF · Datenraum Kultur` war hartkodiert und wurde nicht über die Messages geführt.
+- **Fixes in `src/app/[locale]/page.tsx`:**
+  - Hero-Top-Rail von drei `<span>`-Slugs auf zwei reduziert (mittleres `Use Case 03` entfernt). Verbleibende Spans: `{t("kicker")}` links und `{t("tags")}` rechts.
+  - Hero-Stat-Strip am Section-Footer komplett umgebaut: aus drei Volltext-Paragraphen wurde eine kompakte Editorial-ToC `<ol>` mit Mono-`01/02/03` und Feature-Titeln. Inhalt jetzt: `01 Effektivere Arbeitsprozesse`, `02 Höhere Reichweite`, `03 Größeres Netzwerk` (DE) bzw. `01 More efficient workflows`, `02 Greater reach`, `03 A larger network` (EN). Keine Body-Doppelung mehr mit `FeatureGrid` darunter.
+- **Fix in i18n:**
+  - `src/messages/de.json` und `src/messages/en.json` jeweils um den neuen Key `hero.tags` ergänzt. DE: `JSON · ORIF · Datenraum Kultur`, EN: `JSON · ORIF · Cultural Data Space`.
+- **Verifikation:**
+  - `pnpm typecheck` ✅, `pnpm lint` ✅, `pnpm build` ✅ (37/37 Pages SSG).
+  - Preview-MCP-Snapshot zeigt auf `/de` Top-Rail `DATENRAUM KULTUR · USE CASE 3` + `JSON · ORIF · DATENRAUM KULTUR` und ToC `01/02/03 + Feature-Titel`. Auf `/en` zeigt Top-Rail `CULTURAL DATA SPACE · USE CASE 3` + `JSON · ORIF · CULTURAL DATA SPACE`.
+  - `fetch('/de')` und `fetch('/en')` aus der Preview liefern HTML mit den neuen lokalisierten Strings (`includes`-Check beide `true`).
+  - Mobile 375×812: Hero-Kicker bricht nur noch 2-zeilig statt 3-zeilig; ToC einspaltig vertikal.
+- **Was NICHT geändert wurde:** Routing, Supabase-Queries, Content-JSONs, restliche Sections, ComicStrip, NetworkMap, PartnerMap, Cards. Keine neuen Abhängigkeiten, keine neuen Routen.
+
+**Status am Ende:** Editorial-QA-Polish lokal production-validiert. Pflicht-Routine läuft anschließend (Push, Documents-Sync, Production-Deploy).
+
 ## 2026-05-11 — Session 23: Editorial-Redesign der gesamten Website
 
 **Commits / Deploy-Basis:**

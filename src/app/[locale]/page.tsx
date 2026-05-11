@@ -52,8 +52,7 @@ export default async function HomePage({
         <div className="mx-auto max-w-[var(--container-max)] px-4 pb-10 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:px-8 lg:pb-20 lg:pt-16">
           <FadeInOnScroll className="editorial-rule mb-6 flex flex-wrap items-center justify-between gap-3 py-2 text-[11px] font-semibold uppercase text-foreground/65">
             <span>{t("kicker")}</span>
-            <span>Use Case 03</span>
-            <span>JSON · ORIF · Datenraum Kultur</span>
+            <span>{t("tags")}</span>
           </FadeInOnScroll>
 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)] lg:gap-10">
@@ -113,18 +112,21 @@ export default async function HomePage({
 
           <FadeInOnScroll
             delay={STAGGER * 4}
-            className="mt-8 grid gap-4 border-t border-[var(--rule-strong)] pt-5 text-sm leading-[var(--leading-relaxed)] text-foreground/70 sm:grid-cols-3"
+            className="mt-8 border-t border-[var(--rule-strong)] pt-5"
           >
-            <p>
-              <strong className="font-semibold text-foreground">{landing.network.statValue}</strong>{" "}
-              {landing.network.statLabel}
-            </p>
-            {landing.benefits.features.slice(0, 2).map((feature) => (
-              <p key={feature.title}>
-                <strong className="font-semibold text-foreground">{feature.title}.</strong>{" "}
-                {feature.body}
-              </p>
-            ))}
+            <ol className="m-0 grid list-none gap-x-8 gap-y-3 p-0 sm:grid-cols-3">
+              {landing.benefits.features.map((feature, i) => (
+                <li
+                  key={feature.title}
+                  className="flex items-baseline gap-3 text-sm leading-snug text-foreground/75"
+                >
+                  <span className="font-mono text-[11px] font-semibold tabular-nums text-foreground/55">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-semibold text-foreground">{feature.title}</span>
+                </li>
+              ))}
+            </ol>
           </FadeInOnScroll>
         </div>
       </section>
