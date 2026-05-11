@@ -86,7 +86,7 @@ export function PartnerMapClient({ partners }: Props) {
     >
       {/* Map */}
       <div className="space-y-4">
-        <div className="relative mx-auto aspect-[1073/1272] w-full max-w-[620px] overflow-hidden rounded-2xl border border-border/60 bg-muted/40 shadow-[var(--shadow-xs)] lg:mx-0">
+        <div className="relative mx-auto aspect-[1073/1272] w-full max-w-[620px] overflow-hidden rounded-md border border-[var(--rule-strong)] bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] lg:mx-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/maps/germany.svg"
@@ -142,7 +142,7 @@ export function PartnerMapClient({ partners }: Props) {
           {STATUS_ORDER.map((status) => (
             <span
               key={status}
-              className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1"
+              className="inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/70 px-3 py-1"
             >
               <span
                 aria-hidden
@@ -155,11 +155,11 @@ export function PartnerMapClient({ partners }: Props) {
       </div>
 
       {/* Detail panel */}
-      <aside className="rounded-2xl border border-border/60 bg-background/95 p-6 lg:sticky lg:top-24 lg:self-start">
+      <aside className="rounded-md border border-[var(--rule-strong)] bg-background/95 p-6 lg:sticky lg:top-24 lg:self-start">
         {selected ? (
           <div className="space-y-4">
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-[var(--accent-brand)]">
+              <p className="text-xs font-semibold uppercase text-[var(--accent-brand)]">
                 {t(`statuses.${selected.status}`)}
               </p>
               <h3 className="mt-2 text-xl font-semibold leading-tight text-foreground">
@@ -188,7 +188,7 @@ export function PartnerMapClient({ partners }: Props) {
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm text-foreground/55">{t("selectHint")}</p>
-              <p className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground/60">
+              <p className="rounded-md bg-muted px-3 py-1 text-xs font-medium text-foreground/60">
                 {t("countLabel", { count: placedPartners.length })}
               </p>
             </div>
@@ -198,12 +198,12 @@ export function PartnerMapClient({ partners }: Props) {
                   <button
                     type="button"
                     onClick={() => setSelectedId(partner.id)}
-                    className="flex w-full items-center justify-between gap-4 rounded-xl border border-transparent px-3 py-2 text-left text-sm text-foreground/85 transition-colors hover:border-border/60 hover:bg-muted/60 hover:text-foreground"
+                    className="flex w-full items-center justify-between gap-4 rounded-md border border-transparent px-3 py-2 text-left text-sm text-foreground/85 transition-colors hover:border-border/60 hover:bg-muted/60 hover:text-foreground"
                   >
                     <span>{partner.name}</span>
                     <span
                       className={cn(
-                        "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium",
+                        "shrink-0 rounded-md px-2.5 py-1 text-[11px] font-medium",
                         STATUS_STYLES[partner.status].soft,
                       )}
                     >

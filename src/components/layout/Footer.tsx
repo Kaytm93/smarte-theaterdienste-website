@@ -27,16 +27,19 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-border/60 bg-[var(--surface-1)]">
+    <footer className="relative border-t border-[var(--rule-strong)] bg-[var(--surface-1)]">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/15 to-transparent"
+        className="pointer-events-none absolute inset-0 bg-grid-pattern opacity-35"
       />
 
-      <div className="mx-auto max-w-[var(--container-max)] px-4 py-16 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[var(--container-max)] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-8 border-y border-[var(--rule-strong)] py-3 text-center font-serif text-4xl font-semibold leading-none sm:text-5xl">
+          {tMeta("siteName")}
+        </div>
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.8fr_1.8fr_0.7fr]">
           <div className="space-y-3">
-            <p className="text-sm font-semibold tracking-tight">
+            <p className="text-xs font-semibold uppercase text-[var(--accent-secondary)]">
               {tMeta("siteName")}
             </p>
             <p className="max-w-sm text-sm text-foreground/65 leading-[var(--leading-relaxed)]">
@@ -45,7 +48,7 @@ export async function Footer() {
           </div>
 
           <nav aria-label={t("siteMap")} className="space-y-4">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-foreground/65">
+            <p className="text-xs font-semibold uppercase text-foreground/65">
               {t("siteMap")}
             </p>
             <ul className="grid grid-cols-2 gap-x-5 gap-y-2 text-sm text-foreground/65 lg:grid-cols-1">
@@ -63,11 +66,7 @@ export async function Footer() {
           </nav>
 
           <div className="space-y-5">
-            <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-foreground/65">
-              <span
-                aria-hidden
-                className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent-brand)]"
-              />
+            <p className="editorial-kicker">
               {t("supportedBy")}
             </p>
             <ul className="grid grid-cols-3 items-center gap-x-6 gap-y-6 sm:grid-cols-6">
@@ -78,7 +77,7 @@ export async function Footer() {
                   aria-label={t(`logoAlt.${logo.key}`)}
                 >
                   <span
-                    className="relative block h-full w-full opacity-70 transition-opacity duration-300 hover:opacity-100"
+                    className="relative block h-full w-full grayscale opacity-70 transition-[filter,opacity] duration-300 hover:grayscale-0 hover:opacity-100"
                     title={t(`logoAlt.${logo.key}`)}
                   >
                     <Image

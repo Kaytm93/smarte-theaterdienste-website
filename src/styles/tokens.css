@@ -16,18 +16,18 @@
   --space-4xl: 8rem;      /* 128px */
   --space-5xl: 12rem;     /* 192px */
 
-  /* Typo-Scale — fluid via clamp() für Display & Headings */
-  --text-display: clamp(2.75rem, 5.2vw + 1rem, 5.5rem);
-  --text-h1: clamp(2.25rem, 3.4vw + 1rem, 3.75rem);
-  --text-h2: clamp(1.625rem, 1.8vw + 1rem, 2.5rem);
-  --text-h3: clamp(1.25rem, 0.85vw + 1rem, 1.625rem);
+  /* Typo-Scale — responsive per Breakpoint, nicht viewport-skaliert. */
+  --text-display: 3rem;
+  --text-h1: 2.375rem;
+  --text-h2: 1.875rem;
+  --text-h3: 1.375rem;
   --text-body: 1rem;
   --text-caption: 0.875rem;
   --text-overline: 0.75rem;
 
-  /* Letter-Spacing für Display-Schrift */
-  --tracking-display: -0.022em;
-  --tracking-heading: -0.012em;
+  /* Editorial-Typo: keine negative Laufweite, ruhiger Satz. */
+  --tracking-display: 0;
+  --tracking-heading: 0;
 
   /* Line-Heights */
   --leading-tight: 1.04;
@@ -35,10 +35,10 @@
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
 
-  /* Easings (subjektiv ausgewählt für Kultur-affinen, ruhigen Eindruck) */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Easings (Editorial-Reveals: smooth, aber nicht träge) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
 
   /* Durations */
   --duration-fast: 200ms;
@@ -47,32 +47,50 @@
   --duration-slower: 1200ms;
 
   /* Layout */
-  --container-max: 80rem;        /* 1280px */
+  --container-max: 84rem;        /* 1344px */
   --container-prose: 42rem;      /* ~672px für Lesetexte */
-  --header-height: 4rem;         /* 64px sticky */
+  --header-height: 5.5rem;       /* Zeitungskopf + Rubriken */
 
-  /* Akzentfarben.
-     Primärakzent „Datenraum-Blau" — kühl, technisch, vertrauenserweckend.
-     Sekundärakzent „Bühnen-Magenta" — vom Bühnenverein-Logo und den Comic-Sprechblasen. */
-  --accent-brand: oklch(0.55 0.16 250);
-  --accent-brand-foreground: oklch(0.985 0 0);
-  --accent-secondary: oklch(0.58 0.20 345);
-  --accent-secondary-foreground: oklch(0.985 0 0);
+  /* Editorial-Palette: Papier, Tinte, Datenraum-Blau und Rubrik-Rot. */
+  --paper: oklch(0.986 0.006 92);
+  --paper-soft: oklch(0.964 0.009 92);
+  --paper-warm: oklch(0.935 0.014 88);
+  --ink: oklch(0.17 0.012 260);
+  --ink-muted: oklch(0.43 0.014 260);
+  --rule: oklch(0.17 0.012 260 / 0.18);
+  --rule-strong: oklch(0.17 0.012 260 / 0.72);
+  --accent-brand: oklch(0.46 0.16 255);
+  --accent-brand-foreground: oklch(0.985 0.006 92);
+  --accent-secondary: oklch(0.43 0.15 28);
+  --accent-secondary-foreground: oklch(0.985 0.006 92);
 
-  /* Surface-Schichten — subtile Tonstufen für Cards, Sections, Eyebrows */
-  --surface-base: oklch(1 0 0);
-  --surface-1: oklch(0.987 0.003 250);
-  --surface-2: oklch(0.972 0.005 250);
-  --surface-elevated: oklch(0.995 0.002 250);
+  /* Surface-Schichten — Zeitungspapier statt Glas/Card-Look. */
+  --surface-base: var(--paper);
+  --surface-1: var(--paper-soft);
+  --surface-2: var(--paper-warm);
+  --surface-elevated: oklch(0.996 0.004 92);
 
-  /* Glow- und Visual-Tinten (nur für dekorative Elemente) */
-  --glow-blue: color-mix(in oklch, var(--accent-brand) 22%, transparent);
-  --glow-magenta: color-mix(in oklch, var(--accent-secondary) 18%, transparent);
-  --grid-line: color-mix(in oklch, var(--foreground) 6%, transparent);
+  /* Zeitungsraster, Linien und dezent getönte Schatten. */
+  --grid-line: oklch(0.17 0.012 260 / 0.075);
+  --shadow-xs: 0 1px 1px oklch(0.17 0.012 260 / 0.05);
+  --shadow-sm: 0 3px 10px oklch(0.17 0.012 260 / 0.07);
+  --shadow-md: 0 8px 22px oklch(0.17 0.012 260 / 0.09);
+  --shadow-lg: 0 16px 40px oklch(0.17 0.012 260 / 0.11);
+}
 
-  /* Schatten-System (dezent, sehr nah am Schweizer Polish-Standard) */
-  --shadow-xs: 0 1px 2px oklch(0.145 0 0 / 0.05);
-  --shadow-sm: 0 1px 3px oklch(0.145 0 0 / 0.06), 0 1px 2px oklch(0.145 0 0 / 0.04);
-  --shadow-md: 0 4px 12px oklch(0.145 0 0 / 0.08), 0 2px 4px oklch(0.145 0 0 / 0.04);
-  --shadow-lg: 0 12px 32px oklch(0.145 0 0 / 0.10), 0 4px 8px oklch(0.145 0 0 / 0.04);
+@media (min-width: 48rem) {
+  :root {
+    --text-display: 4.5rem;
+    --text-h1: 3.25rem;
+    --text-h2: 2.25rem;
+    --text-h3: 1.625rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  :root {
+    --text-display: 5.75rem;
+    --text-h1: 4rem;
+    --text-h2: 2.75rem;
+  }
 }

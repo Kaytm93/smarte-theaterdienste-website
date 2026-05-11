@@ -13,7 +13,9 @@
     "events": "Termine",
     "language": "Sprache",
     "menu": "Menü",
-    "menuDescription": "Hauptnavigation der Website"
+    "menuDescription": "Hauptnavigation der Website",
+    "edition": "Ausgabe 03",
+    "dateline": "Datenraum Kultur · Maschinenlesbare Spielpläne"
   },
   "langSwitcher": {
     "label": "Sprache wechseln zu {target}",

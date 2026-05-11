@@ -11,9 +11,9 @@ export async function PartnerMap() {
   const partners = isSupabaseConfigured() ? await listPartners() : [];
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 border-t border-[var(--rule-strong)] pt-5">
       <div className="space-y-2">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-[var(--accent-brand)]">
+        <p className="editorial-kicker">
           {t("heading")}
         </p>
         <p className="max-w-2xl text-base leading-[var(--leading-relaxed)] text-foreground/70">
@@ -21,7 +21,7 @@ export async function PartnerMap() {
         </p>
       </div>
       {partners.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border/70 bg-muted/30 p-8">
+        <div className="rounded-md border border-dashed border-border/70 bg-muted/30 p-8">
           <p className="text-sm text-foreground/55">{t("empty")}</p>
         </div>
       ) : (

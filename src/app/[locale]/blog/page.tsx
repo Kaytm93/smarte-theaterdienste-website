@@ -53,7 +53,7 @@ export default async function BlogPage({
   return (
     <>
       <PageHero kicker={t("kicker")} title={t("title")} lead={t("lead")} />
-      <section className="mx-auto grid max-w-[var(--container-max)] gap-6 px-4 pb-20 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-8">
+      <section className="mx-auto grid max-w-[var(--container-max)] gap-6 px-4 pb-20 pt-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-8">
         {posts.map((post) => (
           <PostCard
             key={post.slug}

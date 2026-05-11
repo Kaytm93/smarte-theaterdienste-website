@@ -58,7 +58,7 @@ export default async function TerminePage({
       <PageHero kicker={t("kicker")} title={t("title")} lead={t("lead")} />
 
       <section className="mx-auto max-w-[var(--container-max)] px-4 pb-12 sm:px-6 lg:px-8">
-        <h2 className="mb-6 text-xs font-medium uppercase tracking-[0.22em] text-foreground/55">
+        <h2 className="mb-6 border-t border-[var(--rule-strong)] pt-4 text-xs font-semibold uppercase text-foreground/55">
           {t("upcomingHeading")}
         </h2>
         {upcoming.length === 0 ? (
@@ -79,7 +79,7 @@ export default async function TerminePage({
 
       {past.length > 0 ? (
         <section className="mx-auto max-w-[var(--container-max)] px-4 pb-20 sm:px-6 lg:px-8">
-          <h2 className="mb-6 text-xs font-medium uppercase tracking-[0.22em] text-foreground/55">
+          <h2 className="mb-6 border-t border-[var(--rule-strong)] pt-4 text-xs font-semibold uppercase text-foreground/55">
             {t("pastHeading")}
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

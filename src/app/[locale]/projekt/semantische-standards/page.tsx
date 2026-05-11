@@ -59,7 +59,6 @@ export default async function SemantischeStandardsPage({
               key={link.href}
               asChild
               variant="outline"
-              className="rounded-full"
             >
               <Link
                 href={link.href as Parameters<typeof Link>[0]["href"]}

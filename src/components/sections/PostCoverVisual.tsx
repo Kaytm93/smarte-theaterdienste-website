@@ -24,37 +24,25 @@ export function PostCoverVisual({
         className
       )}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-grid-pattern opacity-55"
-      />
-      <div
-        aria-hidden
-        className="absolute -right-16 -top-16 size-48 rounded-full blur-3xl sm:size-64"
-        style={{ backgroundColor: "var(--glow-blue)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute -bottom-20 -left-12 size-48 rounded-full blur-3xl sm:size-60"
-        style={{ backgroundColor: "var(--glow-magenta)" }}
-      />
+      <div aria-hidden className="absolute inset-0 bg-grid-pattern opacity-60" />
+      <div aria-hidden className="absolute inset-x-0 top-0 h-3 bg-[var(--accent-secondary)]" />
 
       <div className="relative z-10 flex size-full flex-col justify-between p-5 sm:p-7">
-        <div className="inline-flex w-fit items-center gap-2 rounded-full border border-foreground/10 bg-background/70 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-foreground/65 shadow-[var(--shadow-xs)] backdrop-blur">
+        <div className="inline-flex w-fit items-center gap-2 border border-[var(--rule-strong)] bg-background/85 px-3 py-1.5 text-[10px] font-semibold uppercase text-foreground/65 shadow-[var(--shadow-xs)]">
           <CalendarDays aria-hidden className="size-3" />
           <span>{eyebrow ?? "Update"}</span>
         </div>
 
         <p
           className={cn(
-            "max-w-[15rem] text-balance font-semibold leading-[var(--leading-snug)] tracking-tight",
-            isArticle ? "text-2xl sm:text-4xl" : "text-lg sm:text-xl"
+            "max-w-[15rem] text-balance font-serif font-semibold leading-[var(--leading-snug)] tracking-[var(--tracking-heading)]",
+            isArticle ? "text-3xl sm:text-5xl" : "text-2xl"
           )}
         >
           {title}
         </p>
 
-        <div className="flex items-center justify-between gap-3 text-[11px] font-medium uppercase tracking-[0.18em] text-foreground/55">
+        <div className="flex items-center justify-between gap-3 border-t border-[var(--rule-strong)] pt-3 text-[11px] font-semibold uppercase text-foreground/55">
           <span className="inline-flex items-center gap-1.5">
             <Network aria-hidden className="size-3.5 text-[var(--accent-brand)]" />
             ORIF

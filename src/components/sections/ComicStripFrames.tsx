@@ -51,13 +51,13 @@ export function ComicStripFrames({ frames }: Props) {
   return (
     <div
       ref={ref}
-      className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3"
+      className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3"
     >
       {frames.map((frame, i) => (
         <figure
           key={frame.image}
           data-comic-frame
-          className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] transition-[transform,box-shadow,border-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+          className="group relative flex flex-col overflow-hidden border border-[var(--rule-strong)] bg-[var(--surface-elevated)] p-2 shadow-[var(--shadow-xs)] transition-[transform,box-shadow] duration-500 ease-[var(--ease-out)] hover:-translate-y-1 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
         >
           <div className="relative aspect-[4/3] overflow-hidden bg-foreground/[0.04]">
             <Image
@@ -73,13 +73,13 @@ export function ComicStripFrames({ frames }: Props) {
             />
             <span
               aria-hidden
-              className="absolute left-4 top-4 inline-flex h-7 items-center justify-center rounded-full bg-white/95 px-3 font-mono text-[10px] font-semibold tracking-[0.18em] text-foreground/80 shadow-[var(--shadow-xs)]"
+              className="absolute left-3 top-3 inline-flex h-7 items-center justify-center border border-[var(--rule-strong)] bg-[var(--paper)] px-3 font-mono text-[10px] font-semibold text-foreground/80 shadow-[var(--shadow-xs)]"
             >
               0{i + 1}
             </span>
           </div>
-          <figcaption className="flex flex-col gap-2 p-5 sm:p-6">
-            <h3 className="text-base font-semibold leading-snug tracking-tight text-foreground">
+          <figcaption className="flex flex-col gap-2 border-t border-[var(--rule-strong)] px-2 py-4 sm:px-3">
+            <h3 className="font-serif text-xl font-semibold leading-snug tracking-[var(--tracking-heading)] text-foreground">
               {frame.title}
             </h3>
             <p className="text-sm leading-[var(--leading-relaxed)] text-foreground/70">

@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-11 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 19 Website-QA/UX-Polish production-build-validiert, Session 20 Miro-/Deutschlandkarten-QA production-live, Session 22 Codex-Plugin `website-design-ultra` repo-lokal angelegt. Nächster sinnvoller Website-Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
+> Letzte Aktualisierung: 2026-05-11 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 20 Miro-/Deutschlandkarten-QA production-live, Session 22 Codex-Plugin `website-design-ultra` repo-lokal angelegt, Session 23 Editorial-Redesign lokal production-validiert. Nächster sinnvoller Website-Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
 
 ---
 
@@ -30,7 +30,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 
 **Charakter:**
 - Mehrsprachig (DE primär, EN sekundär)
-- Apple-like minimal mit subtilen GSAP-Animationen
+- Zeitungshaft/editorial mit subtilen GSAP-Animationen
 - Bildhaft/metaphorisch, kulturaffin („Besteckkasten", „Leitung legen")
 - Sympathisch, nahbar (echte Menschen hinter dem Projekt)
 - Mobile-first, accessible
@@ -102,7 +102,7 @@ smarte-theaterdienste-website/
 │   ├── app/[locale]/
 │   │   ├── layout.tsx                          ← Root html/body, NextIntlClientProvider, Header+Footer, Fonts; M8: metadataBase, OG/Twitter-Defaults, robots
 │   │   ├── opengraph-image.tsx                 ← M8: 1200×630 ImageResponse pro Locale (DE/EN), Datenraum-Blau, siteName/siteDescription
-│   │   ├── page.tsx                            ← Landing: Hero + Benefits + DACH-Netzwerkkarte + ComicStrip + Stakeholder-Benefits + Pitch
+│   │   ├── page.tsx                            ← Landing: Editorial-Frontpage-Hero + Benefits + DACH-Netzwerkkarte + ComicStrip + Stakeholder-Benefits + Pitch
 │   │   ├── ansprechpersonen/page.tsx           ← PageHero + TeamGrid (4 Personen, Portraits via Sanity-CDN aus alter Website)
 │   │   ├── projekt/page.tsx                    ← PageHero + 6 TextSections + CTA-Links
 │   │   ├── projekt/technische-standards/page.tsx
@@ -153,7 +153,7 @@ smarte-theaterdienste-website/
 │   │   ├── beteiligung-mitwirkung.json          ←   Nutzenargumente, 3 Schritte, Tanzarchiv-Zitat, Webagentur-/IT-Checkliste
 │   │   ├── legal.json                           ←   imprint/privacy mit todo-Flag; Impressum-Hinweis nutzt § 5 DDG
 │   │   └── landing.json                         ←   Benefits + DACH-Netzwerkkarte + Comic-Strip-Frames + Stakeholder-Benefits + Pitch
-│   ├── styles/tokens.css                       ← Spacing/Typo/Easings/Container; --accent-brand: Datenraum-Blau
+│   ├── styles/tokens.css                       ← Editorial-Tokens: Papier/Tinte/Rubrik-Rot/Datenraum-Blau, Breakpoint-Typo, Linien/Raster
 │   ├── types/                                  ← Generated Supabase types ab M4
 │   └── proxy.ts                                ← next-intl Routing-Proxy (Next.js 16!); Matcher excluded `icon|apple-icon|opengraph-image|twitter-image|manifest` (Top-Level Convention Files)
 │

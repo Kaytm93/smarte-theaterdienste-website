@@ -27,27 +27,31 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
 
   return (
     <article className="mx-auto flex max-w-[var(--container-max)] flex-col gap-10 px-4 pt-16 pb-20 sm:px-6 sm:pt-24 lg:px-8">
-      <header className="flex max-w-3xl flex-col gap-5">
-        {formattedDate ? (
-          <FadeInOnScroll className="text-xs font-medium uppercase tracking-[0.22em] text-foreground/55">
-            {publishedAtLabel}{" "}
-            <time dateTime={post.publishedAt ?? undefined}>{formattedDate}</time>
-          </FadeInOnScroll>
-        ) : null}
-        <h1 className="text-balance font-semibold leading-[var(--leading-tight)] tracking-tight text-[length:var(--text-h1)]">
-          <RevealText>{post.title}</RevealText>
-        </h1>
+      <header className="grid gap-6 border-b border-[var(--rule-strong)] pb-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.38fr)]">
+        <div className="flex max-w-4xl flex-col gap-5">
+          {formattedDate ? (
+            <FadeInOnScroll className="text-xs font-semibold uppercase text-[var(--accent-secondary)]">
+              {publishedAtLabel}{" "}
+              <time dateTime={post.publishedAt ?? undefined}>
+                {formattedDate}
+              </time>
+            </FadeInOnScroll>
+          ) : null}
+          <h1 className="text-balance font-serif text-[length:var(--text-h1)] font-semibold leading-[var(--leading-tight)] tracking-[var(--tracking-display)]">
+            <RevealText>{post.title}</RevealText>
+          </h1>
+        </div>
         {post.excerpt ? (
           <FadeInOnScroll
             delay={0.15}
-            className="max-w-2xl text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/75 md:text-lg"
+            className="border-l-4 border-[var(--accent-secondary)] pl-5 text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/75 md:text-lg"
           >
             {post.excerpt}
           </FadeInOnScroll>
         ) : null}
       </header>
 
-      <FadeInOnScroll className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-muted">
+      <FadeInOnScroll className="paper-panel relative aspect-[16/9] w-full overflow-hidden p-3">
         <ViewTransition name={`post-cover-${post.slug}`}>
           {post.coverImageUrl ? (
             <Image
@@ -76,7 +80,7 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
       </FadeInOnScroll>
 
       <div className="pt-2">
-        <Button asChild variant="outline" className="rounded-full">
+        <Button asChild variant="outline">
           <Link href="/blog">← {backToListLabel}</Link>
         </Button>
       </div>

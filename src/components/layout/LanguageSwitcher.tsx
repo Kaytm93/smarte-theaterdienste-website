@@ -40,7 +40,7 @@ export function LanguageSwitcher() {
       className="gap-1.5"
     >
       <Globe aria-hidden className="size-4" />
-      <span className="font-medium uppercase tracking-wider">{otherLocale}</span>
+      <span className="font-semibold uppercase">{otherLocale}</span>
     </Button>
   );
 }

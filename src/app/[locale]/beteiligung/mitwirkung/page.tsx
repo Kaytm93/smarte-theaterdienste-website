@@ -43,16 +43,10 @@ export default async function MitwirkungPage({
       <PageHero kicker={t("kicker")} title={t("title")} lead={content.intro} />
 
       <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:items-start">
+        <div className="grid gap-8 border-t border-[var(--rule-strong)] pt-5 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:items-start">
           <div className="space-y-3">
-            <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent-brand)]">
-              <span
-                aria-hidden
-                className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent-brand)]"
-              />
-              {content.benefits.eyebrow}
-            </p>
-            <h2 className="max-w-xl text-balance font-semibold leading-[var(--leading-snug)] tracking-[var(--tracking-heading)] text-[length:var(--text-h2)]">
+            <p className="editorial-kicker">{content.benefits.eyebrow}</p>
+            <h2 className="max-w-xl text-balance font-serif text-[length:var(--text-h2)] font-semibold leading-[var(--leading-snug)] tracking-[var(--tracking-heading)]">
               {content.benefits.heading}
             </h2>
           </div>
@@ -64,12 +58,12 @@ export default async function MitwirkungPage({
               return (
                 <article
                   key={item.title}
-                  className="rounded-2xl border border-border/70 bg-[var(--surface-elevated)] p-5 shadow-[var(--shadow-xs)]"
+                  className="rounded-md border border-[var(--rule-strong)] bg-[var(--surface-elevated)] p-5 shadow-[var(--shadow-xs)]"
                 >
-                  <div className="mb-4 inline-flex size-9 items-center justify-center rounded-full bg-[var(--accent-brand)]/10 text-[var(--accent-brand)]">
+                  <div className="mb-4 inline-flex size-9 items-center justify-center rounded-md border border-border bg-[var(--paper)] text-[var(--accent-brand)]">
                     <Icon aria-hidden className="size-4" />
                   </div>
-                  <h3 className="text-base font-semibold tracking-tight">
+                  <h3 className="font-serif text-xl font-semibold tracking-[var(--tracking-heading)]">
                     {item.title}
                   </h3>
                   <p className="mt-2 text-sm leading-[var(--leading-relaxed)] text-foreground/70">
@@ -94,8 +88,8 @@ export default async function MitwirkungPage({
           ))}
         </div>
         {"quote" in content && content.quote ? (
-          <figure className="mt-8 rounded-2xl border border-border/70 bg-[var(--surface-elevated)] p-6 shadow-[var(--shadow-xs)]">
-            <blockquote className="max-w-4xl text-pretty text-lg leading-[var(--leading-relaxed)] text-foreground/75">
+          <figure className="mt-8 border-y border-[var(--rule-strong)] bg-[var(--surface-1)] p-6">
+            <blockquote className="max-w-4xl text-pretty font-serif text-2xl leading-[var(--leading-relaxed)] text-foreground/80">
               „{content.quote.body}“
             </blockquote>
             <figcaption className="mt-4 text-sm font-medium text-foreground/60">
@@ -106,16 +100,10 @@ export default async function MitwirkungPage({
       </FadeInOnScroll>
 
       <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 rounded-2xl border border-border/70 bg-[var(--surface-elevated)] p-6 shadow-[var(--shadow-xs)] sm:p-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:items-start">
+        <div className="grid gap-8 rounded-md border border-[var(--rule-strong)] bg-[var(--surface-elevated)] p-6 shadow-[var(--shadow-xs)] sm:p-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:items-start">
           <div className="space-y-3">
-            <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent-secondary)]">
-              <span
-                aria-hidden
-                className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent-secondary)]"
-              />
-              {content.implementation.eyebrow}
-            </p>
-            <h2 className="text-balance text-2xl font-semibold leading-[var(--leading-snug)] tracking-[var(--tracking-heading)] sm:text-3xl">
+            <p className="editorial-kicker">{content.implementation.eyebrow}</p>
+            <h2 className="text-balance font-serif text-3xl font-semibold leading-[var(--leading-snug)] tracking-[var(--tracking-heading)]">
               {content.implementation.heading}
             </h2>
             <p className="max-w-prose text-sm leading-[var(--leading-relaxed)] text-foreground/70 sm:text-base">
@@ -127,7 +115,7 @@ export default async function MitwirkungPage({
             {content.implementation.items.map((item) => (
               <li
                 key={item}
-                className="flex gap-3 rounded-xl border border-border/60 bg-background/70 p-4 text-sm leading-[var(--leading-relaxed)] text-foreground/75"
+                className="flex gap-3 rounded-md border border-border/60 bg-background/70 p-4 text-sm leading-[var(--leading-relaxed)] text-foreground/75"
               >
                 <CheckCircle2
                   aria-hidden

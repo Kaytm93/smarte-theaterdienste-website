@@ -53,7 +53,7 @@ export default async function FaqPage({
   return (
     <>
       <PageHero kicker={t("kicker")} title={t("title")} lead={t("lead")} />
-      <section className="mx-auto max-w-3xl px-4 pb-20 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-4xl px-4 pb-20 pt-10 sm:px-6 lg:px-8">
         <FaqAccordion faqs={faqs} />
       </section>
     </>

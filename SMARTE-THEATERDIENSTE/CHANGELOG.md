@@ -1,5 +1,23 @@
 # 📝 Changelog
 
+## 2026-05-11 — Session 23: Editorial-Redesign der gesamten Website
+
+**Commits / Deploy-Basis:**
+- `TBD` M14: Editorial-Redesign im Zeitungsstil
+- Production-Deploy nach Commit/Push.
+
+**Was passierte:**
+
+- **Vault + Design-Plugin gelesen:** Pflichtdateien `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE` und zusätzlich `API.md` gelesen. Relevante Next.js-16-Dokumente aus `node_modules/next/dist/docs/` geprüft (`Layouts and Pages`, `CSS`, `Font Optimization`, `View Transitions`). Das User-Zip `website-design-ultra.zip` wurde als Design-Regelwerk gelesen: `core-rules`, `style-directions`, `color-palettes`, `typography`, `motion-system`, `component-patterns`, `ui-states`.
+- **Design-Entscheidung:** Direktion `Editorial/Magazine`, aber nicht beige-dominiert: Papier/Tinte, Datenraum-Blau und Rubrik-Rot. Ziel: Kulturzeitung statt SaaS-Landingpage, mit smooth Releas über bestehendes GSAP und Reduced-Motion-Fallback.
+- **Globales Editorial-System:** `src/styles/tokens.css` ersetzt die bisherige Glow-/Surface-Sprache durch Papier/Tinte/Raster/Linien, Breakpoint-basierte Typografie ohne viewport-skalierte Fontgrößen und ohne negative Laufweite. `src/app/globals.css` bindet `font-serif`, reduziert Motion bei `prefers-reduced-motion`, ergänzt `.editorial-kicker`, `.editorial-rule`, `.editorial-copy` mit Drop-Cap und `.paper-panel`.
+- **Typografie:** `src/app/[locale]/layout.tsx` lädt zusätzlich `Newsreader` via `next/font/google` als Display-Serif. Body bleibt Geist Sans, Headlines/Masthead/Editorial-Cover nutzen die Serif.
+- **Website-weite UI-Umstellung:** Header wird zum Zeitungskopf mit Ausgabe/Dateline; Footer zum Zeitungsabschluss. Landing wird zur Frontpage mit Masthead-Rule, Lead-Story, Bildkasten und Infostreifen. `PageHero`, `TextSection`, `FeatureGrid`, `NetworkMapSection`, `ComicStrip`, `PostCard`, `EventCard`, `UseCaseCard`, `StepCard`, `ContactCard`, `FaqAccordion`, `PartnerMap`, `ResourceLinkGrid`, `PostArticle`, `PostCoverVisual` und `ComingSoonHero` wurden auf Linienraster, kleinere Radien, Serif-Hierarchie, Rubriklabels und weniger Card-Glow umgestellt.
+- **Tooling-Fix:** `eslint.config.mjs` ignoriert `.vercel/**`, weil lokale Vercel-Build-Artefakte sonst den Projekt-Lint verschmutzen.
+- **Verifikation:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean. Production-like Server `pnpm start --port 3030`; Playwright Desktop 1440×1000 und Mobile 390×844: `/de` ohne Horizontal-Overflow, Console 0 Errors/Warnings, Mobile-Menü funktioniert. Routencheck auf `/de/blog`, `/de/beteiligung/mitwirkung`, `/de/faq`, `/de/termine`, `/en`: jeweils H1 sichtbar, kein Horizontal-Overflow, Console 0 Warnings/Errors.
+
+**Status am Ende:** Editorial-Redesign ist lokal production-validiert. Inhalte, Routing, Supabase-Queries und i18n-Keys bleiben kompatibel; nur `nav.edition` und `nav.dateline` wurden ergänzt. Nächster Projektschritt bleibt Custom-Domain-DNS oder finale Rechtstexte.
+
 ## 2026-05-11 — Session 22: Codex-Plugin Website Design Ultra
 
 **Commits / Deploy-Basis:**

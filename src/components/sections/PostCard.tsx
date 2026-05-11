@@ -24,7 +24,7 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
 
   return (
     <FadeInOnScroll className="h-full">
-      <Card className="group h-full overflow-hidden rounded-2xl border border-border/70 bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow,border-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <Card className="group h-full overflow-hidden rounded-md border border-[var(--rule-strong)] bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out)] hover:-translate-y-1 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
         <Link
           href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
           className="flex h-full flex-col"
@@ -48,16 +48,16 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
               )}
             </ViewTransition>
           </div>
-          <CardContent className="flex flex-1 flex-col gap-3 p-6">
+          <CardContent className="flex flex-1 flex-col gap-3 border-t border-[var(--rule-strong)] p-5">
             {formattedDate ? (
               <time
                 dateTime={post.publishedAt ?? undefined}
-                className="text-xs font-medium uppercase tracking-[0.18em] text-foreground/55"
+                className="text-xs font-semibold uppercase text-[var(--accent-secondary)]"
               >
                 {formattedDate}
               </time>
             ) : null}
-            <h3 className="text-lg font-semibold leading-snug tracking-tight">
+            <h3 className="font-serif text-2xl font-semibold leading-snug tracking-[var(--tracking-heading)]">
               {post.title}
             </h3>
             {post.excerpt ? (
@@ -65,7 +65,7 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
                 {post.excerpt}
               </p>
             ) : null}
-            <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-[var(--accent-brand)]">
+            <span className="mt-auto inline-flex items-center gap-1.5 border-t border-border pt-4 text-sm font-semibold uppercase text-[var(--accent-brand)]">
               {readMoreLabel}
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0">
                 →

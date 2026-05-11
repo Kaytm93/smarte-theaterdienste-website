@@ -9,17 +9,17 @@ type Props = {
 export function StepCard({ step, title, body }: Props) {
   const stepLabel = step.toString().padStart(2, "0");
   return (
-    <Card className="h-full rounded-2xl border border-border/70 bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow,border-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+    <Card className="h-full rounded-md border border-[var(--rule-strong)] bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out)] hover:-translate-y-1 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       <CardContent className="space-y-5 p-7">
-        <div className="flex items-baseline gap-3">
-          <span className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent-brand)]">
+        <div className="flex items-baseline justify-between border-b border-[var(--rule-strong)] pb-4">
+          <span className="font-mono text-xs font-semibold uppercase text-[var(--accent-brand)]">
             Step
           </span>
-          <span className="font-mono text-2xl font-semibold tracking-tight text-foreground">
+          <span className="font-serif text-4xl font-semibold text-[var(--accent-secondary)]">
             {stepLabel}
           </span>
         </div>
-        <h3 className="text-lg font-semibold leading-snug tracking-tight">{title}</h3>
+        <h3 className="font-serif text-2xl font-semibold leading-snug tracking-[var(--tracking-heading)]">{title}</h3>
         <p className="text-sm leading-[var(--leading-relaxed)] text-foreground/70">
           {body}
         </p>

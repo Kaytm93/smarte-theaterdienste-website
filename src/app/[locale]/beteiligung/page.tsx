@@ -56,7 +56,6 @@ export default async function BeteiligungPage({
               key={link.href}
               asChild
               variant={i === 0 ? "default" : "outline"}
-              className="rounded-full"
             >
               <Link
                 href={link.href as Parameters<typeof Link>[0]["href"]}

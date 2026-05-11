@@ -39,7 +39,7 @@ export default async function AnwendungsbeispielePage({
     <>
       <PageHero kicker={t("kicker")} title={t("title")} lead={t("lead")} />
 
-      <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 pb-24 pt-4 sm:px-6 lg:px-8">
+      <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 pb-24 pt-10 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-3">
           {content.useCases.map((useCase) => (
             <UseCaseCard key={useCase.id} useCase={useCase} />

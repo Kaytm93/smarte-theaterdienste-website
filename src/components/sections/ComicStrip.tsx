@@ -15,21 +15,15 @@ type Props = {
 
 export function ComicStrip({ eyebrow, heading, frames }: Props) {
   return (
-    <section className="relative isolate">
+    <section className="relative isolate border-y border-[var(--rule-strong)] bg-[var(--surface-1)]">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-1/2 bg-gradient-to-b from-[var(--surface-1)] to-transparent"
+        className="pointer-events-none absolute inset-0 -z-10 bg-grid-pattern opacity-45"
       />
       <div className="mx-auto max-w-[var(--container-max)] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
-        <div className="mb-10 flex flex-col gap-3 sm:mb-14">
-          <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent-secondary)]">
-            <span
-              aria-hidden
-              className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent-secondary)]"
-            />
-            {eyebrow}
-          </p>
-          <h2 className="max-w-3xl text-balance font-semibold leading-[var(--leading-snug)] tracking-[var(--tracking-heading)] text-[length:var(--text-h2)]">
+        <div className="mb-10 grid gap-4 border-y border-[var(--rule-strong)] py-4 sm:mb-14 lg:grid-cols-[minmax(0,0.35fr)_1fr] lg:items-end">
+          <p className="editorial-kicker">{eyebrow}</p>
+          <h2 className="max-w-4xl text-balance font-serif text-[length:var(--text-h2)] font-semibold leading-[var(--leading-snug)] tracking-[var(--tracking-heading)]">
             {heading}
           </h2>
         </div>

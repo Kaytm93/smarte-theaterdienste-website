@@ -43,74 +43,54 @@ export default async function HomePage({
 
   return (
     <>
-      <section className="relative isolate overflow-hidden">
-        {/* Layered Background: Surface-Tint + Grid + zwei Glow-Blobs */}
+      <section className="relative isolate overflow-hidden border-b border-[var(--rule-strong)]">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[var(--surface-1)] via-background to-background"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[80%] bg-grid-pattern opacity-60"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-[-10%] top-[-15%] -z-10 h-[60vh] w-[60vh] rounded-full blur-3xl"
-          style={{ backgroundColor: "var(--glow-blue)" }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-[-12%] top-[35%] -z-10 h-[45vh] w-[45vh] rounded-full blur-3xl"
-          style={{ backgroundColor: "var(--glow-magenta)" }}
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-full bg-grid-pattern opacity-70"
         />
 
-        <div className="mx-auto grid max-w-[var(--container-max)] gap-12 px-4 pb-20 pt-16 sm:px-6 sm:pb-24 sm:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-8 lg:pb-32 lg:pt-28">
-          <div className="flex flex-col justify-center gap-7">
-            <FadeInOnScroll className="inline-flex items-center gap-2 self-start text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent-brand)]">
-              <span
-                aria-hidden
-                className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent-brand)]"
-              />
-              {t("kicker")}
-            </FadeInOnScroll>
+        <div className="mx-auto max-w-[var(--container-max)] px-4 pb-10 pt-10 sm:px-6 sm:pb-14 sm:pt-12 lg:px-8 lg:pb-20 lg:pt-16">
+          <FadeInOnScroll className="editorial-rule mb-6 flex flex-wrap items-center justify-between gap-3 py-2 text-[11px] font-semibold uppercase text-foreground/65">
+            <span>{t("kicker")}</span>
+            <span>Use Case 03</span>
+            <span>JSON · ORIF · Datenraum Kultur</span>
+          </FadeInOnScroll>
 
-            <h1 className="text-balance font-semibold leading-[var(--leading-tight)] tracking-[var(--tracking-display)] text-[length:var(--text-display)]">
-              <RevealText>{t("title")}</RevealText>
-            </h1>
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)] lg:gap-10">
+            <div className="flex flex-col justify-between gap-8">
+              <div className="space-y-6">
+                <h1 className="max-w-5xl text-balance font-serif text-[length:var(--text-display)] font-semibold leading-[0.92] tracking-[var(--tracking-display)]">
+                  <RevealText>{t("title")}</RevealText>
+                </h1>
+
+                <FadeInOnScroll
+                  delay={STAGGER * 2}
+                  className="max-w-2xl text-pretty border-l-4 border-[var(--accent-secondary)] pl-5 text-lg leading-[var(--leading-relaxed)] text-foreground/78 sm:text-xl"
+                >
+                  {t("subtitle")}
+                </FadeInOnScroll>
+              </div>
+
+              <FadeInOnScroll delay={STAGGER * 3} className="flex flex-wrap items-center gap-3">
+                <Button asChild size="lg" className="px-7">
+                  <Link href="/beteiligung">{t("ctaPrimary")}</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="px-6">
+                  <Link href="/projekt">
+                    {t("ctaSecondary")}
+                    <span aria-hidden className="ml-1 transition-transform duration-300 group-hover/button:translate-x-0.5">
+                      →
+                    </span>
+                  </Link>
+                </Button>
+              </FadeInOnScroll>
+            </div>
 
             <FadeInOnScroll
               delay={STAGGER * 2}
-              className="max-w-xl text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/70 sm:text-lg md:text-xl"
+              className="relative mx-auto w-full max-w-lg lg:max-w-none"
             >
-              {t("subtitle")}
-            </FadeInOnScroll>
-
-            <FadeInOnScroll delay={STAGGER * 3} className="flex flex-wrap items-center gap-3 pt-2">
-              <Button asChild size="lg" className="rounded-full px-7 shadow-[var(--shadow-sm)]">
-                <Link href="/beteiligung">{t("ctaPrimary")}</Link>
-              </Button>
-              <Button asChild size="lg" variant="ghost" className="rounded-full px-6">
-                <Link href="/projekt">
-                  {t("ctaSecondary")}
-                  <span aria-hidden className="ml-1 transition-transform duration-300 group-hover:translate-x-0.5">
-                    →
-                  </span>
-                </Link>
-              </Button>
-            </FadeInOnScroll>
-          </div>
-
-          <FadeInOnScroll
-            delay={STAGGER * 2}
-            className="relative mx-auto w-full max-w-md lg:max-w-none"
-          >
-            <div className="relative">
-              {/* Akzentrand hinter dem Polaroid – sehr dezenter Magenta-Hauch. */}
-              <div
-                aria-hidden
-                className="absolute -inset-3 -z-10 rounded-[28px] bg-gradient-to-br from-[var(--glow-magenta)] via-transparent to-[var(--glow-blue)] blur-2xl"
-              />
-              <figure className="relative bg-noise overflow-hidden rounded-[20px] border border-border bg-[var(--surface-elevated)] shadow-[var(--shadow-lg)]">
+              <figure className="paper-panel bg-noise relative overflow-hidden p-3">
                 <div className="relative aspect-[4/3] sm:aspect-[3/2]">
                   <Image
                     src="/hero/theater-parade.jpg"
@@ -121,14 +101,30 @@ export default async function HomePage({
                     className="object-cover"
                   />
                 </div>
-                <figcaption className="flex items-center justify-between gap-3 border-t border-border/70 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.18em] text-foreground/55">
+                <figcaption className="mt-3 flex items-center justify-between gap-3 border-t border-[var(--rule-strong)] pt-3 text-[11px] font-semibold uppercase text-foreground/60">
                   <span>{t("heroImageCaption")}</span>
                   <span aria-hidden className="font-mono">
                     Use Case 03
                   </span>
                 </figcaption>
               </figure>
-            </div>
+            </FadeInOnScroll>
+          </div>
+
+          <FadeInOnScroll
+            delay={STAGGER * 4}
+            className="mt-8 grid gap-4 border-t border-[var(--rule-strong)] pt-5 text-sm leading-[var(--leading-relaxed)] text-foreground/70 sm:grid-cols-3"
+          >
+            <p>
+              <strong className="font-semibold text-foreground">{landing.network.statValue}</strong>{" "}
+              {landing.network.statLabel}
+            </p>
+            {landing.benefits.features.slice(0, 2).map((feature) => (
+              <p key={feature.title}>
+                <strong className="font-semibold text-foreground">{feature.title}.</strong>{" "}
+                {feature.body}
+              </p>
+            ))}
           </FadeInOnScroll>
         </div>
       </section>

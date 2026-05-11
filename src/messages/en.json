@@ -13,7 +13,9 @@
     "events": "Events",
     "language": "Language",
     "menu": "Menu",
-    "menuDescription": "Main website navigation"
+    "menuDescription": "Main website navigation",
+    "edition": "Issue 03",
+    "dateline": "Cultural Data Space · Machine-readable programmes"
   },
   "langSwitcher": {
     "label": "Switch language to {target}",

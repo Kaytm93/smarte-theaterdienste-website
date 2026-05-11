@@ -67,7 +67,6 @@ export default async function TechnischeStandardsPage({
               key={link.href}
               asChild
               variant="outline"
-              className="rounded-full"
             >
               <Link
                 href={link.href as Parameters<typeof Link>[0]["href"]}

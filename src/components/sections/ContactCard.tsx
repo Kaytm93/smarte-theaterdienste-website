@@ -21,7 +21,7 @@ export async function ContactCard({ member }: { member: TeamMember }) {
   const t = await getTranslations("team");
 
   return (
-    <Card className="overflow-hidden rounded-2xl border border-border/70 bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow,border-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+    <Card className="overflow-hidden rounded-md border border-[var(--rule-strong)] bg-[var(--surface-elevated)] shadow-[var(--shadow-xs)] ring-0 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out)] hover:-translate-y-1 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       <div
         className="relative aspect-[4/5] w-full bg-gradient-to-br from-[var(--surface-1)] via-[var(--surface-2)] to-[var(--surface-1)]"
         aria-label={member.portrait ? undefined : t("portraitFallback")}
@@ -35,25 +35,25 @@ export async function ContactCard({ member }: { member: TeamMember }) {
             className="object-cover grayscale"
           />
         ) : (
-          <span className="absolute inset-0 flex items-center justify-center text-5xl font-semibold tracking-tight text-foreground/20">
+          <span className="absolute inset-0 flex items-center justify-center text-5xl font-semibold text-foreground/20">
             {initials(member.name)}
           </span>
         )}
-        <span className="absolute bottom-2 right-3 text-[10px] uppercase tracking-[0.18em] text-foreground/40">
+        <span className="absolute bottom-2 right-3 text-[10px] uppercase text-foreground/40">
           {t("photoCredit")}
         </span>
       </div>
 
-      <CardContent className="space-y-4 p-6">
+      <CardContent className="space-y-4 border-t border-[var(--rule-strong)] p-6">
         <div>
-          <p className="text-base font-semibold tracking-tight">
+          <p className="font-serif text-2xl font-semibold tracking-[var(--tracking-heading)]">
             {member.name}
           </p>
           <p className="text-sm text-foreground/65">{member.role}</p>
         </div>
 
         {member.quote ? (
-          <p className="border-l-2 border-[var(--accent-secondary)]/60 pl-3 text-sm italic text-foreground/70">
+          <p className="border-l-4 border-[var(--accent-secondary)] pl-3 font-serif text-base italic leading-relaxed text-foreground/74">
             „{member.quote}“
           </p>
         ) : null}

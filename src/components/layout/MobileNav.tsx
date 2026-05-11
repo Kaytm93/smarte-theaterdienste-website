@@ -36,33 +36,33 @@ export function MobileNav() {
           variant="ghost"
           size="icon"
           aria-label={t("menu")}
-          className="lg:hidden"
+          className="border border-[var(--rule)] bg-background/70 lg:hidden"
         >
           <Menu aria-hidden className="size-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-72 p-0">
-        <SheetHeader className="border-b">
-          <SheetTitle className="text-base font-medium">
+      <SheetContent side="right" className="w-80 border-l border-[var(--rule-strong)] bg-background p-0">
+        <SheetHeader className="border-b border-[var(--rule-strong)]">
+          <SheetTitle className="font-serif text-2xl font-semibold">
             {t("menu")}
           </SheetTitle>
           <SheetDescription className="sr-only">
             {t("menuDescription")}
           </SheetDescription>
         </SheetHeader>
-        <nav className="flex flex-col gap-1 p-4">
+        <nav className="flex flex-col p-4">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="rounded-md px-3 py-3 text-base text-foreground/85 transition-colors hover:bg-muted hover:text-foreground"
+              className="border-b border-border px-1 py-4 text-base font-semibold uppercase text-foreground/85 transition-colors hover:text-[var(--accent-secondary)]"
             >
               {t(item.key)}
             </Link>
           ))}
         </nav>
-        <div className="mt-auto border-t p-4">
+        <div className="mt-auto border-t border-[var(--rule-strong)] p-4">
           <LanguageSwitcher />
         </div>
       </SheetContent>
