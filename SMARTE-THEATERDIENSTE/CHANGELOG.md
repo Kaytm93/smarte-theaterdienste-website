@@ -1,5 +1,22 @@
 # 📝 Changelog
 
+## 2026-05-11 — Session 22: Codex-Plugin Website Design Ultra
+
+**Commits / Deploy-Basis:**
+- Commit-SHA wird nach dem Git-Commit nachgetragen.
+- Kein Vercel-Deploy nötig: reine Tooling-/Plugin-Änderung, kein Website-Runtime-Code.
+
+**Was passierte:**
+
+- **ZIP geprüft:** User lieferte `/Users/kaygewinner/Library/Mobile Documents/com~apple~CloudDocs/Downloads/website-design-ultra.zip`. Inhalt war ein Claude-Plugin mit `.claude-plugin/plugin.json`, 7 Skills und 3 Commands.
+- **Codex-Plugin angelegt:** Mit dem Codex-`plugin-creator`-Skill wurde ein repo-lokales Plugin-Skelett unter `plugins/website-design-ultra/` erzeugt. Die ZIP-Dateien wurden übernommen, `.claude-plugin` wurde nicht übernommen.
+- **Manifest konvertiert:** Neues `plugins/website-design-ultra/.codex-plugin/plugin.json` mit `skills: "./skills/"`, echten Metadaten, Interface-Block, Default-Prompts und Kategorie `Design`.
+- **Marketplace ergänzt:** Neue `.agents/plugins/marketplace.json` mit lokalem Marketplace `smarte-theaterdienste-local` und Plugin-Eintrag `website-design-ultra` (`source.path: "./plugins/website-design-ultra"`, `installation: AVAILABLE`, `authentication: ON_INSTALL`).
+- **README angepasst:** Installation und Nutzung von Claude-spezifischen Pfaden auf Codex-Konventionen umgeschrieben. Die übernommenen `commands/*.md` sind als Workflow-Vorlagen dokumentiert.
+- **Verifikation:** `python3 -m json.tool` validierte Plugin-Manifest und Marketplace. `find plugins/website-design-ultra -maxdepth 3 -type f` zeigt alle erwarteten Plugin-Dateien. Website-Code blieb unberührt; bestehende unstaged Website-Änderungen im Working Tree wurden nicht gestaged.
+
+**Status am Ende:** `website-design-ultra` ist als repo-lokales Codex-Plugin vorbereitet. Nächster Website-Schritt bleibt Custom-Domain-DNS oder finale Rechtstexte.
+
 ## 2026-05-10 — Session 21: Supabase-Content-Audit + Production-Redeploy
 
 **Commits / Deploy-Basis:**

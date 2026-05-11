@@ -41,6 +41,7 @@
 - **localeDetection ist standardmäßig `true`** in next-intl. Erste Besucher mit `Accept-Language: en-*` werden auf `/en` geleitet — bewusste Entscheidung (ADR-19), bleibt so.
 - **Tailwind v4** nutzt `@theme inline` in `globals.css` statt `tailwind.config.ts`. Keine separate Config-Datei nötig.
 - **`.claude/launch.json`** (Workspace-Root) enthält den Dev-Server-Eintrag auf Port **3030** (nicht 3000, weil Konflikt mit anderen Projekten). Preview-MCP überschreibt manchmal auf Port 3000 — funktional irrelevant.
+- **Repo-lokales Codex-Plugin `website-design-ultra`** liegt seit Session 22 unter `plugins/website-design-ultra/`; `.agents/plugins/marketplace.json` macht es als lokalen Plugin-Eintrag verfügbar. Es ist Tooling, kein Website-Runtime-Code.
 
 ## ✅ Gelöst
 

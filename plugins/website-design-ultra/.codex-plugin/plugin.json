@@ -1,0 +1,44 @@
+{
+  "name": "website-design-ultra",
+  "version": "1.0.0",
+  "description": "Premium Website-Design-Plugin: 12 aesthetische Direktionen, kuratierte Farb-/Font-Bibliotheken, Motion-Filter, Anti-Slop-Regeln und Bento-2.0-Patterns.",
+  "author": {
+    "name": "Kay"
+  },
+  "homepage": "https://github.com/Kaytm93/smarte-theaterdienste-website/tree/main/plugins/website-design-ultra",
+  "repository": "https://github.com/Kaytm93/smarte-theaterdienste-website",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "frontend",
+    "ui",
+    "ux",
+    "react",
+    "tailwind",
+    "animation",
+    "awwwards",
+    "landing-page",
+    "bento",
+    "anti-slop"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Website Design Ultra",
+    "shortDescription": "Premium frontend design rules, palettes, typography, motion and UI-state coverage.",
+    "longDescription": "Consolidates seven frontend design skills into one Codex plugin for high-polish website and UI work: core anti-slop rules, style directions, palettes, typography, motion systems, component patterns and UI states.",
+    "developerName": "Kay",
+    "category": "Design",
+    "capabilities": [
+      "Skills",
+      "Design Guidance",
+      "Frontend UI"
+    ],
+    "websiteURL": "https://github.com/Kaytm93/smarte-theaterdienste-website/tree/main/plugins/website-design-ultra",
+    "defaultPrompt": [
+      "Design a premium landing page for this product.",
+      "Audit this frontend for design and UI-state gaps.",
+      "Refresh this screen with a stronger visual direction."
+    ],
+    "brandColor": "#0F172A"
+  }
+}

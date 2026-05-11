@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-08 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 19 Website-QA/UX-Polish production-build-validiert, Session 20 Miro-/Deutschlandkarten-QA production-live (Nutzenblock, Webagentur-Checkliste, Kartenlegende/Standortliste; Deploy `dpl_Cok3G8hfHbU7kDvf4k8HHHj6MYX3`). Nächster sinnvoller Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
+> Letzte Aktualisierung: 2026-05-11 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 19 Website-QA/UX-Polish production-build-validiert, Session 20 Miro-/Deutschlandkarten-QA production-live, Session 22 Codex-Plugin `website-design-ultra` repo-lokal angelegt. Nächster sinnvoller Website-Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
 
 ---
 
@@ -86,6 +86,8 @@ Autoritative Quelle für diese Version: `node_modules/next/dist/docs/` im Projek
 
 ```
 smarte-theaterdienste-website/
+├── .agents/
+│   └── plugins/marketplace.json               ← Session 22: lokaler Codex-Marketplace, verweist auf ./plugins/website-design-ultra
 ├── .github/
 │   ├── workflows/
 │   │   ├── ci.yml                              ← M8: lint + typecheck + build auf push/PR (pnpm 10, Node 20)
@@ -179,6 +181,12 @@ smarte-theaterdienste-website/
 │   │   ├── bkm.png
 │   │   └── hamburg.png
 │   └── team/                                   ← Optional fuer lokale Portrait-Kopien; aktuell rendert Team remote via Sanity-CDN
+├── plugins/
+│   └── website-design-ultra/                   ← Session 22: repo-lokales Codex-Plugin aus User-ZIP
+│       ├── .codex-plugin/plugin.json           ← Codex-Manifest, `skills: ./skills/`
+│       ├── README.md                           ← Codex-Installations-/Nutzungshinweise
+│       ├── skills/                             ← 7 Design-Skills: Core, Style, Farben, Typo, Motion, Patterns, UI-States
+│       └── commands/                           ← 3 uebernommene Workflow-Vorlagen: design, audit, refresh
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
 │   └── GO_LIVE_CHECKLIST.md                    ← Asset-/Domain-/Vercel-/Legal-Handoff fuer den User
 │
@@ -235,4 +243,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
 
-Aktuell offen: **Custom Domain** und **finale Impressum-/Datenschutztexte**. Echte Blog-Cover-Bilder bleiben ein finaler Asset-Polish, aber die Blog-Liste und Blog-Details haben seit Session 19 sichtbare CSS-Cover-Fallbacks und ViewTransition-Elemente auch ohne `cover_image_url`. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert; M10 ist production-live; M11/M12/M13 sind auf dem Vercel-Alias production-live. Die Custom Domain `smarte-theaterdienste.de` zeigt weiterhin auf die alte Website.
+Aktuell offen: **Custom Domain** und **finale Impressum-/Datenschutztexte**. Echte Blog-Cover-Bilder bleiben ein finaler Asset-Polish, aber die Blog-Liste und Blog-Details haben seit Session 19 sichtbare CSS-Cover-Fallbacks und ViewTransition-Elemente auch ohne `cover_image_url`. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert; M10 ist production-live; M11/M12/M13 sind auf dem Vercel-Alias production-live. Session 22 ergänzt nur Tooling: ein repo-lokales Codex-Plugin `website-design-ultra` unter `plugins/` plus Marketplace-Eintrag. Die Custom Domain `smarte-theaterdienste.de` zeigt weiterhin auf die alte Website.
