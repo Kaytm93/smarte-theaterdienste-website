@@ -14,7 +14,7 @@
 | Animation-Polish | ✅ **M6 abgeschlossen** — ComicStrip vertical stagger, Hero-Choreografie + Akzent-Blob, Card-Hover projektweit standardisiert, View Transitions API verdrahtet, ScrollTriggerRefresher für Soft-Nav |
 | EN-Übersetzungen | ✅ **M7 abgeschlossen** — EN-Copy reviewt, statische EN-Dateien strukturgleich, Blog-Translations in Supabase vollständig |
 | Production-Polish | ✅ **M8 vollständig validiert** — SEO/Sitemap/Robots/OG/Icon/CI live; Lighthouse Perf 96 / A11y 100 / BP 100 / SEO 100 (DE & EN); axe-core clean; Sitemap-Lastmod-Polish production-live |
-| Vercel-Deployment | ✅ live: https://smarte-theaterdienste-website.vercel.app (Session 23 Editorial-Redesign deployed: `dpl_9Rgyirirvb1tiyLXoAszvHTpZnav`; Alias-Smoke `/de`, `/de/blog`, `/de/faq`, `/de/termine`, `/en` HTTP 200) |
+| Vercel-Deployment | ✅ live: https://smarte-theaterdienste-website.vercel.app (Session 24 Editorial-QA-Polish deployed: `dpl_Bun3ouvV7wiDWL4uvj9TT2d8FrpH` READY, Build 30 s + Deploy 49 s; Alias-Smoke `/de`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/en/faq`, `/sitemap.xml`, `/robots.txt` HTTP 200; HTML enthält `JSON · ORIF · Datenraum Kultur` auf `/de` und `JSON · ORIF · Cultural Data Space` auf `/en`, ToC `01/02/03` + Feature-Titel sichtbar) |
 | Supabase-Revalidate | ✅ live via `pg_net`-Trigger auf 6 Tabellen → `/api/revalidate` |
 | GitHub Actions CI | ✅ lint + typecheck + build auf push/PR |
 | Vercel-GitHub-Integration | ✅ verbunden (Session 16) — Auto-Deploy bei Push erwartet |

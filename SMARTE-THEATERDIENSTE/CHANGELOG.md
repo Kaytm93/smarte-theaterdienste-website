@@ -4,7 +4,8 @@
 
 **Commits / Deploy-Basis:**
 - `c39e69a` Session 24: Editorial-QA-Polish — Hero-Doppelungen + EN-Tags-Lokalisierung
-- Production-Deploy: siehe unten (Status nach Vercel-Deploy)
+- `d5eec0c` docs(vault): Session 24 Commit-SHA nachtragen
+- Production-Deploy: `dpl_Bun3ouvV7wiDWL4uvj9TT2d8FrpH` READY via `pnpm dlx vercel@latest deploy --prod --yes` aus dem Hauptrepo (Remote-Build 30 s, Deploy 49 s). Öffentlicher Alias `https://smarte-theaterdienste-website.vercel.app` smoke-getestet auf `/de`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/en/faq`, `/sitemap.xml`, `/robots.txt` — alle HTTP 200; HTML zeigt die neuen lokalisierten Hero-Tags und die Editorial-ToC.
 
 **Was passierte:**
 
