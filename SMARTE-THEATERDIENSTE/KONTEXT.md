@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-11 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 20 Miro-/Deutschlandkarten-QA production-live, Session 22 Codex-Plugin `website-design-ultra` repo-lokal angelegt, Session 23 Editorial-Redesign lokal production-validiert. Nächster sinnvoller Website-Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
+> Letzte Aktualisierung: 2026-05-11 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 20 Miro-/Deutschlandkarten-QA production-live, Session 22 Codex-Plugin `website-design-ultra` repo-lokal angelegt, Session 23 Editorial-Redesign lokal production-validiert, Session 25 Visual-QA-Polish lokal production-validiert (`ee15d40`). Nächster sinnvoller Website-Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
 
 ---
 
@@ -86,6 +86,7 @@ Autoritative Quelle für diese Version: `node_modules/next/dist/docs/` im Projek
 
 ```
 smarte-theaterdienste-website/
+├── eslint.config.mjs                           ← Session 25: ignoriert lokale Agenten-/Output-Artefakte (`.claude/**`, `.playwright-cli/**`, `output/**`) zusätzlich zu `.next/**`/`.vercel/**`
 ├── .agents/
 │   └── plugins/marketplace.json               ← Session 22: lokaler Codex-Marketplace, verweist auf ./plugins/website-design-ultra
 ├── .github/
@@ -129,7 +130,7 @@ smarte-theaterdienste-website/
 │   │   │                                          PostCoverVisual (Session 19: CSS-Cover-Fallback fuer Posts ohne cover_image_url),
 │   │   │                                          EventCard, FaqAccordion (M4),
 │   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5; Session 20: Status-Legende, Standortzähler, Liste, kompaktere Desktop-Karte),
-│   │   │                                          FeatureGrid, NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer)
+│   │   │                                          FeatureGrid (Session 25: Desktop-Spalten nach Feature-Anzahl), NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer)
 │   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage,
 │   │   │                                          ScrollTriggerRefresher (Layout-globaler usePathname-Listener, M6)
 │   │   └── forms/                              ← LEER (Newsletter/Beta-Anmeldung später)

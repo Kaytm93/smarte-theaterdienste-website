@@ -1,5 +1,23 @@
 # 📝 Changelog
 
+## 2026-05-11 — Session 25: Visual-QA-Polish (FeatureGrid, Image-Ladepfade, Lint-Ignores)
+
+**Commits / Deploy-Basis:**
+- `ee15d40` M15: Visual QA grid and image loading
+- Kein manueller Vercel-Deploy in dieser Session; Push auf `main` triggert den verbundenen Vercel-Auto-Deploy.
+
+**Was passierte:**
+
+- **Plugin-/Tooling-Befund:** Das Website-Design-Plugin ist in dieser Codex-Session nicht als aktives Plugin geladen. Das repo-lokale `plugins/website-design-ultra` existiert und wurde als Design-Referenz gelesen (`README`, `core-rules`, `ui-states`).
+- **Vault + Next.js-16-Doku gelesen:** Pflichtdateien `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, zusätzlich `INHALTE` sowie Next-Dokumente zu CSS/Layout/Images und die Image-API-Hinweise zu `preload`, `priority` und `loading`.
+- **Visuelles Audit:** Lokale Seite auf Port 3030 mit dem Codex-Browser geprüft: Desktop und Mobile für `/de`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/de/ansprechpersonen`, `/en`; zusätzlich Mobile-Menü.
+- **Fix 1 — FeatureGrid:** `src/components/sections/FeatureGrid.tsx` rendert Desktop-Spalten jetzt nach `features.length`. Der Landing-Nutzenblock mit drei Features nutzt `lg:grid-cols-3` statt pauschal `lg:grid-cols-4`, sodass rechts keine leere Editorial-Spalte mehr stehen bleibt. Vierer-FeatureGrids bleiben vier-spaltig.
+- **Fix 2 — Next Image:** `src/app/[locale]/page.tsx` ersetzt beim Hero-Bild das in Next 16 deprecierte `priority` durch `preload`. `TeamGrid` markiert das erste Mitglied als eager, `ContactCard` setzt für dieses erste Portrait `loading="eager"`; dadurch ist das above-the-fold-LCP-Portrait nicht mehr lazy.
+- **Fix 3 — ESLint-Ignores:** `eslint.config.mjs` ignoriert jetzt `.claude/**`, `.playwright-cli/**` und `output/**`, weil lokale Agenten-/Playwright-Artefakte sonst beim globalen `pnpm lint` mitgeprüft werden.
+- **Verifikation:** `pnpm typecheck` ✅, `pnpm lint` ✅, `pnpm build` ✅ (37/37 Pages SSG). Production-like Smoke mit `pnpm start --port 3031`: `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/beteiligung/mitwirkung`, `/en` jeweils HTTP 200. HTML-Smokes bestätigen `lg:grid-cols-3`, Hero-Image-Preload und erstes Portrait `loading="eager"`.
+
+**Status am Ende:** Visual-QA-Fixes sind lokal production-validiert. Nächster Projektschritt bleibt Custom-Domain-DNS oder finale Impressum-/Datenschutztexte.
+
 ## 2026-05-11 — Session 24: Editorial-QA-Polish (Hero-Doppelungen aufgelöst, EN-Lokalisierung)
 
 **Commits / Deploy-Basis:**
