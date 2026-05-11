@@ -1,0 +1,46 @@
+# 📚 Verlauf — Session-Index
+
+> Detailliertes Session-Log mit Befunden, Verifikationen, Commits und Deploys.
+> Kurzform pro Session steht im [[../CHANGELOG]].
+>
+> **Naming-Konvention:** `SESSION_YYYY-MM-DD[_<milestone-kurzbeschreibung>].md`
+
+---
+
+## Sessions chronologisch (neueste oben)
+
+| Datum       | Milestone / Thema                             | Datei                                                              |
+| ----------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| 2026-05-11  | M15 Visual-QA-Polish                          | [[SESSION_2026-05-11_M15-Visual-QA-Polish]]                        |
+| 2026-05-11  | Session 24 Editorial-QA-Polish                | [[SESSION_2026-05-11_session-24]]                                  |
+| 2026-05-11  | M14 Editorial-Redesign                        | [[SESSION_2026-05-11_M14-Editorial-Redesign]]                      |
+| 2026-05-11  | Codex-Plugin Website Design Ultra             | [[SESSION_2026-05-11]]                                             |
+| 2026-05-08  | M13 Miro-QA + Deutschlandkarte                | [[SESSION_2026-05-08_M13-Miro-Map-QA]]                             |
+| 2026-05-08  | M12 Website-QA + UX-Polish                    | [[SESSION_2026-05-08]]                                             |
+| 2026-05-07  | M11 Original-Site-Transfer                    | [[SESSION_2026-05-07_M11-Original-Site-Transfer]]                  |
+| 2026-05-07  | M10 Design-Refresh + Asset-Einarbeitung       | [[SESSION_2026-05-07]]                                             |
+| 2026-05-07  | M9 PWA + Per-Post-OG + Lighthouse-CI          | [[SESSION_2026-05-07_M9-PWA-OG-Lighthouse]]                        |
+| 2026-05-07  | M9 Go-Live-Handoff (GO_LIVE_CHECKLIST.md)     | [[SESSION_2026-05-07_M9-Go-Live-Handoff]]                          |
+| 2026-05-07  | M8 Sitemap-Lastmod-Polish                     | [[SESSION_2026-05-07_M8-Sitemap-Lastmod]]                          |
+| 2026-05-07  | M7 EN-Quality-Review                          | [[SESSION_2026-05-07_M7-EN-Quality-Review]]                        |
+| 2026-05-07  | M6 Production-Validation                      | [[SESSION_2026-05-07_M6-Production-Validation]]                    |
+| 2026-05-06  | M8 Production-Validation (Lighthouse-Final)   | [[SESSION_2026-05-06_M8-Production-Validation]]                    |
+| 2026-05-06  | M8 SEO-Layer komplett                         | [[SESSION_2026-05-06]]                                             |
+| 2026-05-01  | M5 Partner-Karte                              | [[SESSION_2026-05-01]]                                             |
+| 2026-04-30  | M4 Cloud-Finalisierung + Vercel-Deploy        | [[SESSION_2026-04-30]]                                             |
+| 2026-04-26  | M3 Statische Seiten DE                        | [[SESSION_2026-04-26b]]                                            |
+| 2026-04-26  | M2 Design-System                              | [[SESSION_2026-04-26]]                                             |
+| 2026-04-25  | M1 Setup & Infra                              | [[SESSION_2026-04-25]]                                             |
+
+---
+
+## Wann wird ein Verlauf-File angelegt?
+
+Pro CLAUDE.md Pflichtregel: Wenn ≥ 3 Dateien geändert wurden oder ein grundlegendes Problem gelöst wurde, ein eigenes File `SESSION_YYYY-MM-DD_<milestone>.md` mit:
+
+- **Anlass** (was wollte der User)
+- **Vorgehen** (welche Vault-/Doku-Quellen, welche Entscheidungen)
+- **Geänderte Bereiche** (Dateipfade)
+- **Verifikation** (typecheck, lint, build, Playwright, Production-Smoke)
+- **Commit / Deploy** (SHAs + Deploy-IDs)
+- **Ergebnis** (Status nach der Session)
