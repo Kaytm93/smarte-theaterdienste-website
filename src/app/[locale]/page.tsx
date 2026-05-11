@@ -95,7 +95,7 @@ export default async function HomePage({
                     src="/hero/theater-parade.jpg"
                     alt={t("heroImageAlt")}
                     fill
-                    priority
+                    preload
                     sizes="(max-width: 1024px) 90vw, 540px"
                     className="object-cover"
                   />

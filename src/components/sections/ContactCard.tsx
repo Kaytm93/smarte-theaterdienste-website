@@ -17,7 +17,13 @@ function telHref(phone: string): string {
   return `tel:${phone.replace(/[^+\d]/g, "")}`;
 }
 
-export async function ContactCard({ member }: { member: TeamMember }) {
+export async function ContactCard({
+  member,
+  eagerImage = false,
+}: {
+  member: TeamMember;
+  eagerImage?: boolean;
+}) {
   const t = await getTranslations("team");
 
   return (
@@ -32,6 +38,7 @@ export async function ContactCard({ member }: { member: TeamMember }) {
             alt={`${member.name} — ${member.role}`}
             fill
             sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 280px"
+            loading={eagerImage ? "eager" : "lazy"}
             className="object-cover grayscale"
           />
         ) : (

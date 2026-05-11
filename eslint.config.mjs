@@ -10,6 +10,9 @@ const eslintConfig = defineConfig([
     // Default ignores of eslint-config-next:
     ".next/**",
     ".vercel/**",
+    ".claude/**",
+    ".playwright-cli/**",
+    "output/**",
     "out/**",
     "build/**",
     "next-env.d.ts",

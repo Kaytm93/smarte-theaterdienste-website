@@ -1,5 +1,6 @@
 import { Archive, Building2, Code2, Megaphone, Sparkles, Users } from "lucide-react";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
+import { cn } from "@/lib/utils";
 
 const ICONS = {
   archive: Archive,
@@ -24,6 +25,20 @@ type Props = {
 };
 
 export function FeatureGrid({ eyebrow, heading, lead, features }: Props) {
+  const largeGridClass =
+    features.length === 3
+      ? "lg:grid-cols-3"
+      : features.length === 2
+        ? "lg:grid-cols-2"
+        : "lg:grid-cols-4";
+
+  const largeBorderClass =
+    features.length === 3
+      ? "lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(3n)]:border-r-0"
+      : features.length === 4
+        ? "lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(4n)]:border-r-0"
+        : "";
+
   return (
     <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div className="mb-9 grid gap-6 border-t border-[var(--rule-strong)] pt-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(18rem,0.45fr)]">
@@ -40,13 +55,21 @@ export function FeatureGrid({ eyebrow, heading, lead, features }: Props) {
         ) : null}
       </div>
 
-      <div className="grid border-t border-[var(--rule-strong)] md:grid-cols-2 lg:grid-cols-4">
+      <div
+        className={cn(
+          "grid border-t border-[var(--rule-strong)] md:grid-cols-2",
+          largeGridClass
+        )}
+      >
         {features.map((feature, index) => {
           const Icon = ICONS[feature.icon as keyof typeof ICONS] ?? Sparkles;
           return (
             <article
               key={feature.title}
-              className="group min-h-64 border-b border-border p-5 transition-colors duration-300 hover:bg-[var(--surface-1)] md:border-r md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(4n)]:border-r-0"
+              className={cn(
+                "group min-h-64 border-b border-border p-5 transition-colors duration-300 hover:bg-[var(--surface-1)] md:border-r md:[&:nth-child(2n)]:border-r-0",
+                largeBorderClass
+              )}
             >
               <div className="mb-8 flex items-center justify-between gap-4">
                 <span className="font-mono text-xs font-semibold uppercase text-foreground/50">

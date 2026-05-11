@@ -6,8 +6,8 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
   return (
     <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 py-12 sm:px-6 lg:px-8">
       <div className="grid gap-5 border-t border-[var(--rule-strong)] pt-6 sm:grid-cols-2 lg:grid-cols-4">
-        {members.map((member) => (
-          <ContactCard key={member.id} member={member} />
+        {members.map((member, index) => (
+          <ContactCard key={member.id} member={member} eagerImage={index === 0} />
         ))}
       </div>
     </FadeInOnScroll>
