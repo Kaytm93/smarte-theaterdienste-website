@@ -38,7 +38,7 @@ User wollte die gesamte Website kreativer und zeitungshaftiger gestalten, mit sm
 
 ## Commit / Deploy
 
-- Commit: `TBD`
+- Commit: `be7a9cc`
 - Deploy: nach Commit/Push.
 
 ## Ergebnis
