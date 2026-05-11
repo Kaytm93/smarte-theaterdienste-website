@@ -1,5 +1,22 @@
 # 📝 Changelog
 
+## 2026-05-11 — Session 26: M15 Production-Deploy
+
+**Commits / Deploy-Basis:**
+- `f34353e` docs(vault): add verlauf index
+- `da505db` docs(vault): M15 visual QA session
+- `ee15d40` M15: Visual QA grid and image loading
+- Production-Deploy: `dpl_A36wKwjUuXfMgNbRsXvoCHM3sWEf` READY via `pnpm dlx vercel@latest deploy --prod --yes` aus dem Hauptrepo. Direkte Deployment-URL: `https://smarte-theaterdienste-website-rmphiht5x-kaytm93s-projects.vercel.app`; öffentlicher Alias: `https://smarte-theaterdienste-website.vercel.app`.
+
+**Was passierte:**
+
+- **Push geprüft:** `main` war bereits auf `origin/main`; `git push origin main` meldete `Everything up-to-date`.
+- **Production-Deploy:** Vercel Remote-Build lief erfolgreich (Next.js 16.2.4, 37/37 statische Pages generiert). Build completed in 30 s, Deployment completed nach 53 s.
+- **Production-Smoke:** `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` liefern auf dem Vercel-Alias jeweils HTTP 200.
+- **HTML-Freshness-Checks:** `/de` enthält `lg:grid-cols-3`, `theater-parade` und `JSON · ORIF · Datenraum Kultur`; `/de/ansprechpersonen` enthält `loading="eager"` für das erste Portrait. Damit sind die Session-25-Visual-QA-Fixes live sichtbar.
+
+**Status am Ende:** M15 ist production-live. Nächster Projektschritt bleibt Custom-Domain-DNS oder finale Impressum-/Datenschutztexte.
+
 ## 2026-05-11 — Session 25: Visual-QA-Polish (FeatureGrid, Image-Ladepfade, Lint-Ignores)
 
 **Commits / Deploy-Basis:**
