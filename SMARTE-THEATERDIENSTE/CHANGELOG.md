@@ -3,8 +3,8 @@
 ## 2026-05-11 — Session 24: Editorial-QA-Polish (Hero-Doppelungen aufgelöst, EN-Lokalisierung)
 
 **Commits / Deploy-Basis:**
-- `<TBD>` Session 24: Editorial-QA-Polish — Hero-Doppelungen + EN-Tags-Lokalisierung
-- Production-Deploy: nach Push (siehe unten)
+- `c39e69a` Session 24: Editorial-QA-Polish — Hero-Doppelungen + EN-Tags-Lokalisierung
+- Production-Deploy: siehe unten (Status nach Vercel-Deploy)
 
 **Was passierte:**
 
