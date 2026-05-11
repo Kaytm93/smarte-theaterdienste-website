@@ -3,7 +3,7 @@
 ## 2026-05-11 — Session 22: Codex-Plugin Website Design Ultra
 
 **Commits / Deploy-Basis:**
-- Commit-SHA wird nach dem Git-Commit nachgetragen.
+- `031bce9` Tooling: Codex-Plugin Website Design Ultra
 - Kein Vercel-Deploy nötig: reine Tooling-/Plugin-Änderung, kein Website-Runtime-Code.
 
 **Was passierte:**
