@@ -55,7 +55,7 @@ export function RevealText({
       {words.map((word, i) => (
         <span
           key={`${word}-${i}`}
-          className="inline-block overflow-hidden align-baseline"
+          className="-my-[0.08em] inline-block overflow-hidden py-[0.08em] align-baseline"
         >
           <span data-reveal-word className="inline-block will-change-transform">
             {word}

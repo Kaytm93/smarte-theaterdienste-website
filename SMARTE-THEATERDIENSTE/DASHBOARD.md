@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-05-11 (Session 26)
+> Letzte Aktualisierung: 2026-05-15 (Session 27)
 
 ## Status
 
@@ -24,12 +24,14 @@
 | Go-live-Handoff | ✅ konkrete Checkliste erstellt: [[GO_LIVE_CHECKLIST]] |
 | Design-Refresh M10 | ✅ Session 17 — Tokens/Hero-Visual/ComicStrip mit echten Bildern/Footer-Logos/Card-Polish |
 | Original-Site-Abgleich M11 | ✅ Session 18 — DACH-Netzwerkkarte, 141er-Statistik, ORIF-Materialien, Portraits, FAQ/Termine aus alter Website übertragen |
-| Website-QA/UX-Polish | ✅ Session 25 — visuelles Desktop/Mobile-Audit, 3er-FeatureGrid korrigiert, Next-16-Image-Ladepfade und ESLint-Ignores stabilisiert |
+| Website-QA/UX-Polish | ✅ Session 27 — Editorial-Feinschliff: RevealText-Puffer gegen angeschnittene Serif-Buchstaben, Drop-Cap-Abstände beruhigt, Ansprechpersonen-Cards mit besserem Portrait-Crop, Fotocredit und E-Mail-Umbruch |
 | Codex-Plugin Website Design Ultra | ✅ Session 22 — Claude-Plugin-ZIP zu repo-lokalem Codex-Plugin mit `.codex-plugin/plugin.json`, Skills und Marketplace-Eintrag konvertiert |
 | Editorial-Redesign | ✅ Session 23 — Zeitungshaftes Gesamtdesign mit Newsreader-Serif, Zeitungskopf, Linienraster, Editorial-Hero, reduzierten Radien und smooth GSAP-Reveals |
 | Editorial-QA-Polish | ✅ Session 24 — Hero-Stat-Strip-Doppelung mit FeatureGrid/NetworkMap aufgelöst (jetzt Editorial-ToC `01/02/03` + Feature-Titel), redundanter mittlerer Hero-Kicker-Span entfernt, EN-Hero-Tags lokalisiert |
 
 ## Was gerade läuft
+
+**Session 27 M16 Editorial-Visual-Polish.** User wollte erneut die Vault-MD-Dateien lesen, die Website visuell testen und sichtbare Feinschliffe direkt beheben. Das Website-Design-Plugin ist in dieser Codex-Session nicht aktiv geladen; das repo-lokale `plugins/website-design-ultra` wurde als Referenz gelesen. Umgesetzt: `RevealText` bekommt vertikalen Masken-Puffer, damit Headlines wie „Smarte Theaterdienste" nicht an Ober-/Unterkanten angeschnitten werden; Drop-Caps in `editorial-copy` wurden kleiner und enger gesetzt; `ContactCard` nutzt personenspezifischen Portrait-Crop, sichtbaren Fotocredit, konsistentere Kontaktzeilen und natürliche E-Mail-Breakpoints. Verifikation lokal: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean; production-like `pnpm start --port 3031` Smoke auf `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` HTTP 200; Playwright-Checks auf 390/768/1440 px ohne Horizontal-Overflow und mit messbarem Reveal-Puffer. Commit/Deploy werden im Changelog nach dem Git-Schritt nachgetragen.
 
 **Session 26 M15 Production-Deploy.** User wollte die Website neu deployen und pushen. `main` war bereits auf `origin/main`; der manuelle Production-Deploy per `pnpm dlx vercel@latest deploy --prod --yes` lief aus dem Hauptrepo auf Basis von `f34353e` und ist READY: `dpl_A36wKwjUuXfMgNbRsXvoCHM3sWEf` (`https://smarte-theaterdienste-website-rmphiht5x-kaytm93s-projects.vercel.app`). Smoke gegen den öffentlichen Alias `https://smarte-theaterdienste-website.vercel.app`: `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` jeweils HTTP 200. HTML-Checks bestätigen, dass die Session-25-Fixes live sind: 3er-FeatureGrid (`lg:grid-cols-3`), Hero-Bildreferenz `theater-parade`, erstes Portrait `loading="eager"` und lokalisierter Hero-Tag `JSON · ORIF · Datenraum Kultur`.
 
@@ -47,6 +49,7 @@
 
 ## Letzte Aktivität
 
+- **2026-05-15** — Session 27 M16 Editorial-Visual-Polish: Website lokal und production-like visuell geprüft. `RevealText` hat jetzt vertikalen Puffer gegen angeschnittene Serif-Buchstaben, Drop-Cap-Abstände sind ruhiger, Ansprechpersonen-Portraits sind stärker aufs Motiv gesetzt und lange E-Mails umbrechen an `@`/`.` statt mitten im Wort. Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build`, production-like HTTP-Smoke auf Port 3031 und Playwright-Overflow-/Reveal-Puffer-Checks auf 390/768/1440 px.
 - **2026-05-11** — Session 26 M15 Production-Deploy: `git push origin main` war bereits `Everything up-to-date`. Manueller Vercel-Production-Deploy per CLI erfolgreich: `dpl_A36wKwjUuXfMgNbRsXvoCHM3sWEf` READY, Remote-Build 30 s, Deploy 53 s. Smoke gegen `https://smarte-theaterdienste-website.vercel.app`: `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` alle HTTP 200. HTML-Checks: `lg:grid-cols-3`, `theater-parade`, `loading="eager"` und `JSON · ORIF · Datenraum Kultur` live.
 - **2026-05-11** — Session 25 Visual-QA-Polish: Website lokal mit Browser auf Desktop/Mobile geprüft. `FeatureGrid` rendert Desktop-Spalten jetzt passend zur Feature-Anzahl, damit 3er-Blöcke keine leere vierte Spalte mehr lassen. Landing-Hero nutzt Next-16-konform `preload` statt `priority`; erstes Team-Portrait wird auf der Ansprechpersonen-Seite eager geladen. `eslint.config.mjs` ignoriert lokale Agenten-/Output-Artefakte (`.claude/**`, `.playwright-cli/**`, `output/**`), damit `pnpm lint` nicht in generierte Fremdartefakte läuft. Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build`, production-like HTTP/HTML-Smoke auf Port 3031. Implementation-Commit `ee15d40`.
 - **2026-05-11** — Session 24 Editorial-QA-Polish: Visuelles Audit der Editorial-Frontpage mit drei Fixes. `src/app/[locale]/page.tsx` Hero-Top-Rail von drei auf zwei Spans reduziert (mittleres `Use Case 03` entfernt) und der vormals statische dritte Span auf `{t("tags")}` umgestellt. Hero-Stat-Strip am Section-Footer von drei Volltext-Paragraphen (141-Stat, Feature 1 Body, Feature 2 Body) auf eine kompakte Editorial-ToC `<ol>` mit Mono-`01/02/03` und Feature-Titeln umgebaut — keine 1:1 Doppelung mehr mit `FeatureGrid` und `NetworkMapSection` darunter. `src/messages/de.json` und `src/messages/en.json` um `hero.tags` ergänzt, sodass der EN-Hero den Eigennamen lokalisiert (`Cultural Data Space`). Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (37/37 Pages SSG); Preview-MCP Desktop 1440×900 und Mobile 375×812 auf DE+EN ohne Horizontal-Overflow und ohne neue Console-Errors; `fetch('/de')`-/`fetch('/en')`-HTML enthält die korrekten lokalisierten Slug-Strings.

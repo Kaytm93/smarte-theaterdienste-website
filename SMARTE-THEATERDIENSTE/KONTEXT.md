@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-11 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 20 Miro-/Deutschlandkarten-QA production-live, Session 22 Codex-Plugin `website-design-ultra` repo-lokal angelegt, Session 23 Editorial-Redesign lokal production-validiert, Session 25 Visual-QA-Polish umgesetzt und in Session 26 production-live deployed (`dpl_A36wKwjUuXfMgNbRsXvoCHM3sWEf`). Nächster sinnvoller Website-Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
+> Letzte Aktualisierung: 2026-05-15 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 20 Miro-/Deutschlandkarten-QA production-live, Session 22 Codex-Plugin `website-design-ultra` repo-lokal angelegt, Session 23 Editorial-Redesign lokal production-validiert, Session 25 Visual-QA-Polish umgesetzt und in Session 26 production-live deployed (`dpl_A36wKwjUuXfMgNbRsXvoCHM3sWEf`). Session 27 ergänzt lokalen M16-Editorial-Feinschliff für RevealText, Drop-Caps und Ansprechpersonen-Cards; Commit/Deploy werden nach Git/Vercel nachgetragen. Nächster sinnvoller Website-Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
 
 ---
 
@@ -119,7 +119,7 @@ smarte-theaterdienste-website/
 │   │   ├── faq/page.tsx                        ← Accordion (Supabase; M11: 21 Original-FAQ-Einträge) mit ComingSoonHero-Fallback
 │   │   └── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase; M11: 4 Original-Events als past) mit ComingSoonHero-Fallback
 │   ├── app/api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath; Post-Änderungen invalidieren auch `/sitemap.xml`
-│   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge
+│   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge; Session 27: Drop-Cap-Metrik ruhiger gesetzt
 │   ├── components/
 │   │   ├── ui/                                 ← shadcn (radix-nova) Primitives
 │   │   ├── layout/                             ← Header.tsx, Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx
@@ -130,8 +130,9 @@ smarte-theaterdienste-website/
 │   │   │                                          PostCoverVisual (Session 19: CSS-Cover-Fallback fuer Posts ohne cover_image_url),
 │   │   │                                          EventCard, FaqAccordion (M4),
 │   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5; Session 20: Status-Legende, Standortzähler, Liste, kompaktere Desktop-Karte),
-│   │   │                                          FeatureGrid (Session 25: Desktop-Spalten nach Feature-Anzahl), NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer)
-│   │   ├── animations/                         ← FadeInOnScroll, RevealText, ParallaxImage,
+│   │   │                                          FeatureGrid (Session 25: Desktop-Spalten nach Feature-Anzahl), NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer);
+│   │   │                                          ContactCard (Session 27: Portrait-Crop, Fotocredit-Ribbon, natürliche E-Mail-Breakpoints)
+│   │   ├── animations/                         ← FadeInOnScroll, RevealText (Session 27: vertikaler Masken-Puffer gegen Serif-Clipping), ParallaxImage,
 │   │   │                                          ScrollTriggerRefresher (Layout-globaler usePathname-Listener, M6)
 │   │   └── forms/                              ← LEER (Newsletter/Beta-Anmeldung später)
 │   ├── lib/

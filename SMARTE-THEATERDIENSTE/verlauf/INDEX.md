@@ -11,6 +11,7 @@
 
 | Datum       | Milestone / Thema                             | Datei                                                              |
 | ----------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| 2026-05-15  | M16 Editorial-Visual-Polish                   | [[SESSION_2026-05-15_M16-Editorial-Visual-Polish]]                 |
 | 2026-05-11  | M15 Production-Deploy                         | [[SESSION_2026-05-11_M15-Production-Deploy]]                       |
 | 2026-05-11  | M15 Visual-QA-Polish                          | [[SESSION_2026-05-11_M15-Visual-QA-Polish]]                        |
 | 2026-05-11  | Session 24 Editorial-QA-Polish                | [[SESSION_2026-05-11_session-24]]                                  |

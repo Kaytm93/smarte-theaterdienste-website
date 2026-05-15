@@ -211,12 +211,12 @@
 
 .editorial-copy > p:first-child::first-letter {
   float: left;
-  margin: 0.08em 0.12em 0 0;
+  margin: 0.04em 0.08em 0 0;
   color: var(--accent-secondary);
   font-family: var(--font-newsreader), Georgia, serif;
-  font-size: 4.4rem;
+  font-size: 4rem;
   font-weight: 700;
-  line-height: 0.82;
+  line-height: 0.78;
 }
 
 .paper-panel {

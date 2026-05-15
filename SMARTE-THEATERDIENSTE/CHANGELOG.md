@@ -1,5 +1,23 @@
 # 📝 Changelog
 
+## 2026-05-15 — Session 27: M16 Editorial-Visual-Polish
+
+**Commits / Deploy-Basis:**
+- Implementation-Commit: wird nach Commit nachgetragen.
+- Production-Deploy: wird nach Vercel-Deploy nachgetragen.
+
+**Was passierte:**
+
+- **Plugin-/Tooling-Befund:** Das Website-Design-Plugin ist in dieser Codex-Session nicht als aktives Plugin geladen. Das repo-lokale `plugins/website-design-ultra` existiert und wurde als Design-Referenz gelesen.
+- **Vault + Next.js-16-Doku gelesen:** `START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE`, `API`, `ROADMAP`, `GO_LIVE_CHECKLIST`, `CHANGELOG`, `ENTSCHEIDUNGEN`; außerdem Next.js-16-Dokumente zu Layouts/Pages, CSS und Images.
+- **Visuelles Audit:** Lokale Website auf `http://localhost:3030` und production-like auf Port 3031 geprüft. Fokus: Landing-Hero („Smarte Theaterdienste" darf nicht angeschnitten wirken), Drop-Caps/erste Satzbuchstaben und Ansprechpersonen-Cards.
+- **Fix 1 — RevealText:** `src/components/animations/RevealText.tsx` gibt jedem Wort-Maskenwrapper vertikalen Puffer (`py` mit negativem `my`), damit Serif-Glyphen bei `overflow-hidden` nicht oben/unten abgeschnitten werden. Playwright misst danach auf Mobile/Desktop sichtbaren Puffer (ca. 3–7 px).
+- **Fix 2 — Drop-Caps:** `src/app/globals.css` reduziert Drop-Cap-Größe und rechten Abstand in `.editorial-copy`, damit erste Buchstaben ruhiger in die Zeile greifen und der Zeitungsflair erhalten bleibt.
+- **Fix 3 — Ansprechpersonen:** `src/components/sections/ContactCard.tsx` nutzt personenspezifischen Portrait-Zoom, sichtbaren Fotocredit-Ribbon, flexiblere Kontaktzeilen und `<wbr>`-Breakpoints nach `@`/`.` für lange E-Mails.
+- **Verifikation:** `pnpm typecheck` ✅, `pnpm lint` ✅, `pnpm build` ✅ (37/37 Pages SSG). Production-like Smoke mit `pnpm start --port 3031`: `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` jeweils HTTP 200. Playwright-Checks auf 390/768/1440 px zeigen keinen Horizontal-Overflow; RevealText hat messbaren Puffer.
+
+**Status am Ende:** Editorial-Feinschliff lokal production-validiert. Nach Commit/Push folgt der manuelle Production-Deploy.
+
 ## 2026-05-11 — Session 26: M15 Production-Deploy
 
 **Commits / Deploy-Basis:**
