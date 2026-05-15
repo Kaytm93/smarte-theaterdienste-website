@@ -1,6 +1,6 @@
 # Session 2026-05-15 — M16 Editorial-Visual-Polish
 
-**Implementation-Commit:** wird nach Commit nachgetragen.
+**Implementation-Commit:** `6982932` — `M16: Editorial visual polish`
 **Production-Deploy:** wird nach Deploy nachgetragen.
 
 ## Anlass

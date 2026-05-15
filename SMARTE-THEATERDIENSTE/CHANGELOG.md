@@ -3,7 +3,7 @@
 ## 2026-05-15 — Session 27: M16 Editorial-Visual-Polish
 
 **Commits / Deploy-Basis:**
-- Implementation-Commit: wird nach Commit nachgetragen.
+- `6982932` M16: Editorial visual polish
 - Production-Deploy: wird nach Vercel-Deploy nachgetragen.
 
 **Was passierte:**
