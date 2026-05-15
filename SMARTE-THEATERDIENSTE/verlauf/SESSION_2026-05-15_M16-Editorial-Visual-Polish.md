@@ -1,7 +1,7 @@
 # Session 2026-05-15 — M16 Editorial-Visual-Polish
 
 **Implementation-Commit:** `6982932` — `M16: Editorial visual polish`
-**Production-Deploy:** wird nach Deploy nachgetragen.
+**Production-Deploy:** `dpl_8E57VeoNYrbQBWeJg3Kma936iWXZ` — READY
 
 ## Anlass
 
@@ -75,7 +75,12 @@ Geprüfte Ansichten:
   - 390/768/1440 px ohne Horizontal-Overflow
   - RevealText-Puffer nach Fix messbar: ca. 3 px auf Mobile, ca. 5–7 px auf Desktop
   - Ansprechpersonen-Screenshot production-like geprüft
+- Production-Deploy:
+  - Vercel Remote-Build clean, 37/37 statische Pages generiert
+  - Deployment `dpl_8E57VeoNYrbQBWeJg3Kma936iWXZ` READY
+  - Öffentlicher Alias-Smoke: `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` HTTP 200
+  - Production-HTML enthält die neuen Freshness-Signale `-my-[0.08em]`, `py-[0.08em]`, `origin-[50%_45%]`, `bg-background/85` und `<wbr>`
 
 ## Status
 
-Editorial-Feinschliff lokal production-validiert. Commit, Push, Obsidian-Sync und Production-Deploy folgen in der Pflicht-Routine.
+Editorial-Feinschliff ist auf dem Vercel-Alias production-live. Offene Projektschritte bleiben Custom-Domain-DNS und finale Impressum-/Datenschutztexte.

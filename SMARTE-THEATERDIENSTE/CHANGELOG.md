@@ -4,7 +4,8 @@
 
 **Commits / Deploy-Basis:**
 - `6982932` M16: Editorial visual polish
-- Production-Deploy: wird nach Vercel-Deploy nachgetragen.
+- `4975019` docs(vault): M16 visual polish commit SHA
+- Production-Deploy: `dpl_8E57VeoNYrbQBWeJg3Kma936iWXZ` READY via `pnpm dlx vercel@latest deploy --prod --yes`. Direkte URL: `https://smarte-theaterdienste-website-jeg5uepng-kaytm93s-projects.vercel.app`; öffentlicher Alias: `https://smarte-theaterdienste-website.vercel.app`.
 
 **Was passierte:**
 
@@ -15,8 +16,9 @@
 - **Fix 2 — Drop-Caps:** `src/app/globals.css` reduziert Drop-Cap-Größe und rechten Abstand in `.editorial-copy`, damit erste Buchstaben ruhiger in die Zeile greifen und der Zeitungsflair erhalten bleibt.
 - **Fix 3 — Ansprechpersonen:** `src/components/sections/ContactCard.tsx` nutzt personenspezifischen Portrait-Zoom, sichtbaren Fotocredit-Ribbon, flexiblere Kontaktzeilen und `<wbr>`-Breakpoints nach `@`/`.` für lange E-Mails.
 - **Verifikation:** `pnpm typecheck` ✅, `pnpm lint` ✅, `pnpm build` ✅ (37/37 Pages SSG). Production-like Smoke mit `pnpm start --port 3031`: `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` jeweils HTTP 200. Playwright-Checks auf 390/768/1440 px zeigen keinen Horizontal-Overflow; RevealText hat messbaren Puffer.
+- **Production-Deploy:** Vercel Remote-Build clean (Next.js 16.2.4, 37/37 statische Pages). Alias-Smoke gegen `https://smarte-theaterdienste-website.vercel.app`: `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` jeweils HTTP 200. HTML-Freshness-Checks bestätigen `-my-[0.08em]`, `py-[0.08em]`, `origin-[50%_45%]`, `bg-background/85` und `<wbr>` im Production-HTML.
 
-**Status am Ende:** Editorial-Feinschliff lokal production-validiert. Nach Commit/Push folgt der manuelle Production-Deploy.
+**Status am Ende:** Editorial-Feinschliff ist production-live auf dem Vercel-Alias. Nächster Projektschritt bleibt Custom-Domain-DNS oder finale Impressum-/Datenschutztexte.
 
 ## 2026-05-11 — Session 26: M15 Production-Deploy
 
