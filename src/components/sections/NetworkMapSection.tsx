@@ -42,7 +42,7 @@ export function NetworkMapSection({
           </div>
 
           <div className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-end">
-            <p className="font-serif text-7xl font-semibold leading-none text-[var(--accent-secondary)] sm:text-8xl">
+            <p className="font-serif text-7xl font-semibold leading-none text-[var(--accent-brand-ink)] sm:text-8xl">
               {statValue}
             </p>
             <p className="max-w-sm border-l border-[var(--rule-strong)] pl-4 text-sm leading-[var(--leading-relaxed)] text-foreground/68">

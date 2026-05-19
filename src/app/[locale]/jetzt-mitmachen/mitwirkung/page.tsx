@@ -22,7 +22,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "pages.mitwirkung" });
   return pageMetadata({
     locale,
-    href: "/beteiligung/mitwirkung",
+    href: "/jetzt-mitmachen/mitwirkung",
     title: t("title"),
     description: t("lead"),
   });
@@ -60,7 +60,7 @@ export default async function MitwirkungPage({
                   key={item.title}
                   className="rounded-md border border-[var(--rule-strong)] bg-[var(--surface-elevated)] p-5 shadow-[var(--shadow-xs)]"
                 >
-                  <div className="mb-4 inline-flex size-9 items-center justify-center rounded-md border border-border bg-[var(--paper)] text-[var(--accent-brand)]">
+                  <div className="mb-4 inline-flex size-9 items-center justify-center rounded-md border border-border bg-[var(--paper)] text-[var(--accent-brand-ink)]">
                     <Icon aria-hidden className="size-4" />
                   </div>
                   <h3 className="font-serif text-xl font-semibold tracking-[var(--tracking-heading)]">
@@ -119,7 +119,7 @@ export default async function MitwirkungPage({
               >
                 <CheckCircle2
                   aria-hidden
-                  className="mt-0.5 size-4 shrink-0 text-[var(--accent-brand)]"
+                  className="mt-0.5 size-4 shrink-0 text-[var(--accent-brand-ink)]"
                 />
                 <span>{item}</span>
               </li>

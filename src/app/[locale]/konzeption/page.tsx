@@ -15,24 +15,24 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "pages.beteiligung" });
+  const t = await getTranslations({ locale, namespace: "pages.projekt" });
   return pageMetadata({
     locale,
-    href: "/beteiligung",
+    href: "/konzeption",
     title: t("title"),
     description: t("lead"),
   });
 }
 
-export default async function BeteiligungPage({
+export default async function ProjektPage({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("pages.beteiligung");
-  const content = loadContent("beteiligung", locale);
+  const t = await getTranslations("pages.projekt");
+  const content = loadContent("projekt", locale);
 
   return (
     <>
@@ -51,11 +51,11 @@ export default async function BeteiligungPage({
 
       <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 pb-24 pt-8 sm:px-6 lg:px-8">
         <div className="flex flex-wrap gap-3">
-          {content.links.map((link, i) => (
+          {content.links.map((link) => (
             <Button
               key={link.href}
               asChild
-              variant={i === 0 ? "default" : "outline"}
+              variant="outline"
             >
               <Link
                 href={link.href as Parameters<typeof Link>[0]["href"]}

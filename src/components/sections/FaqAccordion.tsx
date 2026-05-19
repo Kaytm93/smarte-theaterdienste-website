@@ -19,7 +19,7 @@ export function FaqAccordion({ faqs }: Props) {
       {faqs.map((faq, index) => (
         <AccordionItem key={faq.id} value={faq.id}>
           <AccordionTrigger className="py-5 text-left font-serif text-xl font-semibold">
-            <span className="mr-4 font-mono text-xs text-[var(--accent-secondary)]">
+            <span className="mr-4 font-mono text-xs text-[var(--accent-brand-ink)]">
               {String(index + 1).padStart(2, "0")}
             </span>
             <span>{faq.question}</span>

@@ -30,7 +30,7 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
       <header className="grid gap-6 border-b border-[var(--rule-strong)] pb-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.38fr)]">
         <div className="flex max-w-4xl flex-col gap-5">
           {formattedDate ? (
-            <FadeInOnScroll className="text-xs font-semibold uppercase text-[var(--accent-secondary)]">
+            <FadeInOnScroll className="text-xs font-semibold uppercase text-[var(--accent-brand-ink)]">
               {publishedAtLabel}{" "}
               <time dateTime={post.publishedAt ?? undefined}>
                 {formattedDate}
@@ -44,7 +44,7 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
         {post.excerpt ? (
           <FadeInOnScroll
             delay={0.15}
-            className="border-l-4 border-[var(--accent-secondary)] pl-5 text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/75 md:text-lg"
+            className="border-l-4 border-[var(--accent-brand)] pl-5 text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/75 md:text-lg"
           >
             {post.excerpt}
           </FadeInOnScroll>
@@ -74,7 +74,7 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
 
       <FadeInOnScroll
         delay={0.1}
-        className="prose prose-neutral dark:prose-invert max-w-3xl text-base leading-[var(--leading-relaxed)] text-foreground/85 [&_a]:text-[var(--accent-brand)] [&_a]:underline [&_a]:underline-offset-4 [&_h2]:mt-8 [&_h2]:text-2xl [&_h2]:font-semibold [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-semibold [&_p]:my-4 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_strong]:font-semibold"
+        className="prose prose-neutral dark:prose-invert max-w-3xl text-base leading-[var(--leading-relaxed)] text-foreground/85 [&_a]:text-[var(--accent-brand-ink)] [&_a]:underline [&_a]:underline-offset-4 [&_h2]:mt-8 [&_h2]:text-2xl [&_h2]:font-semibold [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-semibold [&_p]:my-4 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_strong]:font-semibold"
       >
         <ReactMarkdown>{post.bodyMd}</ReactMarkdown>
       </FadeInOnScroll>

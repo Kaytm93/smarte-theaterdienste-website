@@ -22,7 +22,7 @@ export async function generateMetadata({
   });
   return pageMetadata({
     locale,
-    href: "/projekt/technische-standards",
+    href: "/konzeption/technische-standards",
     title: t("title"),
     description: t("lead"),
   });

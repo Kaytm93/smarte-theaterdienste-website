@@ -49,7 +49,7 @@ export function FeatureGrid({ eyebrow, heading, lead, features }: Props) {
           </h2>
         </div>
         {lead ? (
-          <p className="border-l-4 border-[var(--accent-secondary)] pl-5 text-base leading-[var(--leading-relaxed)] text-foreground/72 md:text-lg">
+          <p className="border-l-4 border-[var(--accent-brand)] pl-5 text-base leading-[var(--leading-relaxed)] text-foreground/72 md:text-lg">
             {lead}
           </p>
         ) : null}
@@ -75,7 +75,7 @@ export function FeatureGrid({ eyebrow, heading, lead, features }: Props) {
                 <span className="font-mono text-xs font-semibold uppercase text-foreground/50">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <Icon aria-hidden className="h-5 w-5 text-[var(--accent-brand)] transition-transform duration-300 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
+                <Icon aria-hidden className="h-5 w-5 text-[var(--accent-brand-ink)] transition-transform duration-300 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
               </div>
               <h3 className="font-serif text-2xl font-semibold leading-snug tracking-[var(--tracking-heading)]">
                 {feature.title}

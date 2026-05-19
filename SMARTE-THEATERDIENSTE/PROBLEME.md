@@ -18,6 +18,13 @@
 
 ## 🟡 Offene Fragen / Entscheidungen
 
+- **M17 Welle 2 noch offen (Session 28-Backlog):**
+  - Konzeption-Seite mehr bebildern und Grafiken einbauen.
+  - Technische Standards: Comic-Clip + Image-Video direkt einbetten statt nur verlinken.
+  - Jetzt-mitmachen: zusätzlich zur bestehenden `PartnerMap` einen Google-Maps-iframe einbauen (`https://www.google.com/maps/d/embed?mid=1WQiyQkmVpOG9CNYfLoEj3qNlGg52xo8&ehbc=2E312F`).
+  - FAQ-Kategorien einführen — Supabase-Column `category` existiert bereits, nur Component+Messages-Anpassung.
+  - Team-Relocation: `ContactCard` ohne Phone/Mail, `TeamGrid` unter Konzeption eingebettet, Theater-Bühnen-CSS-Hover (Purple-Wash + Curtain) als reines CSS.
+  - Neue Route `/konzeption/zeitstrahl` (DE) / `/concept/timeline` (EN) — Blog + Termine chronologisch kombiniert, Genially-Embed `https://view.genially.com/67531f7a9e5b6c42deba21f3`.
 - **Newsletter-Signup:** Im Miro nicht erwähnt — User-Wunsch? Falls ja, später.
 - **Kontaktformular Empfänger-Adresse:** Aktuell Placeholder in `.env.example`. Echte Adresse vom User.
 - **Echte Inhalte vom User benötigt:**
@@ -47,6 +54,7 @@
 
 | Datum | Problem | Lösung |
 |---|---|---|
+| 2026-05-19 | Die Site folgte nicht der vorgegebenen Corporate Identity des Bühnenvereins. Editorial-Stand aus Session 23 nutzte Newsreader-Serif, Datenraum-Blau und Rubrik-Rot — STD-Colors+Fonts.pdf verlangt Public Sans + Black-Gray-Purple. Außerdem stimmten Menü-Items, Hero-Tags und Routenstruktur nicht zu User-Wunsch aus `Anmerkungen Entwurf 14.5.2026.md`. | M17 Welle 1: `Public_Sans` als einzige Schriftart via `next/font/google`; `tokens.css` komplett auf CI-Hex-Palette (Lucent White, Black, Gray80-10, Purple Dark/Medium/Light); Rubrik-Rot eliminiert via Bulk-Replace `--accent-secondary`→`--accent-brand`; AA-konformer `--accent-brand-ink` für Text auf Purple; Drop-Cap/Editorial-Kicker auf Purple Dark. Menü reduziert auf 4 Items (Konzeption · Jetzt mitmachen · Materialien · FAQ); Editorial-Top-Rail mit „AUSGABE 03" raus; URLs umgezogen `/projekt`→`/konzeption`, `/beteiligung`→`/jetzt-mitmachen` mit 308-Redirects in `next.config.ts`. Neue `/materialien`-Route, Bühnenverein-Logo-Lockup, YouTube-Image-Video + Zitate-Galerie auf Landing. |
 | 2026-05-15 | Editorial-Visual-QA fand drei Feinschliffpunkte: RevealText-Wrapper hatten keinen vertikalen Puffer und konnten bei engen Serif-Headlines oben/unten anschneiden; Drop-Caps wirkten in TextSections zu weit auseinander; Ansprechpersonen-Cards hatten zu zurückhaltenden Portrait-Crop, schwer lesbaren Fotocredit und harte E-Mail-Umbrüche. | `RevealText` nutzt jetzt `py`/negative `my` als Masken-Puffer, `editorial-copy::first-letter` wurde kleiner und enger gesetzt, `ContactCard` hat personenspezifischen Portrait-Zoom, Fotocredit-Ribbon, einheitlichere Kontaktzeilen und `<wbr>`-Breakpoints nach `@`/`.`. Verifiziert per Playwright auf 390/768/1440 px ohne Horizontal-Overflow und mit messbarem Reveal-Puffer. |
 | 2026-05-11 | Session 25 war lokal production-validiert und gepusht, aber im Changelog zunächst ohne manuellen Vercel-Deploy dokumentiert. | Manueller Production-Deploy aus dem Hauptrepo per `pnpm dlx vercel@latest deploy --prod --yes`: `dpl_A36wKwjUuXfMgNbRsXvoCHM3sWEf` READY. Alias-Smoke `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` HTTP 200; HTML-Freshness-Checks bestätigen die M15-Fixes live. |
 | 2026-05-11 | Die Landing-`FeatureGrid` rendert Desktop pauschal vier Spalten. Der erste Nutzenblock hat aber nur drei Features, wodurch rechts eine leere Editorial-Spalte sichtbar blieb. | `FeatureGrid` berechnet die Desktop-Grid-Klasse jetzt aus `features.length` (`lg:grid-cols-3/2/4`) und setzt passende rechte Border-Regeln. Visuell auf Desktop geprüft; production-like HTML zeigt `lg:grid-cols-3` für den 3er-Block. |

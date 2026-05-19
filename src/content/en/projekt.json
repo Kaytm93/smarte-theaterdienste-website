@@ -51,7 +51,7 @@
     }
   ],
   "links": [
-    { "href": "/projekt/technische-standards", "label": "Technical standards" },
-    { "href": "/projekt/semantische-standards", "label": "Semantic standards" }
+    { "href": "/konzeption/technische-standards", "label": "Technical standards" },
+    { "href": "/konzeption/semantische-standards", "label": "Semantic standards" }
   ]
 }

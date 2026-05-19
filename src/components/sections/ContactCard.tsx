@@ -77,7 +77,7 @@ export async function ContactCard({
         </div>
 
         {member.quote ? (
-          <p className="border-l-4 border-[var(--accent-secondary)] pl-3 font-serif text-base italic leading-relaxed text-foreground/74">
+          <p className="border-l-4 border-[var(--accent-brand)] pl-3 font-serif text-base italic leading-relaxed text-foreground/74">
             „{member.quote}“
           </p>
         ) : null}
@@ -89,7 +89,7 @@ export async function ContactCard({
             <dd className="min-w-0">
               <a
                 href={telHref(member.phone)}
-                className="text-foreground/80 transition-colors hover:text-[var(--accent-brand)]"
+                className="text-foreground/80 transition-colors hover:text-[var(--accent-brand-ink)]"
               >
                 {member.phone}
               </a>
@@ -102,7 +102,7 @@ export async function ContactCard({
               <dd className="min-w-0">
                 <a
                   href={`mailto:${member.email}`}
-                  className="text-[13px] leading-snug text-foreground/80 transition-colors [overflow-wrap:anywhere] hover:text-[var(--accent-brand)]"
+                  className="text-[13px] leading-snug text-foreground/80 transition-colors [overflow-wrap:anywhere] hover:text-[var(--accent-brand-ink)]"
                 >
                   <EmailText email={member.email} />
                 </a>

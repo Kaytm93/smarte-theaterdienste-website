@@ -36,7 +36,7 @@ export function EventCard({ event, locale, registerLabel }: Props) {
           <div className="flex items-start gap-4">
             <div
               aria-hidden
-              className="flex h-16 w-14 shrink-0 flex-col items-center justify-center border border-[var(--rule-strong)] bg-[var(--paper)] text-[var(--accent-secondary)]"
+              className="flex h-16 w-14 shrink-0 flex-col items-center justify-center border border-[var(--rule-strong)] bg-[var(--paper)] text-[var(--accent-brand-ink)]"
             >
               <span className="font-serif text-2xl font-semibold leading-none">{day}</span>
               <span className="mt-0.5 text-[10px] font-semibold uppercase">
@@ -61,7 +61,7 @@ export function EventCard({ event, locale, registerLabel }: Props) {
           </h3>
 
           {event.descriptionMd ? (
-            <div className="text-sm leading-[var(--leading-relaxed)] text-foreground/70 [&_a]:text-[var(--accent-brand)] [&_a]:underline [&_a]:underline-offset-4 [&_p]:my-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5">
+            <div className="text-sm leading-[var(--leading-relaxed)] text-foreground/70 [&_a]:text-[var(--accent-brand-ink)] [&_a]:underline [&_a]:underline-offset-4 [&_p]:my-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5">
               <ReactMarkdown>{event.descriptionMd}</ReactMarkdown>
             </div>
           ) : null}

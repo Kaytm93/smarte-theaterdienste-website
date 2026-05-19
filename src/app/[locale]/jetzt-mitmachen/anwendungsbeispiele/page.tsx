@@ -19,7 +19,7 @@ export async function generateMetadata({
   });
   return pageMetadata({
     locale,
-    href: "/beteiligung/anwendungsbeispiele",
+    href: "/jetzt-mitmachen/anwendungsbeispiele",
     title: t("title"),
     description: t("lead"),
   });

@@ -5,17 +5,16 @@
   },
   "nav": {
     "home": "Home",
-    "project": "Project",
-    "participation": "Participate",
+    "project": "Concept",
+    "participation": "Join",
+    "materials": "Materials",
     "blog": "Blog",
     "faq": "FAQ",
-    "contact": "Contact",
+    "contact": "Team",
     "events": "Events",
     "language": "Language",
     "menu": "Menu",
-    "menuDescription": "Main website navigation",
-    "edition": "Issue 03",
-    "dateline": "Cultural Data Space · Machine-readable programmes"
+    "menuDescription": "Main website navigation"
   },
   "langSwitcher": {
     "label": "Switch language to {target}",
@@ -23,14 +22,14 @@
     "en": "English"
   },
   "hero": {
-    "kicker": "Cultural Data Space · Use Case 3",
-    "tags": "JSON · ORIF · Cultural Data Space",
+    "kicker": "A project by the German Stage Association",
+    "tags": "Schema.org + GND + JSON = ORIF",
     "title": "Smart Theatre Services",
     "subtitle": "Machine-readable theatre programmes as part of Germany's digital strategy – letting data flow where culture becomes visible.",
-    "ctaPrimary": "Become a beta tester",
+    "ctaPrimary": "Join the project",
     "ctaSecondary": "How it works",
     "heroImageAlt": "Black-and-white photograph of a theatre troupe in costume, with a young man in top hat and tailcoat in front.",
-    "heroImageCaption": "Stage, data, open interface"
+    "heroImageCaption": "Use Case 3 · Cultural Data Space"
   },
   "footer": {
     "imprint": "Imprint",
@@ -62,13 +61,18 @@
   "pages": {
     "ansprechpersonen": {
       "kicker": "Behind the project",
-      "title": "Contact persons",
-      "lead": "Four people moving this project forward day to day. Reach out directly - by phone or email."
+      "title": "Team",
+      "lead": "Four people who designed this project – with backgrounds in the arts as well as in technology."
     },
     "projekt": {
-      "kicker": "Project description",
+      "kicker": "Concept",
       "title": "Machine-readable theatre programmes",
       "lead": "What this project is, why it matters, and who is behind it."
+    },
+    "materialien": {
+      "kicker": "Take-aways",
+      "title": "Materials",
+      "lead": "Comic, documentation, validator and the open repository – every tool around the ORIF interface in one place."
     },
     "technischeStandards": {
       "kicker": "Technical standards",
@@ -82,7 +86,7 @@
     },
     "beteiligung": {
       "kicker": "Get involved",
-      "title": "Join the data space",
+      "title": "Join the project",
       "lead": "Beta testers, theatres and platforms: we are looking for partners for the next steps."
     },
     "anwendungsbeispiele": {

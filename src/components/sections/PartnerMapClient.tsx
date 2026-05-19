@@ -27,13 +27,13 @@ const STATUS_ORDER = ["pilot", "partner", "interested"] as const;
 const STATUS_STYLES = {
   partner: {
     dot: "bg-[var(--accent-brand)]",
-    soft: "bg-[var(--accent-brand)]/10 text-[var(--accent-brand)]",
+    soft: "bg-[var(--accent-brand)]/10 text-[var(--accent-brand-ink)]",
     ring: "ring-[var(--accent-brand)]",
   },
   pilot: {
-    dot: "bg-[var(--accent-secondary)]",
-    soft: "bg-[var(--accent-secondary)]/10 text-[var(--accent-secondary)]",
-    ring: "ring-[var(--accent-secondary)]",
+    dot: "bg-[var(--accent-brand)]",
+    soft: "bg-[var(--accent-brand)]/10 text-[var(--accent-brand-ink)]",
+    ring: "ring-[var(--accent-brand)]",
   },
   interested: {
     dot: "bg-foreground/55",
@@ -159,7 +159,7 @@ export function PartnerMapClient({ partners }: Props) {
         {selected ? (
           <div className="space-y-4">
             <div>
-              <p className="text-xs font-semibold uppercase text-[var(--accent-brand)]">
+              <p className="text-xs font-semibold uppercase text-[var(--accent-brand-ink)]">
                 {t(`statuses.${selected.status}`)}
               </p>
               <h3 className="mt-2 text-xl font-semibold leading-tight text-foreground">
@@ -177,7 +177,7 @@ export function PartnerMapClient({ partners }: Props) {
                 href={selected.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-brand)] hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-brand-ink)] hover:underline"
               >
                 {t("viewWebsite")}
                 <ExternalLink aria-hidden className="size-3.5" />

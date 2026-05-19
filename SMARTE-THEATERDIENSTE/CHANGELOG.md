@@ -1,5 +1,49 @@
 # 📝 Changelog
 
+## 2026-05-19 — Session 28: M17 Welle 1 — CI-Refresh + Nav-Restructure + Landing-Redesign
+
+**Quellen:**
+- User-Lieferung `~/Downloads/smarte-theaterdienste/Smarte Theaterdienste/Anmerkungen Entwurf 14.5.2026.md` — redaktionelle Anmerkungen pro Seite.
+- User-Lieferung `~/Downloads/smarte-theaterdienste/Smarte Theaterdienste/Design-Vorlage.md` + `STD-Colors+Fonts.pdf` — verbindliche Corporate Identity des Deutschen Bühnenvereins.
+
+**Welle 1 — drei Phasen:**
+
+- **Phase A — Corporate-Identity-Foundation.** `src/app/[locale]/layout.tsx` lädt jetzt nur noch `Public_Sans` (variable, italic) als CI-Schriftart plus `Geist_Mono` als Mono-Akzent. `Newsreader`/`Geist`-Imports raus. `src/styles/tokens.css` ist komplett auf die CI-Hex-Palette umgestellt: Lucent White `#FAFAFF`, Black `#000000`, Grays 80/60/40/20/10 sowie Purple Dark `#BF93E1` / Medium `#E1B9FF` / Light `#EFDAFF`. Neuer Helper-Token `--accent-brand-ink #6B4A9A` als AA-konformer Purple-Ton für Text auf Lucent White. `src/app/globals.css` Font-Bridges (`--font-sans`/`--font-heading`/`--font-serif`) zeigen alle auf `--font-public-sans`. Drop-Cap und `editorial-kicker::before` von Rubrik-Rot auf Purple Dark umgestellt; Dark-Mode-Surface auf Schwarz-Grau-Schema kalibriert. Bulk-Replacement aller `var(--accent-secondary)` → `var(--accent-brand)` und aller Text-only `text-[var(--accent-brand)]` → `text-[var(--accent-brand-ink)]` (Kontrastfix).
+- **Phase B — Navigation & Routing-Restructure.** URLs ziehen permanent um:
+  - `/projekt` → `/konzeption` (DE) / `/project` → `/concept` (EN)
+  - `/beteiligung` → `/jetzt-mitmachen` (DE) / `/participation` → `/join` (EN)
+  - Beide Sub-Routes (`technische-standards`, `semantische-standards`, `anwendungsbeispiele`, `mitwirkung`) mitgezogen.
+  - Neue Route `/materialien` (DE) / `/materials` (EN) mit `ResourceLinkGrid` aus den ORIF-Werkzeugen (Comic, Image-Video, Infomaterial, Musterkalkulation, ORIF-Doku, Validator, Lektoratstool, GitHub).
+  - `next.config.ts` setzt 12 permanente 308-Redirects von alten Pfaden.
+  - `src/lib/i18n/routing.ts`, `Header.tsx`, `MobileNav.tsx`, `Footer.tsx`, `src/app/sitemap.ts`, alle Content-JSON-`href`-Werte synchronisiert.
+  - Header-Menü von 6 auf 4 Items: **Konzeption · Jetzt mitmachen · Materialien · FAQ**. Editorial-Top-Rail („AUSGABE 03 · Datenraum Kultur · JSON / ORIF / DRK") komplett raus.
+  - Header zeigt jetzt Bühnenverein-Logo aus `public/logos/buehnenverein.png` als Trust-Signal links neben dem Sitenamen.
+- **Phase C — Landing-Redesign.** Hero in `src/app/[locale]/page.tsx` neu choreografiert:
+  - Editorial-Top-Rail mit „AUSGABE 03" raus.
+  - Hero-Tag-Slug `"JSON · ORIF · Datenraum Kultur"` → `"Schema.org + GND + JSON = ORIF"` (DE+EN).
+  - `hero.kicker` deemphasized auf eine kleine Caption-Zeile unter dem Subtitle („Ein Projekt des Deutschen Bühnenvereins" · Schema-Tag).
+  - `figcaption` „USE CASE 03"-Doppelung bereinigt; Polaroid trägt jetzt `"USE CASE 3 · DATENRAUM KULTUR"`.
+  - Neue Sektion `<BuehnenvereinLockup>` direkt oberhalb der Headline mit echtem `buehnenverein.png` + Purple-Pale-Halo.
+  - Neue Sektion `<VideoEmbed>` (lazy YouTube-Nocookie-Iframe) zwischen FeatureGrid und NetworkMapSection eingebaut, embeddet das Image-Video `B4vQwW5ICk8`.
+  - Neue Sektion `<QuoteGallery>` zwischen Stakeholder-FeatureGrid und Pitch-TextSection mit 3 statischen Zitaten aus `landing.json`.
+  - `src/content/{de,en}/landing.json` um `imageVideo`, `trust` und `quotes` erweitert.
+  - `next.config.ts.images.remotePatterns` ergänzt um `i.ytimg.com` für Video-Poster.
+
+**Welle-2-Backlog (NICHT in dieser Session):**
+- Konzeption mehr Bilder, Technische Standards mit direkt eingebettetem Comic+Video, FAQ-Kategorien, Mitwirkung mit Google-Maps-iframe.
+- Team-Relocation unter Konzeption mit Theater-Bühnen-CSS-Hover (Purple-Wash + Curtain), Phone/Mail aus ContactCard.
+- Zeitstrahl-Route unter `/konzeption/zeitstrahl` kombiniert Blog+Termine, Genially-Embed.
+
+**Verifikation:**
+- `pnpm typecheck`, `pnpm lint`, `pnpm build` clean — 37 Pages SSG (alte Slugs raus, neue Slugs `/konzeption`, `/jetzt-mitmachen`, `/materialien` drin).
+- Preview-MCP auf Port 3000: `/de` Hero zeigt prominent „EIN PROJEKT DES Deutscher Bühnenverein"-Lockup, headline „Smarte Theaterdienste" in Public Sans bold black, Tag-Zeile „Schema.org + GND + JSON = ORIF", CTAs „Jetzt mitmachen" + „So funktioniert's". Header rendert Bühnenverein-Logo + 4-Item-Menü.
+- HTTP-Smoke: `/de`, `/de/konzeption`, `/de/jetzt-mitmachen`, `/de/materialien`, `/de/faq`, `/en`, `/en/concept`, `/en/join`, `/en/materials` jeweils HTTP 200.
+- 308-Redirect-Smoke: `/de/projekt` → `/de/konzeption`, `/de/projekt/technische-standards` → `/de/konzeption/technische-standards`, `/de/beteiligung` → `/de/jetzt-mitmachen`, `/de/beteiligung/mitwirkung` → `/de/jetzt-mitmachen/mitwirkung`, EN-Pendants analog.
+- `/de/materialien` rendert `PageHero` mit Title „Materialien" und Lead, danach `ResourceLinkGrid` mit 8 Karten (Comic, Image-Video, Infomaterial, Musterkalkulation, ORIF-Doku, Validator, Lektoratstool, GitHub).
+- Headerausgabe via JS: `[Smarte Theaterdienste, Konzeption, Jetzt mitmachen, Materialien, FAQ]` — exakt das vom User gewünschte 4-Item-Menü.
+
+**Status am Ende:** Welle-1 lokal production-validiert. Welle-2 (Page-Redesigns, Team-Relocation, Zeitstrahl) bleibt für eine spätere Session offen.
+
 ## 2026-05-15 — Session 27: M16 Editorial-Visual-Polish
 
 **Commits / Deploy-Basis:**

@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-15 | Stand: M5–M9 production-validiert, M10 Design-Refresh production-live, M11 Original-Site-Transfer umgesetzt, Session 20 Miro-/Deutschlandkarten-QA production-live, Session 22 Codex-Plugin `website-design-ultra` repo-lokal angelegt, Session 23 Editorial-Redesign lokal production-validiert, Session 25 Visual-QA-Polish umgesetzt und in Session 26 production-live deployed (`dpl_A36wKwjUuXfMgNbRsXvoCHM3sWEf`). Session 27 ergänzt M16-Editorial-Feinschliff für RevealText, Drop-Caps und Ansprechpersonen-Cards (`6982932`) und ist production-live per `dpl_8E57VeoNYrbQBWeJg3Kma936iWXZ`. Nächster sinnvoller Website-Schritt: Custom-Domain-DNS auf Vercel umstellen und finale Rechtstexte einpflegen.
+> Letzte Aktualisierung: 2026-05-19 | Stand: Session 28 M17 Welle 1 lokal validiert — Editorial-Welt aus M10/M11/M13 wurde komplett auf Corporate Identity (Public Sans, Black-Gray-Purple) umgestellt. Header-Menü auf vier Items reduziert (Konzeption · Jetzt mitmachen · Materialien · FAQ). URLs `/projekt` und `/beteiligung` wurden permanent auf `/konzeption` und `/jetzt-mitmachen` umgezogen (308-Redirects in `next.config.ts`). Neue Route `/materialien`. Landing-Hero ohne „AUSGABE 03"-Rail, mit Bühnenverein-Lockup, YouTube-Image-Video und Zitate-Galerie. Welle 2 (Page-Redesigns, Team-Relocation, Zeitstrahl) bleibt für die nächste Session offen.
 
 ---
 
@@ -105,12 +105,13 @@ smarte-theaterdienste-website/
 │   │   ├── opengraph-image.tsx                 ← M8: 1200×630 ImageResponse pro Locale (DE/EN), Datenraum-Blau, siteName/siteDescription
 │   │   ├── page.tsx                            ← Landing: Editorial-Frontpage-Hero + Benefits + DACH-Netzwerkkarte + ComicStrip + Stakeholder-Benefits + Pitch
 │   │   ├── ansprechpersonen/page.tsx           ← PageHero + TeamGrid (4 Personen, Portraits via Sanity-CDN aus alter Website)
-│   │   ├── projekt/page.tsx                    ← PageHero + 6 TextSections + CTA-Links
-│   │   ├── projekt/technische-standards/page.tsx
-│   │   ├── projekt/semantische-standards/page.tsx
-│   │   ├── beteiligung/page.tsx                ← PageHero + 2 TextSections + 3 CTA-Links
-│   │   ├── beteiligung/anwendungsbeispiele/page.tsx ← 3 UseCaseCards
-│   │   ├── beteiligung/mitwirkung/page.tsx     ← Nutzenkarten + 3 StepCards + Tanzarchiv-Zitat + Webagentur-Checkliste + <PartnerMap> (M5, Session 20 Kartenpolish), revalidate=60
+│   │   ├── konzeption/page.tsx                 ← PageHero + 6 TextSections + CTA-Links (Session 28: aus /projekt umgezogen)
+│   │   ├── konzeption/technische-standards/page.tsx
+│   │   ├── konzeption/semantische-standards/page.tsx
+│   │   ├── jetzt-mitmachen/page.tsx            ← PageHero + 2 TextSections + 3 CTA-Links (Session 28: aus /beteiligung umgezogen)
+│   │   ├── jetzt-mitmachen/anwendungsbeispiele/page.tsx ← 3 UseCaseCards
+│   │   ├── jetzt-mitmachen/mitwirkung/page.tsx ← Nutzenkarten + 3 StepCards + Tanzarchiv-Zitat + Webagentur-Checkliste + <PartnerMap> (M5, Session 20 Kartenpolish), revalidate=60
+│   │   ├── materialien/page.tsx                ← Session 28: PageHero + ResourceLinkGrid mit 8 ORIF-Werkzeugen (Comic, Image-Video, Infomaterial, Musterkalkulation, Doku, Validator, Lektoratstool, GitHub)
 │   │   ├── impressum/page.tsx                  ← TODO-Platzhalter mit sichtbarem Lead (Legal-Referenz auf § 5 DDG)
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter mit sichtbarem Lead
 │   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
@@ -122,8 +123,9 @@ smarte-theaterdienste-website/
 │   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge; Session 27: Drop-Cap-Metrik ruhiger gesetzt
 │   ├── components/
 │   │   ├── ui/                                 ← shadcn (radix-nova) Primitives
-│   │   ├── layout/                             ← Header.tsx, Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx
+│   │   ├── layout/                             ← Header.tsx (Session 28: Bühnenverein-Logo + 4-Item-Nav), Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx (4 Items)
 │   │   ├── sections/                           ← PageHero, TextSection, ContactCard, TeamGrid,
+│   │   │                                          BuehnenvereinLockup (Session 28 NEU), VideoEmbed (Session 28 NEU), QuoteGallery (Session 28 NEU),
 │   │   │                                          UseCaseCard, StepCard, ComingSoonHero (jetzt mit body-Prop),
 │   │   │                                          ComicStrip (Server-Wrapper) + ComicStripFrames (Client, GSAP-Stagger, M6),
 │   │   │                                          PostCard, PostArticle (mit ViewTransition-Wrap, M6),
@@ -145,7 +147,8 @@ smarte-theaterdienste-website/
 │   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.* (M7: EN reviewt + strukturgleich)
 │   ├── types/database.ts                       ← Generated Supabase types (`pnpm gen:types`, mit Relationships)
 │   ├── types/react-canary.d.ts                 ← M6: `/// <reference types="react/canary" />` für `<ViewTransition>`-Typen
-│   ├── content/{de,en}/                        ← Page-Content (umfangreich, M7: EN reviewt + strukturgleich):
+│   ├── content/{de,en}/                        ← Page-Content (Session 28: hrefs auf neue Routen migriert):
+│   │   ├── materialien.json                     ← Session 28: 8 ORIF-Werkzeuge + 2 interne Folge-Links
 │   │   ├── team.json                            ←   4 Ansprechpersonen mit Sanity-CDN-Portraits aus alter Website
 │   │   ├── projekt.json                         ←   6 Sections + 2 Links
 │   │   ├── projekt-technische-standards.json     ←   ORIF-Erklärung + Ressourcen/Tools (Comic, Doku, Validator, Lektorat)
@@ -155,7 +158,7 @@ smarte-theaterdienste-website/
 │   │   ├── beteiligung-mitwirkung.json          ←   Nutzenargumente, 3 Schritte, Tanzarchiv-Zitat, Webagentur-/IT-Checkliste
 │   │   ├── legal.json                           ←   imprint/privacy mit todo-Flag; Impressum-Hinweis nutzt § 5 DDG
 │   │   └── landing.json                         ←   Benefits + DACH-Netzwerkkarte + Comic-Strip-Frames + Stakeholder-Benefits + Pitch
-│   ├── styles/tokens.css                       ← Editorial-Tokens: Papier/Tinte/Rubrik-Rot/Datenraum-Blau, Breakpoint-Typo, Linien/Raster
+│   ├── styles/tokens.css                       ← Session 28: CI-Tokens (Lucent White / Black / Grays 80-10 / Purple Dark/Medium/Light), Public Sans als einzige Schrift, einzelne Akzentfarbe
 │   ├── types/                                  ← Generated Supabase types ab M4
 │   └── proxy.ts                                ← next-intl Routing-Proxy (Next.js 16!); Matcher excluded `icon|apple-icon|opengraph-image|twitter-image|manifest` (Top-Level Convention Files)
 │
@@ -192,7 +195,7 @@ smarte-theaterdienste-website/
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
 │   └── GO_LIVE_CHECKLIST.md                    ← Asset-/Domain-/Vercel-/Legal-Handoff fuer den User
 │
-├── next.config.ts                              ← withNextIntl + remotePatterns (Supabase/Unsplash/Sanity) + experimental.viewTransition (M6)
+├── next.config.ts                              ← Session 28: withNextIntl + remotePatterns (Supabase/Unsplash/Sanity/i.ytimg.com) + experimental.viewTransition (M6) + 12 permanente 308-Redirects von alten Pfaden (`/projekt`→`/konzeption`, `/beteiligung`→`/jetzt-mitmachen` jeweils DE+EN inkl. Sub-Routes)
 ├── components.json                             ← shadcn config (radix-nova, neutral baseColor, css-vars)
 ├── tsconfig.json                               ← @/* → ./src/*
 ├── package.json
@@ -215,10 +218,17 @@ Beide Locales mit Pfad-Prefix:
 
 `localeDetection` ist next-intl-Default = `true` → Browser-Accept-Language wählt Locale beim ersten Besuch von `/`.
 
-Slug-Übersetzungen über `pathnames`-Map in `src/lib/i18n/routing.ts`:
-- `/projekt/technische-standards` ↔ `/project/technical-standards`
-- `/beteiligung/anwendungsbeispiele` ↔ `/participation/use-cases`
+Slug-Übersetzungen über `pathnames`-Map in `src/lib/i18n/routing.ts` (Stand Session 28):
+- `/konzeption` ↔ `/concept`
+- `/konzeption/technische-standards` ↔ `/concept/technical-standards`
+- `/konzeption/semantische-standards` ↔ `/concept/semantic-standards`
+- `/jetzt-mitmachen` ↔ `/join`
+- `/jetzt-mitmachen/anwendungsbeispiele` ↔ `/join/use-cases`
+- `/jetzt-mitmachen/mitwirkung` ↔ `/join/contribute`
+- `/materialien` ↔ `/materials`
 - `/impressum` ↔ `/imprint`
+
+Alte Pfade `/projekt`, `/beteiligung` (DE) und `/project`, `/participation` (EN) werden in `next.config.ts` permanent (HTTP 308) auf die neuen Pfade umgeleitet.
 
 **Navigation immer via `@/lib/i18n/navigation`**, niemals `next/link` direkt — sonst kein Locale-Routing.
 

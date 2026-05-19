@@ -1,0 +1,61 @@
+{
+  "resources": {
+    "eyebrow": "Materials",
+    "heading": "Everything to take with you",
+    "lead": "Open materials and tools for web agencies, developers, editors and decision makers around the ORIF interface.",
+    "items": [
+      {
+        "title": "Comic clip",
+        "body": "An accessible introduction to machine-readable theatre programmes – no technical background required.",
+        "href": "https://www.youtube.com/watch?v=cCCa7Yuzaf0&t=2s",
+        "label": "Watch the comic"
+      },
+      {
+        "title": "Project video",
+        "body": "The project summarised in five minutes – ideal for internal presentations and stakeholders.",
+        "href": "https://www.youtube.com/watch?v=B4vQwW5ICk8",
+        "label": "Watch video"
+      },
+      {
+        "title": "Information material",
+        "body": "Project flyer and presentation for internal advocacy work at your theatre.",
+        "href": "https://datenraum2dbv-my.sharepoint.com/:f:/g/personal/schmidt_datenraum2dbv_onmicrosoft_com/EtOFiB0ySWJEl8ztmgBA630Bmk_-J7a-8cal-NVbnNd4ZQ?e=TucJsw",
+        "label": "Open material"
+      },
+      {
+        "title": "Reference cost estimate",
+        "body": "Orientation for the one-off implementation costs you can expect when working with a web agency.",
+        "href": "https://datenraum2dbv-my.sharepoint.com/:b:/g/personal/schmidt_datenraum2dbv_onmicrosoft_com/EZlygMCS2_pOgw0N1zxPiJABvVE-J6ODKpQDTInIv-Uoqg?e=i6p04N",
+        "label": "Open PDF"
+      },
+      {
+        "title": "ORIF documentation",
+        "body": "Technical specification of the JSON interface with example data and API reference.",
+        "href": "https://buehnenverein.github.io/open-repertoire/",
+        "label": "Open documentation"
+      },
+      {
+        "title": "Validator",
+        "body": "Validation tool that checks whether an implemented ORIF interface is technically correct.",
+        "href": "https://buehnenverein.github.io/open-repertoire/validate/",
+        "label": "Open validator"
+      },
+      {
+        "title": "Editorial tool",
+        "body": "Turns machine-readable programme data back into a readable table for editors.",
+        "href": "https://buehnenverein.github.io/open-repertoire/view/",
+        "label": "Open tool"
+      },
+      {
+        "title": "GitHub repository",
+        "body": "Open-source code, issues and discussion – the interface is built in the open.",
+        "href": "https://github.com/buehnenverein/open-repertoire",
+        "label": "Open repository"
+      }
+    ]
+  },
+  "links": [
+    { "href": "/konzeption/technische-standards", "label": "Understand the technical standards" },
+    { "href": "/jetzt-mitmachen", "label": "Join the project" }
+  ]
+}

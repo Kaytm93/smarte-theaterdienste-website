@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-05-15 (Session 27)
+> Letzte Aktualisierung: 2026-05-19 (Session 28)
 
 ## Status
 
@@ -28,8 +28,11 @@
 | Codex-Plugin Website Design Ultra | ✅ Session 22 — Claude-Plugin-ZIP zu repo-lokalem Codex-Plugin mit `.codex-plugin/plugin.json`, Skills und Marketplace-Eintrag konvertiert |
 | Editorial-Redesign | ✅ Session 23 — Zeitungshaftes Gesamtdesign mit Newsreader-Serif, Zeitungskopf, Linienraster, Editorial-Hero, reduzierten Radien und smooth GSAP-Reveals |
 | Editorial-QA-Polish | ✅ Session 24 — Hero-Stat-Strip-Doppelung mit FeatureGrid/NetworkMap aufgelöst (jetzt Editorial-ToC `01/02/03` + Feature-Titel), redundanter mittlerer Hero-Kicker-Span entfernt, EN-Hero-Tags lokalisiert |
+| CI-Refresh M17 Welle 1 | ✅ **Session 28 lokal validiert** — Public Sans als einzige Schriftart, Black-Gray-Purple-Palette aus STD-Colors+Fonts.pdf, Menü auf 4 Items (Konzeption · Jetzt mitmachen · Materialien · FAQ) geschlankt, URLs umgezogen mit 308-Redirects, neue `/materialien`-Route, Bühnenverein-Lockup im Hero, YouTube-Image-Video + Zitate-Galerie integriert |
 
 ## Was gerade läuft
+
+**Session 28 M17 Welle 1: CI-Refresh + Nav-Restructure + Landing-Redesign.** User lieferte heute die Anmerkungen aus `Anmerkungen Entwurf 14.5.2026.md` plus die Corporate Identity in `Design-Vorlage.md` + `STD-Colors+Fonts.pdf`. Drei Phasen lokal umgesetzt: (A) Public Sans als einzige Schriftart eingebunden (Newsreader/Geist raus), `tokens.css` komplett auf CI-Hex-Palette (Black/Grays/Purple) gehoben, Rubrik-Rot rausgebaut, Drop-Cap auf Purple Dark; (B) URLs umgezogen `/projekt`→`/konzeption`, `/beteiligung`→`/jetzt-mitmachen`, neue `/materialien`-Route mit `ResourceLinkGrid`, 308-Redirects in `next.config.ts`, Menü auf 4 Items reduziert (Konzeption · Jetzt mitmachen · Materialien · FAQ), Editorial-Top-Rail mit „AUSGABE 03" raus, Header zeigt jetzt Bühnenverein-Logo als Trust-Signal; (C) Landing-Hero: AUSGABE-Span weg, Hero-Tag auf `Schema.org + GND + JSON = ORIF` korrigiert, neuer `<BuehnenvereinLockup>` oberhalb der Headline, neuer `<VideoEmbed>` für Image-Video `B4vQwW5ICk8`, neue `<QuoteGallery>` mit 3 Default-Stimmen. Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (37 Pages SSG); Preview-MCP-Smoke zeigt korrekten Hero auf `/de`, /materialien lädt 8 ORIF-Materialien als Karten; HTTP-Smoke alle neuen Routen 200, alle alten Routen 308; Header-Links sind exakt `Konzeption / Jetzt mitmachen / Materialien / FAQ`. Welle 2 (Page-Redesigns, Team-Relocation, Zeitstrahl) bleibt für die nächste Session.
 
 **Session 27 M16 Editorial-Visual-Polish.** User wollte erneut die Vault-MD-Dateien lesen, die Website visuell testen und sichtbare Feinschliffe direkt beheben. Das Website-Design-Plugin ist in dieser Codex-Session nicht aktiv geladen; das repo-lokale `plugins/website-design-ultra` wurde als Referenz gelesen. Umgesetzt: `RevealText` bekommt vertikalen Masken-Puffer, damit Headlines wie „Smarte Theaterdienste" nicht an Ober-/Unterkanten angeschnitten werden; Drop-Caps in `editorial-copy` wurden kleiner und enger gesetzt; `ContactCard` nutzt personenspezifischen Portrait-Crop, sichtbaren Fotocredit, konsistentere Kontaktzeilen und natürliche E-Mail-Breakpoints. Verifikation lokal: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean; production-like `pnpm start --port 3031` Smoke auf `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` HTTP 200; Playwright-Checks auf 390/768/1440 px ohne Horizontal-Overflow und mit messbarem Reveal-Puffer. Implementation-Commit: `6982932`; Production-Deploy `dpl_8E57VeoNYrbQBWeJg3Kma936iWXZ` READY und Alias-Smoke grün.
 
@@ -48,6 +51,8 @@
 **Session 20 Miro-/Deutschlandkarten-QA production-live.** Das Miro-Board wurde als höhere Inhaltspriorität gelesen und gegen die Website geprüft. Wichtigster Befund: Die Mitwirkungsseite muss schneller erklären, warum die Schnittstelle Aufwand spart und was KBB/Kommunikation/IT bzw. Webagenturen konkret tun müssen. Umgesetzt wurden ein neuer Nutzenblock, eine Webagentur-Checkliste und ein überarbeiteter Deutschlandkarten-Bereich mit kleinerer Desktop-Karte, Status-Legende, Standortzähler und klickbarer Standortliste. Verifikation lokal/production-like: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean; zentrale Routen 200; Desktop- und Mobile-Playwright-Check der Karte ohne Console-Warnings/-Errors. Production-Fix: `NEXT_PUBLIC_SITE_URL` war in Vercel Production leer und blockierte `vercel build`; Variable auf `https://smarte-theaterdienste-website.vercel.app` gesetzt, lokal mit `vercel build --prod --yes` gebaut und per `vercel deploy --prebuilt --prod --yes` deployt. Vercel-Alias zeigt M13-Inhalte. `https://smarte-theaterdienste.de/de` zeigt weiterhin auf einen alten Server, nicht auf Vercel.
 
 ## Letzte Aktivität
+
+- **2026-05-19** — Session 28 M17 Welle 1 (CI-Refresh + Nav-Restructure + Landing-Redesign): Public Sans + Black/Gray/Purple-CI verbindlich gesetzt; Editorial-Newsreader-Welt komplett rausgebaut. URLs ziehen permanent um (`/projekt`→`/konzeption`, `/beteiligung`→`/jetzt-mitmachen`), 12 308-Redirects in `next.config.ts`, neue `/materialien`-Route mit `ResourceLinkGrid` und 8 ORIF-Werkzeugen, Header-Menü auf 4 Items reduziert, Bühnenverein-Logo links im Header als Trust-Signal. Landing-Hero ohne „AUSGABE 03"-Rail, neuer Tag-Slug `Schema.org + GND + JSON = ORIF`, `<BuehnenvereinLockup>` über der Headline, `<VideoEmbed>` (YouTube-ID `B4vQwW5ICk8`) zwischen FeatureGrid und NetworkMapSection, `<QuoteGallery>` mit 3 Default-Stimmen vor dem Pitch. Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean, Preview-MCP-Smoke auf `/de` zeigt korrekten Hero, `/de/materialien` lädt 8 Karten, `/de/konzeption`/`/de/jetzt-mitmachen`/`/en/concept`/`/en/join`/`/en/materials` HTTP 200, alte Pfade 308. Welle 2 (Page-Redesigns, Team-Relocation, Zeitstrahl) verbleibt offen.
 
 - **2026-05-15** — Session 27 M16 Editorial-Visual-Polish: Website lokal und production-like visuell geprüft. `RevealText` hat jetzt vertikalen Puffer gegen angeschnittene Serif-Buchstaben, Drop-Cap-Abstände sind ruhiger, Ansprechpersonen-Portraits sind stärker aufs Motiv gesetzt und lange E-Mails umbrechen an `@`/`.` statt mitten im Wort. Verifikation: `pnpm typecheck`, `pnpm lint`, `pnpm build`, production-like HTTP-Smoke auf Port 3031 und Playwright-Overflow-/Reveal-Puffer-Checks auf 390/768/1440 px. Production-Deploy `dpl_8E57VeoNYrbQBWeJg3Kma936iWXZ` READY; Vercel-Alias-Smoke `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` HTTP 200.
 - **2026-05-11** — Session 26 M15 Production-Deploy: `git push origin main` war bereits `Everything up-to-date`. Manueller Vercel-Production-Deploy per CLI erfolgreich: `dpl_A36wKwjUuXfMgNbRsXvoCHM3sWEf` READY, Remote-Build 30 s, Deploy 53 s. Smoke gegen `https://smarte-theaterdienste-website.vercel.app`: `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` alle HTTP 200. HTML-Checks: `lg:grid-cols-3`, `theater-parade`, `loading="eager"` und `JSON · ORIF · Datenraum Kultur` live.
@@ -81,12 +86,16 @@
 
 ## 📋 Was Claude beim nächsten Mal tun soll
 
-**Default-Nächster-Schritt: Custom Domain anbinden.** M5–M8 production-validiert, Session 16 hat PWA-Manifest/Per-Post-OG-Images/Lighthouse-CI ergänzt, Session 17 den Design-Refresh mit echten Bildern eingespielt, Session 18 alte Website-Inhalte nachgezogen, Session 19 die Website-QA-Funde behoben und Session 20 die Miro-Prioritäten auf der Mitwirkungsseite production-live gebracht. Wichtigster Blocker: `smarte-theaterdienste.de` zeigt aktuell nicht auf Vercel, sondern auf alte A-Records.
+**Default-Nächster-Schritt: M17 Welle 2 — Page-Redesigns + Team-Relocation + Zeitstrahl.** Welle 1 (CI-Refresh + Nav-Restructure + Landing-Redesign) ist lokal validiert; alte URLs 308-redirected. Wichtige offene User-Anmerkungen aus `Anmerkungen Entwurf 14.5.2026.md`:
 
-**Pfade nach Wahl:**
-1. **Custom Domain anbinden** — Vercel-Dashboard → Project → Settings → Domains, `smarte-theaterdienste.de` (oder Sub-Domain) eintragen, DNS von den alten A-Records auf Vercel umstellen, Production-Env-Var `NEXT_PUBLIC_SITE_URL` danach auf die finale Domain setzen, Sitemap und canonical prüfen.
-2. **Finale Impressum-/Datenschutztexte einpflegen** — aktuell bewusst sichtbare TODO-Platzhalter.
-3. **Blog-Cover-Images einpflegen (optional/final)** — Posts in Supabase mit `cover_image_url` befüllen; seit Session 19 gibt es bereits sichtbare CSS-Fallbacks.
+1. **Konzeption** — mehr Bilder, weniger Text; ein bis zwei erklärende Grafiken.
+2. **Technische Standards** — Comic-Clip und Image-Video direkt embedden statt verstecken; ggf. zusätzliche Grafiken zu Schema.org/ORIF.
+3. **Jetzt mitmachen** — zusätzlich zur bestehenden `PartnerMap` einen Google-Maps-iframe einbauen (Embed-URL: `https://www.google.com/maps/d/embed?mid=1WQiyQkmVpOG9CNYfLoEj3qNlGg52xo8&ehbc=2E312F`).
+4. **FAQ** — Kategorien einführen (Supabase-Column `category` schon vorhanden, nur Component+Messages-Update nötig).
+5. **Team-Relocation** — Phone/Mail aus `ContactCard` raus, `TeamGrid` unter Konzeption eingebettet, Theater-Bühnen-CSS-Hover (Purple-Wash + Curtain) als reines CSS umgesetzt.
+6. **Zeitstrahl** — neue Route `/konzeption/zeitstrahl` (DE) / `/concept/timeline` (EN), kombiniert Blog-Posts + Events chronologisch, Genially-Embed `https://view.genially.com/67531f7a9e5b6c42deba21f3`.
+
+Danach Production-Deploy + Custom-Domain-DNS auf Vercel.
 **Optionale Mini-Tasks vor dem nächsten Milestone:**
 - **Custom Domain planen:** Falls `smarte-theaterdienste.de` auf das neue Projekt zeigen soll, Domain in Vercel hinzufügen und DNS umstellen.
 - **Partner-`website_url`/`logo_url` in Supabase nachpflegen** — aktuell nur Geo-Coords gesetzt.

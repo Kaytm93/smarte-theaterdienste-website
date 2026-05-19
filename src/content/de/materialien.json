@@ -1,0 +1,61 @@
+{
+  "resources": {
+    "eyebrow": "Materialien",
+    "heading": "Alles zum Mitnehmen",
+    "lead": "Für Webagenturen, Entwickler:innen, Redaktionen und Entscheider:innen liegen die wichtigsten Materialien und Werkzeuge öffentlich bereit.",
+    "items": [
+      {
+        "title": "Comic-Clip",
+        "body": "Ein verständlicher Einstieg in maschinenlesbare Spielpläne ohne technische Vorkenntnisse.",
+        "href": "https://www.youtube.com/watch?v=cCCa7Yuzaf0&t=2s",
+        "label": "Zum Comic-Clip"
+      },
+      {
+        "title": "Image-Video",
+        "body": "Das Projekt in fünf Minuten zusammengefasst – ideal für interne Präsentationen und Stakeholder.",
+        "href": "https://www.youtube.com/watch?v=B4vQwW5ICk8",
+        "label": "Video ansehen"
+      },
+      {
+        "title": "Infomaterial",
+        "body": "Projektflyer und Präsentation für interne Überzeugungsarbeit im Haus.",
+        "href": "https://datenraum2dbv-my.sharepoint.com/:f:/g/personal/schmidt_datenraum2dbv_onmicrosoft_com/EtOFiB0ySWJEl8ztmgBA630Bmk_-J7a-8cal-NVbnNd4ZQ?e=TucJsw",
+        "label": "Infomaterial öffnen"
+      },
+      {
+        "title": "Musterkalkulation",
+        "body": "Orientierung dazu, welche einmaligen Implementierungskosten bei einer Webagentur entstehen können.",
+        "href": "https://datenraum2dbv-my.sharepoint.com/:b:/g/personal/schmidt_datenraum2dbv_onmicrosoft_com/EZlygMCS2_pOgw0N1zxPiJABvVE-J6ODKpQDTInIv-Uoqg?e=i6p04N",
+        "label": "PDF öffnen"
+      },
+      {
+        "title": "ORIF-Dokumentation",
+        "body": "Die technische Spezifikation der JSON-Schnittstelle mit Beispiel-Datensatz und API-Referenz.",
+        "href": "https://buehnenverein.github.io/open-repertoire/",
+        "label": "Zur Dokumentation"
+      },
+      {
+        "title": "Validator",
+        "body": "Das Validierungstool prüft, ob eine implementierte ORIF-Schnittstelle technisch korrekt ist.",
+        "href": "https://buehnenverein.github.io/open-repertoire/validate/",
+        "label": "Zum Validator"
+      },
+      {
+        "title": "Lektoratstool",
+        "body": "Das Lektoratstool macht maschinenlesbare Spielplandaten wieder als Tabelle für Redaktionen lesbar.",
+        "href": "https://buehnenverein.github.io/open-repertoire/view/",
+        "label": "Zum Lektoratstool"
+      },
+      {
+        "title": "GitHub Repository",
+        "body": "Open-Source-Code, Issues und Diskussion – die Schnittstelle entsteht öffentlich.",
+        "href": "https://github.com/buehnenverein/open-repertoire",
+        "label": "Zum Repository"
+      }
+    ]
+  },
+  "links": [
+    { "href": "/konzeption/technische-standards", "label": "Technische Standards verstehen" },
+    { "href": "/jetzt-mitmachen", "label": "Jetzt mitmachen" }
+  ]
+}

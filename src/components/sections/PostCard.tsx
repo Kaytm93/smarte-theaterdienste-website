@@ -52,7 +52,7 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
             {formattedDate ? (
               <time
                 dateTime={post.publishedAt ?? undefined}
-                className="text-xs font-semibold uppercase text-[var(--accent-secondary)]"
+                className="text-xs font-semibold uppercase text-[var(--accent-brand-ink)]"
               >
                 {formattedDate}
               </time>
@@ -65,7 +65,7 @@ export function PostCard({ post, locale, readMoreLabel }: Props) {
                 {post.excerpt}
               </p>
             ) : null}
-            <span className="mt-auto inline-flex items-center gap-1.5 border-t border-border pt-4 text-sm font-semibold uppercase text-[var(--accent-brand)]">
+            <span className="mt-auto inline-flex items-center gap-1.5 border-t border-border pt-4 text-sm font-semibold uppercase text-[var(--accent-brand-ink)]">
               {readMoreLabel}
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0">
                 →

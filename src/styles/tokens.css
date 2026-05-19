@@ -1,6 +1,6 @@
-/* Design tokens — semantische Erweiterungen jenseits der shadcn-Theme-Vars.
- * Lebt parallel zu globals.css; shadcn besetzt --background/--foreground/--primary/...,
- * hier definieren wir Spacing, Typo-Scale, Easings, Layout-Maße und visuelle Akzente. */
+/* Design tokens — Smarte Theaterdienste Corporate Identity.
+ * Quelle: STD-Colors+Fonts.pdf (Deutscher Bühnenverein).
+ * Schrift: Public Sans · Palette: Schwarz / Grau / Purple · Eine Akzentfarbe. */
 
 :root {
   /* Spacing scale (rem-basiert, an Tailwind v4 0.25rem-Grid angelehnt) */
@@ -16,18 +16,19 @@
   --space-4xl: 8rem;      /* 128px */
   --space-5xl: 12rem;     /* 192px */
 
-  /* Typo-Scale — responsive per Breakpoint, nicht viewport-skaliert. */
-  --text-display: 3rem;
-  --text-h1: 2.375rem;
-  --text-h2: 1.875rem;
-  --text-h3: 1.375rem;
+  /* Typo-Scale — fluide, an CI-Print-Ratio (145/65/50/39/30/23 pt) orientiert. */
+  --text-display: clamp(2.5rem, 6vw, 5.25rem);
+  --text-h1: clamp(2rem, 4.4vw, 3.5rem);
+  --text-h2: clamp(1.625rem, 3.2vw, 2.5rem);
+  --text-h3: clamp(1.25rem, 2vw, 1.625rem);
+  --text-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
   --text-body: 1rem;
   --text-caption: 0.875rem;
   --text-overline: 0.75rem;
 
-  /* Editorial-Typo: keine negative Laufweite, ruhiger Satz. */
-  --tracking-display: 0;
-  --tracking-heading: 0;
+  /* CI gibt klare, ruhige Sans-Hierarchie vor — minimal negativ erst ab Display. */
+  --tracking-display: -0.015em;
+  --tracking-heading: -0.005em;
 
   /* Line-Heights */
   --leading-tight: 1.04;
@@ -35,7 +36,7 @@
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
 
-  /* Easings (Editorial-Reveals: smooth, aber nicht träge) */
+  /* Easings (smooth, aber nicht träge) */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
@@ -49,48 +50,48 @@
   /* Layout */
   --container-max: 84rem;        /* 1344px */
   --container-prose: 42rem;      /* ~672px für Lesetexte */
-  --header-height: 5.5rem;       /* Zeitungskopf + Rubriken */
+  --header-height: 4.5rem;
 
-  /* Editorial-Palette: Papier, Tinte, Datenraum-Blau und Rubrik-Rot. */
-  --paper: oklch(0.986 0.006 92);
-  --paper-soft: oklch(0.964 0.009 92);
-  --paper-warm: oklch(0.935 0.014 88);
-  --ink: oklch(0.17 0.012 260);
-  --ink-muted: oklch(0.43 0.014 260);
-  --rule: oklch(0.17 0.012 260 / 0.18);
-  --rule-strong: oklch(0.17 0.012 260 / 0.72);
-  --accent-brand: oklch(0.46 0.16 255);
-  --accent-brand-foreground: oklch(0.985 0.006 92);
-  --accent-secondary: oklch(0.43 0.15 28);
-  --accent-secondary-foreground: oklch(0.985 0.006 92);
+  /* CI Surfaces (Lucent White + Grays 10/20) */
+  --paper: #FAFAFF;              /* Lucent White */
+  --paper-soft: #F2F2F7;         /* Lucent White × Gray10 Mix für sanftere Differenzierung */
+  --paper-warm: #E5E5E5;         /* Gray10 */
+  --paper-elevated: #FFFFFF;     /* echter Highlight-Untergrund */
 
-  /* Surface-Schichten — Zeitungspapier statt Glas/Card-Look. */
+  /* CI Ink (Black + Gray80/60/40) */
+  --ink: #000000;                /* Black */
+  --ink-strong: #000000;
+  --ink-muted: #666666;          /* Gray60 */
+  --ink-soft: #999999;           /* Gray40 */
+
+  /* CI Rules (Gray20 für leise Linien, Gray80 für tragende Linien) */
+  --rule: #BEBEBE;               /* Gray20 */
+  --rule-soft: #E5E5E5;          /* Gray10 */
+  --rule-strong: #333333;        /* Gray80 */
+
+  /* CI Accent — Purple-Trio. Einzige Akzentfarbe. */
+  --accent-brand: #BF93E1;       /* Purple Dark */
+  --accent-brand-soft: #E1B9FF;  /* Purple Medium */
+  --accent-brand-pale: #EFDAFF;  /* Purple Light */
+  --accent-brand-foreground: #000000; /* Black auf hellem Purple = lesbar */
+  --accent-brand-ink: #6B4A9A;   /* dunkleres Purple für Text, AA-konform auf Lucent White */
+
+  /* Surface-Schichten — Papier statt Glas. */
   --surface-base: var(--paper);
   --surface-1: var(--paper-soft);
   --surface-2: var(--paper-warm);
-  --surface-elevated: oklch(0.996 0.004 92);
+  --surface-elevated: var(--paper-elevated);
 
-  /* Zeitungsraster, Linien und dezent getönte Schatten. */
-  --grid-line: oklch(0.17 0.012 260 / 0.075);
-  --shadow-xs: 0 1px 1px oklch(0.17 0.012 260 / 0.05);
-  --shadow-sm: 0 3px 10px oklch(0.17 0.012 260 / 0.07);
-  --shadow-md: 0 8px 22px oklch(0.17 0.012 260 / 0.09);
-  --shadow-lg: 0 16px 40px oklch(0.17 0.012 260 / 0.11);
+  /* Raster, Linien, dezente Schatten. */
+  --grid-line: color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-xs: 0 1px 1px color-mix(in srgb, var(--ink) 5%, transparent);
+  --shadow-sm: 0 3px 10px color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-md: 0 8px 22px color-mix(in srgb, var(--ink) 10%, transparent);
+  --shadow-lg: 0 16px 40px color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
 @media (min-width: 48rem) {
   :root {
-    --text-display: 4.5rem;
-    --text-h1: 3.25rem;
-    --text-h2: 2.25rem;
-    --text-h3: 1.625rem;
-  }
-}
-
-@media (min-width: 80rem) {
-  :root {
-    --text-display: 5.75rem;
-    --text-h1: 4rem;
-    --text-h2: 2.75rem;
+    --header-height: 5rem;
   }
 }

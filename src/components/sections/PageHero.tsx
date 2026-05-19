@@ -36,7 +36,7 @@ export function PageHero({ kicker, title, lead, className }: Props) {
           {lead ? (
             <FadeInOnScroll
               delay={0.15}
-              className="border-l-4 border-[var(--accent-secondary)] pl-5 text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/76 sm:text-lg"
+              className="border-l-4 border-[var(--accent-brand)] pl-5 text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/76 sm:text-lg"
             >
               {lead}
             </FadeInOnScroll>

@@ -27,7 +27,7 @@ export function ResourceLinkGrid({ eyebrow, heading, lead, resources }: Props) {
           </h2>
         </div>
         {lead ? (
-          <p className="border-l-4 border-[var(--accent-secondary)] pl-5 text-base leading-[var(--leading-relaxed)] text-foreground/72 md:text-lg">
+          <p className="border-l-4 border-[var(--accent-brand)] pl-5 text-base leading-[var(--leading-relaxed)] text-foreground/72 md:text-lg">
             {lead}
           </p>
         ) : null}

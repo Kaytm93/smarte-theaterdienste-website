@@ -30,7 +30,7 @@ export async function ComingSoonHero({ pageKicker, pageTitle, body }: Props) {
 
         <FadeInOnScroll
           delay={0.15}
-          className="max-w-2xl border-l-4 border-[var(--accent-secondary)] pl-5 text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/72 md:text-lg"
+          className="max-w-2xl border-l-4 border-[var(--accent-brand)] pl-5 text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/72 md:text-lg"
         >
           {body ?? t("body")}
         </FadeInOnScroll>

@@ -14,29 +14,33 @@ export const routing = defineRouting({
       de: "/termine",
       en: "/events",
     },
-    "/projekt": {
-      de: "/projekt",
-      en: "/project",
+    "/konzeption": {
+      de: "/konzeption",
+      en: "/concept",
     },
-    "/projekt/technische-standards": {
-      de: "/projekt/technische-standards",
-      en: "/project/technical-standards",
+    "/konzeption/technische-standards": {
+      de: "/konzeption/technische-standards",
+      en: "/concept/technical-standards",
     },
-    "/projekt/semantische-standards": {
-      de: "/projekt/semantische-standards",
-      en: "/project/semantic-standards",
+    "/konzeption/semantische-standards": {
+      de: "/konzeption/semantische-standards",
+      en: "/concept/semantic-standards",
     },
-    "/beteiligung": {
-      de: "/beteiligung",
-      en: "/participation",
+    "/jetzt-mitmachen": {
+      de: "/jetzt-mitmachen",
+      en: "/join",
     },
-    "/beteiligung/anwendungsbeispiele": {
-      de: "/beteiligung/anwendungsbeispiele",
-      en: "/participation/use-cases",
+    "/jetzt-mitmachen/anwendungsbeispiele": {
+      de: "/jetzt-mitmachen/anwendungsbeispiele",
+      en: "/join/use-cases",
     },
-    "/beteiligung/mitwirkung": {
-      de: "/beteiligung/mitwirkung",
-      en: "/participation/contribute",
+    "/jetzt-mitmachen/mitwirkung": {
+      de: "/jetzt-mitmachen/mitwirkung",
+      en: "/join/contribute",
+    },
+    "/materialien": {
+      de: "/materialien",
+      en: "/materials",
     },
     "/blog": "/blog",
     "/blog/[slug]": "/blog/[slug]",

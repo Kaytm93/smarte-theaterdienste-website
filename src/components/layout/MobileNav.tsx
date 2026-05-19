@@ -16,12 +16,10 @@ import {
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const NAV_ITEMS = [
-  { href: "/projekt", key: "project" },
-  { href: "/beteiligung", key: "participation" },
-  { href: "/blog", key: "blog" },
-  { href: "/termine", key: "events" },
+  { href: "/konzeption", key: "project" },
+  { href: "/jetzt-mitmachen", key: "participation" },
+  { href: "/materialien", key: "materials" },
   { href: "/faq", key: "faq" },
-  { href: "/ansprechpersonen", key: "contact" },
 ] as const;
 
 export function MobileNav() {
@@ -56,7 +54,7 @@ export function MobileNav() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="border-b border-border px-1 py-4 text-base font-semibold uppercase text-foreground/85 transition-colors hover:text-[var(--accent-secondary)]"
+              className="border-b border-border px-1 py-4 text-base font-semibold uppercase text-foreground/85 transition-colors hover:text-[var(--accent-brand-ink)]"
             >
               {t(item.key)}
             </Link>

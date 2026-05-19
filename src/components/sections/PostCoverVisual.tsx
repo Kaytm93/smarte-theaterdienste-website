@@ -25,7 +25,7 @@ export function PostCoverVisual({
       )}
     >
       <div aria-hidden className="absolute inset-0 bg-grid-pattern opacity-60" />
-      <div aria-hidden className="absolute inset-x-0 top-0 h-3 bg-[var(--accent-secondary)]" />
+      <div aria-hidden className="absolute inset-x-0 top-0 h-3 bg-[var(--accent-brand)]" />
 
       <div className="relative z-10 flex size-full flex-col justify-between p-5 sm:p-7">
         <div className="inline-flex w-fit items-center gap-2 border border-[var(--rule-strong)] bg-background/85 px-3 py-1.5 text-[10px] font-semibold uppercase text-foreground/65 shadow-[var(--shadow-xs)]">
@@ -44,7 +44,7 @@ export function PostCoverVisual({
 
         <div className="flex items-center justify-between gap-3 border-t border-[var(--rule-strong)] pt-3 text-[11px] font-semibold uppercase text-foreground/55">
           <span className="inline-flex items-center gap-1.5">
-            <Network aria-hidden className="size-3.5 text-[var(--accent-brand)]" />
+            <Network aria-hidden className="size-3.5 text-[var(--accent-brand-ink)]" />
             ORIF
           </span>
           <span>Use Case 03</span>

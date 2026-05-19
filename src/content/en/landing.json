@@ -94,5 +94,37 @@
       "This project is commissioned by the Deutscher Bühnenverein as Use Case 3 of the Cultural Data Space and is part of Germany's digital strategy.",
       "Theatres get a standardised interface for their programmes – and remain the owners of their data."
     ]
+  },
+  "imageVideo": {
+    "eyebrow": "Moving images",
+    "heading": "The project in five minutes",
+    "caption": "A short tour through machine-readable programmes, ORIF and the Cultural Data Space – a great primer for in-house presentations.",
+    "youtubeId": "B4vQwW5ICk8",
+    "title": "Smart Theatre Services – Project video"
+  },
+  "trust": {
+    "label": "A project by the",
+    "logoAlt": "Deutscher Bühnenverein"
+  },
+  "quotes": {
+    "eyebrow": "Voices from the network",
+    "heading": "What people are saying",
+    "items": [
+      {
+        "body": "We no longer have to copy our programmes into five different forms. The interface really takes the pressure off our PR team.",
+        "source": "Pilot theatre",
+        "role": "Press & communications"
+      },
+      {
+        "body": "We did not want to simply hand over our data. With ORIF we keep sovereignty – and decide ourselves what appears where.",
+        "source": "Deutscher Bühnenverein",
+        "role": "Project lead"
+      },
+      {
+        "body": "An open standard built on Schema.org and the GND is exactly what archives and search systems have needed for years.",
+        "source": "NFDI4Culture",
+        "role": "Partner"
+      }
+    ]
   }
 }

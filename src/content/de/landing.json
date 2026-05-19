@@ -94,5 +94,37 @@
       "Das Projekt entsteht im Auftrag des Deutschen Bühnenvereins als Use Case 3 des Datenraums Kultur und ist Teil der Digitalstrategie des Bundes.",
       "Theater bekommen eine standardisierte Schnittstelle für ihre Spielpläne – und bleiben Eigentümer:in ihrer Daten."
     ]
+  },
+  "imageVideo": {
+    "eyebrow": "Bewegte Bilder",
+    "heading": "Das Projekt in fünf Minuten",
+    "caption": "Eine kurze Tour durch maschinenlesbare Spielpläne, ORIF und den Datenraum Kultur – ideal als Einstieg im Haus.",
+    "youtubeId": "B4vQwW5ICk8",
+    "title": "Smarte Theaterdienste – Image-Video"
+  },
+  "trust": {
+    "label": "Ein Projekt des",
+    "logoAlt": "Deutscher Bühnenverein"
+  },
+  "quotes": {
+    "eyebrow": "Stimmen aus dem Netzwerk",
+    "heading": "Worüber gesprochen wird",
+    "items": [
+      {
+        "body": "Endlich müssen wir Spielpläne nicht mehr in fünf verschiedene Eingabemasken übertragen. Die Schnittstelle macht unsere Pressearbeit spürbar entspannter.",
+        "source": "Pilot-Theater",
+        "role": "Presse- und Öffentlichkeitsarbeit"
+      },
+      {
+        "body": "Wir wollten unsere Daten nicht einfach abgeben. Mit ORIF behalten wir die Hoheit – und entscheiden selbst, was wo erscheint.",
+        "source": "Deutscher Bühnenverein",
+        "role": "Projektleitung"
+      },
+      {
+        "body": "Ein offener Standard, der auf Schema.org und der GND aufsetzt, ist exakt das, was Archive und Suchsysteme seit Jahren brauchen.",
+        "source": "NFDI4Culture",
+        "role": "Partner"
+      }
+    ]
   }
 }

@@ -19,8 +19,8 @@
     }
   ],
   "links": [
-    { "href": "/beteiligung/anwendungsbeispiele", "label": "Application examples" },
-    { "href": "/beteiligung/mitwirkung", "label": "How participation works" },
-    { "href": "/projekt/technische-standards", "label": "Technical details" }
+    { "href": "/jetzt-mitmachen/anwendungsbeispiele", "label": "Application examples" },
+    { "href": "/jetzt-mitmachen/mitwirkung", "label": "How participation works" },
+    { "href": "/konzeption/technische-standards", "label": "Technical details" }
   ]
 }

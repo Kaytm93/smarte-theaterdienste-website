@@ -21,7 +21,7 @@ export async function generateMetadata({
   });
   return pageMetadata({
     locale,
-    href: "/projekt/semantische-standards",
+    href: "/konzeption/semantische-standards",
     title: t("title"),
     description: t("lead"),
   });

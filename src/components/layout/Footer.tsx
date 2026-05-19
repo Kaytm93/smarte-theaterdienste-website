@@ -12,11 +12,12 @@ const PARTNER_LOGOS = [
 ] as const;
 
 const FOOTER_NAV = [
-  { href: "/projekt", key: "project" },
-  { href: "/beteiligung", key: "participation" },
+  { href: "/konzeption", key: "project" },
+  { href: "/jetzt-mitmachen", key: "participation" },
+  { href: "/materialien", key: "materials" },
+  { href: "/faq", key: "faq" },
   { href: "/blog", key: "blog" },
   { href: "/termine", key: "events" },
-  { href: "/faq", key: "faq" },
   { href: "/ansprechpersonen", key: "contact" },
 ] as const;
 
@@ -39,7 +40,7 @@ export async function Footer() {
         </div>
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.8fr_1.8fr_0.7fr]">
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase text-[var(--accent-secondary)]">
+            <p className="text-xs font-semibold uppercase text-[var(--accent-brand-ink)]">
               {tMeta("siteName")}
             </p>
             <p className="max-w-sm text-sm text-foreground/65 leading-[var(--leading-relaxed)]">

@@ -16,6 +16,8 @@ import deLegal from "@/content/de/legal.json";
 import enLegal from "@/content/en/legal.json";
 import deLanding from "@/content/de/landing.json";
 import enLanding from "@/content/en/landing.json";
+import deMaterialien from "@/content/de/materialien.json";
+import enMaterialien from "@/content/en/materialien.json";
 
 import type { Locale } from "@/lib/i18n/routing";
 
@@ -36,6 +38,7 @@ const REGISTRY = {
     en: enAnwendungsbeispiele,
   },
   "beteiligung-mitwirkung": { de: deMitwirkung, en: enMitwirkung },
+  materialien: { de: deMaterialien, en: enMaterialien },
   legal: { de: deLegal, en: enLegal },
   landing: { de: deLanding, en: enLanding },
 } as const;
