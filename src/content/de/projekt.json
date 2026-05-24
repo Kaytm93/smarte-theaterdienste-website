@@ -6,7 +6,10 @@
       "body": [
         "Spielpläne sind heute meist nur für Menschen lesbar – als PDF, HTML, im hauseigenen Layout. Suchmaschinen, Plattformen und Archive müssen jeden Eintrag aufwendig nachpflegen.",
         "Maschinenlesbar heißt: Daten werden in einem offenen Format bereitgestellt (JSON, basierend auf Schema.org und CIDOC). Eine andere Software kann die Daten dann ohne menschliches Zutun importieren – sicher, eindeutig, sofort."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/a282b057bdd70bb57b028a8439848f711694a82e-1519x1085.jpg",
+      "imageAlt": "Schwarzweiß-Aufnahme eines geöffneten Theatervorhangs.",
+      "imageCaption": "Vorhang auf für vernetzte Spielpläne"
     },
     {
       "eyebrow": "Schritt 1",
@@ -22,14 +25,20 @@
       "body": [
         "Auf Basis dieses Modells entsteht eine Schnittstelle, mit der Theater ihre Spielpläne automatisiert an den Datenraum Kultur, an Plattformen, Archive und Anzeigesysteme senden können.",
         "Kein Copy & Paste mehr. Einmal verbinden, dauerhaft synchron."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/dba1d1e8b9be69cfaa14f7e02a7031c6382cc4ca-1519x1085.jpg",
+      "imageAlt": "Schwarzweiß-Aufnahme aus dem Theaterbetrieb – effizientere Arbeitsprozesse.",
+      "imageCaption": "Einmal verbinden, dauerhaft synchron"
     },
     {
       "eyebrow": "Anwendung",
       "heading": "Was damit möglich wird",
       "body": [
         "Online-Veranstaltungsplattformen, Anzeigetafeln im öffentlichen Raum, automatisierte Pressemeldungen, Casting-Plattformen, Archive – überall dort, wo Spielplandaten gebraucht werden, fließen sie künftig direkt aus dem Theatersystem."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/67a55bced13a2327e5d88631d19df457ab2ad4b1-1519x1085.jpg",
+      "imageAlt": "Schwarzweiß-Aufnahme – größere Reichweite für Spielplandaten.",
+      "imageCaption": "Überall dort, wo Spielplandaten gebraucht werden"
     },
     {
       "eyebrow": "Zeitplan",

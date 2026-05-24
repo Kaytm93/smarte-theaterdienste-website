@@ -53,13 +53,22 @@
     "backToHome": "Zur Startseite"
   },
   "team": {
-    "phoneLabel": "Telefon",
-    "mailLabel": "E-Mail",
     "photoCredit": "© Sophie Moriarty",
-    "portraitFallback": "Foto folgt"
+    "portraitFallback": "Foto folgt",
+    "stageAlt": "{name} auf einer Theaterbühne"
+  },
+  "timeline": {
+    "eyebrow": "Zeitstrahl",
+    "heading": "Stationen des Projekts",
+    "lead": "Konferenzen, Workshops und öffentliche Veranstaltungen, bei denen die maschinenlesbaren Spielpläne vorgestellt und diskutiert wurden.",
+    "locationLabel": "Ort",
+    "sourceLabel": "Mehr dazu",
+    "geniallyHeading": "Interaktive Reise durch die Spielplanverbreitung",
+    "geniallyCaption": "Die ausführliche Timeline mit allen Stationen der Entwicklung – zum Durchscrollen und Entdecken.",
+    "geniallyTitle": "Genially: Entwicklung der Spielplanverbreitung"
   },
   "pages": {
-    "ansprechpersonen": {
+    "team": {
       "kicker": "Hinter dem Projekt",
       "title": "Team",
       "lead": "Vier Menschen, die das Projekt entwickelt haben – mit künstlerischem Hintergrund und technischem Verständnis."
@@ -87,7 +96,13 @@
     "beteiligung": {
       "kicker": "Mitwirken",
       "title": "Jetzt mitmachen",
-      "lead": "Beta-Tester:innen, Theater, Plattformen – wir suchen Mitwirkende für die nächsten Schritte."
+      "lead": "Beta-Tester:innen, Theater, Plattformen – wir suchen Mitwirkende für die nächsten Schritte.",
+      "map": {
+        "eyebrow": "Netzwerk",
+        "heading": "Wer schon dabei ist – auf der Karte",
+        "caption": "Theater und Agenturen, die maschinenlesbare Spielpläne erproben. Zoome hinein und klicke einzelne Standorte an.",
+        "title": "Interaktive Karte der teilnehmenden Theater und Agenturen"
+      }
     },
     "anwendungsbeispiele": {
       "kicker": "Use Cases",
@@ -143,6 +158,12 @@
       "kicker": "Antworten",
       "title": "Häufige Fragen",
       "lead": "Antworten zu Grundwissen, Technik und Sicherheit, Umsetzung und Kosten sowie zum Datenraum Kultur.",
+      "categories": {
+        "grundwissen": "Grundwissen",
+        "technik-sicherheit": "Technik & Sicherheit",
+        "umsetzung-kosten": "Umsetzung & Kosten",
+        "datenraum-kultur": "Datenraum Kultur"
+      },
       "empty": {
         "kicker": "Antworten",
         "title": "FAQ wird aufgebaut",

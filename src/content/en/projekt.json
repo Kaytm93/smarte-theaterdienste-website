@@ -6,7 +6,10 @@
       "body": [
         "Today, theatre programmes are mostly only readable by humans – as PDFs, HTML pages, in each house's own layout. Search engines, platforms and archives have to re-enter every entry by hand.",
         "Machine-readable means: the data is published in an open format (JSON, based on Schema.org and CIDOC). Other software can then import it without human effort – securely, unambiguously, instantly."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/a282b057bdd70bb57b028a8439848f711694a82e-1519x1085.jpg",
+      "imageAlt": "Black-and-white photograph of an open theatre curtain.",
+      "imageCaption": "Curtain up for connected programmes"
     },
     {
       "eyebrow": "Step 1",
@@ -22,14 +25,20 @@
       "body": [
         "Based on this model, we are building an interface that lets theatres send their programmes automatically to the Cultural Data Space, to platforms, archives and display systems.",
         "No more copy & paste. Connect once, stay in sync."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/dba1d1e8b9be69cfaa14f7e02a7031c6382cc4ca-1519x1085.jpg",
+      "imageAlt": "Black-and-white shot from theatre operations – more efficient workflows.",
+      "imageCaption": "Connect once, stay in sync"
     },
     {
       "eyebrow": "Use",
       "heading": "What becomes possible",
       "body": [
         "Online event platforms, public displays, automated press releases, casting platforms, archives – wherever theatre programme data is needed, it will flow directly from the theatre's own system."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/67a55bced13a2327e5d88631d19df457ab2ad4b1-1519x1085.jpg",
+      "imageAlt": "Black-and-white photograph – greater reach for programme data.",
+      "imageCaption": "Wherever programme data is needed"
     },
     {
       "eyebrow": "Timeline",

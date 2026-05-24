@@ -53,13 +53,22 @@
     "backToHome": "Back to home"
   },
   "team": {
-    "phoneLabel": "Phone",
-    "mailLabel": "Email",
     "photoCredit": "© Sophie Moriarty",
-    "portraitFallback": "Photo coming"
+    "portraitFallback": "Photo coming",
+    "stageAlt": "{name} on a theatre stage"
+  },
+  "timeline": {
+    "eyebrow": "Timeline",
+    "heading": "Milestones of the project",
+    "lead": "Conferences, workshops and public events where the machine-readable programmes were presented and discussed.",
+    "locationLabel": "Location",
+    "sourceLabel": "Learn more",
+    "geniallyHeading": "An interactive journey through programme distribution",
+    "geniallyCaption": "The detailed timeline with every milestone of the development – scroll through and explore.",
+    "geniallyTitle": "Genially: development of programme distribution"
   },
   "pages": {
-    "ansprechpersonen": {
+    "team": {
       "kicker": "Behind the project",
       "title": "Team",
       "lead": "Four people who designed this project – with backgrounds in the arts as well as in technology."
@@ -87,7 +96,13 @@
     "beteiligung": {
       "kicker": "Get involved",
       "title": "Join the project",
-      "lead": "Beta testers, theatres and platforms: we are looking for partners for the next steps."
+      "lead": "Beta testers, theatres and platforms: we are looking for partners for the next steps.",
+      "map": {
+        "eyebrow": "Network",
+        "heading": "Who's already on board – on the map",
+        "caption": "Theatres and agencies piloting machine-readable programmes. Zoom in and click individual locations.",
+        "title": "Interactive map of participating theatres and agencies"
+      }
     },
     "anwendungsbeispiele": {
       "kicker": "Use cases",
@@ -143,6 +158,12 @@
       "kicker": "Answers",
       "title": "Frequently asked questions",
       "lead": "Answers on basic knowledge, technology and safety, implementation and costs, and the Cultural Data Space.",
+      "categories": {
+        "grundwissen": "Basics",
+        "technik-sicherheit": "Technology & security",
+        "umsetzung-kosten": "Implementation & costs",
+        "datenraum-kultur": "Cultural Data Space"
+      },
       "empty": {
         "kicker": "Answers",
         "title": "FAQ in progress",

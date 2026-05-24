@@ -18,16 +18,12 @@
 
 ## 🟡 Offene Fragen / Entscheidungen
 
-- **M17 Welle 2 noch offen (Session 28-Backlog):**
-  - Konzeption-Seite mehr bebildern und Grafiken einbauen.
-  - Technische Standards: Comic-Clip + Image-Video direkt einbetten statt nur verlinken.
-  - Jetzt-mitmachen: zusätzlich zur bestehenden `PartnerMap` einen Google-Maps-iframe einbauen (`https://www.google.com/maps/d/embed?mid=1WQiyQkmVpOG9CNYfLoEj3qNlGg52xo8&ehbc=2E312F`).
-  - FAQ-Kategorien einführen — Supabase-Column `category` existiert bereits, nur Component+Messages-Anpassung.
-  - Team-Relocation: `ContactCard` ohne Phone/Mail, `TeamGrid` unter Konzeption eingebettet, Theater-Bühnen-CSS-Hover (Purple-Wash + Curtain) als reines CSS.
-  - Neue Route `/konzeption/zeitstrahl` (DE) / `/concept/timeline` (EN) — Blog + Termine chronologisch kombiniert, Genially-Embed `https://view.genially.com/67531f7a9e5b6c42deba21f3`.
+- **M17 Welle 2 ✅ erledigt (Session 29, 2026-05-24):** Konzeption bebildert (3 Grayscale-Fotos) + Team-Block + Zeitstrahl-Abschnitt; Technische Standards mit eingebettetem Comic-Clip-Video + Comic-Strip (statt Buttons); Jetzt-mitmachen mit Google-MyMaps-iframe (`MapEmbed`); FAQ-Kategorien gruppiert + Quick-Nav; Team umbenannt (`/ansprechpersonen`→`/team`), Phone/Mail raus, Bühnen-Hover-Mechanik; Blog+Termine als Zeitstrahl in Konzeption (native `Timeline` + Genially), Alt-Routen 308 auf Konzeption. **Abweichung:** Zeitstrahl als Abschnitt `#zeitstrahl` statt eigener Route; Team-Hover als JS-Cross-Fade statt reinem CSS-Curtain.
 - **Newsletter-Signup:** Im Miro nicht erwähnt — User-Wunsch? Falls ja, später.
 - **Kontaktformular Empfänger-Adresse:** Aktuell Placeholder in `.env.example`. Echte Adresse vom User.
 - **Echte Inhalte vom User benötigt:**
+  - **Team-Bühnen-Hover (Session 29):** Die 4 Bühnenfoto-URLs (Sanity) für `stage` in `team.json` fehlen — die alte Live-Seite zeigt das Team-Block nicht mehr, daher nicht auffindbar. `ContactCard` hat die Cross-Fade-Mechanik bereits; sobald `stage`-URLs in `team.json` stehen, läuft der Portrait→Bühne-Hover. Bis dahin Zoom-Fallback.
+  - **Dead-Files (Session 29):** `src/app/[locale]/blog/page.tsx` + `termine/page.tsx` sind seit Welle 2 per 308-Redirect unerreichbar (Inhalte stecken im Konzeption-Zeitstrahl). `blog/[slug]` bleibt aktiv. Die beiden Index-Page-Files können bei Gelegenheit gelöscht werden (kein Blocker).
   - Echte Blog-Cover-Bilder für `public/blog/{kickoff-datenraum-kultur,erste-pilotpartner-gewonnen,wip-konnektor-roadmap}.jpg` und `cover_image_url`-Pflege in Supabase bleiben finaler Asset-Polish. Seit Session 19 haben Blogkarten und Blogdetails sichtbare CSS-Cover-Fallbacks, damit die Seiten nicht mehr textlastig wirken und ViewTransition-Elemente pro Slug vorhanden sind.
   - Optional: lokale Portrait-Kopien für `public/team/{sina-schmidt,peter-retzlaff,claudia-groenniger,madeleine-scheuerpflug}.jpg`; aktuell rendert die Site die Original-Portraits stabil via altem Sanity-CDN.
   - Partner-Logos in SVG (aktuell PNG aus alter Website unter `public/logos/`, funktioniert produktiv, SVG wäre cleaner für Retina/Print)

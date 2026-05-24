@@ -16,9 +16,7 @@ const FOOTER_NAV = [
   { href: "/jetzt-mitmachen", key: "participation" },
   { href: "/materialien", key: "materials" },
   { href: "/faq", key: "faq" },
-  { href: "/blog", key: "blog" },
-  { href: "/termine", key: "events" },
-  { href: "/ansprechpersonen", key: "contact" },
+  { href: "/team", key: "contact" },
 ] as const;
 
 export async function Footer() {

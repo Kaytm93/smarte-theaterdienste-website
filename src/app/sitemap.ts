@@ -3,14 +3,11 @@ import { getPathname } from "@/lib/i18n/navigation";
 import { routing, type Locale } from "@/lib/i18n/routing";
 import { getSiteUrl } from "@/lib/seo/site";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import {
-  listPublishedPostSitemapEntries,
-  type PostSitemapEntry,
-} from "@/lib/supabase/queries";
+import { listPublishedPostSitemapEntries } from "@/lib/supabase/queries";
 
 const STATIC_HREFS = [
   "/",
-  "/ansprechpersonen",
+  "/team",
   "/konzeption",
   "/konzeption/technische-standards",
   "/konzeption/semantische-standards",
@@ -18,9 +15,7 @@ const STATIC_HREFS = [
   "/jetzt-mitmachen/anwendungsbeispiele",
   "/jetzt-mitmachen/mitwirkung",
   "/materialien",
-  "/blog",
   "/faq",
-  "/termine",
   "/impressum",
   "/datenschutz",
 ] as const;
@@ -40,31 +35,17 @@ function absBlogPost(site: string, locale: Locale, slug: string) {
   })}`;
 }
 
-function latestPublishedAt(posts: PostSitemapEntry[]) {
-  return (
-    posts
-      .map((post) => post.publishedAt)
-      .filter((publishedAt): publishedAt is string => Boolean(publishedAt))
-      .sort((a, b) => Date.parse(b) - Date.parse(a))[0] ?? null
-  );
-}
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const site = getSiteUrl();
   const posts = isSupabaseConfigured()
     ? await listPublishedPostSitemapEntries()
     : [];
-  const blogLastModified =
-    latestPublishedAt(posts) ?? STATIC_CONTENT_LAST_MODIFIED;
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_HREFS.flatMap((href) =>
     routing.locales.map((locale) => ({
       url: abs(site, locale, href),
-      lastModified:
-        href === "/blog" ? blogLastModified : STATIC_CONTENT_LAST_MODIFIED,
-      changeFrequency: (href === "/blog"
-        ? "weekly"
-        : "monthly") as MetadataRoute.Sitemap[number]["changeFrequency"],
+      lastModified: STATIC_CONTENT_LAST_MODIFIED,
+      changeFrequency: "monthly" as MetadataRoute.Sitemap[number]["changeFrequency"],
       priority: href === "/" ? 1 : 0.7,
       alternates: {
         languages: Object.fromEntries(

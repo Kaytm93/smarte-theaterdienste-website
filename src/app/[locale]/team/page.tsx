@@ -12,23 +12,23 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "pages.ansprechpersonen" });
+  const t = await getTranslations({ locale, namespace: "pages.team" });
   return pageMetadata({
     locale,
-    href: "/ansprechpersonen",
+    href: "/team",
     title: t("title"),
     description: t("lead"),
   });
 }
 
-export default async function AnsprechpersonenPage({
+export default async function TeamPage({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("pages.ansprechpersonen");
+  const t = await getTranslations("pages.team");
   const team = loadContent("team", locale);
 
   return (

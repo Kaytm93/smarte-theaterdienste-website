@@ -4,6 +4,7 @@ import { Link } from "@/lib/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/sections/PageHero";
 import { TextSection } from "@/components/sections/TextSection";
+import { MapEmbed } from "@/components/sections/MapEmbed";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { loadContent } from "@/lib/content/loader";
 import type { Locale } from "@/lib/i18n/routing";
@@ -48,6 +49,14 @@ export default async function BeteiligungPage({
           />
         ))}
       </div>
+
+      <MapEmbed
+        eyebrow={t("map.eyebrow")}
+        heading={t("map.heading")}
+        caption={t("map.caption")}
+        mapUrl="https://www.google.com/maps/d/embed?mid=1WQiyQkmVpOG9CNYfLoEj3qNlGg52xo8&ehbc=2E312F"
+        title={t("map.title")}
+      />
 
       <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 pb-24 pt-8 sm:px-6 lg:px-8">
         <div className="flex flex-wrap gap-3">

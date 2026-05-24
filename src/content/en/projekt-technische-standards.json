@@ -14,7 +14,10 @@
       "body": [
         "Theatres usually publish their programmes through CMS, planning or ticketing systems. The web agency or in-house IT team maps the backend fields to the ORIF data model once.",
         "The programme is then also provided as a machine-readable JSON link. The visible website remains unchanged, while platforms, archives and other services can retrieve the data automatically."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/21915b7e6eb332219ce1ba7a1cddaef37f2aa6f1-1518x1085.jpg",
+      "imageAlt": "Black-and-white shot from theatre operations – programme data becomes an interface.",
+      "imageCaption": "From the editorial system to a machine-readable interface"
     },
     {
       "eyebrow": "Standard",
@@ -22,7 +25,10 @@
       "body": [
         "The Open Repertoire Interchange Format (ORIF) builds on Schema.org so event data can be captured and exchanged consistently. The goal is an open, licence-free standard aligned with the needs of cultural practitioners.",
         "ORIF distinguishes between creative work data and event data: production team, source material and descriptions on one side; venue, date, ticket information and daily cast on the other."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/6f9d01073701afcfacfd726f9e603f70d4a202e2-1520x1085.jpg",
+      "imageAlt": "Black-and-white shot – structuring creative-work and event data in the ORIF model.",
+      "imageCaption": "The ORIF data model: creative-work and event data"
     },
     {
       "eyebrow": "Connection",
@@ -49,17 +55,24 @@
       ]
     }
   ],
+  "media": {
+    "comic": {
+      "eyebrow": "Comic",
+      "heading": "The principle as a comic"
+    },
+    "video": {
+      "eyebrow": "Comic clip",
+      "heading": "Explained in two minutes",
+      "caption": "The comic clip introduces machine-readable programmes with no prior knowledge required – ideal as a starting point for editorial teams and decision-makers.",
+      "youtubeId": "cCCa7Yuzaf0",
+      "title": "Comic clip: machine-readable theatre programmes"
+    }
+  },
   "resources": {
     "eyebrow": "Resources",
     "heading": "Tools for implementation",
     "lead": "The key materials and tools for web agencies, developers, editorial teams and decision-makers are available publicly.",
     "items": [
-      {
-        "title": "Comic clip",
-        "body": "An accessible introduction to machine-readable theatre programmes without technical prerequisites.",
-        "href": "https://www.youtube.com/watch?v=cCCa7Yuzaf0&t=2s",
-        "label": "Watch clip"
-      },
       {
         "title": "Information package",
         "body": "Project flyer and presentation material for internal stakeholder conversations.",

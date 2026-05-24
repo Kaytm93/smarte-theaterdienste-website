@@ -18,6 +18,14 @@ const ROUTE_RENAMES: Array<{ from: string; to: string }> = [
   { from: "/en/participation", to: "/en/join" },
   { from: "/en/participation/use-cases", to: "/en/join/use-cases" },
   { from: "/en/participation/contribute", to: "/en/join/contribute" },
+  // M17 Welle 2: Team-Umbenennung (Ansprechpersonen -> Team)
+  { from: "/de/ansprechpersonen", to: "/de/team" },
+  { from: "/en/contact-persons", to: "/en/team" },
+  // M17 Welle 2: Blog + Termine als Zeitstrahl in die Konzeption gezogen
+  { from: "/de/termine", to: "/de/konzeption" },
+  { from: "/en/events", to: "/en/concept" },
+  { from: "/de/blog", to: "/de/konzeption" },
+  { from: "/en/blog", to: "/en/concept" },
 ];
 
 const nextConfig: NextConfig = {

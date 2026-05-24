@@ -1,5 +1,26 @@
 # 📝 Changelog
 
+## 2026-05-24 — Session 29: M17 Welle 2 — Unterseiten nach Feedback 14.5.2026
+
+**Commit-SHA:** (folgt)
+
+**Quelle:** dieselbe User-Lieferung wie Welle 1 (`Anmerkungen Entwurf 14.5.2026.md` + CI aus `Design-Vorlage.md`/`STD-Colors+Fonts.pdf`). Welle 2 arbeitet den noch offenen Unterseiten-Backlog ab. Zu Beginn wurde der ungemergte Welle-1-Commit `b7ade71` per Fast-Forward auf `main` gezogen (vorher lag `main` noch auf M16 `f109bf2`).
+
+**Bildmaterial:** Echte Schwarzweiß-Fotos aus dem alten Sanity-CDN (`lc7slax2/production`, bereits in `next.config.ts` erlaubt), per `grayscale` gerendert.
+
+- **Schritt 1 — Konzeption (`/konzeption`).** `TextSection` um optionale `image`/`imageAlt`/`imageCaption` erweitert (Figur mit `grayscale`, Caption-Leiste). Drei CI-Fotos in `projekt.json` (DE/EN): Vorhang (`a282b057…`), effizientere Prozesse (`dba1d1e8…`), größere Reichweite (`67a55bce…`). Team-Block (`<TeamGrid>`) als Abschnitt „Hinter dem Projekt" unten eingebettet. Neuer Zeitstrahl-Abschnitt (siehe Schritt 6). Seite holt jetzt `listPastEvents` (Supabase, `revalidate=60`).
+- **Schritt 2 — Technische Standards.** Comic + Video direkt eingebettet statt hinter Buttons: `<VideoEmbed>` für den Comic-Clip (`cCCa7Yuzaf0`) + `<ComicStrip>` (Frames aus `landing.json` wiederverwendet). Comic-Clip aus den `ResourceLinkGrid`-Karten entfernt (nur noch echte Downloads/Tools: Infomaterial, Musterkalkulation, ORIF-Doku, Validator, Lektoratstool). Zwei Datenmodell-/Prozess-Fotos (`21915b7e…`, `6f9d0107…`) in die Sektionen.
+- **Schritt 3 — Jetzt mitmachen.** Neue Komponente `MapEmbed.tsx` bettet die Google-MyMaps-Karte (`mid=1WQiyQkmVpOG9CNYfLoEj3qNlGg52xo8`) als lazy iframe im CI-Rahmen ein. Bestehende Marken-`PartnerMap` auf `…/mitwirkung` bleibt unverändert.
+- **Schritt 4 — FAQ.** `FaqAccordion` gruppiert jetzt nach `category` (Supabase-Spalte) mit Zwischenüberschriften + Quick-Jump-Nav. Vier lokalisierte Kategorien in `messages` (`pages.faq.categories`): Grundwissen, Technik & Sicherheit, Umsetzung & Kosten, Datenraum Kultur.
+- **Schritt 5 — Team.** Route `ansprechpersonen` → `team` (DE+EN `/team`), 308-Redirects `/ansprechpersonen`→`/team`, `/contact-persons`→`/team`. Telefon/E-Mail aus `ContactCard` + `team.json` entfernt. `ContactCard` cross-fadet Portrait → optionales Bühnenfoto (`stage`-Feld) bei Hover/Focus, `motion-reduce`-safe; Fallback = verfeinerter Zoom-Hover. Footer-Nav: Blog/Termine raus, `/team` rein. `messages` `pages.ansprechpersonen` → `pages.team`, `team.stageAlt` ergänzt, Phone/Mail-Labels entfernt.
+- **Schritt 6 — Blog + Termine → Zeitstrahl.** Neue Komponente `Timeline.tsx`: vertikaler CI-Zeitstrahl aus `events` (Supabase) + eingebettetes Genially (`view.genially.com/67531f7a9e5b6c42deba21f3`) als Vertiefung. Eingebunden als Abschnitt `#zeitstrahl` in Konzeption. Alt-Routen `/blog` + `/termine` per 308 auf `/konzeption` umgeleitet (DE) bzw. `/concept` (EN); `sitemap.ts` listet `/team` statt `/ansprechpersonen` und nicht mehr `/blog`/`/termine` (Blog-Detailseiten bleiben über `postEntries`).
+
+**Abweichungen vom Backlog:** Zeitstrahl als Abschnitt in `/konzeption` (nicht eigene Route `/konzeption/zeitstrahl`) — entspricht der User-Entscheidung „Beides kombinieren". Team-Hover als JS-Cross-Fade mit optionalem `stage`-Bild (nicht reines CSS-Curtain), da keine Bühnenfotos auffindbar.
+
+**Offen:** 4 Bühnen-Foto-URLs (Sanity) für den vollen Team-Hover fehlen — Mechanik liegt bereit, aktuell Zoom-Fallback. Alt-Page-Files `blog/page.tsx` + `termine/page.tsx` bleiben als (per Redirect unerreichbare) Dead-Files liegen; können später entfernt werden.
+
+**Verifikation:** `pnpm exec tsc --noEmit` clean (nur stale `.next/types`-Altlasten, durch frischen Build behoben). `pnpm build`: TypeScript ✓ (23,6 s), Compile ✓ (63 s); Build bricht nur bei `/icon` ab — `@vercel/og` `ETIMEDOUT` (kein Netz in der Sandbox, kein Code-Fehler; auf Vercel unkritisch). Dev-Server-Smoke: `/de/konzeption`, `/de/team`, `/de/faq`, `/de/jetzt-mitmachen`, `/de/konzeption/technische-standards` HTTP 200; Redirects `/de/ansprechpersonen`→`/de/team`, `/de/termine`+`/de/blog`→`/de/konzeption`, `/en/contact-persons`→`/en/team` alle 308. HTML-/DOM-Checks: Team-Seite ohne `tel:`/`mailto:`, 4 FAQ-Kategorien + Quick-Nav, MyMaps-iframe, Comic-Clip-iframe + 3 Comic-Frames, Konzeption mit 3 `grayscale(1)`-Fotos + Timeline (5 Events) + Genially. Top-Screenshot `/de/konzeption` bestätigt CI (Bühnenverein-Logo, 4-Item-Nav, Public Sans, Purple-Akzent).
+
 ## 2026-05-19 — Session 28: M17 Welle 1 — CI-Refresh + Nav-Restructure + Landing-Redesign
 
 **Quellen:**

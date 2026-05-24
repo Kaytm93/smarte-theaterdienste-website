@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { PageHero } from "@/components/sections/PageHero";
-import { FaqAccordion } from "@/components/sections/FaqAccordion";
+import { FaqAccordion, type FaqGroup } from "@/components/sections/FaqAccordion";
 import { ComingSoonHero } from "@/components/sections/ComingSoonHero";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { listPublishedFaqs } from "@/lib/supabase/queries";
+import { listPublishedFaqs, type FaqItem } from "@/lib/supabase/queries";
 import type { Locale } from "@/lib/i18n/routing";
 import { pageMetadata } from "@/lib/seo/alternates";
 
@@ -50,11 +50,35 @@ export default async function FaqPage({
     );
   }
 
+  const tCat = await getTranslations("pages.faq.categories");
+  const CATEGORY_LABELS: Record<string, string> = {
+    grundwissen: tCat("grundwissen"),
+    "technik-sicherheit": tCat("technik-sicherheit"),
+    "umsetzung-kosten": tCat("umsetzung-kosten"),
+    "datenraum-kultur": tCat("datenraum-kultur"),
+  };
+
+  const order: string[] = [];
+  const byCategory = new Map<string, FaqItem[]>();
+  for (const faq of faqs) {
+    const key = faq.category ?? "_other";
+    if (!byCategory.has(key)) {
+      byCategory.set(key, []);
+      order.push(key);
+    }
+    byCategory.get(key)!.push(faq);
+  }
+  const groups: FaqGroup[] = order.map((key) => ({
+    key,
+    label: CATEGORY_LABELS[key] ?? null,
+    items: byCategory.get(key)!,
+  }));
+
   return (
     <>
       <PageHero kicker={t("kicker")} title={t("title")} lead={t("lead")} />
       <section className="mx-auto max-w-4xl px-4 pb-20 pt-10 sm:px-6 lg:px-8">
-        <FaqAccordion faqs={faqs} />
+        <FaqAccordion groups={groups} />
       </section>
     </>
   );

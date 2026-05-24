@@ -11,6 +11,8 @@
 
 | Datum       | Milestone / Thema                             | Datei                                                              |
 | ----------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| 2026-05-24  | M17 Welle 2 — Unterseiten nach Feedback       | [[SESSION_2026-05-24]]                                             |
+| 2026-05-19  | M17 Welle 1 — CI + Nav + Landing              | [[SESSION_2026-05-19]]                                             |
 | 2026-05-15  | M16 Editorial-Visual-Polish                   | [[SESSION_2026-05-15_M16-Editorial-Visual-Polish]]                 |
 | 2026-05-11  | M15 Production-Deploy                         | [[SESSION_2026-05-11_M15-Production-Deploy]]                       |
 | 2026-05-11  | M15 Visual-QA-Polish                          | [[SESSION_2026-05-11_M15-Visual-QA-Polish]]                        |

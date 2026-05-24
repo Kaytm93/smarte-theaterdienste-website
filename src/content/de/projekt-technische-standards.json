@@ -14,7 +14,10 @@
       "body": [
         "Theater veröffentlichen ihre Spielpläne meist über CMS-, Dispositions- oder Ticketing-Systeme. Die Webagentur oder Inhouse-IT verknüpft die Felder im Backend einmalig mit dem ORIF-Datenmodell.",
         "Danach wird der Spielplan zusätzlich als maschinenlesbarer JSON-Link bereitgestellt. Die sichtbare Website bleibt unverändert, aber Plattformen, Archive und andere Dienste können die Daten automatisiert abrufen."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/21915b7e6eb332219ce1ba7a1cddaef37f2aa6f1-1518x1085.jpg",
+      "imageAlt": "Schwarzweiß-Aufnahme aus dem Theaterbetrieb – Spielplandaten werden zur Schnittstelle.",
+      "imageCaption": "Vom Redaktionssystem zur maschinenlesbaren Schnittstelle"
     },
     {
       "eyebrow": "Standard",
@@ -22,7 +25,10 @@
       "body": [
         "Das Open Repertoire Interchange Format (ORIF) baut auf Schema.org auf, damit Veranstaltungsdaten einheitlich erfasst und ausgetauscht werden können. Ziel ist ein offener, lizenzkostenfreier Standard, der an den Bedarfen der Kulturschaffenden ausgerichtet ist.",
         "ORIF unterscheidet Werkdaten und Aufführungsdaten: Produktionsteam, Textvorlage und Beschreibung auf der einen Seite; Ort, Datum, Ticketinformation und Tagesbesetzung auf der anderen Seite."
-      ]
+      ],
+      "image": "https://cdn.sanity.io/images/lc7slax2/production/6f9d01073701afcfacfd726f9e603f70d4a202e2-1520x1085.jpg",
+      "imageAlt": "Schwarzweiß-Aufnahme – Strukturierung von Werk- und Aufführungsdaten im ORIF-Datenmodell.",
+      "imageCaption": "Das ORIF-Datenmodell: Werk- und Aufführungsdaten"
     },
     {
       "eyebrow": "Anbindung",
@@ -49,17 +55,24 @@
       ]
     }
   ],
+  "media": {
+    "comic": {
+      "eyebrow": "Comic",
+      "heading": "Das Prinzip als Comic"
+    },
+    "video": {
+      "eyebrow": "Comic-Clip",
+      "heading": "In zwei Minuten erklärt",
+      "caption": "Der Comic-Clip führt ohne Vorkenntnisse in maschinenlesbare Spielpläne ein – ideal als Einstieg für Redaktionen und Entscheider:innen.",
+      "youtubeId": "cCCa7Yuzaf0",
+      "title": "Comic-Clip: Maschinenlesbare Spielpläne"
+    }
+  },
   "resources": {
     "eyebrow": "Material",
     "heading": "Generalproben der Implementierung",
     "lead": "Für Webagenturen, Entwickler:innen, Redaktionen und Entscheider:innen liegen die wichtigsten Materialien und Werkzeuge öffentlich bereit.",
     "items": [
-      {
-        "title": "Comic-Clip",
-        "body": "Ein verständlicher Einstieg in maschinenlesbare Spielpläne ohne technische Vorkenntnisse.",
-        "href": "https://www.youtube.com/watch?v=cCCa7Yuzaf0&t=2s",
-        "label": "Zum Comic-Clip"
-      },
       {
         "title": "Infomaterial",
         "body": "Projektflyer und Präsentation für interne Überzeugungsarbeit im Haus.",

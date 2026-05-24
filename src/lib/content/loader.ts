@@ -53,7 +53,15 @@ export function loadContent<K extends ContentKey>(
   return (bundle[locale] ?? bundle.de) as (typeof REGISTRY)[K]["de"];
 }
 
-export type TeamMember = (typeof deTeam)["members"][number];
+export type TeamMember = {
+  id: string;
+  name: string;
+  role: string;
+  portrait: string;
+  /** Optionales Bühnenfoto, das beim Hover über das Portrait eingeblendet wird. */
+  stage?: string;
+  quote?: string;
+};
 export type ProjektContent = typeof deProjekt;
 export type StandardsContent = typeof deTechnischeStandards;
 export type BeteiligungContent = typeof deBeteiligung;
