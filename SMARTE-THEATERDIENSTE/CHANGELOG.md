@@ -2,7 +2,7 @@
 
 ## 2026-05-24 — Session 29: M17 Welle 2 — Unterseiten nach Feedback 14.5.2026
 
-**Commit-SHA:** (folgt)
+**Commit-SHA:** `86dc4d8`
 
 **Quelle:** dieselbe User-Lieferung wie Welle 1 (`Anmerkungen Entwurf 14.5.2026.md` + CI aus `Design-Vorlage.md`/`STD-Colors+Fonts.pdf`). Welle 2 arbeitet den noch offenen Unterseiten-Backlog ab. Zu Beginn wurde der ungemergte Welle-1-Commit `b7ade71` per Fast-Forward auf `main` gezogen (vorher lag `main` noch auf M16 `f109bf2`).
 
