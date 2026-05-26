@@ -91,19 +91,26 @@
 
 ## 📋 Was Claude beim nächsten Mal tun soll
 
-**Default-Nächster-Schritt: M17 Welle 2 — Page-Redesigns + Team-Relocation + Zeitstrahl.** Welle 1 (CI-Refresh + Nav-Restructure + Landing-Redesign) ist lokal validiert; alte URLs 308-redirected. Wichtige offene User-Anmerkungen aus `Anmerkungen Entwurf 14.5.2026.md`:
+**Default-Nächster-Schritt: Go-Live von Welle 1+2 verifizieren, dann Welle 3 (Asset-/Content-Vervollständigung).** Welle 1 (CI/Nav/Landing) und Welle 2 (Unterseiten nach Feedback 14.5.2026) sind lokal validiert und auf `origin/main` gepusht (`fc77adf`). Vollständiger Plan mit Akzeptanzkriterien: siehe [[ROADMAP#🗺️ M18 — Welle 3 + Go-Live (Plan, Stand 2026-05-24)]]. Kurzfassung nach Priorität:
 
-1. **Konzeption** — mehr Bilder, weniger Text; ein bis zwei erklärende Grafiken.
-2. **Technische Standards** — Comic-Clip und Image-Video direkt embedden statt verstecken; ggf. zusätzliche Grafiken zu Schema.org/ORIF.
-3. **Jetzt mitmachen** — zusätzlich zur bestehenden `PartnerMap` einen Google-Maps-iframe einbauen (Embed-URL: `https://www.google.com/maps/d/embed?mid=1WQiyQkmVpOG9CNYfLoEj3qNlGg52xo8&ehbc=2E312F`).
-4. **FAQ** — Kategorien einführen (Supabase-Column `category` schon vorhanden, nur Component+Messages-Update nötig).
-5. **Team-Relocation** — Phone/Mail aus `ContactCard` raus, `TeamGrid` unter Konzeption eingebettet, Theater-Bühnen-CSS-Hover (Purple-Wash + Curtain) als reines CSS umgesetzt.
-6. **Zeitstrahl** — neue Route `/konzeption/zeitstrahl` (DE) / `/concept/timeline` (EN), kombiniert Blog-Posts + Events chronologisch, Genially-Embed `https://view.genially.com/67531f7a9e5b6c42deba21f3`.
+**🔴 P1 — Go-Live-kritisch:**
+1. **Production-Deploy prüfen.** Der `main`-Push sollte den Vercel-Auto-Deploy ausgelöst haben. Alias-Smoke auf `https://smarte-theaterdienste-website.vercel.app`: `/de/konzeption`, `/de/team`, `/de/faq`, `/de/jetzt-mitmachen`, `/de/konzeption/technische-standards` → HTTP 200; Redirects `/de/ansprechpersonen`→`/de/team`, `/de/termine`+`/de/blog`→`/de/konzeption` → 308; EN-Pendants. **Wichtig:** Lokal scheiterte nur `/icon`/OG am fehlenden Sandbox-Netz (`@vercel/og` `ETIMEDOUT`) — auf Vercel (mit Netz) muss der Build durchlaufen; falls nicht, dort die Build-Logs prüfen.
+2. **Team-Bühnen-Hover vervollständigen.** 4 Sanity-Bühnenfoto-URLs beschaffen → in `src/content/{de,en}/team.json` je Member `"stage": "https://cdn.sanity.io/images/lc7slax2/production/..."`. Der `ContactCard`-Cross-Fade (Portrait→Bühne) ist fertig; sobald `stage` gesetzt ist, läuft der Hover. Bis dahin Zoom-Fallback.
 
-Danach Production-Deploy + Custom-Domain-DNS auf Vercel.
-**Optionale Mini-Tasks vor dem nächsten Milestone:**
-- **Custom Domain planen:** Falls `smarte-theaterdienste.de` auf das neue Projekt zeigen soll, Domain in Vercel hinzufügen und DNS umstellen.
-- **Partner-`website_url`/`logo_url` in Supabase nachpflegen** — aktuell nur Geo-Coords gesetzt.
+**🟡 P2 — Inhalt & Recht (vom Auftraggeber abhängig):**
+3. **Erklärende Grafiken** aus `STD-Design-Praesentation-20241028.pdf` (User liefert) auf Konzeption/Technische Standards einbauen — über das neue `TextSection.image`-Feld oder eine eigene Grafik-Komponente (Feedback: „erklärende Grafik").
+4. **Finale Impressum-/Datenschutz-Texte** vom Bühnenverein (ersetzen die TODO-Marker, ADR-25).
+5. **Event-Fotos für die Timeline** — Schema `events.image_url` + Query + `Timeline`-Render ergänzen (Layout-Platz ist vorgesehen).
+
+**🟢 P3 — Aufräumen & Verfeinerung:**
+6. **Dead-Files entfernen:** `src/app/[locale]/{blog,termine}/page.tsx` sind seit Welle 2 nur noch 308-Redirect-Ziele; `EventCard`/`PostCard` auf Verwendung prüfen (`blog/[slug]` bleibt aktiv, also Routing-Key `/blog` behalten).
+7. **A11y-/Performance-Recheck** nach den neuen iframes (MyMaps, Genially, YouTube): Lighthouse + axe auf `/de/konzeption` und `/de/jetzt-mitmachen` (Embeds haben `title` + `loading="lazy"`).
+8. **Mobile-QA** der Embeds auf 375 px: MyMaps/Genially/Timeline ohne Horizontal-Overflow.
+9. **Karten-Daten abgleichen:** Zeigt die Google-MyMaps-Karte dieselben Standorte wie die Supabase-`PartnerMap` auf `/jetzt-mitmachen/mitwirkung`? Konsolidieren oder bewusst zwei Sichten behalten.
+
+**⚪ Langstehend (Infra):**
+10. **Custom-Domain** `smarte-theaterdienste.de` auf Vercel umstellen (DNS A/CNAME) — erst danach sind Deploys auf der echten Domain sichtbar. Siehe [[GO_LIVE_CHECKLIST]] + [[PROBLEME]].
+11. **Partner-`website_url`/`logo_url` in Supabase nachpflegen** (aktuell nur Geo-Coords) — sonst fehlt der „Zur Website"-Link auf der `PartnerMap`.
 
 **Bekannte Restposten in M4 (kein Blocker):**
 - `.returns<T>()`-Casts in `queries.ts` bewusst behalten als explizite Row-Annotation (siehe Header-Kommentar). Können bei Bedarf entfernt werden.

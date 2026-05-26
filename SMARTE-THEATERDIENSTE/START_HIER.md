@@ -20,7 +20,7 @@
 ## Schnellzugriff
 - [[PROBLEME#🔴 Offen|🔴 Offene Bugs]]
 - [[DASHBOARD#📋 Was Claude beim nächsten Mal tun soll|📋 Aufgaben für Claude]]
-- [[ROADMAP|💡 Milestones M1–M8]]
+- [[ROADMAP|💡 Milestones M1–M18 + Welle-3-Plan]]
 - [[INHALTE|📄 Inhalte & Tonality]]
 - [[KONTEXT#Wichtigste Dateipfade|📁 Dateipfade]]
 - [[GO_LIVE_CHECKLIST|🚀 Go-live-Checkliste]]

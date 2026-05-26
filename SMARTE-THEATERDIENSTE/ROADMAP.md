@@ -1,4 +1,4 @@
-# 🗺️ Roadmap — Milestones M1 bis M8
+# 🗺️ Roadmap — Milestones M1 bis M18
 
 | #     | Status        | Milestone                  | Output                                                                                |
 | ----- | ------------- | -------------------------- | ------------------------------------------------------------------------------------- |
@@ -10,6 +10,13 @@
 | **M6**| ✅ done       | Animation-Polish           | Comic-Strip-Stagger, Hero-Choreografie, Card-Hover, View Transitions, Reduced-Motion |
 | **M7**| ✅ done       | i18n EN                    | EN-Copy-Review, vollständige statische EN-Struktur, Supabase-Blog-Translations       |
 | **M8**| ✅ done       | Production-Polish          | SEO, OG-Images, Sitemap, Robots, CI, Lighthouse/A11y production-validiert            |
+| **M9**| ✅ done       | PWA + OG + Lighthouse-CI   | Manifest, Per-Post-OG-Images, wöchentlicher Lighthouse-CI-Workflow                    |
+| **M10**| ✅ done      | Design-Refresh + Assets    | Echte Hero-/Comic-/Logo-Assets, Card-Polish                                           |
+| **M11**| ✅ done      | Original-Site-Transfer     | DACH-Netzwerkkarte, 141er-Statistik, ORIF-Materialien, Portraits, 21 FAQ + 4 Events   |
+| **M12–M16**| ✅ done  | QA-/UX-/Editorial-Polish   | Miro-QA, Deutschlandkarte, Editorial-Redesign + Feinschliff, mehrere Production-Deploys |
+| **M17 W1**| ✅ done   | CI-Refresh + Nav + Landing | Public Sans, Black-Gray-Purple-CI, 4-Item-Menü, neue Slugs + 308-Redirects, `/materialien`, Bühnenverein-Lockup, Video, Zitate |
+| **M17 W2**| ✅ done   | Unterseiten nach Feedback  | Konzeption bebildert + Team + Zeitstrahl, Comic/Video eingebettet, MyMaps, FAQ-Kategorien, Team-Umzug, Blog+Termine→Timeline |
+| **M18**| 📋 geplant   | Welle 3 + Go-Live          | Deploy-Verifikation, Team-Bühnenfotos, Grafiken/Rechtstexte, Aufräumen, A11y-Recheck, Custom-Domain |
 
 ---
 
@@ -129,3 +136,40 @@
 - [ ] Vercel-GitHub-Integration im Dashboard verbinden (CLI scheitert an GitHub-App/Rechten)
 - [ ] Custom Domain konfigurieren
 - [x] CI: GitHub Actions mit `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`
+
+---
+
+## 🗺️ M18 — Welle 3 + Go-Live (Plan, Stand 2026-05-24)
+
+Welle 1 (CI/Nav/Landing) und Welle 2 (Unterseiten nach Feedback 14.5.2026) sind auf `origin/main` (`fc77adf`). M18 schließt die Inhalts-/Asset-Lücken und bringt das Projekt live. Priorisiert; Akzeptanzkriterien je Punkt.
+
+### 🔴 P1 — Go-Live-kritisch
+
+- [ ] **Production-Deploy von Welle 1+2 verifizieren.**
+  - Der `main`-Push sollte den Vercel-Auto-Deploy ausgelöst haben (GitHub-Integration verbunden).
+  - Akzeptanz: Alias-Smoke auf `https://smarte-theaterdienste-website.vercel.app` → `/de/konzeption`, `/de/team`, `/de/faq`, `/de/jetzt-mitmachen`, `/de/konzeption/technische-standards` HTTP 200; Redirects `/de/ansprechpersonen`→`/de/team`, `/de/termine`+`/de/blog`→`/de/konzeption` 308; EN-Pendants 200/308.
+  - ⚠️ Lokal scheiterte nur `/icon`/OG-Build an fehlendem Sandbox-Netz (`@vercel/og` `ETIMEDOUT`). Auf Vercel (mit Netz) muss der Build durchlaufen — falls der Deploy fehlschlägt, die Vercel-Build-Logs prüfen.
+- [ ] **Team-Bühnen-Hover vervollständigen.**
+  - 4 Sanity-Bühnenfoto-URLs beim User/Bühnenverein beschaffen (alte Live-Seite zeigt den Team-Block nicht mehr → nicht automatisch auffindbar).
+  - Umsetzung: je Member in `src/content/{de,en}/team.json` `"stage": "https://cdn.sanity.io/images/lc7slax2/production/..."`.
+  - Akzeptanz: Hover/Focus über ein Portrait blendet das Bühnenfoto ein (`ContactCard`-Cross-Fade ist bereits implementiert, `motion-reduce`-safe). Bis dahin Zoom-Fallback.
+
+### 🟡 P2 — Inhalt & Recht (vom Auftraggeber abhängig)
+
+- [ ] **Erklärende Grafiken** aus `STD-Design-Praesentation-20241028.pdf` (User liefert PDF/Assets) auf Konzeption + Technische Standards einbauen. Umsetzung über das neue `TextSection.image`-Feld oder eine eigene Diagramm-Komponente (z. B. Schema.org→GND→JSON→ORIF-Flow). Feedback: „erklärende Grafik" + „trockenes, technisches Thema".
+- [ ] **Finale Impressum-/Datenschutz-Texte** vom Bühnenverein einpflegen → ersetzt die sichtbaren TODO-Marker (`legal.json`, ADR-25).
+- [ ] **Event-Fotos für die Timeline.** Schema `events.image_url` ergänzen (Migration + `gen:types`), `listPastEvents`/`EventListItem` + `Timeline` um das Bildfeld erweitern (Layout-Platz vorgesehen). Feedback: „Fotos von den Events".
+
+### 🟢 P3 — Aufräumen & Verfeinerung
+
+- [ ] **Dead-Files entfernen:** `src/app/[locale]/{blog,termine}/page.tsx` sind seit Welle 2 nur noch 308-Redirect-Ziele. Prüfen, ob `EventCard`/`PostCard` danach noch verwendet werden (`blog/[slug]` bleibt aktiv → Routing-Key `/blog` behalten).
+- [ ] **A11y-/Performance-Recheck** nach den neuen iframes (Google MyMaps, Genially, YouTube): Lighthouse + axe auf `/de/konzeption` und `/de/jetzt-mitmachen`. Embeds haben bereits `title` + `loading="lazy"`; Performance-Impact der drei Embeds messen, ggf. „Click-to-load"-Pattern erwägen.
+- [ ] **Mobile-QA** der Embeds auf 375 px: MyMaps, Genially und Timeline ohne Horizontal-Overflow; Timeline-Dots/Linie sauber.
+- [ ] **Karten-Daten abgleichen:** Zeigt die Google-MyMaps-Karte (`/jetzt-mitmachen`) dieselben Standorte wie die Supabase-`PartnerMap` (`/jetzt-mitmachen/mitwirkung`)? Konsolidieren oder bewusst zwei Sichten (kuratierte MyMaps vs. Marken-SVG) behalten und das im Copy erklären.
+
+### ⚪ Langstehend (Infrastruktur)
+
+- [ ] **Custom-Domain `smarte-theaterdienste.de` auf Vercel umstellen** (DNS A/CNAME). Erst danach sind Repo-Pushes/Deploys auf der echten Domain sichtbar (aktuell alte A-Records `167.235.107.225`/`159.69.6.148`). Siehe [[GO_LIVE_CHECKLIST]] + [[PROBLEME]].
+- [ ] **Partner-`website_url`/`logo_url` in Supabase nachpflegen** (aktuell nur Geo-Coords) — sonst fehlt der „Zur Website"-Link auf der `PartnerMap`.
+
+> Reihenfolge-Empfehlung: P1 zuerst (Deploy grün + Hover-URLs), dann P2 sobald Auftraggeber-Assets/Texte da sind, P3 als Polish-Pass, Custom-Domain wenn der Auftraggeber den DNS-Wechsel freigibt.
