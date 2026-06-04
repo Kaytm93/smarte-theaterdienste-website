@@ -102,8 +102,11 @@
 1. ✅ ~~Production-Deploy~~ — Session 30 erledigt (`dpl_3ADeq7ZBDpFBJp2ozmERAxjc5ZF2`).
 2. **Team-Bühnen-Hover vervollständigen.** 4 Sanity-Bühnenfoto-URLs beschaffen → in `src/content/{de,en}/team.json` je Member `"stage": "https://cdn.sanity.io/images/lc7slax2/production/..."`. Der `ContactCard`-Cross-Fade (Portrait→Bühne) ist fertig; sobald `stage` gesetzt ist, läuft der Hover. Bis dahin Zoom-Fallback.
 
-**🟡 P2 — Inhalt & Recht (vom Auftraggeber abhängig):**
-3. **Erklärende Grafiken** aus `STD-Design-Praesentation-20241028.pdf` (User liefert) auf Konzeption/Technische Standards einbauen — über das neue `TextSection.image`-Feld oder eine eigene Grafik-Komponente (Feedback: „erklärende Grafik").
+**🟡 P2 — Inhalt & Recht (Assets gesichtet 2026-06-04, Implementierung offen):**
+PDFs liegen unter `~/Downloads/Website DRK.pdf` (5 Seiten) und `~/Downloads/STD-Design-Praesentation-20241028.pdf` (11 Seiten). Vollständige Sichtungs-Ergebnisse + Akzeptanzkriterien in [[ROADMAP#🟡 P2 — Inhalt & Recht (Assets gesichtet 2026-06-04, Implementierung offen)]]. Drei daraus abgeleitete Bau-Tasks:
+3a. **SVG-Diagramm „ORIF-Datenflow"** auf `/konzeption/technische-standards` — Vorlage `Website DRK.pdf` Seite 1 (Prozessarchitektur Theater Dortmund), neu gezeichnet in CI (Black/Gray/Purple, Public Sans, responsive).
+3b. **Theater-Wortwitz-Pattern** systematisieren — `STD-Design-Praesentation` Seite 4 etabliert Headlines wie „Theaterreif!", „Bühne frei", „Der Vorhang zu und alle Fragen offen?" als Designprinzip. Aktuell nur einmal genutzt; als `wordplay`-Namespace in `messages/{de,en}.json` + Section-Eyebrows ausspielen.
+3c. **Comic-Strip erweitern (optional)** — 3 weitere Frames von Max Kersting aus `STD-Design-Praesentation` Seite 5, falls der Bühnenverein die Original-Assets bereitstellt.
 4. **Finale Impressum-/Datenschutz-Texte** vom Bühnenverein (ersetzen die TODO-Marker, ADR-25).
 5. **Event-Fotos für die Timeline** — Schema `events.image_url` + Query + `Timeline`-Render ergänzen (Layout-Platz ist vorgesehen).
 

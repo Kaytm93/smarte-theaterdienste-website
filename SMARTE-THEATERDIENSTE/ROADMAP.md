@@ -151,9 +151,17 @@ Welle 1 (CI/Nav/Landing) und Welle 2 (Unterseiten nach Feedback 14.5.2026) sind 
   - Umsetzung: je Member in `src/content/{de,en}/team.json` `"stage": "https://cdn.sanity.io/images/lc7slax2/production/..."`.
   - Akzeptanz: Hover/Focus über ein Portrait blendet das Bühnenfoto ein (`ContactCard`-Cross-Fade ist bereits implementiert, `motion-reduce`-safe). Bis dahin Zoom-Fallback.
 
-### 🟡 P2 — Inhalt & Recht (vom Auftraggeber abhängig)
+### 🟡 P2 — Inhalt & Recht (Assets gesichtet 2026-06-04, Implementierung offen)
 
-- [ ] **Erklärende Grafiken** aus `STD-Design-Praesentation-20241028.pdf` (User liefert PDF/Assets) auf Konzeption + Technische Standards einbauen. Umsetzung über das neue `TextSection.image`-Feld oder eine eigene Diagramm-Komponente (z. B. Schema.org→GND→JSON→ORIF-Flow). Feedback: „erklärende Grafik" + „trockenes, technisches Thema".
+**PDF-Sichtung 2026-06-04:** Zwei PDFs vom User vorhanden (`~/Downloads/`):
+- `Website DRK.pdf` (5 Seiten) — Workshop-Material, **Seite 1** = „Prozessarchitektur Spielplan-Online-Stellung am Theater Dortmund" (dreispaltiges Flussdiagramm Sparten → KBB → ORIF/Schema.org-Outputs). Vermerk im PDF: „nur zur Recherche, soll so nicht auf die Website" → als Vorlage für Neuzeichnung im CI nutzen.
+- `STD-Design-Praesentation-20241028.pdf` (11 Seiten) — Designkonzept von Mikalo × Diesdas. Validiert unsere Welle-1-CI (Public Sans + Black-Gray-Purple). **Seite 4** zeigt Theater-Wortwitz als Headline-Pattern, **Seite 5** zeigt 3 zusätzliche Comic-Sprechblasen-Frames (über die hinaus, die wir bereits nutzen).
+
+Daraus folgende P2-Tasks:
+
+- [ ] **3a. SVG-Diagramm „ORIF-Datenflow"** als eigene Komponente auf `/konzeption/technische-standards`. Vorlage: `Website DRK.pdf` Seite 1; neu zeichnen im CI (Black/Gray/Purple, Public Sans) statt türkis. Layout idealerweise als responsive SVG (3 Spalten Desktop, vertikaler Stack mobile). Akzeptanz: Spartensäule (Schauspiel/Oper/Orchester/Ballett/Kinder+Jugend) → KBB-Box → Output-Säule (Theaterwebsite, Ticketing, Datenraum Kultur via ORIF/Schema.org). Komponente reusable, evtl. später auch auf `/konzeption` als Teaser.
+- [ ] **3b. Theater-Wortwitz-Pattern systematisieren.** `STD-Design-Praesentation` Seite 4 etabliert Headlines wie „Kein großer Akt", „Theaterreif!", „Bühne frei", „Was für ein Theater!", „Manuelle Spielplan Updates auf allen Plattformen?" als Designprinzip. Wir nutzen aktuell nur „Bühne frei für …" (FeatureGrid). Vorschlag: in `messages/de.json`/`en.json` einen `wordplay`-Namespace mit Eyebrows/Section-Headlines anlegen, und an passenden Stellen einsetzen (z.B. FAQ-Eyebrow „Der Vorhang zu und alle Fragen offen?", Mitmachen-Eyebrow „Bühne frei für Ihr Haus", Konzeption-Eyebrow „Großer Akt für …").
+- [ ] **3c. Comic-Strip erweitern (optional, vom Auftraggeber abhängig).** `STD-Design-Praesentation` Seite 5 zeigt mindestens 3 weitere Sprechblasen-Frames von Max Kersting („Yes, wir sind jetzt Veganer", „Und, haben euch die Beilagen geschmeckt?", „Wird ein heim gutes Foto"), die wir aktuell nicht nutzen. Wenn der Bühnenverein die Original-Assets bereitstellt, könnten wir den Strip von 3 auf 5–6 Frames erweitern oder auf Unterseiten zweite Strips einsetzen (z.B. einen für „Effektivere Arbeitsprozesse", einen für „Höhere Reichweite", einen für „Größeres Netzwerk").
 - [ ] **Finale Impressum-/Datenschutz-Texte** vom Bühnenverein einpflegen → ersetzt die sichtbaren TODO-Marker (`legal.json`, ADR-25).
 - [ ] **Event-Fotos für die Timeline.** Schema `events.image_url` ergänzen (Migration + `gen:types`), `listPastEvents`/`EventListItem` + `Timeline` um das Bildfeld erweitern (Layout-Platz vorgesehen). Feedback: „Fotos von den Events".
 

@@ -1,5 +1,20 @@
 # 📝 Changelog
 
+## 2026-06-04 — Session 30 Nachtrag: P2-Asset-Sichtung (Mikalo×Diesdas + Theater-Dortmund-Workshop)
+
+User lieferte zwei PDFs (`~/Downloads/Website DRK.pdf`, `~/Downloads/STD-Design-Praesentation-20241028.pdf`). Da `pdftoppm` (poppler) fehlte und Homebrew-Install sudo verlangt (im non-interaktiven Bash nicht möglich), Fallback über ein eigenes Swift-Script (`/tmp/pdf-preview/pdf2png.swift`) mit macOS-nativen Quartz-APIs — kein Software-Install nötig. Alle 16 PDF-Seiten als PNG nach `/tmp/pdf-preview/{website-drk,std-design}/` exportiert und gesichtet.
+
+**Befund:**
+- **STD-Design-Praesentation (11 Seiten)** ist das offizielle Designkonzept von Mikalo × Diesdas. Validiert unsere Welle-1-CI 1:1 (Public Sans + Black-Gray-Purple). Seite 4 etabliert Theater-Wortwitz als Headline-Pattern („Theaterreif!", „Bühne frei", „Was für ein Theater!"), Seite 5 zeigt 3 weitere Comic-Sprechblasen-Frames von Max Kersting (über die 3 schon eingebauten hinaus), Seite 8 ist fast 1:1 unser aktuelles Landing-Layout.
+- **Website DRK.pdf (5 Seiten)** ist Recherche-/Workshop-Material. Seite 1 zeigt „Prozessarchitektur Spielplan-Online-Stellung am Theater Dortmund" (dreispaltig: Sparten → KBB → ORIF/Schema.org-Outputs) — explizit „nur zur Recherche, soll so nicht auf die Website" markiert, also als Vorlage für eine eigene CI-konforme Neuzeichnung nutzbar. Seite 5 zeigt ein Wireframe-Board mit 6 Page-Mockups, das unsere Welle-1-Sitemap validiert. Seiten 2+4 sind leer.
+
+**Ableitung für P2** (in `ROADMAP.md` + `DASHBOARD.md` konkretisiert): drei Bau-Tasks
+- 3a. SVG-Diagramm „ORIF-Datenflow" auf `/konzeption/technische-standards` (Vorlage Website-DRK Seite 1, neu in CI gezeichnet).
+- 3b. Theater-Wortwitz-Pattern systematisieren als `wordplay`-Namespace in den Messages und an passenden Eyebrows einsetzen.
+- 3c. Comic-Strip um 3 weitere Frames erweitern, falls der Bühnenverein die Original-Assets liefert.
+
+Keine Code-Änderungen in diesem Nachtrag — nur Vault-Doku.
+
 ## 2026-06-04 — Session 30: M18 Welle 3 P1+P3 — Cleanup + Production-Deploy
 
 **Deployment-ID:** `dpl_3ADeq7ZBDpFBJp2ozmERAxjc5ZF2` (READY, 31 s remote build, target=production)
