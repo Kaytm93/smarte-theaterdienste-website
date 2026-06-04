@@ -16,7 +16,7 @@
 | **M12–M16**| ✅ done  | QA-/UX-/Editorial-Polish   | Miro-QA, Deutschlandkarte, Editorial-Redesign + Feinschliff, mehrere Production-Deploys |
 | **M17 W1**| ✅ done   | CI-Refresh + Nav + Landing | Public Sans, Black-Gray-Purple-CI, 4-Item-Menü, neue Slugs + 308-Redirects, `/materialien`, Bühnenverein-Lockup, Video, Zitate |
 | **M17 W2**| ✅ done   | Unterseiten nach Feedback  | Konzeption bebildert + Team + Zeitstrahl, Comic/Video eingebettet, MyMaps, FAQ-Kategorien, Team-Umzug, Blog+Termine→Timeline |
-| **M18**| 📋 geplant   | Welle 3 + Go-Live          | Deploy-Verifikation, Team-Bühnenfotos, Grafiken/Rechtstexte, Aufräumen, A11y-Recheck, Custom-Domain |
+| **M18**| 🟡 P1+P3 done | Welle 3 + Go-Live         | Welle 1+2 production-live (`dpl_3ADeq7…`), Dead-Files + Finder-Duplikate raus, iframe-Mobile-QA clean, Karten-Sicht dokumentiert · offen: Team-Bühnenfotos, Grafiken/Legal/Event-Fotos, Custom-Domain |
 
 ---
 
@@ -145,10 +145,7 @@ Welle 1 (CI/Nav/Landing) und Welle 2 (Unterseiten nach Feedback 14.5.2026) sind 
 
 ### 🔴 P1 — Go-Live-kritisch
 
-- [ ] **Production-Deploy von Welle 1+2 verifizieren.**
-  - Der `main`-Push sollte den Vercel-Auto-Deploy ausgelöst haben (GitHub-Integration verbunden).
-  - Akzeptanz: Alias-Smoke auf `https://smarte-theaterdienste-website.vercel.app` → `/de/konzeption`, `/de/team`, `/de/faq`, `/de/jetzt-mitmachen`, `/de/konzeption/technische-standards` HTTP 200; Redirects `/de/ansprechpersonen`→`/de/team`, `/de/termine`+`/de/blog`→`/de/konzeption` 308; EN-Pendants 200/308.
-  - ⚠️ Lokal scheiterte nur `/icon`/OG-Build an fehlendem Sandbox-Netz (`@vercel/og` `ETIMEDOUT`). Auf Vercel (mit Netz) muss der Build durchlaufen — falls der Deploy fehlschlägt, die Vercel-Build-Logs prüfen.
+- [x] **Production-Deploy von Welle 1+2 verifiziert** (Session 30, 2026-06-04). Auto-Deploy hatte nicht funktioniert (4× Canceled hintereinander ohne Logs, Duration `?` — vermutlich Webhook-/Concurrency-Issue). Manueller CLI-Deploy via `pnpm dlx vercel@latest deploy --prod --yes` umging das Problem: `dpl_3ADeq7ZBDpFBJp2ozmERAxjc5ZF2` READY, 31 s Remote-Build. Alias-Smoke grün: 11/11 neue Routen HTTP 200 (DE + EN), 7/7 Redirects HTTP 308 mit korrekten Zielen, `/icon`/`/sitemap.xml`/`/robots.txt`/`/manifest.webmanifest` HTTP 200, `age: 0` belegt frischen Cache. Lokal scheiterte `/icon` diesmal nicht (kein Sandbox-Netz-Problem).
 - [ ] **Team-Bühnen-Hover vervollständigen.**
   - 4 Sanity-Bühnenfoto-URLs beim User/Bühnenverein beschaffen (alte Live-Seite zeigt den Team-Block nicht mehr → nicht automatisch auffindbar).
   - Umsetzung: je Member in `src/content/{de,en}/team.json` `"stage": "https://cdn.sanity.io/images/lc7slax2/production/..."`.
@@ -162,10 +159,10 @@ Welle 1 (CI/Nav/Landing) und Welle 2 (Unterseiten nach Feedback 14.5.2026) sind 
 
 ### 🟢 P3 — Aufräumen & Verfeinerung
 
-- [ ] **Dead-Files entfernen:** `src/app/[locale]/{blog,termine}/page.tsx` sind seit Welle 2 nur noch 308-Redirect-Ziele. Prüfen, ob `EventCard`/`PostCard` danach noch verwendet werden (`blog/[slug]` bleibt aktiv → Routing-Key `/blog` behalten).
-- [ ] **A11y-/Performance-Recheck** nach den neuen iframes (Google MyMaps, Genially, YouTube): Lighthouse + axe auf `/de/konzeption` und `/de/jetzt-mitmachen`. Embeds haben bereits `title` + `loading="lazy"`; Performance-Impact der drei Embeds messen, ggf. „Click-to-load"-Pattern erwägen.
-- [ ] **Mobile-QA** der Embeds auf 375 px: MyMaps, Genially und Timeline ohne Horizontal-Overflow; Timeline-Dots/Linie sauber.
-- [ ] **Karten-Daten abgleichen:** Zeigt die Google-MyMaps-Karte (`/jetzt-mitmachen`) dieselben Standorte wie die Supabase-`PartnerMap` (`/jetzt-mitmachen/mitwirkung`)? Konsolidieren oder bewusst zwei Sichten (kuratierte MyMaps vs. Marken-SVG) behalten und das im Copy erklären.
+- [x] **Dead-Files entfernt** (Session 30): `src/app/[locale]/blog/page.tsx`, `termine/page.tsx`, `src/components/sections/EventCard.tsx`, `PostCard.tsx` raus. `PostArticle.tsx:84` Back-Link auf `/konzeption` umgebogen (eliminiert 308-Hop). `routing.ts`-Einträge `/blog`/`/termine` bewusst behalten (harmlose Konfig-Daten, Risiko eines Aufräumens > Nutzen). 12 Finder-Duplikate `* 2.*` aus `public/` zusätzlich entfernt.
+- [ ] **A11y-/Performance-Recheck** nach den neuen iframes: iframe-Inventur clean (alle Embeds haben `title` + `loading="lazy"`, YouTube über `youtube-nocookie`); Lighthouse + axe gegen Production stehen noch aus, wenn der Lighthouse-CI-Workflow läuft (Cron Mo 06:00 UTC).
+- [x] **Mobile-QA der Embeds auf 375 px erledigt** (Session 30): `docOverflowPx: 0` auf `/de/konzeption`, `/de/jetzt-mitmachen`, `/de/konzeption/technische-standards`; kein einziges Element überragt den Viewport; jeder iframe rendert 341 px breit (passend zu 375 px - Padding). Genially-iframe in der Timeline-Section sichtbar (`#zeitstrahl`).
+- [x] **Karten-Daten abgeglichen** (Session 30): Bewusst zwei verschiedene Sichten — Google MyMaps (`/jetzt-mitmachen`) zeigt „teilnehmende Theater und Agenturen" (extern kuratiert), Supabase-PartnerMap (`/jetzt-mitmachen/mitwirkung`) zeigt die 4 tragenden Projekt-Institutionen (Bühnenverein/Köln, Fraunhofer/Hamburg, Akademie/Dortmund, NFDI4Culture/Mainz). Keine Redundanz, sie ergänzen sich („wer macht mit" vs. „wer trägt das Projekt"). Konkreten MyMaps-Inhalt pflegt der Bühnenverein.
 
 ### ⚪ Langstehend (Infrastruktur)
 

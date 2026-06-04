@@ -81,7 +81,7 @@ export function PostArticle({ post, locale, publishedAtLabel, backToListLabel }:
 
       <div className="pt-2">
         <Button asChild variant="outline">
-          <Link href="/blog">← {backToListLabel}</Link>
+          <Link href="/konzeption">← {backToListLabel}</Link>
         </Button>
       </div>
     </article>

@@ -1,5 +1,35 @@
 # 📝 Changelog
 
+## 2026-06-04 — Session 30: M18 Welle 3 P1+P3 — Cleanup + Production-Deploy
+
+**Deployment-ID:** `dpl_3ADeq7ZBDpFBJp2ozmERAxjc5ZF2` (READY, 31 s remote build, target=production)
+
+**Ausgangslage:** Welle 1+2 (`b7ade71` + `86dc4d8`) waren seit ~10 Tagen auf `origin/main`, aber die Live-Site `https://smarte-theaterdienste-website.vercel.app` hing weiter auf M16 (`age: 975261`, M16-Nav). `vercel ls` zeigte 4× Canceled-Auto-Deploys ohne Logs (Duration `?`) — vermutlich Webhook-/Concurrency-Issue, kein Build-Fehler. User-Auftrag: Erst Cleanup+QA, dann Deploy.
+
+**P3 Cleanup — Dead-Files entfernt.** Vier seit Welle 2 unerreichbare Dateien gelöscht (Redirect via `next.config.ts` greift vor dem Routing):
+- `src/app/[locale]/blog/page.tsx` (Index — `blog/[slug]` bleibt aktiv)
+- `src/app/[locale]/termine/page.tsx`
+- `src/components/sections/EventCard.tsx` (nur von termine genutzt; Timeline rendert Events direkt)
+- `src/components/sections/PostCard.tsx` (nur von blog-Index genutzt; `PostArticle` bleibt)
+
+**`PostArticle.tsx` Back-Link.** Zeile 84: `Link href="/blog"` → `href="/konzeption"`. Eliminiert den 308-Hop; Label „Zur Übersicht" / „Back to overview" passt weiter (zeigt jetzt direkt auf den Konzeption-Zeitstrahl, wo Blog+Events leben).
+
+**P3 iframe-QA grün.** curl-Inventur + Browser-Layout-Check auf 375 px für alle vier neuen Embeds (Landing-YouTube, Konzeption-Genially, Jetzt-mitmachen-MyMaps, Technische-Standards-Comic-Clip-YouTube): jeder iframe hat aussagekräftiges `title`, `loading="lazy"`, `referrerpolicy="strict-origin-when-cross-origin"`; YouTube nutzt `youtube-nocookie`. Mobile-Smoke: `docOverflowPx: 0` für alle drei iframe-Seiten, kein einziges überragendes Element, jeder Embed 341 px breit. Nebenbefund (pre-existing): `ComicStripFrames` wirft beim Mount Next-16-Warnung „Image with fill and a height value of 0" — Bilder rendern final korrekt (244 px), kosmetisch, in PROBLEME notiert.
+
+**P3 Karten-Daten-Abgleich.** Zwei bewusst verschiedene Sichten, kein Konsolidierungsbedarf: Google MyMaps (`/jetzt-mitmachen`) = teilnehmende Theater & Agenturen (extern in Google kuratiert); Supabase-PartnerMap (`/jetzt-mitmachen/mitwirkung`) = die 4 tragenden Projekt-Institutionen (Bühnenverein, Fraunhofer, Akademie, NFDI4Culture). Finaler MyMaps-Inhalt liegt beim Bühnenverein.
+
+**Working-Tree-Sauberkeit.** 12 Finder-Duplikate (`* 2.jpg/png/svg`) aus `public/comic-strip/`, `public/hero/`, `public/logos/`, `public/maps/` entfernt (untracked, nicht referenziert, durch macOS-Finder beim Asset-Verschieben entstanden).
+
+**P1 Deploy.** Lokal `pnpm typecheck` + `lint` + `build` clean (35/35 SSG inklusive `/icon` — anders als bei Welle 2, wo Sandbox ohne Netz das `@vercel/og`-`/icon` brach, ging hier mit Netz alles durch). Direkter CLI-Deploy `pnpm dlx vercel@latest deploy --prod --yes` umgeht GitHub-Webhook. Build erfolgreich in 31 s. Production-URL: `https://smarte-theaterdienste-website-h10hnqktv-kaytm93s-projects.vercel.app`, aliased auf den Primär-Alias plus auto-Alias `https://www.smarte-theaterdienste-website-1.de`.
+
+**Live-Smoke gegen Primär-Alias** (`age: 0`, frischer Cache):
+- Welle-1-Nav (`Konzeption · Jetzt mitmachen · Materialien · FAQ`) auf `/de` 6× sichtbar.
+- 11/11 neue Routen HTTP 200 (DE + EN, inkl. `/team`, `/materialien`, `/konzeption/technische-standards`, `/jetzt-mitmachen/mitwirkung`).
+- 7/7 Redirects HTTP 308 mit korrekten Zielen (`/de/ansprechpersonen`→`/de/team`, `/de/termine`+`/de/blog`+`/de/projekt`→`/de/konzeption`, `/de/beteiligung`→`/de/jetzt-mitmachen`, EN-Pendants).
+- `/sitemap.xml`, `/robots.txt`, `/icon`, `/manifest.webmanifest` alle 200.
+
+**Offen / weiter:** Team-Bühnen-Hover (4 Sanity-URLs ausstehend), Auftraggeber-Lieferungen (Grafiken/Legal/Event-Fotos), Custom-Domain-DNS-Switch.
+
 ## 2026-05-24 — Session 29: M17 Welle 2 — Unterseiten nach Feedback 14.5.2026
 
 **Commit-SHA:** `86dc4d8`
