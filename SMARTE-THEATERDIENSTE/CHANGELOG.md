@@ -1,5 +1,23 @@
 # 📝 Changelog
 
+## 2026-06-05 — Session 31: M18 Welle 3 P2 — Datenfluss-Diagramm + Wortwitz-Eyebrows + ComicStrip-Fix + A11y-Recheck
+
+**Commit-SHA (Code):** `6cbd615`
+
+**Auftrag:** User wählte „Alles aus ‚sofort möglich' hintereinander" — die in Session 30 aus der PDF-Sichtung abgeleiteten, sofort umsetzbaren Tasks am Stück: 3a (ORIF-Datenfluss-Diagramm), 3b (Theater-Wortwitz-Eyebrows), #10 (ComicStrip-Console-Warning) und #7 (Lighthouse-+-axe-Recheck).
+
+**3a — `DataFlowDiagram` (neue Komponente).** `src/components/sections/DataFlowDiagram.tsx` zeichnet die Theater-Dortmund-Prozessarchitektur (Website-DRK.pdf S.1, „nur zur Recherche") CI-konform neu statt sie einzubetten: drei Stage-Cards (`01 Sparten → 02 KBB → 03 Veröffentlichung`) mit Mono-Step-Nummern, Bullet-Items bzw. Output-Items mit Format-Badge (`HTML` / `API` / `ORIF · Schema.org`), Datenraum-Output `highlight`-markiert (Purple-Pale-Mix + Akzent-Border), Inline-SVG-Connector-Pfeile (per CSS `rotate-90` für den Mobile-Vertikal-Stack). Reine Server-Component, `FadeInOnScroll`-Reveal. Inhalt locale-getrennt in `projekt-technische-standards.json.dataFlow` (DE „Prozessarchitektur / Vom Spielplan zum Datenraum" + EN „Process architecture / From programme to data space"), keine Binärdatei. Eingehängt in `konzeption/technische-standards/page.tsx` zwischen TextSections und `VideoEmbed`. Siehe [[ENTSCHEIDUNGEN#ADR-55]].
+
+**3b — Theater-Wortwitz-Eyebrows.** Statt eines `wordplay`-Namespaces (ROADMAP-Vorschlag) drei bestehende `pages.*.kicker` direkt auf den Bühnen-Wortwitz aus STD-Design-Praesentation S.4 gehoben (DE+EN): Konzeption „Konzeption"→„Großer Akt"/„Opening act"; Materialien „Zum Mitnehmen"→„Aus dem Fundus"/„From the prop room"; FAQ (inkl. `empty.kicker`) „Antworten"→„Vorhang auf für Fragen"/„Curtain up for questions". Tote `pages.termine.*`-Keys (308-Route) bewusst unangetastet. Siehe [[ENTSCHEIDUNGEN#ADR-56]].
+
+**#10 — ComicStrip-Console-Warning gefixt.** `ComicStripFrames.tsx`: `Image` von `fill` auf explizite `width={800} height={600}` umgestellt, `aspect-[4/3] w-full object-cover` vom Parent auf das `<img>` selbst verschoben. Ohne `fill`-Prop kann die Next-16-Warnung „Image with fill and a height value of 0" strukturell nicht mehr feuern; Layout (4:3-Crop, Hover-Zoom, Badge-Overlay) bleibt pixelgleich. In Session 30 noch wegen Regressionsrisiko offengelassen — jetzt aufgelöst.
+
+**#7 — Lighthouse + axe Recheck (gegen lokalen Prod-Build mit den neuen Changes).** `pnpm build` clean (35/35 SSG, `technische-standards` prerendert mit dem neuen Diagramm fehlerfrei). Lighthouse auf `/de/konzeption/technische-standards`: **Accessibility 100, Best Practices 100, SEO 92** (der einzige SEO-Abzug ist der `canonical`-Audit, der lokal auf `localhost:3030` statt den Serving-Port zeigt — in Production mit echter Domain = 100; kein Code-Defekt). axe/pa11y über 5 Seiten (DE-Home, Konzeption, Materialien, FAQ, EN-Home): **0 echte Befunde** — jeder gemeldete „Fehler" ist entweder `color-contrast` (cantTell-Artefakt des `body`-Grid-`background-image`, siehe ADR-57) oder `frame-tested` (cross-origin-YouTube, informativ). Das `DataFlowDiagram` ist wegen seiner soliden Card-Backgrounds der **einzige** Block, dessen Kontrast axe auflösen konnte — 0 Fehler. Kein Regress ggü. M8-Baseline (A11y/BP 100).
+
+**Infra-Befund (wichtig):** Die Custom-Domain `https://smarte-theaterdienste.de` liefert jetzt durchgängig **HTTP 503** (HAProxy „No server is available", DNS weiter auf Hetzner) — eskaliert von „alte Inhalte" (Session 20) zu komplettem Ausfall. Die Vercel-Deployment selbst ist gesund (200). In PROBLEME hochgestuft, DNS-Switch dringlicher. Kein Code-Bezug.
+
+**Verifikation:** `pnpm typecheck` + `pnpm lint` + `pnpm build` clean; JSON beider Content-/Message-Dateien valide. Tooling-Hinweis: pa11y/lighthouse laufen nur im Vordergrund (Background-Bash hat minimalen PATH ohne `pnpm`/`tail`), mit `PUPPETEER_EXECUTABLE_PATH`/`CHROME_PATH` auf System-Chrome.
+
 ## 2026-06-04 — Session 30 Nachtrag: P2-Asset-Sichtung (Mikalo×Diesdas + Theater-Dortmund-Workshop)
 
 User lieferte zwei PDFs (`~/Downloads/Website DRK.pdf`, `~/Downloads/STD-Design-Praesentation-20241028.pdf`). Da `pdftoppm` (poppler) fehlte und Homebrew-Install sudo verlangt (im non-interaktiven Bash nicht möglich), Fallback über ein eigenes Swift-Script (`/tmp/pdf-preview/pdf2png.swift`) mit macOS-nativen Quartz-APIs — kein Software-Install nötig. Alle 16 PDF-Seiten als PNG nach `/tmp/pdf-preview/{website-drk,std-design}/` exportiert und gesichtet.

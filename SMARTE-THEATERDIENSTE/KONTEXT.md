@@ -1,6 +1,6 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-05-24 | Stand: Session 29 M17 Welle 2 lokal validiert. Welle 1 (`b7ade71`) wurde per Fast-Forward auf `main` gemergt (vorher lag `main` auf M16 `f109bf2`). Welle 2 arbeitet den Unterseiten-Backlog ab: Konzeption (`/konzeption`) bebildert mit 3 Grayscale-Sanity-Fotos und um Team-Block (`TeamGrid`) + Zeitstrahl-Abschnitt (`#zeitstrahl`) erweitert; Technische Standards bettet Comic-Clip-Video (`cCCa7Yuzaf0`) + Comic-Strip direkt ein; neue `MapEmbed`-Komponente zeigt Google-MyMaps auf `/jetzt-mitmachen`; `FaqAccordion` gruppiert nach `category` mit Quick-Nav; Route `/ansprechpersonen`→`/team` (308-Redirects), `ContactCard` ohne Telefon/E-Mail mit Portrait→Bühne-Hover (`stage`-Feld); neue `Timeline`-Komponente (Supabase-Events + Genially-Embed) ersetzt Blog/Termine, deren Routen 308 auf `/konzeption` zeigen. **Vorherige Welle 1:** Editorial-Welt → Corporate Identity (Public Sans, Black-Gray-Purple), 4-Item-Menü, `/materialien`-Route, Bühnenverein-Lockup im Hero. Production-Deploy für Welle 1+2 steht noch aus.
+> Letzte Aktualisierung: 2026-06-05 | Stand: Session 31 — M18 Welle 3 P2 (3a `DataFlowDiagram` + 3b Wortwitz-Eyebrows) + ComicStrip-Fill-Fix (#10) + A11y-Recheck (#7: Lighthouse A11y/BP 100, axe 0 echte Befunde); Welle 1+2 seit Session 30 production-live (`dpl_3ADeq7…`). Details siehe DASHBOARD/CHANGELOG. — Historischer Stand Session 29: M17 Welle 2 lokal validiert. Welle 1 (`b7ade71`) wurde per Fast-Forward auf `main` gemergt (vorher lag `main` auf M16 `f109bf2`). Welle 2 arbeitet den Unterseiten-Backlog ab: Konzeption (`/konzeption`) bebildert mit 3 Grayscale-Sanity-Fotos und um Team-Block (`TeamGrid`) + Zeitstrahl-Abschnitt (`#zeitstrahl`) erweitert; Technische Standards bettet Comic-Clip-Video (`cCCa7Yuzaf0`) + Comic-Strip direkt ein; neue `MapEmbed`-Komponente zeigt Google-MyMaps auf `/jetzt-mitmachen`; `FaqAccordion` gruppiert nach `category` mit Quick-Nav; Route `/ansprechpersonen`→`/team` (308-Redirects), `ContactCard` ohne Telefon/E-Mail mit Portrait→Bühne-Hover (`stage`-Feld); neue `Timeline`-Komponente (Supabase-Events + Genially-Embed) ersetzt Blog/Termine, deren Routen 308 auf `/konzeption` zeigen. **Vorherige Welle 1:** Editorial-Welt → Corporate Identity (Public Sans, Black-Gray-Purple), 4-Item-Menü, `/materialien`-Route, Bühnenverein-Lockup im Hero. Production-Deploy für Welle 1+2 steht noch aus.
 
 ---
 
@@ -126,11 +126,13 @@ smarte-theaterdienste-website/
 │   │   ├── layout/                             ← Header.tsx (Session 28: Bühnenverein-Logo + 4-Item-Nav), Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx (4 Items)
 │   │   ├── sections/                           ← PageHero, TextSection, ContactCard, TeamGrid,
 │   │   │                                          BuehnenvereinLockup (Session 28 NEU), VideoEmbed (Session 28 NEU), QuoteGallery (Session 28 NEU),
+│   │   │                                          MapEmbed (Session 29 NEU: Google MyMaps), Timeline (Session 29 NEU: Events + Genially-Embed),
+│   │   │                                          DataFlowDiagram (Session 31 NEU: ORIF-Datenflow, data-driven Server-Component, 3 Stage-Cards + Inline-SVG-Pfeile, CI-Neuzeichnung Website-DRK-S.1),
 │   │   │                                          UseCaseCard, StepCard, ComingSoonHero (jetzt mit body-Prop),
-│   │   │                                          ComicStrip (Server-Wrapper) + ComicStripFrames (Client, GSAP-Stagger, M6),
-│   │   │                                          PostCard, PostArticle (mit ViewTransition-Wrap, M6),
+│   │   │                                          ComicStrip (Server-Wrapper) + ComicStripFrames (Client, GSAP-Stagger, M6; Session 31: width/height statt fill),
+│   │   │                                          PostArticle (mit ViewTransition-Wrap, M6; Session 30: PostCard entfernt),
 │   │   │                                          PostCoverVisual (Session 19: CSS-Cover-Fallback fuer Posts ohne cover_image_url),
-│   │   │                                          EventCard, FaqAccordion (M4),
+│   │   │                                          FaqAccordion (M4; Session 29: nach category gruppiert; Session 30: EventCard entfernt),
 │   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5; Session 20: Status-Legende, Standortzähler, Liste, kompaktere Desktop-Karte),
 │   │   │                                          FeatureGrid (Session 25: Desktop-Spalten nach Feature-Anzahl), NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer);
 │   │   │                                          ContactCard (Session 27: Portrait-Crop, Fotocredit-Ribbon, natürliche E-Mail-Breakpoints)
