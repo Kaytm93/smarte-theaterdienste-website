@@ -59,13 +59,14 @@ export function ComicStripFrames({ frames }: Props) {
           data-comic-frame
           className="group relative flex flex-col overflow-hidden border border-[var(--rule-strong)] bg-[var(--surface-elevated)] p-2 shadow-[var(--shadow-xs)] transition-[transform,box-shadow] duration-500 ease-[var(--ease-out)] hover:-translate-y-1 hover:shadow-[var(--shadow-md)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
         >
-          <div className="relative aspect-[4/3] overflow-hidden bg-foreground/[0.04]">
+          <div className="relative overflow-hidden bg-foreground/[0.04]">
             <Image
               src={frame.image}
               alt={frame.alt}
-              fill
+              width={800}
+              height={600}
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              className="block aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
             <div
               aria-hidden

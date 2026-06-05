@@ -74,12 +74,12 @@
       "lead": "Vier Menschen, die das Projekt entwickelt haben – mit künstlerischem Hintergrund und technischem Verständnis."
     },
     "projekt": {
-      "kicker": "Konzeption",
+      "kicker": "Großer Akt",
       "title": "Maschinenlesbare Spielpläne",
       "lead": "Was das Projekt ist, warum wir es brauchen und wer dahintersteht."
     },
     "materialien": {
-      "kicker": "Zum Mitnehmen",
+      "kicker": "Aus dem Fundus",
       "title": "Materialien",
       "lead": "Comic, Dokumentation, Validator und das offene Repository – alle Werkzeuge rund um die ORIF-Schnittstelle an einer Stelle."
     },
@@ -155,7 +155,7 @@
       }
     },
     "faq": {
-      "kicker": "Antworten",
+      "kicker": "Vorhang auf für Fragen",
       "title": "Häufige Fragen",
       "lead": "Antworten zu Grundwissen, Technik und Sicherheit, Umsetzung und Kosten sowie zum Datenraum Kultur.",
       "categories": {
@@ -165,7 +165,7 @@
         "datenraum-kultur": "Datenraum Kultur"
       },
       "empty": {
-        "kicker": "Antworten",
+        "kicker": "Vorhang auf für Fragen",
         "title": "FAQ wird aufgebaut",
         "body": "Wir sammeln gerade die häufigsten Fragen aus den Pilothäusern. Antworten folgen in Kürze."
       }

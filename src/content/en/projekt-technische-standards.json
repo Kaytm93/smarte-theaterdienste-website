@@ -68,6 +68,50 @@
       "title": "Comic clip: machine-readable theatre programmes"
     }
   },
+  "dataFlow": {
+    "eyebrow": "Process architecture",
+    "heading": "From programme to data space",
+    "lead": "How the data flows, using Theater Dortmund as an example: from the individual departments into the central editorial office (KBB) – and out through three channels. The ORIF interface is the machine-readable outlet.",
+    "stages": [
+      {
+        "step": "01",
+        "heading": "Departments",
+        "subheading": "Source data from the venue",
+        "items": [
+          "Drama",
+          "Opera",
+          "Philharmonic orchestra",
+          "Ballet",
+          "Children & young people's theatre"
+        ]
+      },
+      {
+        "step": "02",
+        "heading": "KBB",
+        "subheading": "Artistic operations office – central editorial team",
+        "items": [
+          "Consolidate the programme",
+          "Validate the data",
+          "Release dates"
+        ]
+      },
+      {
+        "step": "03",
+        "heading": "Publication",
+        "subheading": "Channels & standards",
+        "items": [
+          { "label": "Theatre website", "format": "HTML" },
+          { "label": "Ticketing system", "format": "API" },
+          {
+            "label": "Cultural Data Space",
+            "format": "ORIF · Schema.org",
+            "highlight": true
+          }
+        ]
+      }
+    ],
+    "caption": "Example: Theater Dortmund. Redrawn for this site based on the workshop material „Process architecture for online programme publication\"."
+  },
   "resources": {
     "eyebrow": "Resources",
     "heading": "Tools for implementation",

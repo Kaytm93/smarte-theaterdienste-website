@@ -68,6 +68,50 @@
       "title": "Comic-Clip: Maschinenlesbare Spielpläne"
     }
   },
+  "dataFlow": {
+    "eyebrow": "Prozessarchitektur",
+    "heading": "Vom Spielplan zum Datenraum",
+    "lead": "So fließen die Daten am Beispiel des Theaters Dortmund: Aus den Sparten in die zentrale Redaktion (KBB) – und von dort über drei Kanäle nach außen. Die ORIF-Schnittstelle ist der maschinenlesbare Ausgang.",
+    "stages": [
+      {
+        "step": "01",
+        "heading": "Sparten",
+        "subheading": "Quelldaten der Häuser",
+        "items": [
+          "Schauspiel",
+          "Oper",
+          "Philharmonisches Orchester",
+          "Ballett",
+          "Kinder- & Jugendtheater"
+        ]
+      },
+      {
+        "step": "02",
+        "heading": "KBB",
+        "subheading": "Künstlerisches Betriebsbüro – zentrale Redaktion",
+        "items": [
+          "Spielplan bündeln",
+          "Daten prüfen",
+          "Termine freigeben"
+        ]
+      },
+      {
+        "step": "03",
+        "heading": "Veröffentlichung",
+        "subheading": "Kanäle & Standards",
+        "items": [
+          { "label": "Theater-Website", "format": "HTML" },
+          { "label": "Ticketing-System", "format": "API" },
+          {
+            "label": "Datenraum Kultur",
+            "format": "ORIF · Schema.org",
+            "highlight": true
+          }
+        ]
+      }
+    ],
+    "caption": "Beispiel: Theater Dortmund. Für die Website neu gezeichnet auf Basis des Workshop-Materials „Prozessarchitektur Spielplan-Online-Stellung\"."
+  },
   "resources": {
     "eyebrow": "Material",
     "heading": "Generalproben der Implementierung",

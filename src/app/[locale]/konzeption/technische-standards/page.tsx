@@ -4,6 +4,7 @@ import { Link } from "@/lib/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/sections/PageHero";
 import { ComicStrip } from "@/components/sections/ComicStrip";
+import { DataFlowDiagram } from "@/components/sections/DataFlowDiagram";
 import { ResourceLinkGrid } from "@/components/sections/ResourceLinkGrid";
 import { TextSection } from "@/components/sections/TextSection";
 import { VideoEmbed } from "@/components/sections/VideoEmbed";
@@ -68,6 +69,14 @@ export default async function TechnischeStandardsPage({
           />
         ))}
       </div>
+
+      <DataFlowDiagram
+        eyebrow={content.dataFlow.eyebrow}
+        heading={content.dataFlow.heading}
+        lead={content.dataFlow.lead}
+        stages={content.dataFlow.stages}
+        caption={content.dataFlow.caption}
+      />
 
       <VideoEmbed
         eyebrow={content.media.video.eyebrow}

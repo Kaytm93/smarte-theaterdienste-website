@@ -74,12 +74,12 @@
       "lead": "Four people who designed this project – with backgrounds in the arts as well as in technology."
     },
     "projekt": {
-      "kicker": "Concept",
+      "kicker": "Opening act",
       "title": "Machine-readable theatre programmes",
       "lead": "What this project is, why it matters, and who is behind it."
     },
     "materialien": {
-      "kicker": "Take-aways",
+      "kicker": "From the prop room",
       "title": "Materials",
       "lead": "Comic, documentation, validator and the open repository – every tool around the ORIF interface in one place."
     },
@@ -155,7 +155,7 @@
       }
     },
     "faq": {
-      "kicker": "Answers",
+      "kicker": "Curtain up for questions",
       "title": "Frequently asked questions",
       "lead": "Answers on basic knowledge, technology and safety, implementation and costs, and the Cultural Data Space.",
       "categories": {
@@ -165,7 +165,7 @@
         "datenraum-kultur": "Cultural Data Space"
       },
       "empty": {
-        "kicker": "Answers",
+        "kicker": "Curtain up for questions",
         "title": "FAQ in progress",
         "body": "We're collecting the most common questions from pilot houses. Answers follow shortly."
       }
