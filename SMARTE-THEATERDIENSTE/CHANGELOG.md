@@ -18,6 +18,18 @@
 
 **Verifikation:** `pnpm typecheck` + `pnpm lint` + `pnpm build` clean; JSON beider Content-/Message-Dateien valide. Tooling-Hinweis: pa11y/lighthouse laufen nur im Vordergrund (Background-Bash hat minimalen PATH ohne `pnpm`/`tail`), mit `PUPPETEER_EXECUTABLE_PATH`/`CHROME_PATH` auf System-Chrome.
 
+## 2026-06-05 — Session 31 Nachtrag: Auto-Deploy-Mysterium endgültig gelöst (`requireVerifiedCommits=false`)
+
+**Commit-SHAs:** `d78027a` (Verify-Trigger, leerer Commit) → Auto-Deploy `dpl_F6TYxwn7…` (source=git, BUILDING→READY 42 s).
+
+**Auslöser:** Der Session-31-Code-Push (`6cbd615`) erzeugte erneut einen sofort abgebrochenen Auto-Deploy (`Canceled [0ms]`). User: „Da steht mal wieder deploy fehlgeschlagen, fixe." — das vierte Mal seit M16, in Session 30 noch fälschlich als „Webhook-/Concurrency-Issue" geraten.
+
+**Wahre Ursache (per Vercel-API bewiesen):** Die Projekt-Einstellung `gitProviderOptions.requireVerifiedCommits` stand auf `true` (Vercel-Default ist `false`). Damit bricht Vercel **jeden** Deployment ab, dessen Git-Commit GitHub als „unverified" führt (also jeden nicht GPG-/SSH-signierten Commit) — `alwaysRefuseToBuild: true`, `readyStateReason = "The Deployment was canceled because it was created with an unverified commit"`, Dauer `0ms`. Erklärt rückwirkend **alle** bisherigen Canceled-Auto-Deploys; manuelle CLI-Deploys (`vercel deploy --prod`) liefen durch, weil sie die Git-Integration umgehen.
+
+**Fix (User wählte „Verified-Commits-Pflicht aus"):** `PATCH /v9/projects/{id}` mit `{"gitProviderOptions":{"createDeployments":"enabled","requireVerifiedCommits":false}}`. Sofort-Stopgap zuvor: ein manueller CLI-Prod-Deploy, damit die Live-Site nicht auf dem alten Stand hängt.
+
+**Verifikation end-to-end:** Leerer Commit `d78027a` gepusht → der dadurch ausgelöste Git-Auto-Deploy `dpl_F6TYxwn7…` lief sauber **BUILDING→READY** (42 s, source=git), Public-Alias serviert den neuen Stand (HTTP 200, `age:1`). Re-Fetch bestätigt `requireVerifiedCommits=false`. Reversibel jederzeit (zurück auf `true` + Commit-Signing). Siehe [[ENTSCHEIDUNGEN#ADR-58]] und den ✅-Eintrag in [[PROBLEME]].
+
 ## 2026-06-04 — Session 30 Nachtrag: P2-Asset-Sichtung (Mikalo×Diesdas + Theater-Dortmund-Workshop)
 
 User lieferte zwei PDFs (`~/Downloads/Website DRK.pdf`, `~/Downloads/STD-Design-Praesentation-20241028.pdf`). Da `pdftoppm` (poppler) fehlte und Homebrew-Install sudo verlangt (im non-interaktiven Bash nicht möglich), Fallback über ein eigenes Swift-Script (`/tmp/pdf-preview/pdf2png.swift`) mit macOS-nativen Quartz-APIs — kein Software-Install nötig. Alle 16 PDF-Seiten als PNG nach `/tmp/pdf-preview/{website-drk,std-design}/` exportiert und gesichtet.
