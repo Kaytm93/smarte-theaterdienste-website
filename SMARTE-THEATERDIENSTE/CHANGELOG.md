@@ -1,5 +1,17 @@
 # 📝 Changelog
 
+## 2026-06-07 — Session 32: Production-Audit + Event-Foto-Plumbing + Vault-Korrektur
+
+**Commit-SHA (Code):** `e1e7d6b`
+
+**Auftrag:** User: „Lese dir die MD-Dateien durch und schau dir an, was du noch alles machen kannst" → nach Vault-Sichtung + Live-Statusprüfung Auswahl „Alles autonom Machbare". Drei ohne fremde Assets umsetzbare Tasks am Stück.
+
+**1 — Production-Audit (Lighthouse gegen den Live-Vercel-Alias).** Schließt die offene P3-#7-Lücke „Lighthouse gegen Production steht noch aus" (Session 31 hatte nur localhost geprüft → SEO 92 war ein localhost-Artefakt). Ergebnis: **A11y 100/100 (DE+EN), SEO 100/100 (DE+EN), Best Practices 96/96, Performance EN 91 / DE 94 (warm)**. Der erste DE-Lauf zeigte Perf 73 — Ursache war ein einmaliger **LCP-Ausreißer (8,1 s, kalter Edge-Cache)**; der Warmlauf liegt bei LCP 3,1 s / Perf 94, also **kein Embed-Regress**. Best-Practices-96 = genau **ein** `inspector-issues`-Befund: ein Third-Party-Cookie der YouTube-Einbettung (`youtube-nocookie`), kein Code-Bug. Damit bestätigt: die in Session 31 vermutete localhost-SEO-92 ist auf Production tatsächlich 100; A11y-100 hält auch live (Bestätigung von ADR-57). Reports unter `audits/` (gitignored).
+
+**2 — Event-Foto-Plumbing (P2 #5), deploy-sicher mit defensivem Fallback.** `events` hatte kein Bildfeld. Neu: Migration `supabase/migrations/20260607120000_event_image_url.sql` (`image_url text` nullbar/additiv); `EventListItem`/`EventRow` + `events`-Typ in `database.ts` um `image_url`/`imageUrl` ergänzt; `listEventsByStatus` selektiert `image_url` defensiv via `runQuery`-Helper und fällt bei fehlender Spalte auf die Basis-Spalten zurück; `Timeline` rendert das Foto konditional (`next/image`, explizites `width/height`, `aspect-[16/9]`-figure). **Warum defensiv:** Das DB-Passwort zum Pushen der Migration liegt nicht in `.env.local`, und Auto-Deploy greift wieder (ADR-58) — ein naiver `image_url`-Select hätte die Live-Timeline gebrochen. Verifiziert gegen die echte, noch un-migrierte Cloud-DB: `pnpm build` prerendert `/de/konzeption` SSG clean, vergangenes Event bleibt sichtbar (Fallback greift), 0 Foto-`figure`. Offen bis zu Assets: Migration pushen (braucht DB-Passwort) + Foto-URLs eintragen → Bilder erscheinen ohne Code-Änderung. Siehe [[ENTSCHEIDUNGEN#ADR-59]].
+
+**3 — Vault-Korrektur + Doku.** Live-Check ergab: der in PROBLEME als „KOMPLETT DOWN (HAProxy 503)" geführte Custom-Domain-Zustand ist **veraltet** — `smarte-theaterdienste.de/de` liefert wieder HTTP 200, zeigt aber weiter die **alte Hetzner-Seite** (keine `x-vercel-*`-Header, DNS unverändert `167.235.107.225`/`159.69.6.148`, Alt-Slug „Projekt"). Eintrag korrigiert (Dringlichkeit hoch → mittel, Kernproblem „nicht auf Vercel" unverändert), Performance-Restposten auf die frischen Production-Zahlen gehoben, Event-Foto-Bereitschaft in „Echte Inhalte benötigt" dokumentiert. Verifikation gesamt: `pnpm typecheck`, `pnpm lint`, `pnpm build` clean.
+
 ## 2026-06-05 — Session 31: M18 Welle 3 P2 — Datenfluss-Diagramm + Wortwitz-Eyebrows + ComicStrip-Fix + A11y-Recheck
 
 **Commit-SHA (Code):** `6cbd615`
