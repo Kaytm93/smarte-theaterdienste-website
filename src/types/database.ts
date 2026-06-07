@@ -73,6 +73,7 @@ export type Database = {
           created_at: string
           ends_at: string | null
           id: string
+          image_url: string | null
           location: string | null
           registration_url: string | null
           slug: string
@@ -84,6 +85,7 @@ export type Database = {
           created_at?: string
           ends_at?: string | null
           id?: string
+          image_url?: string | null
           location?: string | null
           registration_url?: string | null
           slug: string
@@ -95,6 +97,7 @@ export type Database = {
           created_at?: string
           ends_at?: string | null
           id?: string
+          image_url?: string | null
           location?: string | null
           registration_url?: string | null
           slug?: string

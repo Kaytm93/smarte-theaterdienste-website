@@ -36,6 +36,7 @@ export type EventListItem = {
   location: string | null;
   registrationUrl: string | null;
   status: "upcoming" | "past" | "cancelled";
+  imageUrl: string | null;
 };
 
 export type FaqItem = {
@@ -164,8 +165,12 @@ type EventRow = {
   location: string | null;
   registration_url: string | null;
   status: "upcoming" | "past" | "cancelled";
+  image_url?: string | null;
   event_translations: Array<{ title: string; description_md: string | null }>;
 };
+
+const EVENT_BASE_COLUMNS =
+  "slug, starts_at, ends_at, location, registration_url, status, event_translations!inner(title, description_md, locale)";
 
 async function listEventsByStatus(
   locale: Locale,
@@ -173,15 +178,23 @@ async function listEventsByStatus(
 ): Promise<EventListItem[]> {
   const supabase = getSupabaseAnon();
   const ascending = statuses.includes("upcoming");
-  const { data, error } = await supabase
-    .from("events")
-    .select(
-      "slug, starts_at, ends_at, location, registration_url, status, event_translations!inner(title, description_md, locale)",
-    )
-    .in("status", statuses)
-    .eq("event_translations.locale", locale)
-    .order("starts_at", { ascending })
-    .returns<EventRow[]>();
+
+  const runQuery = (columns: string) =>
+    supabase
+      .from("events")
+      .select(columns)
+      .in("status", statuses)
+      .eq("event_translations.locale", locale)
+      .order("starts_at", { ascending })
+      .returns<EventRow[]>();
+
+  // image_url ist additiv (Migration 20260607120000). Defensiv selektieren,
+  // damit ein Deploy vor dem Migrations-Push die Timeline nicht bricht: schlägt
+  // die Spalte fehl, fällt die Query auf die Basis-Spalten ohne Bild zurück.
+  let { data, error } = await runQuery(`image_url, ${EVENT_BASE_COLUMNS}`);
+  if (error) {
+    ({ data, error } = await runQuery(EVENT_BASE_COLUMNS));
+  }
 
   if (error || !data) return [];
 
@@ -194,6 +207,7 @@ async function listEventsByStatus(
     location: row.location,
     registrationUrl: row.registration_url,
     status: row.status,
+    imageUrl: row.image_url ?? null,
   }));
 }
 

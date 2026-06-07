@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import type { EventListItem } from "@/lib/supabase/queries";
 import type { Locale } from "@/lib/i18n/routing";
@@ -76,6 +78,18 @@ export function Timeline({ events, labels, locale, geniallyUrl }: Props) {
                   <p className="mt-3 max-w-[60ch] text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/78">
                     {event.descriptionMd}
                   </p>
+                ) : null}
+                {event.imageUrl ? (
+                  <figure className="mt-4 max-w-md overflow-hidden rounded-lg border border-[var(--rule-strong)] bg-foreground/[0.04] shadow-[var(--shadow-xs)]">
+                    <Image
+                      src={event.imageUrl}
+                      alt={event.title}
+                      width={640}
+                      height={360}
+                      sizes="(max-width: 640px) 100vw, 28rem"
+                      className="block aspect-[16/9] w-full object-cover"
+                    />
+                  </figure>
                 ) : null}
                 {event.registrationUrl ? (
                   <a
