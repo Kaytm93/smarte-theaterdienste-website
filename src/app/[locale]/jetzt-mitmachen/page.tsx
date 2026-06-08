@@ -7,6 +7,7 @@ import { TextSection } from "@/components/sections/TextSection";
 import { MapEmbed } from "@/components/sections/MapEmbed";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { loadContent } from "@/lib/content/loader";
+import { MYMAPS_EMBED_URL } from "@/lib/maps";
 import type { Locale } from "@/lib/i18n/routing";
 import { pageMetadata } from "@/lib/seo/alternates";
 
@@ -54,7 +55,7 @@ export default async function BeteiligungPage({
         eyebrow={t("map.eyebrow")}
         heading={t("map.heading")}
         caption={t("map.caption")}
-        mapUrl="https://www.google.com/maps/d/embed?mid=1WQiyQkmVpOG9CNYfLoEj3qNlGg52xo8&ehbc=2E312F"
+        mapUrl={MYMAPS_EMBED_URL}
         title={t("map.title")}
       />
 

@@ -13,6 +13,7 @@ import { QuoteGallery } from "@/components/sections/QuoteGallery";
 import { TextSection } from "@/components/sections/TextSection";
 import { VideoEmbed } from "@/components/sections/VideoEmbed";
 import { loadContent } from "@/lib/content/loader";
+import { MYMAPS_EMBED_URL } from "@/lib/maps";
 import type { Locale } from "@/lib/i18n/routing";
 import { pageMetadata } from "@/lib/seo/alternates";
 
@@ -166,8 +167,8 @@ export default async function HomePage({
         lead={landing.network.lead}
         statValue={landing.network.statValue}
         statLabel={landing.network.statLabel}
-        image={landing.network.image}
-        imageAlt={landing.network.imageAlt}
+        mapUrl={MYMAPS_EMBED_URL}
+        mapTitle={landing.network.mapTitle}
         segments={landing.network.segments}
       />
 

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 
 type NetworkSegment = {
@@ -12,8 +11,8 @@ type Props = {
   lead: string;
   statValue: string;
   statLabel: string;
-  image: string;
-  imageAlt: string;
+  mapUrl: string;
+  mapTitle: string;
   segments: NetworkSegment[];
 };
 
@@ -23,8 +22,8 @@ export function NetworkMapSection({
   lead,
   statValue,
   statLabel,
-  image,
-  imageAlt,
+  mapUrl,
+  mapTitle,
   segments,
 }: Props) {
   return (
@@ -68,15 +67,17 @@ export function NetworkMapSection({
         </div>
 
         <figure className="paper-panel overflow-hidden p-3">
-          <Image
-            src={image}
-            alt={imageAlt}
-            width={2550}
-            height={1514}
-            sizes="(max-width: 1024px) 92vw, 640px"
-            className="h-auto w-full"
-          />
-          <figcaption className="border-t border-[var(--rule-strong)] pt-3 text-xs font-semibold uppercase text-foreground/55">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[var(--rule-strong)] bg-[var(--surface-2)] sm:aspect-[3/2]">
+            <iframe
+              src={mapUrl}
+              title={mapTitle}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="absolute inset-0 h-full w-full"
+            />
+          </div>
+          <figcaption className="mt-3 border-t border-[var(--rule-strong)] pt-3 text-xs font-semibold uppercase text-foreground/55">
             DACH-Netzwerk · Datenraum Kultur
           </figcaption>
         </figure>

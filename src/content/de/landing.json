@@ -27,8 +27,7 @@
     "lead": "Theater, Verbände, Plattformen, Archive und Softwarepartner:innen aus Deutschland, Österreich und der Schweiz arbeiten bereits an maschinenlesbaren Spielplänen mit.",
     "statValue": "141",
     "statLabel": "Institutionen umfasst das Netzwerk derzeit.",
-    "image": "https://cdn.sanity.io/images/lc7slax2/production/5efc70ceb37c3730b6906ce9755adea8962c5a29-2550x1514.jpg",
-    "imageAlt": "Karte von Deutschland, Österreich und der Schweiz mit farbigen Punkten für Theater, Verbände und Plattformen im Netzwerk der Smarten Theaterdienste.",
+    "mapTitle": "Interaktive Karte des DACH-Netzwerks der Smarten Theaterdienste",
     "segments": [
       { "value": "51", "label": "interessierte Theater und Opernhäuser" },
       { "value": "30", "label": "Häuser im erweiterten Netzwerk" },

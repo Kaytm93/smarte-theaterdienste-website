@@ -27,8 +27,7 @@
     "lead": "Theatres, associations, platforms, archives and software partners from Germany, Austria and Switzerland are already working with machine-readable programmes.",
     "statValue": "141",
     "statLabel": "institutions are currently part of the network.",
-    "image": "https://cdn.sanity.io/images/lc7slax2/production/5efc70ceb37c3730b6906ce9755adea8962c5a29-2550x1514.jpg",
-    "imageAlt": "Map of Germany, Austria and Switzerland with coloured dots marking theatres, associations and platforms in the Smart Theatre Services network.",
+    "mapTitle": "Interactive map of the Smart Theatre Services DACH network",
     "segments": [
       { "value": "51", "label": "interested theatres and opera houses" },
       { "value": "30", "label": "houses in the wider network" },
