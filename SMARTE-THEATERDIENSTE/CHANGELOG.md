@@ -1,5 +1,17 @@
 # 📝 Changelog
 
+## 2026-06-08 — Session 33: Interaktive Karte auf der Startseite + Git-Recovery
+
+**Commit-SHA (Code):** `6399562`
+
+**Auftrag:** User (mit Obsidian-Zitat): „hier muss unbedingt die Landkarte noch einmal auftauchen … ein interaktives Element, wo man reinscrollen und einzelne Theater und Agenturen anklicken kann, wie auf dieser Google-Maps, aber halt in unserem Design" + die Google-MyMaps-iframe-URL. Plan-Phase-Klärung ergab zwei User-Entscheidungen: **Karten-Look = „Google-iframe einfach einbetten"** (nicht in eigener CI nachbauen) und **Umfang = „Auch die Startseiten-Karte"**.
+
+**1 — Interaktive Karte auf die Startseite.** Auf `/jetzt-mitmachen` war die Google-MyMaps-Karte (`mid=1WQiyQkmVpOG9CNYfLoEj3qNlGg52xo8`, 141 reale Standorte in 4 Ebenen: 52 Bühnenverein-Theater · 33 Kommunen/Länder/Verbände · 37 Opera Europa/OperaBook · 19 Plattformen — exakt die „141 Institutionen" der Startseiten-Statistik) bereits als iframe eingebettet. Die Startseite zeigte dagegen nur ein **statisches DACH-Bild** (Sanity-CDN-JPG) im `NetworkMapSection`. Jetzt rendert `NetworkMapSection` statt des Bildes dasselbe interaktive iframe im bestehenden `paper-panel`-Rahmen — die editoriale Umgebung (Heading, Lead, große „141"-Zahl, 4 DACH-Segmente) bleibt erhalten, nur das Bild rechts wird zur klickbaren Karte. Neue geteilte Konstante `src/lib/maps.ts` (`MYMAPS_EMBED_URL`) gegen Magic-String-Duplikat, von Startseite **und** `/jetzt-mitmachen` genutzt; `landing.json` (DE/EN) um lokalisierten `mapTitle` ergänzt, tote `image`/`imageAlt` entfernt. Siehe [[ENTSCHEIDUNGEN#ADR-60]].
+
+**2 — Git-Recovery (verwaister Lock + ungeborene `main`).** Vor dem Routine-Commit zeigte das lokale Repo **null Commits**, alle 197 Dateien als initialer Add gestaged („ungeborene" `main`) — obwohl `origin/main` die volle Historie trägt. Read-only-Prüfung (`git fetch` + `git diff --stat origin/main`) belegte: der lokale Baum ist **inhaltlich identisch mit `origin/main`**, nur die bearbeiteten Dateien weichen ab; das `.git` hatte lediglich HEAD/Index verloren. Ein verwaister `.git/refs/heads/main.lock` (vom abgebrochenen Session-32-Vorgang, Jun 7) blockierte zusätzlich jeden Ref-Update — gleiche Klasse wie der `index.lock`-Crash 2026-05-10. **Non-destruktive Reparatur** (kein Force, keine Datenverluste): Lock-Files entfernt (kein git-Prozess aktiv), `git update-ref refs/heads/main origin/main` hängt die lokale `main` an die echte Historie an, Working Tree unberührt. Danach saubere Fast-Forward-Commits. Siehe [[PROBLEME#✅ Gelöst]].
+
+**Verifikation:** `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm build` clean (alle Seiten prerendered inkl. `/icon`/`/sitemap.xml`). Preview-MCP: `/de` Netzwerk-Abschnitt rendert das Maps-iframe (Titel „Interaktive Karte des DACH-Netzwerks…", `loading=lazy`), „141" + alle 4 Segmente bleiben sichtbar; `/en` zeigt den englischen Titel; `/de/jetzt-mitmachen` unverändert (Konstanten-Refactor ohne Regress); 2 iframes auf der Startseite (YouTube + Maps), `docOverflowPx 0` auf 374 px und 1280 px, 0 Console-Fehler. Screenshot des Abschnitts bestätigt Karte mit Markern + Bildunterschrift „DACH-Netzwerk · Datenraum Kultur".
+
 ## 2026-06-07 — Session 32: Production-Audit + Event-Foto-Plumbing + Vault-Korrektur
 
 **Commit-SHA (Code):** `e1e7d6b`

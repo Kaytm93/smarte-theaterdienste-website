@@ -11,6 +11,7 @@
 
 | Datum       | Milestone / Thema                             | Datei                                                              |
 | ----------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| 2026-06-08  | Session 33 — Interaktive Karte auf Startseite | [[SESSION_2026-06-08]]                                             |
 | 2026-05-24  | M17 Welle 2 — Unterseiten nach Feedback       | [[SESSION_2026-05-24]]                                             |
 | 2026-05-19  | M17 Welle 1 — CI + Nav + Landing              | [[SESSION_2026-05-19]]                                             |
 | 2026-05-15  | M16 Editorial-Visual-Polish                   | [[SESSION_2026-05-15_M16-Editorial-Visual-Polish]]                 |
