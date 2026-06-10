@@ -1,5 +1,19 @@
 # 📝 Changelog
 
+## 2026-06-10 — Session 35: Vault-Aufräumen (Token-Diät + Stale-Fixes)
+
+**Kein Code-Change — reine Vault-Wartung.** User: „Lese die MD-Dateien, sortiere irrelevante Infos aus, lösche was nur Tokens kostet, bringe Ordnung hinein." Leitprinzip: Die bei **jedem** Session-Start gelesenen Dateien (DASHBOARD/KONTEXT/PROBLEME/MUSTER) müssen schlank + aktuell sein; die Vollhistorie lebt in CHANGELOG + `verlauf/`.
+
+- **DASHBOARD.md 161→45 Z.:** „Was gerade läuft" (volle Absätze Session 20–34) und „Letzte Aktivität" (Einträge zurück bis April) entfernt — beides CHANGELOG-Dopplung. Status-Tabelle (31 Zeilen mit alten Deploy-IDs) auf 7 aussagekräftige Zeilen verdichtet. „Nächste Schritte" behalten + erledigte ✅-Punkte zu Einzeilern getrimmt (stale ComicStrip-Warning-TODO raus, war seit Session 31 gefixt).
+- **KONTEXT.md:** Riesen-Recap-Absatz (Zeile 3, Sessions 29–33) → ein Pointer-Satz; Hosting-/Supabase-Absätze entschlackt (stale Deploy-IDs raus). **Dateibaum korrigiert:** `ansprechpersonen/`→`team/`, gelöschte `blog/page.tsx` + `termine/page.tsx` raus (waren seit Session 30 weg).
+- **PROBLEME.md 119→73 Z.:** „✅ Gelöst"-Tabelle (~60 Einträge zurück bis April) auf die jüngsten + eine Sammelzeile mit den wiederverwendbaren Lehren (Git-Lock-Recovery, Turbopack-Reset, Satori) eingedampft. Offene Abschnitte (🔴/🟡/🟢) unverändert.
+- **INHALTE.md:** Routing-Map zeigte noch die **alten** Routen (`/projekt`, `/beteiligung`, `/ansprechpersonen`) — auf die echten M17-Slugs aus `routing.ts` korrigiert + M17-Rename-Hinweis.
+- **START_HIER.md:** „Stand: M1"-Dateibaum (alle Komponenten „leer") → Pointer auf KONTEXT; Anker/Labels nachgezogen.
+- **verlauf/INDEX.md:** fehlende Sessions 30/31/32/34 ergänzt.
+- **API.md:** Hinweis ergänzt, dass das Revalidate-Mapping (`/blog`, `/termine`) seit M18 auf 308-Redirect-Routen zeigt statt auf `/konzeption` (Code-Fix als separater Task geflaggt, kein Vault-Thema).
+
+**Verifikation:** Anker referenzierter Überschriften geprüft (`Nächste Schritte für Claude`, ROADMAP-M18-Plan existieren); verbliebene Alt-Routen-Treffer sind alle bewusst (Redirect-Beschreibungen). Kein Build nötig (keine Code-Änderung).
+
 ## 2026-06-10 — Session 34: Design-Audit + Production-Polish + Deploy
 
 **Commit-SHA (Code):** `6a8db83`

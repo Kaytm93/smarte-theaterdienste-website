@@ -141,11 +141,13 @@ Endpunkt: `src/app/api/revalidate/route.ts`. Methode: `POST`.
 
 **Pfad-Mapping:** Tabelle → Route-File (Pattern matched beide Locales auf einmal):
 
-| Tabelle | revalidatePath-Aufruf |
+| Tabelle | revalidatePath-Aufruf (Stand `route.ts`) |
 |---|---|
 | `posts`, `post_translations` | `/[locale]/blog` (page) + `/[locale]/blog/[slug]` (page) + `/sitemap.xml` |
 | `events`, `event_translations` | `/[locale]/termine` (page) |
 | `faqs`, `faq_translations` | `/[locale]/faq` (page) |
+
+> ⚠️ **Stale seit Session 30:** Der Webhook revalidiert noch `/blog` und `/termine` — beide sind seit M18 nur noch 308-Redirects; die Event-/Post-Inhalte rendern jetzt im `/konzeption`-Zeitstrahl (`Timeline`). Die Konzeption-Seite frischt deshalb nur über ihr eigenes `revalidate = 60` (60s ISR), nicht sofort per Webhook. Bei Bedarf `TABLE_TO_PATHS` in `src/app/api/revalidate/route.ts` um `/[locale]/konzeption` ergänzen. `/[locale]/blog/[slug]` (Detail) + `/faq` sind weiterhin korrekt.
 
 Pages haben `export const revalidate = 60` als Untergrenze für ISR. Webhook setzt sofortige Invalidation; ohne Webhook frischt Next.js die Page einmal pro Minute.
 

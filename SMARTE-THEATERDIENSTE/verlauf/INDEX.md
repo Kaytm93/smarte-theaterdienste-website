@@ -11,7 +11,11 @@
 
 | Datum       | Milestone / Thema                             | Datei                                                              |
 | ----------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| 2026-06-10  | Session 34 — Design-Audit + Production-Polish | [[SESSION_2026-06-10]]                                             |
 | 2026-06-08  | Session 33 — Interaktive Karte auf Startseite | [[SESSION_2026-06-08]]                                             |
+| 2026-06-07  | Session 32 — Production-Audit + Event-Plumbing| [[SESSION_2026-06-07]]                                             |
+| 2026-06-05  | Session 31 — M18 W3 P2: Datenfluss + Wortwitz | [[SESSION_2026-06-05]]                                             |
+| 2026-06-04  | Session 30 — M18 W3 P1+P3: Cleanup + Deploy   | [[SESSION_2026-06-04]]                                             |
 | 2026-05-24  | M17 Welle 2 — Unterseiten nach Feedback       | [[SESSION_2026-05-24]]                                             |
 | 2026-05-19  | M17 Welle 1 — CI + Nav + Landing              | [[SESSION_2026-05-19]]                                             |
 | 2026-05-15  | M16 Editorial-Visual-Polish                   | [[SESSION_2026-05-15_M16-Editorial-Visual-Polish]]                 |

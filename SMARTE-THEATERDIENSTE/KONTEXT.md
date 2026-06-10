@@ -1,6 +1,8 @@
 # Smarte Theaterdienste — Vollständiger Projektkontext
 
-> Letzte Aktualisierung: 2026-06-08 | Stand: Session 33 — Interaktive Google-MyMaps-Karte jetzt auch auf der **Startseite**: `NetworkMapSection` rendert das iframe statt des statischen DACH-Bilds (geteilte `MYMAPS_EMBED_URL` in neuer `src/lib/maps.ts`; `landing.json` `mapTitle` statt `image`/`imageAlt`; editoriale 141-Stat/Segmente bleiben), [[ENTSCHEIDUNGEN#ADR-60]]. Plus Git-Recovery: lokale „ungeborene" `main` non-destruktiv an `origin/main` rehängt (verwaisten `main.lock` entfernt, kein Force). Code `6399562`. — Stand Session 32: Production-Audit (Live-Vercel: A11y/SEO 100/100 DE+EN, BP 96 = YouTube-Cookie, Perf ~91–94; P3-#7 jetzt auch Production-bestätigt) + Event-Foto-Plumbing vorbereitet (Migration `20260607120000_event_image_url.sql` + defensive Query + `Timeline`-Render, deploy-sicher; offen: DB-Push + Foto-URLs, [[ENTSCHEIDUNGEN#ADR-59]]) + Custom-Domain-503-Doku korrigiert (Domain wieder HTTP 200, aber weiter alter Hetzner-Server, DNS unverändert). — Stand Session 31: M18 Welle 3 P2 (3a `DataFlowDiagram` + 3b Wortwitz-Eyebrows) + ComicStrip-Fill-Fix (#10) + A11y-Recheck (#7: Lighthouse A11y/BP 100, axe 0 echte Befunde); Welle 1+2 seit Session 30 production-live (`dpl_3ADeq7…`). Details siehe DASHBOARD/CHANGELOG. — Historischer Stand Session 29: M17 Welle 2 lokal validiert. Welle 1 (`b7ade71`) wurde per Fast-Forward auf `main` gemergt (vorher lag `main` auf M16 `f109bf2`). Welle 2 arbeitet den Unterseiten-Backlog ab: Konzeption (`/konzeption`) bebildert mit 3 Grayscale-Sanity-Fotos und um Team-Block (`TeamGrid`) + Zeitstrahl-Abschnitt (`#zeitstrahl`) erweitert; Technische Standards bettet Comic-Clip-Video (`cCCa7Yuzaf0`) + Comic-Strip direkt ein; neue `MapEmbed`-Komponente zeigt Google-MyMaps auf `/jetzt-mitmachen`; `FaqAccordion` gruppiert nach `category` mit Quick-Nav; Route `/ansprechpersonen`→`/team` (308-Redirects), `ContactCard` ohne Telefon/E-Mail mit Portrait→Bühne-Hover (`stage`-Feld); neue `Timeline`-Komponente (Supabase-Events + Genially-Embed) ersetzt Blog/Termine, deren Routen 308 auf `/konzeption` zeigen. **Vorherige Welle 1:** Editorial-Welt → Corporate Identity (Public Sans, Black-Gray-Purple), 4-Item-Menü, `/materialien`-Route, Bühnenverein-Lockup im Hero. Production-Deploy für Welle 1+2 steht noch aus.
+> Diese Datei beschreibt den **stabilen technischen Stand** (Tech-Stack, Architekturregeln, Dateipfade, Routing). Den laufenden Projektstatus + „was als Nächstes" findest du in [[DASHBOARD]], die Session-Historie in [[CHANGELOG]].
+>
+> Letzte Strukturaktualisierung: 2026-06-10 (Session 34).
 
 ---
 
@@ -61,9 +63,9 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 | pnpm                  | 10.33.2   | Package Manager (via `~/.nvm/...`)                     |
 | Node.js               | 20.19.4   | nvm-installiert                                        |
 
-**Hosting:** Vercel — Production live unter `https://smarte-theaterdienste-website.vercel.app` (Projekt `kaytm93s-projects/smarte-theaterdienste-website`, letzter validierter M16-Deploy `dpl_8E57VeoNYrbQBWeJg3Kma936iWXZ`, READY, Basis `4975019`; direkter Deploy `https://smarte-theaterdienste-website-jeg5uepng-kaytm93s-projects.vercel.app`). GitHub-Integration ist verbunden; Push auf `main` triggert Auto-Deploy. Session 20 korrigierte `NEXT_PUBLIC_SITE_URL` in Vercel Production von leer auf den Vercel-Alias und deployte per `vercel build --prod --yes` + `vercel deploy --prebuilt --prod --yes`. Session 27 deployte die M16-Editorial-Visual-Fixes manuell per `pnpm dlx vercel@latest deploy --prod --yes`; Alias-Smoke `/de`, `/de/ansprechpersonen`, `/de/blog`, `/de/faq`, `/de/termine`, `/de/beteiligung/mitwirkung`, `/en`, `/sitemap.xml`, `/robots.txt` HTTP 200. Achtung: `https://smarte-theaterdienste.de/de` zeigt noch auf alte Nicht-Vercel-A-Records und alte Inhalte; Repo-Pushes werden dort erst nach Domain-/DNS-Umstellung sichtbar.
+**Hosting:** Vercel, Projekt `kaytm93s-projects/smarte-theaterdienste-website`. Production-Alias `https://smarte-theaterdienste-website.vercel.app`. GitHub-Integration verbunden; **Push auf `main` triggert Auto-Deploy** (funktioniert seit [[ENTSCHEIDUNGEN#ADR-58]] — `requireVerifiedCommits` war die Ursache der zuvor abgebrochenen Auto-Deploys). Manueller Fallback: `pnpm dlx vercel@latest deploy --prod --yes`. `NEXT_PUBLIC_SITE_URL` in Vercel Production = der Alias. **Achtung:** `smarte-theaterdienste.de` zeigt noch auf alte Hetzner-A-Records (`167.235.107.225`/`159.69.6.148`) und alte Inhalte — erst nach DNS-Umstellung ist die echte Domain auf unserem Build (siehe [[PROBLEME]] + [[GO_LIVE_CHECKLIST]]).
 
-**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Migrationen `20260427121400_init.sql`, `20260507120000_m7_english_post_translations.sql` und `20260507153000_m11_original_site_content.sql` sind live. **Neu (Session 32, NOCH NICHT gepusht):** `20260607120000_event_image_url.sql` (`events.image_url`, nullbar/additiv) — der Push braucht das DB-Passwort, das nicht in `.env.local` liegt; die Query in `queries.ts` selektiert `image_url` defensiv und funktioniert daher auch ohne den Push (Fallback). `.env.local` enthält URL + anon-key + service-role-key + REVALIDATE_SECRET (kein DB-Passwort). Revalidate läuft in der Cloud-DB über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf `posts`, `post_translations`, `events`, `event_translations`, `faqs`, `faq_translations`. M11-Check: 21 veröffentlichte FAQs, 42 FAQ-Translations, 4 Original-Website-Termine als `past`.
+**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Schema/Content: [[API]]. Live-Migrationen: `20260427121400_init.sql`, `20260507120000_m7_english_post_translations.sql`, `20260507153000_m11_original_site_content.sql`. Migration `20260607120000_event_image_url.sql` (`events.image_url`) liegt **committed, aber un-gepusht** — der Push braucht das DB-Passwort, das **nicht** in `.env.local` liegt (`.env.local` hat nur URL + anon-key + service-role-key + REVALIDATE_SECRET); die Query selektiert `image_url` defensiv und funktioniert auch ohne Push (Fallback, [[ENTSCHEIDUNGEN#ADR-59]]). Revalidate läuft über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf 6 Tabellen.
 
 ---
 
@@ -103,9 +105,9 @@ smarte-theaterdienste-website/
 │   ├── app/[locale]/
 │   │   ├── layout.tsx                          ← Root html/body, NextIntlClientProvider, Header+Footer, Fonts; M8: metadataBase, OG/Twitter-Defaults, robots
 │   │   ├── opengraph-image.tsx                 ← M8: 1200×630 ImageResponse pro Locale (DE/EN), Datenraum-Blau, siteName/siteDescription
-│   │   ├── page.tsx                            ← Landing: Editorial-Frontpage-Hero + Benefits + DACH-Netzwerkkarte + ComicStrip + Stakeholder-Benefits + Pitch
-│   │   ├── ansprechpersonen/page.tsx           ← PageHero + TeamGrid (4 Personen, Portraits via Sanity-CDN aus alter Website)
-│   │   ├── konzeption/page.tsx                 ← PageHero + 6 TextSections + CTA-Links (Session 28: aus /projekt umgezogen)
+│   │   ├── page.tsx                            ← Landing: Hero + Benefits + NetworkMapSection (MyMaps-iframe) + ComicStrip + Stakeholder-Benefits + VideoEmbed + QuoteGallery + Pitch
+│   │   ├── team/page.tsx                       ← PageHero + TeamGrid (4 Personen, Sanity-CDN-Portraits); Route /ansprechpersonen→/team 308-Redirect (Session 29)
+│   │   ├── konzeption/page.tsx                 ← PageHero + 6 TextSections + Team-Block + Zeitstrahl (#zeitstrahl) + CTA-Links (Session 28: aus /projekt umgezogen)
 │   │   ├── konzeption/technische-standards/page.tsx
 │   │   ├── konzeption/semantische-standards/page.tsx
 │   │   ├── jetzt-mitmachen/page.tsx            ← PageHero + 2 TextSections + 3 CTA-Links (Session 28: aus /beteiligung umgezogen)
@@ -114,11 +116,10 @@ smarte-theaterdienste-website/
 │   │   ├── materialien/page.tsx                ← Session 28: PageHero + ResourceLinkGrid mit 8 ORIF-Werkzeugen (Comic, Image-Video, Infomaterial, Musterkalkulation, Doku, Validator, Lektoratstool, GitHub)
 │   │   ├── impressum/page.tsx                  ← TODO-Platzhalter mit sichtbarem Lead (Legal-Referenz auf § 5 DDG)
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter mit sichtbarem Lead
-│   │   ├── blog/page.tsx                       ← Liste (Supabase) mit ComingSoonHero-Fallback, revalidate=60
-│   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams; Session 16: twitter.card=summary_large_image
-│   │   ├── blog/[slug]/opengraph-image.tsx     ← M9 (Session 16): Per-Post 1200×630 OG mit Title + lokalisiertem published_at
-│   │   ├── faq/page.tsx                        ← Accordion (Supabase; M11: 21 Original-FAQ-Einträge) mit ComingSoonHero-Fallback
-│   │   └── termine/page.tsx                    ← Bevorstehend/Vergangen (Supabase; M11: 4 Original-Events als past) mit ComingSoonHero-Fallback
+│   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams; twitter.card=summary_large_image
+│   │   ├── blog/[slug]/opengraph-image.tsx     ← M9: Per-Post 1200×630 OG mit Title + lokalisiertem published_at
+│   │   └── faq/page.tsx                        ← FaqAccordion nach category gruppiert (Supabase; M11: 21 Original-FAQ) mit ComingSoonHero-Fallback
+│   │     (Session 30: blog/page.tsx + termine/page.tsx gelöscht — Inhalte leben im Konzeption-Zeitstrahl; /blog + /termine 308 auf /konzeption)
 │   ├── app/api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath; Post-Änderungen invalidieren auch `/sitemap.xml`
 │   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge; Session 27: Drop-Cap-Metrik ruhiger gesetzt
 │   ├── components/
@@ -257,6 +258,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 ## Nächste Schritte
 
-Siehe `DASHBOARD.md → Was Claude beim nächsten Mal tun soll`.
-
-Aktuell offen: **Custom Domain** und **finale Impressum-/Datenschutztexte**. Echte Blog-Cover-Bilder bleiben ein finaler Asset-Polish, aber die Blog-Liste und Blog-Details haben seit Session 19 sichtbare CSS-Cover-Fallbacks und ViewTransition-Elemente auch ohne `cover_image_url`. Die konkrete User-Handoff-Liste liegt in `SMARTE-THEATERDIENSTE/GO_LIVE_CHECKLIST.md`. M5 + M6 + M7 + M8 sind production-validiert; M10 ist production-live; M11/M12/M13 sind auf dem Vercel-Alias production-live. Session 22 ergänzt nur Tooling: ein repo-lokales Codex-Plugin `website-design-ultra` unter `plugins/` plus Marketplace-Eintrag. Die Custom Domain `smarte-theaterdienste.de` zeigt weiterhin auf die alte Website.
+Priorisierte Aufgaben mit Akzeptanzkriterien: [[DASHBOARD#📋 Nächste Schritte für Claude]] bzw. [[ROADMAP]]. Konkrete User-Handoff-Liste (Assets, Domain, Legal): [[GO_LIVE_CHECKLIST]].

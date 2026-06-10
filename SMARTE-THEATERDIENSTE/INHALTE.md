@@ -131,24 +131,25 @@ Kurze Antworten mit Links zu entsprechenden Stellen auf der Website. Dynamisch a
 
 ## Routing-Map (DE ↔ EN)
 
-| Internal Key                          | DE                                    | EN                                       |
-| ------------------------------------- | ------------------------------------- | ---------------------------------------- |
-| `/`                                   | `/de`                                 | `/en`                                    |
-| `/ansprechpersonen`                   | `/de/ansprechpersonen`                | `/en/contact-persons`                    |
-| `/termine`                            | `/de/termine`                         | `/en/events`                             |
-| `/projekt`                            | `/de/projekt`                         | `/en/project`                            |
-| `/projekt/technische-standards`       | `/de/projekt/technische-standards`    | `/en/project/technical-standards`        |
-| `/projekt/semantische-standards`      | `/de/projekt/semantische-standards`   | `/en/project/semantic-standards`         |
-| `/beteiligung`                        | `/de/beteiligung`                     | `/en/participation`                      |
-| `/beteiligung/anwendungsbeispiele`    | `/de/beteiligung/anwendungsbeispiele` | `/en/participation/use-cases`            |
-| `/beteiligung/mitwirkung`             | `/de/beteiligung/mitwirkung`          | `/en/participation/contribute`           |
-| `/blog`                               | `/de/blog`                            | `/en/blog`                               |
-| `/blog/[slug]`                        | `/de/blog/[slug]`                     | `/en/blog/[slug]`                        |
-| `/faq`                                | `/de/faq`                             | `/en/faq`                                |
-| `/impressum`                          | `/de/impressum`                       | `/en/imprint`                            |
-| `/datenschutz`                        | `/de/datenschutz`                     | `/en/privacy`                            |
+> ⚠️ **In M17 (Session 28) umbenannt:** `/projekt`→`/konzeption`, `/beteiligung`→`/jetzt-mitmachen`, neue `/materialien`; `/ansprechpersonen`→`/team`. Alte Pfade leiten per 308 (`next.config.ts`). `/blog` + `/termine` leiten zusätzlich auf `/konzeption` (Inhalte im Zeitstrahl). Die obige Sitemap-/Sektionsbeschreibung nutzt die **alten Miro-Slugs** — Inhalt gilt, Slugs siehe unten.
 
-Quelle der Wahrheit: `src/lib/i18n/routing.ts`.
+| Internal Key                          | DE                                    | EN                                |
+| ------------------------------------- | ------------------------------------- | --------------------------------- |
+| `/`                                   | `/de`                                 | `/en`                             |
+| `/team`                               | `/de/team`                            | `/en/team`                        |
+| `/konzeption`                         | `/de/konzeption`                      | `/en/concept`                    |
+| `/konzeption/technische-standards`    | `/de/konzeption/technische-standards` | `/en/concept/technical-standards` |
+| `/konzeption/semantische-standards`   | `/de/konzeption/semantische-standards`| `/en/concept/semantic-standards`  |
+| `/jetzt-mitmachen`                    | `/de/jetzt-mitmachen`                 | `/en/join`                       |
+| `/jetzt-mitmachen/anwendungsbeispiele`| `/de/jetzt-mitmachen/anwendungsbeispiele` | `/en/join/use-cases`          |
+| `/jetzt-mitmachen/mitwirkung`         | `/de/jetzt-mitmachen/mitwirkung`      | `/en/join/contribute`             |
+| `/materialien`                        | `/de/materialien`                     | `/en/materials`                  |
+| `/blog/[slug]`                        | `/de/blog/[slug]`                     | `/en/blog/[slug]`                 |
+| `/faq`                                | `/de/faq`                             | `/en/faq`                        |
+| `/impressum`                          | `/de/impressum`                       | `/en/imprint`                    |
+| `/datenschutz`                        | `/de/datenschutz`                     | `/en/privacy`                    |
+
+Quelle der Wahrheit: `src/lib/i18n/routing.ts` (Redirects in `next.config.ts`).
 
 ---
 

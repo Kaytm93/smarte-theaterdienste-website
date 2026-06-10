@@ -9,7 +9,7 @@
 | [[DASHBOARD]]        | 👤 Nutzer | Projektstatus, was läuft, was als nächstes                |
 | [[KONTEXT]]          | 🤖 Claude | Vollständiger technischer Stand, Architekturregeln        |
 | [[PROBLEME]]         | 👥 Beide  | Offene Bugs, Einschränkungen, TODOs                       |
-| [[ROADMAP]]          | 👤 Nutzer | Milestones M1–M8, Prioritäten                             |
+| [[ROADMAP]]          | 👤 Nutzer | Milestones M1–M18, Prioritäten                            |
 | [[MUSTER]]           | 🤖 Claude | Code-Patterns die immer korrekt sein müssen (Next.js 16!) |
 | [[ENTSCHEIDUNGEN]]   | 👥 Beide  | Warum wurde was so gebaut (ADRs)                          |
 | [[CHANGELOG]]        | 👥 Beide  | Was wurde wann gemacht                                    |
@@ -19,7 +19,7 @@
 
 ## Schnellzugriff
 - [[PROBLEME#🔴 Offen|🔴 Offene Bugs]]
-- [[DASHBOARD#📋 Was Claude beim nächsten Mal tun soll|📋 Aufgaben für Claude]]
+- [[DASHBOARD#📋 Nächste Schritte für Claude|📋 Aufgaben für Claude]]
 - [[ROADMAP|💡 Milestones M1–M18 + Welle-3-Plan]]
 - [[INHALTE|📄 Inhalte & Tonality]]
 - [[KONTEXT#Wichtigste Dateipfade|📁 Dateipfade]]
@@ -31,7 +31,7 @@
 
 **Am Anfang jeder Session — bevor du Code anfasst:**
 1. Lies `SMARTE-THEATERDIENSTE/KONTEXT.md` vollständig
-2. Lies `SMARTE-THEATERDIENSTE/DASHBOARD.md` — besonders „Was Claude beim nächsten Mal tun soll"
+2. Lies `SMARTE-THEATERDIENSTE/DASHBOARD.md` — besonders „Nächste Schritte für Claude"
 3. Lies `SMARTE-THEATERDIENSTE/PROBLEME.md`
 4. Lies `SMARTE-THEATERDIENSTE/MUSTER.md` — Next.js 16 hat Breaking Changes!
 5. Bei inhaltlicher Arbeit zusätzlich `SMARTE-THEATERDIENSTE/INHALTE.md`
@@ -48,24 +48,7 @@
 
 ---
 
-## Wichtigste Dateipfade (Stand: M1)
+## Wichtigste Dateipfade
 
-```
-src/
-├── app/[locale]/        → Lokalisierte Routen (DE/EN)
-│   ├── layout.tsx       → NextIntlClientProvider, html/body, Fonts
-│   └── page.tsx         → Landing (Hero-Skeleton)
-├── components/          → ui/, layout/, sections/, animations/, forms/
-│                          (alle leer, befüllen ab M2/M3)
-├── lib/
-│   ├── i18n/            → routing.ts, request.ts, navigation.ts
-│   ├── supabase/        → Stub – aktiv ab M4
-│   └── gsap/            → registerScrollTrigger.ts
-├── messages/            → de.json, en.json (UI-Strings)
-├── content/{de,en}/     → Statische Inhalte (MDX/JSON, M3)
-├── styles/tokens.css    → Design-Tokens
-└── proxy.ts             → next-intl Routing (Next.js 16: heißt PROXY, nicht middleware!)
-
-supabase/migrations/     → DB-Schema (ab M4)
-SMARTE-THEATERDIENSTE/   → Dieser Vault
-```
+Aktueller, vollständiger Dateibaum mit Annotationen: [[KONTEXT#Wichtigste Dateipfade]].
+Merke nur: `src/proxy.ts` (Next.js 16 — heißt **PROXY**, nicht `middleware`), Routing-Wahrheit in `src/lib/i18n/routing.ts`, Page-Content in `src/content/{de,en}/*.json`, DB-Schema in `supabase/migrations/`.
