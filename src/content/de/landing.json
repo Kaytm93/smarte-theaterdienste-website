@@ -28,6 +28,7 @@
     "statValue": "141",
     "statLabel": "Institutionen umfasst das Netzwerk derzeit.",
     "mapTitle": "Interaktive Karte des DACH-Netzwerks der Smarten Theaterdienste",
+    "mapCaption": "DACH-Netzwerk · Datenraum Kultur",
     "segments": [
       { "value": "51", "label": "interessierte Theater und Opernhäuser" },
       { "value": "30", "label": "Häuser im erweiterten Netzwerk" },

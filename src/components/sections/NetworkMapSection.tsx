@@ -13,6 +13,7 @@ type Props = {
   statLabel: string;
   mapUrl: string;
   mapTitle: string;
+  mapCaption: string;
   segments: NetworkSegment[];
 };
 
@@ -24,6 +25,7 @@ export function NetworkMapSection({
   statLabel,
   mapUrl,
   mapTitle,
+  mapCaption,
   segments,
 }: Props) {
   return (
@@ -78,7 +80,7 @@ export function NetworkMapSection({
             />
           </div>
           <figcaption className="mt-3 border-t border-[var(--rule-strong)] pt-3 text-xs font-semibold uppercase text-foreground/55">
-            DACH-Netzwerk · Datenraum Kultur
+            {mapCaption}
           </figcaption>
         </figure>
       </div>

@@ -78,13 +78,9 @@ export default async function HomePage({
 
                 <FadeInOnScroll
                   delay={STAGGER * 3}
-                  className="flex flex-wrap items-baseline gap-x-4 gap-y-1 pt-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-foreground/60"
+                  className="pt-1 font-mono text-[11px] font-semibold tracking-[0.04em] text-foreground/70"
                 >
-                  <span>{t("kicker")}</span>
-                  <span aria-hidden className="text-foreground/35">·</span>
-                  <span className="font-mono normal-case tracking-[0.04em] text-foreground/70">
-                    {t("tags")}
-                  </span>
+                  <span>{t("tags")}</span>
                 </FadeInOnScroll>
               </div>
 
@@ -169,6 +165,7 @@ export default async function HomePage({
         statLabel={landing.network.statLabel}
         mapUrl={MYMAPS_EMBED_URL}
         mapTitle={landing.network.mapTitle}
+        mapCaption={landing.network.mapCaption}
         segments={landing.network.segments}
       />
 

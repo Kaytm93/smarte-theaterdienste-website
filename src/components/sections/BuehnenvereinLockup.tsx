@@ -23,9 +23,10 @@ export function BuehnenvereinLockup({ label, buehnenvereinAlt, partners = [] }: 
           <Image
             src="/logos/buehnenverein.png"
             alt={buehnenvereinAlt}
-            width={180}
-            height={48}
-            priority
+            width={1043}
+            height={368}
+            sizes="114px"
+            preload
             className="h-9 w-auto sm:h-10"
           />
         </div>

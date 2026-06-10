@@ -29,9 +29,10 @@ export async function Header() {
           <Image
             src="/logos/buehnenverein.png"
             alt={tFooter("logoAlt.buehnenverein")}
-            width={88}
-            height={32}
-            priority
+            width={1043}
+            height={368}
+            sizes="91px"
+            preload
             className="h-7 w-auto sm:h-8"
           />
           <span className="hidden h-7 w-px bg-[var(--rule)] sm:block" aria-hidden />

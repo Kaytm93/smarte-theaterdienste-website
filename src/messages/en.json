@@ -22,7 +22,6 @@
     "en": "English"
   },
   "hero": {
-    "kicker": "A project by the German Stage Association",
     "tags": "Schema.org + GND + JSON = ORIF",
     "title": "Smart Theatre Services",
     "subtitle": "Machine-readable theatre programmes as part of Germany's digital strategy – letting data flow where culture becomes visible.",
@@ -37,6 +36,7 @@
     "supportedBy": "Supported by",
     "siteMap": "Sitemap",
     "rights": "A project of the Deutscher Bühnenverein",
+    "copyright": "© {year} Deutscher Bühnenverein",
     "logoAlt": {
       "buehnenverein": "Deutscher Bühnenverein",
       "akademie": "Academy for Theatre and Digitality Dortmund",

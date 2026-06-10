@@ -22,7 +22,6 @@
     "en": "Englisch"
   },
   "hero": {
-    "kicker": "Ein Projekt des Deutschen Bühnenvereins",
     "tags": "Schema.org + GND + JSON = ORIF",
     "title": "Smarte Theaterdienste",
     "subtitle": "Maschinenlesbare Theaterspielpläne als Teil der Digitalstrategie des Bundes – damit Daten dorthin fließen, wo Kultur sichtbar wird.",
@@ -37,6 +36,7 @@
     "supportedBy": "Gefördert von",
     "siteMap": "Sitemap",
     "rights": "Ein Projekt des Deutschen Bühnenvereins",
+    "copyright": "© {year} Deutscher Bühnenverein",
     "logoAlt": {
       "buehnenverein": "Deutscher Bühnenverein",
       "akademie": "Akademie für Theater und Digitalität Dortmund",

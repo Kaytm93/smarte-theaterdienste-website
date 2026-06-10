@@ -105,7 +105,9 @@ export async function Footer() {
             >
               {t("privacy")}
             </Link>
-            <p className="mt-4 text-xs text-foreground/65">© {year}</p>
+            <p className="mt-4 text-xs text-foreground/65">
+              {t("copyright", { year })}
+            </p>
           </div>
         </div>
       </div>

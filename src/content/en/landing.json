@@ -28,6 +28,7 @@
     "statValue": "141",
     "statLabel": "institutions are currently part of the network.",
     "mapTitle": "Interactive map of the Smart Theatre Services DACH network",
+    "mapCaption": "DACH network · Cultural Data Space",
     "segments": [
       { "value": "51", "label": "interested theatres and opera houses" },
       { "value": "30", "label": "houses in the wider network" },
