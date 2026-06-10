@@ -1,5 +1,29 @@
 # 📝 Changelog
 
+## 2026-06-10 — Session 34: Design-Audit + Production-Polish + Deploy
+
+**Commit-SHA (Code):** `6a8db83`
+
+**Auftrag:** User: Vault lesen, „die ganze Website auf Design und Perfektion untersuchen" (Website-Design-Ultra-Plugin als Referenz), alle Bedingungen aus `Anmerkungen Entwurf 14.5.2026.md` prüfen, Fokus auf Platzierung/Abstände, Production-Polish mit anschließendem Deploy.
+
+**0 — Git-Reparatur vorab.** `git status -sb` zeigte `origin/main [gone]` — ein verwaister `.git/refs/remotes/origin/main.lock` (vom Session-33-Abbruch, Jun 8) blockierte das Update der Remote-Tracking-Ref; dazu ein Finder-Duplikat `index 2.lock` im Worktree. Read-only verifiziert (`git ls-remote`): Remote-`main` = lokale HEAD (`8c2b661`), keine Divergenz. Beide Locks entfernt (kein git-Prozess aktiv), `git fetch` stellt die Tracking-Ref non-destruktiv wieder her. Gleiche Lock-Klasse wie 2026-05-10/2026-06-08.
+
+**1 — Audit.** Alle 13 Routen (DE, EN-Stichproben) auf 375/673/1280 px durchgesehen: Anmerkungen-Abgleich (alle 14 Punkte aus dem Entwurfs-Feedback umgesetzt ✓), Overflow-Messung (überall `docOverflowPx 0`), Grid-Vermessung per JS (FeatureGrid 3×400, Stakeholder 4×300, Quotes 3×387, Segmente 2×2 — alle Spalten exakt), Bild-Ladezustände, Console. Fünf Befunde, alle gefixt:
+
+**2 — i18n-Bug: Karten-figcaption hartkodiert deutsch (🔴).** `NetworkMapSection.tsx` hatte „DACH-Netzwerk · Datenraum Kultur" als Literal im JSX — `/en` zeigte deutschen Text unter der interaktiven Karte (gleiche Bug-Klasse wie der Session-24-Hero-Tag-Fix). Neu: `mapCaption`-Prop, lokalisiert in `landing.json` (DE „DACH-Netzwerk · Datenraum Kultur" / EN „DACH network · Cultural Data Space").
+
+**3 — Hero-Redundanz + verwaister Trenner-Punkt (🟡).** Seit dem Welle-1-`BuehnenvereinLockup` stand „Ein Projekt des Deutschen Bühnenvereins" **dreifach** im ersten Viewport (Header-Logo, Lockup mit Logo, Text-Kicker in der Meta-Zeile) — der Text-Kicker wortgleich ~200 px unter dem Lockup. Auf Mobile brach die Meta-Zeile zudem so um, dass der Trenner-„·" verwaist am Zeilenende hing. Fix: Kicker + Punkt aus der Hero-Meta-Zeile entfernt, Mono-Tag-Zeile `Schema.org + GND + JSON = ORIF` bleibt; ungenutzter `hero.kicker`-Key aus beiden Message-Files entfernt. Siehe [[ENTSCHEIDUNGEN#ADR-61]].
+
+**4 — Logo-Console-Warning strukturell behoben (🟡).** Das Bühnenverein-PNG ist intrinsisch 1043×368 (Ratio 2,83), Header deklarierte aber 88×32 (2,75) und Lockup 180×48 (3,75). Sobald die CSS-Höhe (`sm:h-8` = 32 px) zufällig dem `height`-Attribut entsprach, feuerte Nexts XOR-Check („width or height modified, but not the other") — 8× pro Session. Fix wie beim ComicStrip (Session 31): intrinsische Maße deklarieren, Anzeigegröße bleibt bei CSS (`h-7 w-auto sm:h-8`), `sizes`-Hint für effizientes srcset; dabei deprecated `priority` → `preload` (Next-16-Deprecation, Rest der Codebase war schon umgestellt).
+
+**5 — DRK-Wording raus (🟡, Anmerkungen-Compliance).** `projekt-technische-standards.json` (DE) hatte noch „Senden und empfangen über den DRK" als Überschrift + „Der Datenraum Kultur (DRK)" im Body — die Anmerkungen verbieten die Abkürzung explizit (Verwechslung mit Deutschem Roten Kreuz). Jetzt „… über den Datenraum Kultur", Klammer-Abkürzung entfernt; EN war schon sauber. Damit ist der Seitentext DRK-frei.
+
+**6 — Footer-Copyright (🟢).** Nacktes `© 2026` → `© {year} Deutscher Bühnenverein` via neuem i18n-Key `footer.copyright` (DE/EN identisch, Eigenname).
+
+**Nicht fixbar (notiert):** FAQ-Frage „… Schnittstelle - brauchen wir dennoch ORIF?" nutzt Bindestrich statt Halbgeviertstrich — Text liegt in der Cloud-DB (Migration `20260507153000`), DB-Push braucht das fehlende DB-Passwort. In PROBLEME ergänzt.
+
+**Verifikation:** `pnpm typecheck`, `pnpm lint`, `pnpm build` clean (35/35 SSG). Preview nach `rm -rf .next` (stale-Turbopack-Klassiker: Message-JSON-Edit wurde im laufenden Dev-Server nicht aufgenommen → MISSING_MESSAGE): DE+EN Hero ohne Dopplung, Karten-Caption lokalisiert, `© 2026 Deutscher Bühnenverein` im Footer, „DRK" nirgends mehr im Seitentext, 0 Console-Warnings/-Errors.
+
 ## 2026-06-08 — Session 33: Interaktive Karte auf der Startseite + Git-Recovery
 
 **Commit-SHA (Code):** `6399562`
