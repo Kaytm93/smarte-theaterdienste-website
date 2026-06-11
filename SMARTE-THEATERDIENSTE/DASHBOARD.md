@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-06-10 (Session 35 — Vault-Aufräumen)
+> Letzte Aktualisierung: 2026-06-11 (Session 36 — Hero-Bildunterschrift)
 > Vollständige Session-Historie: [[CHANGELOG]] · Detail-Logs: [[verlauf/INDEX]]
 
 ## Status (Kurzüberblick)
@@ -15,6 +15,8 @@
 | **Supabase** | Cloud `hyirpaloozcautcxhbqk` (EU-Frankfurt) live; Revalidate via `pg_net`-Trigger auf 6 Tabellen. DB-Passwort liegt **nicht** in `.env.local` → blockiert Event-Foto-Migration + FAQ-Typo-Fix. |
 
 ## Was zuletzt lief
+
+**Session 36 (2026-06-11) — „Use Case 3" aus Hero-Bildunterschrift entfernt (`c6f7a5d`).** Die figcaption unter dem Hero-Theaterbild der Startseite lautete „Use Case 3 · Datenraum Kultur" (DE) / „Use Case 3 · Cultural Data Space" (EN). Auf Userwunsch + Rückfrage nur den „Use Case 3 · "-Präfix entfernt → „Datenraum Kultur" / „Cultural Data Space" bleibt. Die 4 anderen „Use Case 3"-Fundstellen (Meta-Description, OG-Image, Pitch-Fließtext) bewusst unberührt. Preview-verifiziert, 0 Console-Errors. Details: [[CHANGELOG#2026-06-11 — Session 36: „Use Case 3" aus Hero-Bildunterschrift der Startseite entfernt]].
 
 **Session 35 (2026-06-10) — Vault-Aufräumen (kein Code-Change).** Token-Diät der Session-Start-Dateien: DASHBOARD 161→45 Z., PROBLEME 119→73 Z., KONTEXT-Recap-Absatz weg; stale Routing-Map (INHALTE), Dateibaum (`ansprechpersonen`→`team`, gelöschte blog/termine-Pages) und INDEX korrigiert. Vollhistorie liegt unverändert in [[CHANGELOG]] + `verlauf/`. Details: [[CHANGELOG#2026-06-10 — Session 35: Vault-Aufräumen (Token-Diät + Stale-Fixes)]].
 

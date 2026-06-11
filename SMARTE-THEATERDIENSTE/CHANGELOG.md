@@ -1,5 +1,17 @@
 # 📝 Changelog
 
+## 2026-06-11 — Session 36: „Use Case 3" aus Hero-Bildunterschrift der Startseite entfernt
+
+**Commit-SHA (Code):** `c6f7a5d`
+
+**Auftrag:** User: Vault lesen, dann „Use Case 3 muss weg bei dem Bild darunter auf der Startseite".
+
+**Lokalisierung.** Projektweiter grep nach „Use Case 3" zeigte 5 Fundstellen: Hero-figcaption (DE/EN messages, je Z. 31), `meta.siteDescription` (DE/EN), `opengraph-image.tsx` (Landing + Blog), `landing.json` `pitch.body` (DE/EN). Nur die **figcaption direkt unter dem Hero-Theaterbild** passt zu „bei dem Bild darunter" — sie lautete „Use Case 3 · Datenraum Kultur" (DE) / „Use Case 3 · Cultural Data Space" (EN).
+
+**Fix (nach Rückfrage).** User-Entscheidung: „nur Use Case 3 raus, Rest bleibt". `hero.heroImageCaption` → „Datenraum Kultur" (DE) / „Cultural Data Space" (EN). Die übrigen 4 Fundstellen (Meta-Description, OG-Image, Pitch-Fließtext) bewusst **unberührt** — inhaltlich korrekt und nicht „beim Bild".
+
+**Verifikation:** Preview (Port 3000, `/de`): erste figcaption jetzt „Datenraum Kultur" (vorher „Use Case 3 · …"), Netzwerk-Karten-Caption „DACH-Netzwerk · Datenraum Kultur" unverändert, 0 Console-Errors. Hero-Screenshot bestätigt „DATENRAUM KULTUR" (CSS-Uppercase) unter dem Bild. Gleiche figcaption-Klasse wie Session 34 Punkt 2 (dort die Karten-Caption lokalisiert).
+
 ## 2026-06-10 — Session 35: Vault-Aufräumen (Token-Diät + Stale-Fixes)
 
 **Kein Code-Change — reine Vault-Wartung.** User: „Lese die MD-Dateien, sortiere irrelevante Infos aus, lösche was nur Tokens kostet, bringe Ordnung hinein." Leitprinzip: Die bei **jedem** Session-Start gelesenen Dateien (DASHBOARD/KONTEXT/PROBLEME/MUSTER) müssen schlank + aktuell sein; die Vollhistorie lebt in CHANGELOG + `verlauf/`.
