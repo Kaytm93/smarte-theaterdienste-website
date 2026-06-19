@@ -2,7 +2,7 @@
 
 ## 2026-06-19 — Session 38: Spielplan-Reise Orbit-Polish
 
-**Commit-SHA (Code):** `PENDING`
+**Commit-SHA (Code):** `de33eb5`
 
 **Auftrag:** User-Feedback zur nativen „Interaktiven Reise durch die Spielplanverbreitung": Der pulsierende Kern mit Sternen sollte im Zentrum stehen und nicht oben links; außerdem sollte die Darstellung heller/lesbarer werden und die Animationen mehr Feinschliff bekommen. Umsetzung mit `website-design-ultra`-Regeln: CI-Palette beibehalten, eine Akzentfarbe, transform/opacity-only Motion, reduced-motion respektiert.
 

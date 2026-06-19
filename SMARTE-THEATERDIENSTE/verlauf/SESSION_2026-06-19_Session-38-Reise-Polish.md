@@ -2,7 +2,7 @@
 
 **Datum:** 2026-06-19  
 **Status:** lokal verifiziert, Commit/Push folgt in der Session-Routine  
-**Commit-SHA:** `PENDING`
+**Commit-SHA:** `de33eb5`
 
 ## Anlass
 
