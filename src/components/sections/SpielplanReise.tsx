@@ -34,6 +34,17 @@ export type ReiseLabels = {
 // Eine Ikone pro Station — folgt der Reihenfolge der Stationen aus den Messages.
 const ICONS: LucideIcon[] = [Files, Languages, Braces, Share2, RadioTower];
 
+const ORBIT_STARS = [
+  "left-1/2 top-3 -translate-x-1/2",
+  "right-10 top-7",
+  "right-4 top-1/2 -translate-y-1/2",
+  "bottom-7 right-10",
+  "bottom-3 left-1/2 -translate-x-1/2",
+  "bottom-7 left-10",
+  "left-4 top-1/2 -translate-y-1/2",
+  "left-10 top-7",
+] as const;
+
 function prefersReducedMotion() {
   return (
     typeof window !== "undefined" &&
@@ -50,6 +61,7 @@ export function SpielplanReise({ stations, labels }: Props) {
   const [active, setActive] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const orbitRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLSpanElement>(null);
   const baseId = useId();
   const total = stations.length;
@@ -106,7 +118,54 @@ export function SpielplanReise({ stations, labels }: Props) {
         },
       );
     },
-    { dependencies: [active], scope: rootRef },
+    { dependencies: [active], scope: rootRef, revertOnUpdate: true },
+  );
+
+  // Zentrierter Orbit-Core: sichtbar, ruhig, und nur transform/opacity animiert.
+  useGSAP(
+    () => {
+      if (!orbitRef.current || prefersReducedMotion()) return;
+      const orbit = orbitRef.current.querySelector("[data-orbit]");
+      const core = orbitRef.current.querySelector("[data-core]");
+      const glow = orbitRef.current.querySelector("[data-core-glow]");
+      const stars = orbitRef.current.querySelectorAll("[data-orbit-star]");
+
+      gsap.to(orbit, {
+        rotate: 360,
+        duration: 24,
+        ease: "none",
+        repeat: -1,
+        transformOrigin: "center",
+      });
+      gsap.to(core, {
+        scale: 1.045,
+        duration: 1.8,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        transformOrigin: "center",
+      });
+      gsap.to(glow, {
+        scale: 1.18,
+        opacity: 0.85,
+        duration: 2.2,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        transformOrigin: "center",
+      });
+      gsap.to(stars, {
+        scale: 1.32,
+        opacity: 1,
+        duration: 0.95,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        stagger: 0.13,
+        transformOrigin: "center",
+      });
+    },
+    { dependencies: [active], scope: orbitRef, revertOnUpdate: true },
   );
 
   const onTablistKeyDown = (event: React.KeyboardEvent) => {
@@ -221,20 +280,61 @@ export function SpielplanReise({ stations, labels }: Props) {
         id={`${baseId}-panel`}
         role="tabpanel"
         aria-labelledby={`${baseId}-tab-${active}`}
-        className="mt-8 grid gap-6 rounded-lg border border-[var(--rule-strong)] bg-[var(--surface-elevated)] p-6 shadow-[var(--shadow-sm)] sm:mt-10 sm:p-8 md:grid-cols-[auto_minmax(0,1fr)] md:gap-8"
+        className="mt-8 overflow-hidden rounded-lg border border-[var(--rule-strong)] bg-[color-mix(in_srgb,var(--surface-elevated)_92%,var(--accent-brand-pale)_8%)] px-5 py-7 shadow-[var(--shadow-md)] sm:mt-10 sm:px-8 sm:py-9"
       >
-        {/* Großes Icon-Emblem + Nummer */}
-        <div className="flex items-center gap-4 md:flex-col md:items-start md:gap-5">
-          <div className="relative flex size-16 shrink-0 items-center justify-center rounded-xl border border-[var(--rule-strong)] bg-[var(--paper)] text-[var(--accent-brand-ink)] sm:size-20">
-            <StageIcon aria-hidden className="size-7 sm:size-9" />
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          {/* Pulsierender Kern mit Stern-Orbit */}
+          <div
+            ref={orbitRef}
+            data-reveal
+            className="relative mx-auto flex min-h-[13rem] w-full max-w-[24rem] items-center justify-center overflow-hidden rounded-2xl border border-[var(--rule)] bg-[radial-gradient(circle_at_center,var(--paper)_0%,var(--accent-brand-pale)_42%,var(--paper-soft)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.9),var(--shadow-sm)]"
+          >
+            <span
+              aria-hidden
+              data-core-glow
+              className="absolute size-32 rounded-full bg-[var(--accent-brand)]/45 blur-2xl"
+            />
+            <span
+              aria-hidden
+              data-orbit
+              className="absolute size-40 rounded-full border border-dashed border-[var(--accent-brand-ink)]/38 sm:size-44"
+            />
+            <span
+              aria-hidden
+              className="absolute size-52 rounded-full border border-[var(--paper-elevated)]/80 shadow-[inset_0_0_30px_rgba(255,255,255,0.75)]"
+            />
+            {ORBIT_STARS.map((position, index) => (
+              <span
+                key={position}
+                aria-hidden
+                data-orbit-star
+                className={cn(
+                  "absolute size-2 rounded-full border border-[var(--accent-brand-ink)]/35 bg-[var(--paper-elevated)] opacity-70 shadow-[0_0_14px_color-mix(in_srgb,var(--accent-brand)_62%,transparent)]",
+                  index % 2 === 0 ? "sm:size-2.5" : "sm:size-1.5",
+                  position,
+                )}
+              />
+            ))}
+            <div
+              data-core
+              className="relative z-10 flex size-24 items-center justify-center rounded-full border border-[var(--rule-strong)] bg-[var(--paper-elevated)] text-[var(--accent-brand-ink)] shadow-[0_18px_38px_color-mix(in_srgb,var(--accent-brand)_30%,transparent)] sm:size-28"
+            >
+              <StageIcon aria-hidden className="size-10 sm:size-12" />
+              <span
+                aria-hidden
+                className="absolute inset-2 rounded-full border border-[var(--accent-brand)]/55"
+              />
+            </div>
           </div>
-          <span className="font-serif text-5xl font-semibold leading-none text-foreground/12 sm:text-7xl">
-            {String(active + 1).padStart(2, "0")}
-          </span>
-        </div>
 
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-3">
+          <span
+            data-reveal
+            className="mt-5 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-foreground/58"
+          >
+            {progress}
+          </span>
+
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <span
               data-reveal
               className="inline-flex items-center rounded-full bg-[var(--accent-brand-pale)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--accent-brand-ink)]"
@@ -257,14 +357,14 @@ export function SpielplanReise({ stations, labels }: Props) {
           </h4>
           <p
             data-reveal
-            className="mt-3 max-w-prose text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/75"
+            className="mx-auto mt-3 max-w-[62ch] text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/82"
           >
             {station.body}
           </p>
 
           <ul
             data-reveal
-            className="mt-5 flex flex-wrap gap-2"
+            className="mt-5 flex flex-wrap justify-center gap-2"
             aria-hidden
           >
             {station.chips.map((chip) => (
@@ -290,7 +390,7 @@ export function SpielplanReise({ stations, labels }: Props) {
           type="button"
           onClick={() => go(active - 1)}
           disabled={active === 0}
-          className="inline-flex items-center gap-2 rounded-md border border-[var(--rule-strong)] px-4 py-2 text-sm font-semibold transition-colors hover:bg-[var(--surface-1)] disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-transparent"
+          className="inline-flex min-h-11 items-center gap-2 rounded-md border border-[var(--rule-strong)] px-4 py-2 text-sm font-semibold transition-[background-color,transform,opacity] hover:bg-[var(--surface-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-transparent disabled:active:translate-y-0"
         >
           <ArrowLeft aria-hidden className="size-4" />
           {labels.prev}
@@ -307,7 +407,7 @@ export function SpielplanReise({ stations, labels }: Props) {
           type="button"
           onClick={() => go(active + 1)}
           disabled={active === total - 1}
-          className="inline-flex items-center gap-2 rounded-md border border-[var(--accent-brand-ink)] bg-[var(--accent-brand-ink)] px-4 py-2 text-sm font-semibold text-[var(--paper)] transition-colors hover:bg-[var(--accent-brand-ink)]/90 disabled:cursor-not-allowed disabled:opacity-35"
+          className="inline-flex min-h-11 items-center gap-2 rounded-md border border-[var(--accent-brand-ink)] bg-[var(--accent-brand-ink)] px-4 py-2 text-sm font-semibold text-[var(--paper)] transition-[background-color,transform,opacity] hover:bg-[var(--accent-brand-ink)]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px disabled:cursor-not-allowed disabled:opacity-35 disabled:active:translate-y-0"
         >
           {labels.next}
           <ArrowRight aria-hidden className="size-4" />

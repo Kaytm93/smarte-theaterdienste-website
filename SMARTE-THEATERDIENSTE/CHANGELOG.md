@@ -1,5 +1,19 @@
 # 📝 Changelog
 
+## 2026-06-19 — Session 38: Spielplan-Reise Orbit-Polish
+
+**Commit-SHA (Code):** `PENDING`
+
+**Auftrag:** User-Feedback zur nativen „Interaktiven Reise durch die Spielplanverbreitung": Der pulsierende Kern mit Sternen sollte im Zentrum stehen und nicht oben links; außerdem sollte die Darstellung heller/lesbarer werden und die Animationen mehr Feinschliff bekommen. Umsetzung mit `website-design-ultra`-Regeln: CI-Palette beibehalten, eine Akzentfarbe, transform/opacity-only Motion, reduced-motion respektiert.
+
+**Fix.** `src/components/sections/SpielplanReise.tsx` wurde gezielt überarbeitet: Die alte linke Emblem-Spalte im Tabpanel ist durch einen zentrierten Orbit-Core ersetzt. Der Core steht in einer helleren Stage-Fläche, hat einen klaren weißen Kern, Purple-Glow, gestrichelten Orbit und acht kleine Sternpunkte. Text, Tags und Chips bleiben darunter mittig ausgerichtet, sodass der Fokus nicht mehr oben links hängt. Die Stage-Card nutzt eine hellere Surface-Mischung und stärkeren Schatten; Body-Text ist kontrastreicher (`foreground/82` statt `foreground/75`).
+
+**Animation.** Zusätzlich zum vorhandenen Fortschritts- und Content-Reveal laufen jetzt vier dezente GSAP-Loops: langsame Orbit-Rotation, Core-Puls, Glow-Atmung und gestaffeltes Stern-Flimmern. Alles animiert nur `transform`/`opacity`; `prefers-reduced-motion` bleibt Guard. Der aktive Stepper-Puls und der neue Orbit-Effekt nutzen `revertOnUpdate`, damit beim Stationswechsel keine alten Infinite-Timelines weiterlaufen.
+
+**Controls/States.** Prev/Next haben jetzt 44px-Touch-Targets, sichtbare Focus-Rings, Active-Feedback (`translate-y-px`) und sauberere Disabled-States. ARIA-Struktur (`tablist/tab/tabpanel`, `aria-live` für Progress) bleibt unverändert.
+
+**Verifikation:** `pnpm typecheck` clean, `pnpm lint` clean, `pnpm build` clean (35/35 SSG). Playwright auf `/de/konzeption#zeitstrahl`: Desktop-Screenshot `output/playwright/spielplanreise-station5-desktop.png`, Mobile-Screenshot `output/playwright/spielplanreise-mobile-core.png`; Mobile `docOverflowPx 0`; gemessene Zentrierung `panelCenterX=188`, `coreCenterX=188`, `deltaPx=0`; Browser-Konsole 0 Errors / 0 Warnings.
+
 ## 2026-06-19 — Session 37: Native interaktive „Spielplan-Reise" statt Genially-Embed + Partnerkarte neu aufgebaut
 
 **Commit-SHA (Code):** `PENDING`
