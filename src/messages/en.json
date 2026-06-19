@@ -63,9 +63,51 @@
     "lead": "Conferences, workshops and public events where the machine-readable programmes were presented and discussed.",
     "locationLabel": "Location",
     "sourceLabel": "Learn more",
-    "geniallyHeading": "An interactive journey through programme distribution",
-    "geniallyCaption": "The detailed timeline with every milestone of the development – scroll through and explore.",
-    "geniallyTitle": "Genially: development of programme distribution"
+    "journey": {
+      "heading": "An interactive journey through programme distribution",
+      "lead": "From manual work to an open data space: click through the five stations and see how a programme turns into machine-readable data.",
+      "hint": "Choose a station",
+      "prev": "Back",
+      "next": "Next",
+      "progressLabel": "Station {current} of {total}",
+      "stations": [
+        {
+          "tag": "Today",
+          "phase": "Status quo",
+          "title": "Everyone re-types it by hand",
+          "body": "Programmes sit as PDF or HTML in each house's own layout. Platforms, archives and search engines have to re-enter every date by hand – error-prone and never quite up to date.",
+          "chips": ["PDF", "HTML", "Copy & paste"]
+        },
+        {
+          "tag": "Step 1",
+          "phase": "A shared language",
+          "title": "Technical & semantic standards",
+          "body": "An open data model translates theatre vocabulary into open standards – without changing anything on your website.",
+          "chips": ["Schema.org", "GND", "CIDOC"]
+        },
+        {
+          "tag": "Step 2",
+          "phase": "The interface",
+          "title": "The programme becomes ORIF",
+          "body": "Through the ORIF interface a house publishes its programme as machine-readable JSON. Set up once, always current.",
+          "chips": ["ORIF", "JSON", "API"]
+        },
+        {
+          "tag": "Step 3",
+          "phase": "The connector",
+          "title": "Docking onto the Cultural Data Space",
+          "body": "A connector links the interface to the Cultural Data Space. Data flows securely, unambiguously – and under the house's control.",
+          "chips": ["Connector", "Cultural Data Space", "Data sovereignty"]
+        },
+        {
+          "tag": "Result",
+          "phase": "Distribution",
+          "title": "Connect once, visible everywhere",
+          "body": "Programme data automatically reaches platforms, public displays, press, casting portals and archives. No more copy & paste.",
+          "chips": ["Platforms", "Displays", "Press", "Casting", "Archives"]
+        }
+      ]
+    }
   },
   "pages": {
     "team": {
@@ -115,7 +157,9 @@
       "lead": "Three clear steps lead from programme data to automated data sharing.",
       "map": {
         "heading": "Who's already on board",
-        "lead": "Pilot theatres and Cultural Data Space partners across Germany. The larger DACH network map is also available on the home page.",
+        "lead": "These core partner institutions are building the machine-readable programmes together.",
+        "networkNote": "140+ institutions in the DACH network",
+        "networkCta": "View the DACH network map on the home page",
         "imageAlt": "Map of Germany showing the locations of Cultural Data Space partners",
         "statusLabel": "Status",
         "statuses": {

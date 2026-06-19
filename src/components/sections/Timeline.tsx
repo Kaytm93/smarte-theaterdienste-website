@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
+import { SpielplanReise, type ReiseStation } from "./SpielplanReise";
 import type { EventListItem } from "@/lib/supabase/queries";
 import type { Locale } from "@/lib/i18n/routing";
 
@@ -10,9 +11,16 @@ export type TimelineLabels = {
   lead?: string;
   locationLabel: string;
   sourceLabel: string;
-  geniallyHeading: string;
-  geniallyCaption?: string;
-  geniallyTitle: string;
+};
+
+export type TimelineJourney = {
+  heading: string;
+  lead?: string;
+  hint: string;
+  prev: string;
+  next: string;
+  progressLabel: string;
+  stations: ReiseStation[];
 };
 
 function formatDateRange(
@@ -36,10 +44,10 @@ type Props = {
   events: EventListItem[];
   labels: TimelineLabels;
   locale: Locale;
-  geniallyUrl: string;
+  journey: TimelineJourney;
 };
 
-export function Timeline({ events, labels, locale, geniallyUrl }: Props) {
+export function Timeline({ events, labels, locale, journey }: Props) {
   return (
     <section id="zeitstrahl" className="border-t border-[var(--rule-strong)]">
       <FadeInOnScroll className="mx-auto max-w-[var(--container-max)] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
@@ -108,26 +116,22 @@ export function Timeline({ events, labels, locale, geniallyUrl }: Props) {
 
         <div className="mt-14 border-t border-[var(--rule)] pt-10">
           <h3 className="mb-2 font-serif text-2xl font-semibold leading-snug tracking-[var(--tracking-heading)]">
-            {labels.geniallyHeading}
+            {journey.heading}
           </h3>
-          {labels.geniallyCaption ? (
-            <p className="mb-6 max-w-2xl text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/72">
-              {labels.geniallyCaption}
+          {journey.lead ? (
+            <p className="mb-8 max-w-2xl text-pretty text-base leading-[var(--leading-relaxed)] text-foreground/72">
+              {journey.lead}
             </p>
           ) : null}
-          <div className="relative overflow-hidden rounded-lg border border-[var(--rule-strong)] bg-black shadow-[var(--shadow-md)]">
-            <div className="relative aspect-video">
-              <iframe
-                src={geniallyUrl}
-                title={labels.geniallyTitle}
-                loading="lazy"
-                allow="fullscreen"
-                allowFullScreen
-                referrerPolicy="strict-origin-when-cross-origin"
-                className="absolute inset-0 h-full w-full"
-              />
-            </div>
-          </div>
+          <SpielplanReise
+            stations={journey.stations}
+            labels={{
+              hint: journey.hint,
+              prev: journey.prev,
+              next: journey.next,
+              progressLabel: journey.progressLabel,
+            }}
+          />
         </div>
       </FadeInOnScroll>
     </section>

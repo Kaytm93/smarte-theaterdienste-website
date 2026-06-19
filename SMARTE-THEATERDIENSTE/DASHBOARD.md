@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-06-11 (Session 36 — Hero-Bildunterschrift)
+> Letzte Aktualisierung: 2026-06-19 (Session 37 — Native Reise + Partnerkarte)
 > Vollständige Session-Historie: [[CHANGELOG]] · Detail-Logs: [[verlauf/INDEX]]
 
 ## Status (Kurzüberblick)
@@ -15,6 +15,8 @@
 | **Supabase** | Cloud `hyirpaloozcautcxhbqk` (EU-Frankfurt) live; Revalidate via `pg_net`-Trigger auf 6 Tabellen. DB-Passwort liegt **nicht** in `.env.local` → blockiert Event-Foto-Migration + FAQ-Typo-Fix. |
 
 ## Was zuletzt lief
+
+**Session 37 (2026-06-19) — Native interaktive „Spielplan-Reise" + Partnerkarte neu (`PENDING`).** Zwei User-Aufträge. (1) Das **Genially-Embed** der „Interaktiven Reise durch die Spielplanverbreitung" (`/konzeption`) zeigte nur einen generischen Lade-Spinner → ersetzt durch die selbstgebaute, animierte `SpielplanReise` (Client+GSAP): 5-Stationen-Stepper mit Icon-Knoten, animierter Fortschrittslinie, Bühnen-Card + Format-Chips, Prev/Next, voll tastatur-/ARIA-/reduced-motion-tauglich. (2) Die **Partnerkarte** (`/jetzt-mitmachen/mitwirkung`) war eine ausgewaschene Hochformat-Rasterkarte mit 4 blassen Punkten → neu aufgebaut: CI-Graustufenkarte, kräftige **nummerierte** animierte Marker, nummerierte klickbare Liste, Netzwerk-Hinweis „Über 140 Institutionen" + CTA zur Startseiten-DACH-Karte. Vorab `node_modules`-Korruption (kaputte JSON-Dateien) per `rm -rf node_modules && pnpm install` repariert. Build 35/35 SSG clean, DE+EN + Mobile verifiziert. Details: [[CHANGELOG#2026-06-19 — Session 37: Native interaktive „Spielplan-Reise" statt Genially-Embed + Partnerkarte neu aufgebaut]] · [[ENTSCHEIDUNGEN#ADR-62]] · [[ENTSCHEIDUNGEN#ADR-63]].
 
 **Session 36 (2026-06-11) — „Use Case 3" aus Hero-Bildunterschrift entfernt (`c6f7a5d`).** Die figcaption unter dem Hero-Theaterbild der Startseite lautete „Use Case 3 · Datenraum Kultur" (DE) / „Use Case 3 · Cultural Data Space" (EN). Auf Userwunsch + Rückfrage nur den „Use Case 3 · "-Präfix entfernt → „Datenraum Kultur" / „Cultural Data Space" bleibt. Die 4 anderen „Use Case 3"-Fundstellen (Meta-Description, OG-Image, Pitch-Fließtext) bewusst unberührt. Preview-verifiziert, 0 Console-Errors. Details: [[CHANGELOG#2026-06-11 — Session 36: „Use Case 3" aus Hero-Bildunterschrift der Startseite entfernt]].
 

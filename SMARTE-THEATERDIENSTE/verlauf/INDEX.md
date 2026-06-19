@@ -11,6 +11,7 @@
 
 | Datum       | Milestone / Thema                             | Datei                                                              |
 | ----------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| 2026-06-19  | Session 37 — Native Reise + Partnerkarte neu  | [[SESSION_2026-06-19]]                                             |
 | 2026-06-10  | Session 34 — Design-Audit + Production-Polish | [[SESSION_2026-06-10]]                                             |
 | 2026-06-08  | Session 33 — Interaktive Karte auf Startseite | [[SESSION_2026-06-08]]                                             |
 | 2026-06-07  | Session 32 — Production-Audit + Event-Plumbing| [[SESSION_2026-06-07]]                                             |

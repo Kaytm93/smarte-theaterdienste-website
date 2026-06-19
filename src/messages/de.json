@@ -63,9 +63,51 @@
     "lead": "Konferenzen, Workshops und öffentliche Veranstaltungen, bei denen die maschinenlesbaren Spielpläne vorgestellt und diskutiert wurden.",
     "locationLabel": "Ort",
     "sourceLabel": "Mehr dazu",
-    "geniallyHeading": "Interaktive Reise durch die Spielplanverbreitung",
-    "geniallyCaption": "Die ausführliche Timeline mit allen Stationen der Entwicklung – zum Durchscrollen und Entdecken.",
-    "geniallyTitle": "Genially: Entwicklung der Spielplanverbreitung"
+    "journey": {
+      "heading": "Interaktive Reise durch die Spielplanverbreitung",
+      "lead": "Von der Handarbeit zum offenen Datenraum: Klick dich durch die fünf Stationen und sieh, wie aus einem Spielplan maschinenlesbare Daten werden.",
+      "hint": "Station wählen",
+      "prev": "Zurück",
+      "next": "Weiter",
+      "progressLabel": "Station {current} von {total}",
+      "stations": [
+        {
+          "tag": "Heute",
+          "phase": "Status quo",
+          "title": "Jeder trägt von Hand nach",
+          "body": "Spielpläne stecken als PDF oder HTML im hauseigenen Layout. Plattformen, Archive und Suchmaschinen müssen jeden Termin einzeln abtippen – fehleranfällig und nie ganz aktuell.",
+          "chips": ["PDF", "HTML", "Copy & Paste"]
+        },
+        {
+          "tag": "Schritt 1",
+          "phase": "Gemeinsame Sprache",
+          "title": "Technische & semantische Standards",
+          "body": "Ein offenes Datenmodell übersetzt die Begriffe der Theaterwelt in offene Standards – ohne dass sich an der Website etwas ändern muss.",
+          "chips": ["Schema.org", "GND", "CIDOC"]
+        },
+        {
+          "tag": "Schritt 2",
+          "phase": "Die Schnittstelle",
+          "title": "Aus dem Spielplan wird ORIF",
+          "body": "Über die ORIF-Schnittstelle gibt ein Haus seinen Spielplan maschinenlesbar als JSON aus. Einmal eingerichtet, immer aktuell.",
+          "chips": ["ORIF", "JSON", "API"]
+        },
+        {
+          "tag": "Schritt 3",
+          "phase": "Der Konnektor",
+          "title": "Andocken an den Datenraum Kultur",
+          "body": "Ein Konnektor hängt die Schnittstelle an den Datenraum Kultur. Daten fließen sicher, eindeutig – und unter der Hoheit des Hauses.",
+          "chips": ["Konnektor", "Datenraum Kultur", "Datenhoheit"]
+        },
+        {
+          "tag": "Ergebnis",
+          "phase": "Verbreitung",
+          "title": "Einmal verbinden, überall sichtbar",
+          "body": "Spielplandaten erreichen automatisch Plattformen, Anzeigetafeln, Presse, Casting-Portale und Archive. Kein Copy & Paste mehr.",
+          "chips": ["Plattformen", "Anzeigetafeln", "Presse", "Casting", "Archive"]
+        }
+      ]
+    }
   },
   "pages": {
     "team": {
@@ -115,7 +157,9 @@
       "lead": "Drei klare Schritte führen vom Spielplan zur automatisierten Datenweitergabe.",
       "map": {
         "heading": "Wer schon dabei ist",
-        "lead": "Pilot-Theater und Datenraum-Partner aus ganz Deutschland. Die große DACH-Netzwerkkarte findest du zusätzlich auf der Startseite.",
+        "lead": "Diese tragenden Partnerinstitutionen entwickeln die maschinenlesbaren Spielpläne gemeinsam.",
+        "networkNote": "Über 140 Institutionen im DACH-Netzwerk",
+        "networkCta": "Zur DACH-Netzwerkkarte auf der Startseite",
         "imageAlt": "Karte von Deutschland mit den Standorten der Datenraum-Kultur-Partner",
         "statusLabel": "Status",
         "statuses": {

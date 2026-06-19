@@ -127,14 +127,15 @@ smarte-theaterdienste-website/
 │   │   ├── layout/                             ← Header.tsx (Session 28: Bühnenverein-Logo + 4-Item-Nav), Footer.tsx, LanguageSwitcher.tsx, MobileNav.tsx (4 Items)
 │   │   ├── sections/                           ← PageHero, TextSection, ContactCard, TeamGrid,
 │   │   │                                          BuehnenvereinLockup (Session 28 NEU), VideoEmbed (Session 28 NEU), QuoteGallery (Session 28 NEU),
-│   │   │                                          MapEmbed (Session 29 NEU: Google MyMaps), Timeline (Session 29 NEU: Events + Genially-Embed),
+│   │   │                                          MapEmbed (Session 29 NEU: Google MyMaps), Timeline (Session 29: Events; Session 37: Genially-Embed → native <SpielplanReise>),
+│   │   │                                          SpielplanReise (Session 37 NEU: Client+GSAP, interaktiver 5-Stationen-Stepper „Reise durch die Spielplanverbreitung", ersetzt Genially-iframe, ADR-62),
 │   │   │                                          DataFlowDiagram (Session 31 NEU: ORIF-Datenflow, data-driven Server-Component, 3 Stage-Cards + Inline-SVG-Pfeile, CI-Neuzeichnung Website-DRK-S.1),
 │   │   │                                          UseCaseCard, StepCard, ComingSoonHero (jetzt mit body-Prop),
 │   │   │                                          ComicStrip (Server-Wrapper) + ComicStripFrames (Client, GSAP-Stagger, M6; Session 31: width/height statt fill),
 │   │   │                                          PostArticle (mit ViewTransition-Wrap, M6; Session 30: PostCard entfernt),
 │   │   │                                          PostCoverVisual (Session 19: CSS-Cover-Fallback fuer Posts ohne cover_image_url),
 │   │   │                                          FaqAccordion (M4; Session 29: nach category gruppiert; Session 30: EventCard entfernt),
-│   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5; Session 20: Status-Legende, Standortzähler, Liste, kompaktere Desktop-Karte),
+│   │   │                                          PartnerMap (Server) + PartnerMapClient (Client, GSAP, M5; Session 20: Status-Legende/Liste; Session 37 Redesign: CI-Graustufenkarte, nummerierte Marker/Liste, Netzwerk-Hinweis, ADR-63),
 │   │   │                                          FeatureGrid (Session 25: Desktop-Spalten nach Feature-Anzahl), NetworkMapSection, ResourceLinkGrid (M11 Original-Site-Transfer);
 │   │   │                                          ContactCard (Session 27: Portrait-Crop, Fotocredit-Ribbon, natürliche E-Mail-Breakpoints)
 │   │   ├── animations/                         ← FadeInOnScroll, RevealText (Session 27: vertikaler Masken-Puffer gegen Serif-Clipping), ParallaxImage,

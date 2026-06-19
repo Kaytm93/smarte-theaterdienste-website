@@ -6,14 +6,13 @@ import { PageHero } from "@/components/sections/PageHero";
 import { TextSection } from "@/components/sections/TextSection";
 import { TeamGrid } from "@/components/sections/TeamGrid";
 import { Timeline } from "@/components/sections/Timeline";
+import type { ReiseStation } from "@/components/sections/SpielplanReise";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { loadContent } from "@/lib/content/loader";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { listPastEvents, type EventListItem } from "@/lib/supabase/queries";
 import type { Locale } from "@/lib/i18n/routing";
 import { pageMetadata } from "@/lib/seo/alternates";
-
-const GENIALLY_URL = "https://view.genially.com/67531f7a9e5b6c42deba21f3";
 
 type SectionContent = {
   eyebrow?: string;
@@ -97,12 +96,17 @@ export default async function KonzeptionPage({
           lead: tTimeline("lead"),
           locationLabel: tTimeline("locationLabel"),
           sourceLabel: tTimeline("sourceLabel"),
-          geniallyHeading: tTimeline("geniallyHeading"),
-          geniallyCaption: tTimeline("geniallyCaption"),
-          geniallyTitle: tTimeline("geniallyTitle"),
         }}
         locale={locale}
-        geniallyUrl={GENIALLY_URL}
+        journey={{
+          heading: tTimeline("journey.heading"),
+          lead: tTimeline("journey.lead"),
+          hint: tTimeline("journey.hint"),
+          prev: tTimeline("journey.prev"),
+          next: tTimeline("journey.next"),
+          progressLabel: tTimeline.raw("journey.progressLabel") as string,
+          stations: tTimeline.raw("journey.stations") as ReiseStation[],
+        }}
       />
 
       <section className="border-t border-[var(--rule-strong)]">
