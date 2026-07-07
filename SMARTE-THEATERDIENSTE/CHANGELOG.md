@@ -1,5 +1,22 @@
 # 📝 Changelog
 
+## 2026-07-07 — Session 39: FAQ-Redesign — statische Inhalte, animiertes Accordion + Suche
+
+**Commit-SHA (Code):** `fcaf4b8`
+
+**Auftrag:** Die FAQ-Inhalte der alten Website (smarte-theaterdienste.de/de/faq) visuell ansprechend mit Animationen präsentieren, im Design der neuen Site und nach den `website-design-ultra`-Plugin-Regeln.
+
+**Kritischer Befund beim Start:** Das Supabase-Projekt `hyirpaloozcautcxhbqk` **existiert nicht mehr** (DNS NXDOMAIN, per curl/nslookup verifiziert) — die Production-FAQ zeigte auf DE **und** EN nur den „In Vorbereitung"-Fallback. Betrifft auch PartnerMap, Timeline-Events und Blog (degradieren graceful, bleiben aber leer). Details + Handlungsoptionen in [[PROBLEME]]. Zweiter Befund: Der lokale Git-Index war korrupt (stale 22-KB-`index.lock` vom 22.06., alle 199 Dateien als gelöscht gestaged) — non-destruktiv per Lock-Entfernung + `git reset` repariert, Working Tree blieb unberührt.
+
+**Umsetzung (User-Entscheidungen: statische JSON + Live-Suche):**
+- **Content:** `src/content/{de,en}/faq.json` NEU — 21 FAQs in 4 Kategorien aus der M11-Migration extrahiert (Kategorie-Labels im JSON, sprechende Slug-IDs identisch in DE/EN, Halbgeviertstrich-Typo aus [[PROBLEME]] in DE+EN gefixt). `loader.ts` um `faq`-Eintrag + Typen erweitert; Seite voll SSG ([[ENTSCHEIDUNGEN#ADR-64]]).
+- **`FaqAccordion` komplett neu** (Radix direkt + GSAP): Scroll-Entrance mit 80-ms-Stagger pro Kategorie (`once`, transform/opacity), CSS-Höhenanimation (tw-animate, `--tw-duration` 320 ms) mit nachziehendem Content-Reveal (75 ms Delay), Plus→X-Icon-Rotation mit Spring-Easing, Sticky-Kategorie-Nav mit IntersectionObserver-Scroll-Spy + Treffer-Countern, **Live-Suche** (filtert Frage+Antwort, `faq-rise`-CSS-Stagger für neue Treffer, gestalteter Kein-Treffer-State, `aria-live`-Ergebniszeile), reduced-motion-Guards, Focus-Ringe, 44-px-Touch-Targets.
+- **SEO:** FAQPage-JSON-LD (schema.org) mit allen 21 Fragen in `faq/page.tsx` (erstes JSON-LD im Projekt, `<`-escaped).
+- **Aufräumen:** `listPublishedFaqs`/`FaqItem`/`FaqRow` aus `queries.ts`, FAQ-Einträge aus der Revalidate-Map, `pages.faq.categories`+`empty` aus den Messages (dafür `nav`/`stats`/`search.*`).
+- **Dev-Fix:** `turbopack.root` in `next.config.ts` — ein verwaistes `~/package-lock.json` zog Turbopacks Root-Inferenz aufs Home-Verzeichnis und brach die Dev-CSS-Resolution.
+
+**Verifikation:** `pnpm typecheck` + `lint` + `build` clean — **31/31 SSG** (vorher 35: die 4 Blog-Slug-Seiten entfallen erwartbar, weil die tote DB keine Slugs liefert; `/[locale]/faq` jetzt ● SSG ohne Revalidate). Production-Server (`pnpm start`) + curl auf DE+EN: je 21 `data-faq-row`, 4 Sektionen, 4 Nav-Pills, Suchfeld, JSON-LD `FAQPage`/21, Halbgeviertstrich vorhanden, 0 Server-Errors. **Interaktive Browser-Prüfung entfiel bewusst:** Während der Session trat ein macOS-Kernel-Panic auf (siehe [[PROBLEME]]) — auf weitere Preview-/Chrome-Läufe wurde verzichtet; Accordion-/Spy-/Such-Interaktionen bitte nach dem Deploy einmal live gegenchecken.
+
 ## 2026-06-19 — Session 38: Spielplan-Reise Orbit-Polish
 
 **Commit-SHA (Code):** `de33eb5`

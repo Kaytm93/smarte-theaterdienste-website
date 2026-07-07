@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-06-19 (Session 38 — Spielplan-Reise Orbit-Polish)
+> Letzte Aktualisierung: 2026-07-07 (Session 39 — FAQ-Redesign: statische Inhalte + animiertes Accordion mit Suche)
 > Vollständige Session-Historie: [[CHANGELOG]] · Detail-Logs: [[verlauf/INDEX]]
 
 ## Status (Kurzüberblick)
@@ -12,9 +12,11 @@
 | **Production** | ✅ live auf `https://smarte-theaterdienste-website.vercel.app`. Auto-Deploy bei Push funktioniert wieder seit [[ENTSCHEIDUNGEN#ADR-58]] (vorher 4× Canceled, Root-Cause `requireVerifiedCommits`). CLI-Deploy bleibt als Fallback. |
 | **Custom-Domain** | ⚠️ `smarte-theaterdienste.de` zeigt weiter die **alte Hetzner-Seite** (HTTP 200, aber nicht unser Build); DNS-Switch offen → siehe [[PROBLEME]] + [[GO_LIVE_CHECKLIST]] |
 | **Lighthouse (Production, DE+EN)** | A11y **100** · SEO **100** · Best Practices **96** (ein YouTube-Third-Party-Cookie) · Performance **~91–94** warm |
-| **Supabase** | Cloud `hyirpaloozcautcxhbqk` (EU-Frankfurt) live; Revalidate via `pg_net`-Trigger auf 6 Tabellen. DB-Passwort liegt **nicht** in `.env.local` → blockiert Event-Foto-Migration + FAQ-Typo-Fix. |
+| **Supabase** | 🔴 **Projekt `hyirpaloozcautcxhbqk` existiert nicht mehr** (DNS NXDOMAIN, Session 39) → PartnerMap, Timeline-Events und Blog ohne Daten (graceful degradiert). FAQ ist seit [[ENTSCHEIDUNGEN#ADR-64]] statisch und immun. User-Entscheidung nötig: neues Projekt + Migrationen, oder Rest auch statisch. Siehe [[PROBLEME]]. |
 
 ## Was zuletzt lief
+
+**Session 39 (2026-07-07) — FAQ-Redesign: statische Inhalte + animiertes Accordion mit Suche (`fcaf4b8`).** Auftrag: FAQ der alten Website visuell ansprechend mit Animationen, im Site-Design + `website-design-ultra`-Regeln. Beim Start zwei kritische Befunde: (1) **Supabase-Projekt weg** (NXDOMAIN) — Production-FAQ zeigte nur den Empty-State; (2) Git-Index korrupt (stale `index.lock` vom 22.06.) — non-destruktiv repariert. Lösung (User-Entscheidung): 21 M11-FAQs als `src/content/{de,en}/faq.json` (voll SSG, [[ENTSCHEIDUNGEN#ADR-64]]), `FaqAccordion` komplett neu — GSAP-Scroll-Entrance (80-ms-Stagger), CSS-Höhenanimation + Content-Reveal, Plus→X-Rotation, Sticky-Nav mit Scroll-Spy, **Live-Suche** mit animiertem Filtern + Kein-Treffer-State, FAQPage-JSON-LD, Halbgeviertstrich-Typo gefixt. Verifiziert: typecheck/lint/build clean (31/31 SSG), Production-HTML DE+EN je 21 Fragen/JSON-LD. **Achtung:** Interaktions-Check im Browser entfiel (Kernel-Panic während der Session, siehe [[PROBLEME]]) — nach Deploy einmal live prüfen. Details: [[CHANGELOG#2026-07-07 — Session 39: FAQ-Redesign — statische Inhalte, animiertes Accordion + Suche]].
 
 **Session 38 (2026-06-19) — Spielplan-Reise Orbit-Polish (`de33eb5`).** User-Feedback zur nativen Reise: der pulsierende Kern mit Sternen sollte im Zentrum stehen statt oben links, die Darstellung war zu dunkel/zu schwer erkennbar, Animationen sollten sorgfältiger wirken. `SpielplanReise` poliert: zentrierter Orbit-Core im Tabpanel, hellere Stage-Fläche, stärkere Lesbarkeit, acht Sternpunkte, drehender Orbit, pulsierender Core/Glow, GSAP-Cleanup via `revertOnUpdate`, bessere Focus-/Active-/Disabled-States. Verifiziert: `pnpm typecheck`, `pnpm lint`, `pnpm build`, Playwright Desktop + Mobile, Mobile `docOverflowPx 0`, Core-vs-Panel-Mitte `deltaPx 0`, 0 Console-Errors/-Warnings. Details: [[CHANGELOG#2026-06-19 — Session 38: Spielplan-Reise Orbit-Polish]].
 
@@ -35,6 +37,7 @@
 Vollständiger Plan mit Akzeptanzkriterien: [[ROADMAP#🗺️ M18 — Welle 3 + Go-Live (Plan, Stand 2026-05-24)]]. Priorisiert:
 
 **🔴 P1 — Go-Live-kritisch**
+0. **Supabase-Entscheidung (NEU, Session 39):** Projekt `hyirpaloozcautcxhbqk` existiert nicht mehr → PartnerMap/Timeline/Blog ohne Daten. Entweder neues Supabase-Projekt anlegen (Migrationen liegen komplett in `supabase/migrations/`, danach `.env.local` + Vercel-Envs umstellen) **oder** Partner/Events wie das FAQ auf statischen Content umstellen ([[ENTSCHEIDUNGEN#ADR-64]] als Blaupause). Blockiert auch #3 (Event-Fotos) und #8 (Partner-URLs). Siehe [[PROBLEME]].
 1. **Team-Bühnen-Hover vervollständigen.** 4 Sanity-Bühnenfoto-URLs beschaffen → je Member in `src/content/{de,en}/team.json` als `"stage": "https://cdn.sanity.io/images/lc7slax2/production/…"`. Der `ContactCard`-Cross-Fade (Portrait→Bühne) ist fertig; bis dahin Zoom-Fallback.
 
 **🟡 P2 — Inhalt & Recht (warten auf Auftraggeber-Lieferung)**
@@ -44,7 +47,8 @@ Vollständiger Plan mit Akzeptanzkriterien: [[ROADMAP#🗺️ M18 — Welle 3 + 
 
 **🟢 P3 — Polish (nice-to-have)**
 5. **Startseiten-Performance-Re-Audit** nach dem nächsten Deploy — die Startseite trägt jetzt **zwei** lazy iframes (YouTube-`VideoEmbed` + MyMaps, beide unter dem Fold, [[ENTSCHEIDUNGEN#ADR-60]]); bestätigen, dass das Maps-iframe den LCP nicht antastet.
-6. **FAQ-Typografie** — eine Cloud-DB-FAQ nutzt Bindestrich statt Halbgeviertstrich; beim nächsten DB-Zugriff mitfixen (DB-Passwort-Gate, gleiche Schranke wie #3). Siehe [[PROBLEME]].
+6. ~~FAQ-Typografie~~ ✅ in Session 39 beim JSON-Export gefixt ([[ENTSCHEIDUNGEN#ADR-64]]).
+7. **FAQ-Interaktionen live gegenchecken** (Accordion-Motion, Scroll-Spy, Suche, Mobile 375 px) — der Browser-Check entfiel in Session 39 wegen des Kernel-Panics ([[PROBLEME]]).
 
 **⚪ Infra (langstehend)**
 7. **Custom-Domain** `smarte-theaterdienste.de` auf Vercel umstellen (DNS A/CNAME) — erst danach ist die echte Domain auf unserem Build. [[GO_LIVE_CHECKLIST]] + [[PROBLEME]].

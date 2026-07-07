@@ -11,6 +11,7 @@
 
 | Datum       | Milestone / Thema                             | Datei                                                              |
 | ----------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| 2026-07-07  | Session 39 — FAQ statisch + Accordion + Suche | [[SESSION_2026-07-07]]                                             |
 | 2026-06-19  | Session 38 — Spielplan-Reise Orbit-Polish     | [[SESSION_2026-06-19_Session-38-Reise-Polish]]                    |
 | 2026-06-19  | Session 37 — Native Reise + Partnerkarte neu  | [[SESSION_2026-06-19]]                                             |
 | 2026-06-10  | Session 34 — Design-Audit + Production-Polish | [[SESSION_2026-06-10]]                                             |

@@ -2,7 +2,7 @@
 
 > Diese Datei beschreibt den **stabilen technischen Stand** (Tech-Stack, Architekturregeln, Dateipfade, Routing). Den laufenden Projektstatus + „was als Nächstes" findest du in [[DASHBOARD]], die Session-Historie in [[CHANGELOG]].
 >
-> Letzte Strukturaktualisierung: 2026-06-10 (Session 34).
+> Letzte Strukturaktualisierung: 2026-07-07 (Session 39 — FAQ statisch, `content/{de,en}/faq.json` neu).
 
 ---
 
@@ -65,7 +65,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 
 **Hosting:** Vercel, Projekt `kaytm93s-projects/smarte-theaterdienste-website`. Production-Alias `https://smarte-theaterdienste-website.vercel.app`. GitHub-Integration verbunden; **Push auf `main` triggert Auto-Deploy** (funktioniert seit [[ENTSCHEIDUNGEN#ADR-58]] — `requireVerifiedCommits` war die Ursache der zuvor abgebrochenen Auto-Deploys). Manueller Fallback: `pnpm dlx vercel@latest deploy --prod --yes`. `NEXT_PUBLIC_SITE_URL` in Vercel Production = der Alias. **Achtung:** `smarte-theaterdienste.de` zeigt noch auf alte Hetzner-A-Records (`167.235.107.225`/`159.69.6.148`) und alte Inhalte — erst nach DNS-Umstellung ist die echte Domain auf unserem Build (siehe [[PROBLEME]] + [[GO_LIVE_CHECKLIST]]).
 
-**Datenbank:** Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Schema/Content: [[API]]. Live-Migrationen: `20260427121400_init.sql`, `20260507120000_m7_english_post_translations.sql`, `20260507153000_m11_original_site_content.sql`. Migration `20260607120000_event_image_url.sql` (`events.image_url`) liegt **committed, aber un-gepusht** — der Push braucht das DB-Passwort, das **nicht** in `.env.local` liegt (`.env.local` hat nur URL + anon-key + service-role-key + REVALIDATE_SECRET); die Query selektiert `image_url` defensiv und funktioniert auch ohne Push (Fallback, [[ENTSCHEIDUNGEN#ADR-59]]). Revalidate läuft über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf 6 Tabellen.
+**Datenbank:** 🔴 **Stand Session 39 (2026-07-07): Das Supabase-Projekt existiert nicht mehr** (DNS NXDOMAIN) — PartnerMap/Timeline/Blog degradieren graceful auf leer; FAQ ist seit [[ENTSCHEIDUNGEN#ADR-64]] statisch und unabhängig. Entscheidung über Neuaufbau vs. weiteren Static-Umzug steht aus, siehe [[PROBLEME]] + [[DASHBOARD]]. Historischer Stand (für den Neuaufbau relevant): Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Schema/Content: [[API]]. Live-Migrationen: `20260427121400_init.sql`, `20260507120000_m7_english_post_translations.sql`, `20260507153000_m11_original_site_content.sql`. Migration `20260607120000_event_image_url.sql` (`events.image_url`) liegt **committed, aber un-gepusht** — der Push braucht das DB-Passwort, das **nicht** in `.env.local` liegt (`.env.local` hat nur URL + anon-key + service-role-key + REVALIDATE_SECRET); die Query selektiert `image_url` defensiv und funktioniert auch ohne Push (Fallback, [[ENTSCHEIDUNGEN#ADR-59]]). Revalidate läuft über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf 6 Tabellen.
 
 ---
 
@@ -118,7 +118,7 @@ smarte-theaterdienste-website/
 │   │   ├── datenschutz/page.tsx                ← TODO-Platzhalter mit sichtbarem Lead
 │   │   ├── blog/[slug]/page.tsx                ← Detail (Supabase) mit generateStaticParams + dynamicParams; twitter.card=summary_large_image
 │   │   ├── blog/[slug]/opengraph-image.tsx     ← M9: Per-Post 1200×630 OG mit Title + lokalisiertem published_at
-│   │   └── faq/page.tsx                        ← FaqAccordion nach category gruppiert (Supabase; M11: 21 Original-FAQ) mit ComingSoonHero-Fallback
+│   │   └── faq/page.tsx                        ← Session 39: statisch via loadContent("faq") + FAQPage-JSON-LD; FaqAccordion neu (GSAP-Entrance, Sticky-Nav-Scroll-Spy, Live-Suche); kein Supabase mehr (ADR-64)
 │   │     (Session 30: blog/page.tsx + termine/page.tsx gelöscht — Inhalte leben im Konzeption-Zeitstrahl; /blog + /termine 308 auf /konzeption)
 │   ├── app/api/revalidate/route.ts             ← POST-Webhook-Endpoint, Secret-Check, revalidatePath; Post-Änderungen invalidieren auch `/sitemap.xml`
 │   ├── app/globals.css                         ← Tailwind v4 + shadcn theme + tokens.css-Import + accent-brand-foreground-Bridge; Session 27: Drop-Cap-Metrik ruhiger gesetzt
@@ -162,7 +162,8 @@ smarte-theaterdienste-website/
 │   │   ├── beteiligung-anwendungsbeispiele.json ←   3 Use Cases
 │   │   ├── beteiligung-mitwirkung.json          ←   Nutzenargumente, 3 Schritte, Tanzarchiv-Zitat, Webagentur-/IT-Checkliste
 │   │   ├── legal.json                           ←   imprint/privacy mit todo-Flag; Impressum-Hinweis nutzt § 5 DDG
-│   │   └── landing.json                         ←   Benefits + DACH-Netzwerkkarte + Comic-Strip-Frames + Stakeholder-Benefits + Pitch
+│   │   ├── landing.json                         ←   Benefits + DACH-Netzwerkkarte + Comic-Strip-Frames + Stakeholder-Benefits + Pitch
+│   │   └── faq.json                             ←   Session 39 NEU: 21 FAQs in 4 Kategorien (Labels + Slug-IDs im JSON, aus M11-Migration, ADR-64)
 │   ├── styles/tokens.css                       ← Session 28: CI-Tokens (Lucent White / Black / Grays 80-10 / Purple Dark/Medium/Light), Public Sans als einzige Schrift, einzelne Akzentfarbe
 │   ├── types/                                  ← Generated Supabase types ab M4
 │   └── proxy.ts                                ← next-intl Routing-Proxy (Next.js 16!); Matcher excluded `icon|apple-icon|opengraph-image|twitter-image|manifest` (Top-Level Convention Files)
