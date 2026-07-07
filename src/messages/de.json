@@ -202,16 +202,16 @@
       "kicker": "Vorhang auf für Fragen",
       "title": "Häufige Fragen",
       "lead": "Antworten zu Grundwissen, Technik und Sicherheit, Umsetzung und Kosten sowie zum Datenraum Kultur.",
-      "categories": {
-        "grundwissen": "Grundwissen",
-        "technik-sicherheit": "Technik & Sicherheit",
-        "umsetzung-kosten": "Umsetzung & Kosten",
-        "datenraum-kultur": "Datenraum Kultur"
-      },
-      "empty": {
-        "kicker": "Vorhang auf für Fragen",
-        "title": "FAQ wird aufgebaut",
-        "body": "Wir sammeln gerade die häufigsten Fragen aus den Pilothäusern. Antworten folgen in Kürze."
+      "nav": "FAQ-Kategorien",
+      "stats": "{total} Fragen · {categories} Kategorien",
+      "search": {
+        "label": "FAQ durchsuchen",
+        "placeholder": "Suchbegriff eingeben …",
+        "clear": "Suche löschen",
+        "results": "{shown} von {total} Fragen",
+        "noResultsTitle": "Keine Treffer",
+        "noResults": "Keine Frage passt zu „{query}“. Versuchen Sie einen anderen Begriff.",
+        "reset": "Suche zurücksetzen"
       }
     },
     "termine": {

@@ -1,0 +1,133 @@
+{
+  "categories": [
+    {
+      "key": "grundwissen",
+      "label": "Basics",
+      "items": [
+        {
+          "id": "spielplaene-maschinenlesbar",
+          "question": "How do we make our programmes machine-readable?",
+          "answer": "A theatre programme is translated into a digital format that computers can process reliably. This version is provided through an interface; with ORIF, that means a JSON interface that a web agency can put into operation in a few development hours."
+        },
+        {
+          "id": "wozu-maschinenlesbar",
+          "question": "Why machine-readable theatre programmes?",
+          "answer": "Machine-readable programmes make events easier to find online, simplify real-time updates across platforms and support better data analysis for sustainable programme planning."
+        },
+        {
+          "id": "spielplaene-und-datenraum",
+          "question": "What do machine-readable programmes have to do with the Cultural Data Space?",
+          "answer": "Programmes that can be transmitted automatically are the basis for participation in the Cultural Data Space. At the same time, ORIF already simplifies data transfer to event platforms, archives and museums."
+        },
+        {
+          "id": "geschuetztes-material",
+          "question": "Do theatre programmes contain copyrighted material?",
+          "answer": "Most programme data is open information such as performance times, titles and casts. Press photos and video trailers may be protected by copyright; copyright and licence information can be stored with that data."
+        },
+        {
+          "id": "nicht-freigegebene-daten",
+          "question": "Could non-approved data be published through the interface?",
+          "answer": "ORIF transfers only information that is already published on the website. The transfer of protected data sets becomes relevant only in later development phases using dedicated data space technology."
+        }
+      ]
+    },
+    {
+      "key": "technik-sicherheit",
+      "label": "Technology & security",
+      "items": [
+        {
+          "id": "wartung",
+          "question": "Does the implemented interface require regular maintenance?",
+          "answer": "After one-time integration, no regular technical maintenance is required. Programme data continues to be maintained in the CMS, planning software or ticketing system and is automatically updated in the interface."
+        },
+        {
+          "id": "datentransfer-sicherheit",
+          "question": "Is my data transfer secure? Who has access to the data?",
+          "answer": "The theatre and its web agency decide who has access to the JSON interface. Since programme data is usually already public, special security measures are generally not required; if needed, the link can be additionally protected."
+        },
+        {
+          "id": "bestehende-schnittstelle",
+          "question": "We already have an interface – do we still need ORIF?",
+          "answer": "Many existing interfaces are tailored to individual use cases. ORIF translates different data formats into one shared standard, making programme data compatible with many platforms, archives and services."
+        },
+        {
+          "id": "daten-pruefen",
+          "question": "How can I check which data is in the interface?",
+          "answer": "After implementation, you receive a link to the JSON view of the programme. This link can be checked in the data viewer, where the data appears in a human-readable table."
+        },
+        {
+          "id": "website-relaunch",
+          "question": "What happens to the interface when we relaunch our website?",
+          "answer": "If only the design changes, the interface can continue to work. If the entire site architecture is renewed, the interface has to be implemented or adapted again."
+        }
+      ]
+    },
+    {
+      "key": "umsetzung-kosten",
+      "label": "Implementation & costs",
+      "items": [
+        {
+          "id": "dauer-kosten",
+          "question": "How long does implementation take and what does it cost?",
+          "answer": "The duration depends on the technical state of the website. A few hours to a few days are realistic. Commissioning a web agency creates one-off costs; a sample cost calculation is linked on the resources page."
+        },
+        {
+          "id": "fachkenntnisse",
+          "question": "Do I need technical expertise to use the interface?",
+          "answer": "No. After implementation, your web agency gives you the interface link, which you can pass on to platforms, archives or other partners. The subsequent data exchange runs automatically."
+        },
+        {
+          "id": "cms-kompatibilitaet",
+          "question": "Can the interface be implemented in any CMS?",
+          "answer": "Because the JSON interface is connected at a technical point in the website architecture, the specific CMS is usually not decisive."
+        },
+        {
+          "id": "automatisch-angeschlossen",
+          "question": "Are we automatically connected to the Cultural Data Space once ORIF is implemented?",
+          "answer": "ORIF prepares participation in the Cultural Data Space and makes programmes machine-readable. To use the full range of data space services in future, registration in the data space portal is also required."
+        }
+      ]
+    },
+    {
+      "key": "datenraum-kultur",
+      "label": "Cultural Data Space",
+      "items": [
+        {
+          "id": "was-ist-datenraum-kultur",
+          "question": "What is the Cultural Data Space?",
+          "answer": "A data space is digital infrastructure for secure, standardised data exchange. Data remains decentralised in the providing systems and is connected through interfaces and connectors."
+        },
+        {
+          "id": "wer-steht-dahinter",
+          "question": "Who is behind the Cultural Data Space?",
+          "answer": "The Cultural Data Space is one of 18 lighthouse projects in Germany's digital strategy and part of Gaia-X. It was developed with partners including acatech and Fraunhofer FIT; since March 2025, Orbiter has handled technical maintenance."
+        },
+        {
+          "id": "wer-kann-nutzen",
+          "question": "Who can use the Cultural Data Space?",
+          "answer": "Public and private institutions, companies and organisations can exchange data: theatres, orchestras, independent groups, museums, archives, platforms, job boards, software providers, tourism associations, ticket providers and many others."
+        },
+        {
+          "id": "teilnahme",
+          "question": "How can my institution participate in the Cultural Data Space?",
+          "answer": "Participation is possible either directly through the Cultural Data Space or through software partners. For direct participation, a standardised interface such as ORIF is the basis for processing programme data immediately."
+        },
+        {
+          "id": "verfuegbarkeit",
+          "question": "When will the Cultural Data Space be available for use?",
+          "answer": "The Cultural Data Space is still in prototype development. ORIF can already be used to exchange machine-readable programmes between participants."
+        },
+        {
+          "id": "abgrenzung-plattformen",
+          "question": "How does the Cultural Data Space differ from common platforms?",
+          "answer": "Its decentralised structure keeps participants sovereign over their data. The Cultural Data Space does not pursue commercial goals; it is designed for shared benefit under European legal standards."
+        },
+        {
+          "id": "open-access",
+          "question": "Does the Cultural Data Space support open-access strategies?",
+          "answer": "The Cultural Data Space initially makes open data accessible, with data owners defining the rules of use. In future, protected data offerings can also be integrated under clear licensing conditions."
+        }
+      ]
+    }
+  ]
+}

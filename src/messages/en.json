@@ -202,16 +202,16 @@
       "kicker": "Curtain up for questions",
       "title": "Frequently asked questions",
       "lead": "Answers on basic knowledge, technology and safety, implementation and costs, and the Cultural Data Space.",
-      "categories": {
-        "grundwissen": "Basics",
-        "technik-sicherheit": "Technology & security",
-        "umsetzung-kosten": "Implementation & costs",
-        "datenraum-kultur": "Cultural Data Space"
-      },
-      "empty": {
-        "kicker": "Curtain up for questions",
-        "title": "FAQ in progress",
-        "body": "We're collecting the most common questions from pilot houses. Answers follow shortly."
+      "nav": "FAQ categories",
+      "stats": "{total} questions · {categories} categories",
+      "search": {
+        "label": "Search the FAQ",
+        "placeholder": "Type to search …",
+        "clear": "Clear search",
+        "results": "{shown} of {total} questions",
+        "noResultsTitle": "No matches",
+        "noResults": "No question matches “{query}”. Try a different term.",
+        "reset": "Reset search"
       }
     },
     "termine": {

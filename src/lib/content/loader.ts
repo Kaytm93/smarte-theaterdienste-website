@@ -18,6 +18,8 @@ import deLanding from "@/content/de/landing.json";
 import enLanding from "@/content/en/landing.json";
 import deMaterialien from "@/content/de/materialien.json";
 import enMaterialien from "@/content/en/materialien.json";
+import deFaq from "@/content/de/faq.json";
+import enFaq from "@/content/en/faq.json";
 
 import type { Locale } from "@/lib/i18n/routing";
 
@@ -41,6 +43,7 @@ const REGISTRY = {
   materialien: { de: deMaterialien, en: enMaterialien },
   legal: { de: deLegal, en: enLegal },
   landing: { de: deLanding, en: enLanding },
+  faq: { de: deFaq, en: enFaq },
 } as const;
 
 export type ContentKey = keyof typeof REGISTRY;
@@ -69,3 +72,6 @@ export type UseCase = (typeof deAnwendungsbeispiele)["useCases"][number];
 export type MitwirkungContent = typeof deMitwirkung;
 export type LegalContent = typeof deLegal;
 export type LandingContent = typeof deLanding;
+export type FaqContent = typeof deFaq;
+export type FaqCategory = FaqContent["categories"][number];
+export type FaqEntry = FaqCategory["items"][number];

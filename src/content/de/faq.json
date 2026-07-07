@@ -1,0 +1,133 @@
+{
+  "categories": [
+    {
+      "key": "grundwissen",
+      "label": "Grundwissen",
+      "items": [
+        {
+          "id": "spielplaene-maschinenlesbar",
+          "question": "Wie werden unsere Spielpläne maschinenlesbar?",
+          "answer": "Ein Theaterspielplan wird in ein digitales Format übersetzt, das Computer zuverlässig verarbeiten können. Diese Version wird über eine Schnittstelle bereitgestellt; bei ORIF ist das eine JSON-Schnittstelle, die eine Webagentur in wenigen Arbeitsstunden in Betrieb nehmen kann."
+        },
+        {
+          "id": "wozu-maschinenlesbar",
+          "question": "Wozu maschinenlesbare Theaterspielpläne?",
+          "answer": "Maschinenlesbare Spielpläne machen Veranstaltungen im Internet leichter auffindbar, vereinfachen Aktualisierungen auf verschiedenen Plattformen in Echtzeit und unterstützen bessere Datenanalysen für eine nachhaltige Programmplanung."
+        },
+        {
+          "id": "spielplaene-und-datenraum",
+          "question": "Was haben maschinenlesbare Spielpläne mit dem Datenraum Kultur zu tun?",
+          "answer": "Automatisch übermittelbare Spielpläne sind die Grundlage für eine Teilnahme am Datenraum Kultur. Gleichzeitig erleichtert ORIF schon heute den Datentransfer zu Veranstaltungsplattformen, Archiven und Museen."
+        },
+        {
+          "id": "geschuetztes-material",
+          "question": "Enthalten Theaterspielpläne geschütztes Material?",
+          "answer": "Spielpläne enthalten größtenteils offene Daten wie Zeiten, Stücktitel und Besetzungen. Pressefotos und Videotrailer können urheberrechtlich geschützt sein; dafür können Copyright- und Lizenzangaben in den Daten hinterlegt werden."
+        },
+        {
+          "id": "nicht-freigegebene-daten",
+          "question": "Besteht die Gefahr, dass nicht freigegebene Daten veröffentlicht werden?",
+          "answer": "Über ORIF werden nur Informationen übertragen, die bereits auf der Website veröffentlicht sind. Der Transfer geschützter Datensätze wird erst in erweiterten Entwicklungsphasen über spezielle Datenraum-Technologie relevant."
+        }
+      ]
+    },
+    {
+      "key": "technik-sicherheit",
+      "label": "Technik & Sicherheit",
+      "items": [
+        {
+          "id": "wartung",
+          "question": "Muss die implementierte Schnittstelle regelmäßig gewartet werden?",
+          "answer": "Nach der einmaligen Integration ist keine regelmäßige technische Betreuung nötig. Die Spielplandaten werden wie gewohnt im CMS, in der Dispositionssoftware oder im Ticketsystem gepflegt und in der Schnittstelle automatisch aktualisiert."
+        },
+        {
+          "id": "datentransfer-sicherheit",
+          "question": "Ist mein Datentransfer sicher? Wer hat Zugriff auf die Daten?",
+          "answer": "Wer Zugriff auf die JSON-Schnittstelle hat, bestimmen Haus und Webagentur gemeinsam. Da Spielplandaten in der Regel bereits öffentlich sind, sind keine besonderen Sicherheitsmaßnahmen nötig; bei Bedarf kann der Link zusätzlich geschützt werden."
+        },
+        {
+          "id": "bestehende-schnittstelle",
+          "question": "Wir haben bereits eine Schnittstelle – brauchen wir dennoch ORIF?",
+          "answer": "Viele bestehende Schnittstellen sind auf einzelne Anwendungen zugeschnitten. ORIF übersetzt verschiedene Datenformate in einen gemeinsamen Standard und macht Spielplandaten dadurch für viele Plattformen, Archive und Dienste kompatibel."
+        },
+        {
+          "id": "daten-pruefen",
+          "question": "Wie kann ich überprüfen, welche Daten in der Schnittstelle stehen?",
+          "answer": "Nach der Implementierung erhalten Sie einen Link zur JSON-Ansicht des Spielplans. Dieser Link kann im Lektoratstool geprüft werden; dort erscheinen die Daten in einer menschenlesbaren Tabelle."
+        },
+        {
+          "id": "website-relaunch",
+          "question": "Was passiert mit der Schnittstelle bei einem Website-Relaunch?",
+          "answer": "Bei einem reinen Design-Relaunch bleibt die Funktionalität bestehen. Wenn die gesamte Seitenarchitektur erneuert wird, muss die Schnittstelle erneut eingebaut oder angepasst werden."
+        }
+      ]
+    },
+    {
+      "key": "umsetzung-kosten",
+      "label": "Umsetzung & Kosten",
+      "items": [
+        {
+          "id": "dauer-kosten",
+          "question": "Wie lange dauert die Implementierung und welche Kosten entstehen?",
+          "answer": "Die Dauer hängt vom technischen Stand der Website ab. Wenige Stunden bis einige Tage sind realistisch. Für die Beauftragung einer Webagentur fallen einmalige Kosten an; eine Musterkalkulation liegt auf der Materialseite."
+        },
+        {
+          "id": "fachkenntnisse",
+          "question": "Brauche ich technische Fachkenntnisse, um die Schnittstelle zu nutzen?",
+          "answer": "Nein. Nach der Implementierung erhalten Sie den Schnittstellen-Link von Ihrer Webagentur und können ihn an Plattformen, Archive oder andere Partner:innen weitergeben. Der weitere Datenaustausch läuft automatisiert."
+        },
+        {
+          "id": "cms-kompatibilitaet",
+          "question": "Kann die Schnittstelle in jedes CMS implementiert werden?",
+          "answer": "Da die JSON-Schnittstelle an einer technischen Stelle der Website-Architektur eingebunden wird, ist das konkret verwendete CMS für den Vorgang in der Regel nicht entscheidend."
+        },
+        {
+          "id": "automatisch-angeschlossen",
+          "question": "Sind wir automatisch an den Datenraum Kultur angeschlossen, sobald ORIF implementiert ist?",
+          "answer": "ORIF bereitet die Teilnahme am Datenraum Kultur vor und macht Spielpläne maschinenlesbar. Um künftig alle Dienste des Datenraums zu nutzen, ist zusätzlich eine Registrierung im Datenraum-Portal nötig."
+        }
+      ]
+    },
+    {
+      "key": "datenraum-kultur",
+      "label": "Datenraum Kultur",
+      "items": [
+        {
+          "id": "was-ist-datenraum-kultur",
+          "question": "Was ist der Datenraum Kultur?",
+          "answer": "Ein Datenraum ist eine digitale Infrastruktur für sicheren und standardisierten Datenaustausch. Die Daten bleiben dezentral bei den anbietenden Systemen und werden über Schnittstellen sowie Konnektoren vernetzt."
+        },
+        {
+          "id": "wer-steht-dahinter",
+          "question": "Wer steht hinter dem Datenraum Kultur?",
+          "answer": "Der Datenraum Kultur ist eines von 18 Leuchtturmprojekten der Digitalstrategie des Bundes und Teil von Gaia-X. Entwickelt wurde er unter anderem von acatech und Fraunhofer FIT; seit März 2025 betreut Orbiter die technische Wartung."
+        },
+        {
+          "id": "wer-kann-nutzen",
+          "question": "Wer kann den Datenraum Kultur nutzen?",
+          "answer": "Öffentliche und private Institutionen, Unternehmen und Organisationen können Daten austauschen: Theater, Orchester, freie Gruppen, Museen, Archive, Plattformen, Jobbörsen, Softwareanbieter, Tourismusverbände, Ticketanbieter und viele weitere."
+        },
+        {
+          "id": "teilnahme",
+          "question": "Wie kann ich mit meiner Institution am Datenraum Kultur teilnehmen?",
+          "answer": "Die Teilnahme ist direkt über den Datenraum Kultur oder über Software-Partner:innen möglich. Für die direkte Teilnahme ist eine standardisierte Schnittstelle wie ORIF die Grundlage, damit Spielpläne sofort verarbeitet werden können."
+        },
+        {
+          "id": "verfuegbarkeit",
+          "question": "Wann steht der Datenraum Kultur zur Nutzung bereit?",
+          "answer": "Der Datenraum Kultur befindet sich noch in der prototypischen Entwicklung. ORIF kann bereits genutzt werden, um maschinenlesbare Spielpläne zwischen Teilnehmenden auszutauschen."
+        },
+        {
+          "id": "abgrenzung-plattformen",
+          "question": "Wie grenzt sich der Datenraum Kultur von anderen Plattformen ab?",
+          "answer": "Durch seine dezentrale Struktur bleiben Teilnehmende souverän über ihre Daten. Der Datenraum Kultur verfolgt keine kommerziellen Ziele, sondern einen gemeinschaftlichen Nutzen nach europäischen Rechtsstandards."
+        },
+        {
+          "id": "open-access",
+          "question": "Unterstützt der Datenraum Kultur Open-Access-Strategien?",
+          "answer": "Der Datenraum Kultur macht zunächst offene Daten zugänglich, wobei die Dateneigner:innen die Nutzungsregeln definieren. Perspektivisch können auch geschützte Datenangebote unter klaren Lizenzbedingungen eingebunden werden."
+        }
+      ]
+    }
+  ]
+}

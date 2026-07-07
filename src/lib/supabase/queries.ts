@@ -39,14 +39,6 @@ export type EventListItem = {
   imageUrl: string | null;
 };
 
-export type FaqItem = {
-  id: string;
-  position: number;
-  category: string | null;
-  question: string;
-  answerMd: string;
-};
-
 export type Partner = {
   id: string;
   slug: string;
@@ -220,17 +212,6 @@ export function listPastEvents(locale: Locale): Promise<EventListItem[]> {
 }
 
 // ----------------------------------------------------------------------------
-// FAQs
-// ----------------------------------------------------------------------------
-
-type FaqRow = {
-  id: string;
-  position: number;
-  category: string | null;
-  faq_translations: Array<{ question: string; answer_md: string }>;
-};
-
-// ----------------------------------------------------------------------------
 // Partners (keine Translations — Namen sind Eigennamen, Status wird im UI
 // lokalisiert)
 // ----------------------------------------------------------------------------
@@ -265,26 +246,5 @@ export async function listPartners(): Promise<Partner[]> {
     status: row.status,
     websiteUrl: row.website_url,
     logoUrl: row.logo_url,
-  }));
-}
-
-export async function listPublishedFaqs(locale: Locale): Promise<FaqItem[]> {
-  const supabase = getSupabaseAnon();
-  const { data, error } = await supabase
-    .from("faqs")
-    .select("id, position, category, faq_translations!inner(question, answer_md, locale)")
-    .eq("is_published", true)
-    .eq("faq_translations.locale", locale)
-    .order("position", { ascending: true })
-    .returns<FaqRow[]>();
-
-  if (error || !data) return [];
-
-  return data.map((row) => ({
-    id: row.id,
-    position: row.position,
-    category: row.category,
-    question: row.faq_translations[0]?.question ?? "",
-    answerMd: row.faq_translations[0]?.answer_md ?? "",
   }));
 }

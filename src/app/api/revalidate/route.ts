@@ -34,8 +34,6 @@ const TABLE_TO_PATHS: Record<string, RevalidateTarget[]> = {
   ],
   events: [{ path: "/[locale]/termine", type: "page" }],
   event_translations: [{ path: "/[locale]/termine", type: "page" }],
-  faqs: [{ path: "/[locale]/faq", type: "page" }],
-  faq_translations: [{ path: "/[locale]/faq", type: "page" }],
 };
 
 export async function POST(request: NextRequest) {

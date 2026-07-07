@@ -29,6 +29,11 @@ const ROUTE_RENAMES: Array<{ from: string; to: string }> = [
 ];
 
 const nextConfig: NextConfig = {
+  // Explizit, weil ein verwaistes ~/package-lock.json Turbopacks Root-Inferenz
+  // sonst auf das Home-Verzeichnis zieht und Dev-CSS-Resolution bricht.
+  turbopack: {
+    root: __dirname,
+  },
   experimental: {
     viewTransition: true,
   },
