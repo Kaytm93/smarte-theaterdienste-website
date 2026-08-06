@@ -2,7 +2,7 @@
 
 ## 2026-08-06 — Session 41: M19 Phase 0 + eigenständiges Sanity-Studio-Grundgerüst
 
-**Commit-SHA (Implementierung):** `PENDING`
+**Commit-SHA (Implementierung):** `cffa508`
 
 **Auftrag:** Projekt-Vault und inhaltliche/API-Dokumentation lesen und mit der Umsetzung des dokumentierten [[SANITY_CMS_PLAN]] beginnen.
 
