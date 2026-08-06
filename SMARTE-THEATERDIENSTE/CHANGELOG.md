@@ -2,7 +2,7 @@
 
 ## 2026-08-06 — Session 40: Sanity-CMS-Zielarchitektur und M19-Umsetzungsplan
 
-**Commit-SHA (Doku):** `PENDING`
+**Commit-SHA (Doku):** `cd1e27b`
 
 **Auftrag:** Bestehenden Smarte-Theaterdienste-Vault lesen, das Sanity-Setup der `sina-schmidt-website` inklusive ihres Obsidian-Vaults analysieren, geeignete Umsetzungsschritte ableiten und den Plan im Projekt-Vault dokumentieren.
 
