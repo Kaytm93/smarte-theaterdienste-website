@@ -11,6 +11,7 @@
 
 | Datum       | Milestone / Thema                             | Datei                                                              |
 | ----------- | --------------------------------------------- | ------------------------------------------------------------------ |
+| 2026-08-06  | Session 40 — Sanity-CMS-Plan (M19)            | [[SESSION_2026-08-06]]                                             |
 | 2026-07-07  | Session 39 — FAQ statisch + Accordion + Suche | [[SESSION_2026-07-07]]                                             |
 | 2026-06-19  | Session 38 — Spielplan-Reise Orbit-Polish     | [[SESSION_2026-06-19_Session-38-Reise-Polish]]                    |
 | 2026-06-19  | Session 37 — Native Reise + Partnerkarte neu  | [[SESSION_2026-06-19]]                                             |

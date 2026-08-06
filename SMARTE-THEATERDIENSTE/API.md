@@ -1,6 +1,17 @@
 # 🔌 API & Datenmodell
 
-> **Stand: M4 abgeschlossen, M7- und M11-Content-Migrationen live.** Supabase Cloud `hyirpaloozcautcxhbqk` ist live, Migration + Seed sind eingespielt, `src/types/database.ts` wurde per `pnpm gen:types` aus der Cloud generiert. Production-Revalidate läuft über `pg_net`-Trigger in der Cloud-DB. M7 ergänzt vollständige DE/EN-Blog-Translations; M11 ergänzt Original-Website-FAQ und 2025-Events.
+> **Historischer Supabase-Stand.** Das Cloud-Projekt `hyirpaloozcautcxhbqk` existiert seit Session 39 nicht mehr (DNS NXDOMAIN). Schema, Migrationen, Seed und Query-Dokumentation bleiben die Importquelle für M19. Ziel: Inhalte nach Sanity migrieren und die Supabase-Runtime erst nach vollständiger Parität entfernen. Siehe [[SANITY_CMS_PLAN]] + [[ENTSCHEIDUNGEN#ADR-65]].
+
+## M19-Zielzustand: Sanity statt Supabase-Runtime
+
+- `posts` + `post_translations` → Sanity-Dokument `post`
+- `events` + `event_translations` → Sanity-Dokument `event`
+- `faqs` + `faq_translations` → `faqItem` + Referenz auf `faqCategory` (die 21 aktuellen Einträge liegen bereits zusätzlich in JSON)
+- `partners` → Sanity-Dokument `partner`
+- JSON-Seiteninhalte → feste Sanity-Singletons und strukturierte Objekte
+- UI-Labels/SEO → `siteSettings`
+
+DE/EN werden im Zielmodell gemeinsam pro Inhalt gepflegt; gewöhnliche Dokumente erhalten Sanity-generierte IDs, importierte Supabase-IDs bei Bedarf ein explizites `legacyId`/`sourceKey`. Die SQL-Dateien bleiben bis nach dem Produktions-Cutover unverändert als prüfbare Migrationsquelle erhalten.
 
 ---
 

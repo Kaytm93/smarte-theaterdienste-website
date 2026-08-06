@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-07-07 (Session 39 — FAQ-Redesign: statische Inhalte + animiertes Accordion mit Suche)
+> Letzte Aktualisierung: 2026-08-06 (Session 40 — Sanity-CMS-Plan auf Basis des Sina-Schmidt-Setups)
 > Vollständige Session-Historie: [[CHANGELOG]] · Detail-Logs: [[verlauf/INDEX]]
 
 ## Status (Kurzüberblick)
@@ -12,9 +12,12 @@
 | **Production** | ✅ live auf `https://smarte-theaterdienste-website.vercel.app`. Auto-Deploy bei Push funktioniert wieder seit [[ENTSCHEIDUNGEN#ADR-58]] (vorher 4× Canceled, Root-Cause `requireVerifiedCommits`). CLI-Deploy bleibt als Fallback. |
 | **Custom-Domain** | ⚠️ `smarte-theaterdienste.de` zeigt weiter die **alte Hetzner-Seite** (HTTP 200, aber nicht unser Build); DNS-Switch offen → siehe [[PROBLEME]] + [[GO_LIVE_CHECKLIST]] |
 | **Lighthouse (Production, DE+EN)** | A11y **100** · SEO **100** · Best Practices **96** (ein YouTube-Third-Party-Cookie) · Performance **~91–94** warm |
-| **Supabase** | 🔴 **Projekt `hyirpaloozcautcxhbqk` existiert nicht mehr** (DNS NXDOMAIN, Session 39) → PartnerMap, Timeline-Events und Blog ohne Daten (graceful degradiert). FAQ ist seit [[ENTSCHEIDUNGEN#ADR-64]] statisch und immun. User-Entscheidung nötig: neues Projekt + Migrationen, oder Rest auch statisch. Siehe [[PROBLEME]]. |
+| **Supabase** | 🔴 **Projekt `hyirpaloozcautcxhbqk` existiert nicht mehr** (DNS NXDOMAIN, Session 39) → PartnerMap, Timeline-Events und Blog ohne Daten (graceful degradiert). Architekturentscheidung ist getroffen: kein Neuaufbau; M19 migriert die Inhalte nach Sanity und entfernt Supabase erst nach Paritätsbeweis ([[ENTSCHEIDUNGEN#ADR-65]]). |
+| **Sanity CMS (M19)** | 🟠 **Umsetzung geplant, noch nicht gestartet.** Ziel: Standalone Studio wie bei Sina, DE/EN, TypeGen, Migration aller JSON-/Supabase-Inhalte, Publish→Vercel; danach Supabase-Runtime entfernen. Vollständiger Plan: [[SANITY_CMS_PLAN]] · Entscheidung: [[ENTSCHEIDUNGEN#ADR-65]]. |
 
 ## Was zuletzt lief
+
+**Session 40 (2026-08-06) — Sanity-CMS-Plan (`PENDING`).** Beide Projekt-Vaults, das produktive Sina-Studio/Frontend, die CMS-Sessions S33–S41 und die Sanity-Best-Practices für Next.js, Schema, TypeGen und Lokalisierung wurden abgeglichen. Ergebnis: M19-Zielarchitektur und neunphasiger Umsetzungsplan in [[SANITY_CMS_PLAN]]. Bewährtes Sina-Muster bleibt: Standalone Studio, Loader-Fallback, Publish→Vercel. Verbesserungen: offizielles Internationalized-Array-Pattern und TypeGen als Pflicht-Gate. Nach nachgewiesener Datenparität ersetzt Sanity die redaktionelle JSON-/Supabase-Mischung; Supabase wird nicht neu aufgebaut. Kein Website-Code wurde in dieser Planungssession geändert.
 
 **Session 39 (2026-07-07) — FAQ-Redesign: statische Inhalte + animiertes Accordion mit Suche (`fcaf4b8`).** Auftrag: FAQ der alten Website visuell ansprechend mit Animationen, im Site-Design + `website-design-ultra`-Regeln. Beim Start zwei kritische Befunde: (1) **Supabase-Projekt weg** (NXDOMAIN) — Production-FAQ zeigte nur den Empty-State; (2) Git-Index korrupt (stale `index.lock` vom 22.06.) — non-destruktiv repariert. Lösung (User-Entscheidung): 21 M11-FAQs als `src/content/{de,en}/faq.json` (voll SSG, [[ENTSCHEIDUNGEN#ADR-64]]), `FaqAccordion` komplett neu — GSAP-Scroll-Entrance (80-ms-Stagger), CSS-Höhenanimation + Content-Reveal, Plus→X-Rotation, Sticky-Nav mit Scroll-Spy, **Live-Suche** mit animiertem Filtern + Kein-Treffer-State, FAQPage-JSON-LD, Halbgeviertstrich-Typo gefixt. Verifiziert: typecheck/lint/build clean (31/31 SSG), Production-HTML DE+EN je 21 Fragen/JSON-LD. **Achtung:** Interaktions-Check im Browser entfiel (Kernel-Panic während der Session, siehe [[PROBLEME]]) — nach Deploy einmal live prüfen. Details: [[CHANGELOG#2026-07-07 — Session 39: FAQ-Redesign — statische Inhalte, animiertes Accordion + Suche]].
 
@@ -37,7 +40,7 @@
 Vollständiger Plan mit Akzeptanzkriterien: [[ROADMAP#🗺️ M18 — Welle 3 + Go-Live (Plan, Stand 2026-05-24)]]. Priorisiert:
 
 **🔴 P1 — Go-Live-kritisch**
-0. **Supabase-Entscheidung (NEU, Session 39):** Projekt `hyirpaloozcautcxhbqk` existiert nicht mehr → PartnerMap/Timeline/Blog ohne Daten. Entweder neues Supabase-Projekt anlegen (Migrationen liegen komplett in `supabase/migrations/`, danach `.env.local` + Vercel-Envs umstellen) **oder** Partner/Events wie das FAQ auf statischen Content umstellen ([[ENTSCHEIDUNGEN#ADR-64]] als Blaupause). Blockiert auch #3 (Event-Fotos) und #8 (Partner-URLs). Siehe [[PROBLEME]].
+0. **M19 Phase 0 freigeben:** Sanity-Projekt/Account, Dataset-Sichtbarkeit, Studio-Hostname, Editor-E-Mails/Rollen und Vercel-Zugriff festlegen. Danach [[SANITY_CMS_PLAN]] Phase 1 starten. Die frühere Supabase-Neuaufbaufrage ist architektonisch entschieden: Sanity übernimmt; Runtime-Abbau erst nach bewiesener Parität ([[ENTSCHEIDUNGEN#ADR-65]]).
 1. **Team-Bühnen-Hover vervollständigen.** 4 Sanity-Bühnenfoto-URLs beschaffen → je Member in `src/content/{de,en}/team.json` als `"stage": "https://cdn.sanity.io/images/lc7slax2/production/…"`. Der `ContactCard`-Cross-Fade (Portrait→Bühne) ist fertig; bis dahin Zoom-Fallback.
 
 **🟡 P2 — Inhalt & Recht (warten auf Auftraggeber-Lieferung)**

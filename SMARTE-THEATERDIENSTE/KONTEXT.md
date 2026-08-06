@@ -2,7 +2,7 @@
 
 > Diese Datei beschreibt den **stabilen technischen Stand** (Tech-Stack, Architekturregeln, Dateipfade, Routing). Den laufenden Projektstatus + „was als Nächstes" findest du in [[DASHBOARD]], die Session-Historie in [[CHANGELOG]].
 >
-> Letzte Strukturaktualisierung: 2026-07-07 (Session 39 — FAQ statisch, `content/{de,en}/faq.json` neu).
+> Letzte Strukturaktualisierung: 2026-08-06 (Session 40 — `SANITY_CMS_PLAN.md` und M19 ergänzt; kein Website-Code geändert).
 
 ---
 
@@ -65,7 +65,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 
 **Hosting:** Vercel, Projekt `kaytm93s-projects/smarte-theaterdienste-website`. Production-Alias `https://smarte-theaterdienste-website.vercel.app`. GitHub-Integration verbunden; **Push auf `main` triggert Auto-Deploy** (funktioniert seit [[ENTSCHEIDUNGEN#ADR-58]] — `requireVerifiedCommits` war die Ursache der zuvor abgebrochenen Auto-Deploys). Manueller Fallback: `pnpm dlx vercel@latest deploy --prod --yes`. `NEXT_PUBLIC_SITE_URL` in Vercel Production = der Alias. **Achtung:** `smarte-theaterdienste.de` zeigt noch auf alte Hetzner-A-Records (`167.235.107.225`/`159.69.6.148`) und alte Inhalte — erst nach DNS-Umstellung ist die echte Domain auf unserem Build (siehe [[PROBLEME]] + [[GO_LIVE_CHECKLIST]]).
 
-**Datenbank:** 🔴 **Stand Session 39 (2026-07-07): Das Supabase-Projekt existiert nicht mehr** (DNS NXDOMAIN) — PartnerMap/Timeline/Blog degradieren graceful auf leer; FAQ ist seit [[ENTSCHEIDUNGEN#ADR-64]] statisch und unabhängig. Entscheidung über Neuaufbau vs. weiteren Static-Umzug steht aus, siehe [[PROBLEME]] + [[DASHBOARD]]. Historischer Stand (für den Neuaufbau relevant): Supabase Cloud — Projekt `hyirpaloozcautcxhbqk`, EU-Central (Frankfurt). Schema/Content: [[API]]. Live-Migrationen: `20260427121400_init.sql`, `20260507120000_m7_english_post_translations.sql`, `20260507153000_m11_original_site_content.sql`. Migration `20260607120000_event_image_url.sql` (`events.image_url`) liegt **committed, aber un-gepusht** — der Push braucht das DB-Passwort, das **nicht** in `.env.local` liegt (`.env.local` hat nur URL + anon-key + service-role-key + REVALIDATE_SECRET); die Query selektiert `image_url` defensiv und funktioniert auch ohne Push (Fallback, [[ENTSCHEIDUNGEN#ADR-59]]). Revalidate läuft über `pg_net` + `public.revalidate_nextjs_cache()` mit Triggern auf 6 Tabellen.
+**Daten/CMS:** 🔴 **Das Supabase-Projekt existiert nicht mehr** (DNS NXDOMAIN) — PartnerMap/Timeline/Blog degradieren graceful auf leer; FAQ ist seit [[ENTSCHEIDUNGEN#ADR-64]] statisch. **Ziel seit Session 40:** Sanity ersetzt in M19 die redaktionelle Mischung aus JSON + Supabase; kein Supabase-Neuaufbau. Vollplan: [[SANITY_CMS_PLAN]], Entscheidung: [[ENTSCHEIDUNGEN#ADR-65]]. Bis zum bewiesenen Sanity-Cutover bleibt der aktuelle Runtime-Code unverändert. Historische Quelle: Supabase-Projekt `hyirpaloozcautcxhbqk`, Migrationen/Seed unter `supabase/`, vollständiges Schema in [[API]].
 
 ---
 
@@ -200,7 +200,8 @@ smarte-theaterdienste-website/
 │       ├── skills/                             ← 7 Design-Skills: Core, Style, Farben, Typo, Motion, Patterns, UI-States
 │       └── commands/                           ← 3 uebernommene Workflow-Vorlagen: design, audit, refresh
 ├── SMARTE-THEATERDIENSTE/                      ← Dieser Vault
-│   └── GO_LIVE_CHECKLIST.md                    ← Asset-/Domain-/Vercel-/Legal-Handoff fuer den User
+│   ├── GO_LIVE_CHECKLIST.md                    ← Asset-/Domain-/Vercel-/Legal-Handoff fuer den User
+│   └── SANITY_CMS_PLAN.md                      ← M19: Zielarchitektur, Inhaltsmodell, Migration, Cutover und Handoff
 │
 ├── next.config.ts                              ← Session 28: withNextIntl + remotePatterns (Supabase/Unsplash/Sanity/i.ytimg.com) + experimental.viewTransition (M6) + 12 permanente 308-Redirects von alten Pfaden (`/projekt`→`/konzeption`, `/beteiligung`→`/jetzt-mitmachen` jeweils DE+EN inkl. Sub-Routes)
 ├── components.json                             ← shadcn config (radix-nova, neutral baseColor, css-vars)
@@ -260,4 +261,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 ## Nächste Schritte
 
-Priorisierte Aufgaben mit Akzeptanzkriterien: [[DASHBOARD#📋 Nächste Schritte für Claude]] bzw. [[ROADMAP]]. Konkrete User-Handoff-Liste (Assets, Domain, Legal): [[GO_LIVE_CHECKLIST]].
+Priorisierte Aufgaben mit Akzeptanzkriterien: [[DASHBOARD#📋 Nächste Schritte für Claude]] bzw. [[ROADMAP]]. Nächster Architektur-Meilenstein ist M19 [[SANITY_CMS_PLAN]]; er beginnt mit Account/Dataset/Studio-/Editor-Entscheidungen. Konkrete User-Handoff-Liste (Assets, Domain, Legal): [[GO_LIVE_CHECKLIST]].

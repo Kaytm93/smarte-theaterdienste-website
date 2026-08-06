@@ -1,5 +1,21 @@
 # 📝 Changelog
 
+## 2026-08-06 — Session 40: Sanity-CMS-Zielarchitektur und M19-Umsetzungsplan
+
+**Commit-SHA (Doku):** `PENDING`
+
+**Auftrag:** Bestehenden Smarte-Theaterdienste-Vault lesen, das Sanity-Setup der `sina-schmidt-website` inklusive ihres Obsidian-Vaults analysieren, geeignete Umsetzungsschritte ableiten und den Plan im Projekt-Vault dokumentieren.
+
+**Analyse:** Gelesen wurden die Pflichtdateien des Smarte-Theaterdienste-Vaults (`START_HIER`, `KONTEXT`, `DASHBOARD`, `PROBLEME`, `MUSTER`, `INHALTE`, `API`), die Sina-CMS-ADRs 20–25 und Sessions S33–S41 sowie das reale Standalone-Studio, Schema, GROQ-/Mapper-/Loader-Setup und die Migrations-/Deploy-Kette. Zusätzlich wurden die Sanity-Best-Practices zu Next.js, Schema, TypeGen und Lokalisierung herangezogen.
+
+**Ergebnis:** Neuer [[SANITY_CMS_PLAN]] für M19 mit Zielarchitektur, Inhaltsmatrix, neun Umsetzungsphasen, Akzeptanzkriterien, Rollback und Definition of Done. Bewährtes Sina-Muster: eigenständiges Studio, geschützte Singletons, gemeinsame DE/EN-Pflege, JSON-Fallback, Sanity-Assets und Publish→Vercel. Verbesserungen für dieses Projekt: offizielles Internationalized-Array-Pattern, `defineQuery` + TypeGen als Pflicht-Gate, Sanity-generierte IDs für normale Dokumente und klare Import-/Readback-Gates.
+
+**Entscheidung:** [[ENTSCHEIDUNGEN#ADR-65]] — Sanity wird das zentrale Redaktions-CMS. Das verschwundene Supabase-Projekt wird nicht neu aufgebaut; SQL-Migrationen/Seed dienen als Importquelle, Runtime-Code/Envs werden erst nach vollständiger Sanity-Parität entfernt.
+
+**Vault-Integration:** `START_HIER`, `ROADMAP` (M19), `DASHBOARD`, `KONTEXT`, `PROBLEME`, `API`, `ENTSCHEIDUNGEN`, `CHANGELOG` und Verlauf aktualisiert. Kein Website-Code, keine Dependencies und keine externen Sanity-/Vercel-Einstellungen wurden in dieser Planungssession geändert.
+
+**Verifikation:** Markdown-Link-/Strukturprüfung, `git diff --check`, expliziter Git-Status nur für projektrelevante Vault-Dateien; danach Commit/Push und verifizierter Obsidian-Sync gemäß Projektpflicht.
+
 ## 2026-07-07 — Session 39: FAQ-Redesign — statische Inhalte, animiertes Accordion + Suche
 
 **Commit-SHA (Code):** `fcaf4b8`

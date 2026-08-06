@@ -9,7 +9,8 @@
 | [[DASHBOARD]]        | 👤 Nutzer | Projektstatus, was läuft, was als nächstes                |
 | [[KONTEXT]]          | 🤖 Claude | Vollständiger technischer Stand, Architekturregeln        |
 | [[PROBLEME]]         | 👥 Beide  | Offene Bugs, Einschränkungen, TODOs                       |
-| [[ROADMAP]]          | 👤 Nutzer | Milestones M1–M18, Prioritäten                            |
+| [[ROADMAP]]          | 👤 Nutzer | Milestones M1–M19, Prioritäten                            |
+| [[SANITY_CMS_PLAN]]  | 👥 Beide  | M19: Sanity-Zielarchitektur, Inhaltsmodell und Umsetzung  |
 | [[MUSTER]]           | 🤖 Claude | Code-Patterns die immer korrekt sein müssen (Next.js 16!) |
 | [[ENTSCHEIDUNGEN]]   | 👥 Beide  | Warum wurde was so gebaut (ADRs)                          |
 | [[CHANGELOG]]        | 👥 Beide  | Was wurde wann gemacht                                    |
@@ -20,7 +21,8 @@
 ## Schnellzugriff
 - [[PROBLEME#🔴 Offen|🔴 Offene Bugs]]
 - [[DASHBOARD#📋 Nächste Schritte für Claude|📋 Aufgaben für Claude]]
-- [[ROADMAP|💡 Milestones M1–M18 + Welle-3-Plan]]
+- [[ROADMAP|💡 Milestones M1–M19]]
+- [[SANITY_CMS_PLAN|🧩 Sanity-CMS-Plan (M19)]]
 - [[INHALTE|📄 Inhalte & Tonality]]
 - [[KONTEXT#Wichtigste Dateipfade|📁 Dateipfade]]
 - [[GO_LIVE_CHECKLIST|🚀 Go-live-Checkliste]]
