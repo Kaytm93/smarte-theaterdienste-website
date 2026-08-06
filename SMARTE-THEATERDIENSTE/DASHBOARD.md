@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-08-06 (Session 40 — Sanity-CMS-Plan auf Basis des Sina-Schmidt-Setups)
+> Letzte Aktualisierung: 2026-08-06 (Session 41 — M19 Phase 0 + Phase-1-Studio-Grundgerüst)
 > Vollständige Session-Historie: [[CHANGELOG]] · Detail-Logs: [[verlauf/INDEX]]
 
 ## Status (Kurzüberblick)
@@ -13,9 +13,11 @@
 | **Custom-Domain** | ⚠️ `smarte-theaterdienste.de` zeigt weiter die **alte Hetzner-Seite** (HTTP 200, aber nicht unser Build); DNS-Switch offen → siehe [[PROBLEME]] + [[GO_LIVE_CHECKLIST]] |
 | **Lighthouse (Production, DE+EN)** | A11y **100** · SEO **100** · Best Practices **96** (ein YouTube-Third-Party-Cookie) · Performance **~91–94** warm |
 | **Supabase** | 🔴 **Projekt `hyirpaloozcautcxhbqk` existiert nicht mehr** (DNS NXDOMAIN, Session 39) → PartnerMap, Timeline-Events und Blog ohne Daten (graceful degradiert). Architekturentscheidung ist getroffen: kein Neuaufbau; M19 migriert die Inhalte nach Sanity und entfernt Supabase erst nach Paritätsbeweis ([[ENTSCHEIDUNGEN#ADR-65]]). |
-| **Sanity CMS (M19)** | 🟠 **Umsetzung geplant, noch nicht gestartet.** Ziel: Standalone Studio wie bei Sina, DE/EN, TypeGen, Migration aller JSON-/Supabase-Inhalte, Publish→Vercel; danach Supabase-Runtime entfernen. Vollständiger Plan: [[SANITY_CMS_PLAN]] · Entscheidung: [[ENTSCHEIDUNGEN#ADR-65]]. |
+| **Sanity CMS (M19)** | 🟡 **Umsetzung läuft.** Phase-0-Inventur (47 Dateien, 12 Locale-Paare, 55 Soll-Dokumente) und eigenständiges Studio-Grundgerüst sind fertig: i18n Arrays, 11 geschützte Singletons, Grundschema, TypeGen, CI und lokale Gates grün. Offen: Zielprojekt/Account/Hostname/Editoren/Vercel sowie fachliche Phase-2-Seitenfelder. [[SANITY_CMS_PLAN]] · [[ENTSCHEIDUNGEN#ADR-65]] · [[ENTSCHEIDUNGEN#ADR-66]]. |
 
 ## Was zuletzt lief
+
+**Session 41 (2026-08-06) — M19 Phase 0 + Phase-1-Studio (`PENDING`).** `migration/reports/phase-0-inventory.json` dokumentiert alle 47 lokalen Quellen einschließlich `routing.locales`, DE/EN-Parität und 55 erwartete Erstimport-Dokumente; `cms:migrate`/`cms:verify` prüfen den Snapshot ohne Writes. Das Altprojekt `lc7slax2/production` ist anonym lesbar (88 Inhaltsdokumente + 72 Bilder), aber im aktuellen Konto nicht verwaltbar → nur Migrationsquelle. Neues eigenständiges `studio/` mit Sanity 5.31.1 (Node-20-Pin), Internationalized Arrays, Vision, 11 geschützten Singletons, redaktioneller Structure, Grundschemata, eigener pnpm-Grenze und CI-Job. Grün: Inventur, Studio-Typecheck/Lint/Schema/Build, TypeGen, Root-Typecheck/Lint/Build (31/31). Keine externen Daten geschrieben.
 
 **Session 40 (2026-08-06) — Sanity-CMS-Plan (`cd1e27b`).** Beide Projekt-Vaults, das produktive Sina-Studio/Frontend, die CMS-Sessions S33–S41 und die Sanity-Best-Practices für Next.js, Schema, TypeGen und Lokalisierung wurden abgeglichen. Ergebnis: M19-Zielarchitektur und neunphasiger Umsetzungsplan in [[SANITY_CMS_PLAN]]. Bewährtes Sina-Muster bleibt: Standalone Studio, Loader-Fallback, Publish→Vercel. Verbesserungen: offizielles Internationalized-Array-Pattern und TypeGen als Pflicht-Gate. Nach nachgewiesener Datenparität ersetzt Sanity die redaktionelle JSON-/Supabase-Mischung; Supabase wird nicht neu aufgebaut. Kein Website-Code wurde in dieser Planungssession geändert.
 
@@ -40,7 +42,7 @@
 Vollständiger Plan mit Akzeptanzkriterien: [[ROADMAP#🗺️ M18 — Welle 3 + Go-Live (Plan, Stand 2026-05-24)]]. Priorisiert:
 
 **🔴 P1 — Go-Live-kritisch**
-0. **M19 Phase 0 freigeben:** Sanity-Projekt/Account, Dataset-Sichtbarkeit, Studio-Hostname, Editor-E-Mails/Rollen und Vercel-Zugriff festlegen. Danach [[SANITY_CMS_PLAN]] Phase 1 starten. Die frühere Supabase-Neuaufbaufrage ist architektonisch entschieden: Sanity übernimmt; Runtime-Abbau erst nach bewiesener Parität ([[ENTSCHEIDUNGEN#ADR-65]]).
+0. **M19 Zielbetrieb freigeben:** Sanity-Zielprojekt/Account, Dataset-Sichtbarkeit, finalen Studio-Hostname, Editor-E-Mails/Rollen und Vercel-Zugriff festlegen. Lokale Phase 0 und das Phase-1-Grundgerüst sind fertig; danach Phase 2 (vollständige Seitenfelder) gegen den Inventurreport abschließen. Supabase-Runtime-Abbau erst nach bewiesener Parität ([[SANITY_CMS_PLAN]], [[ENTSCHEIDUNGEN#ADR-65]]).
 1. **Team-Bühnen-Hover vervollständigen.** 4 Sanity-Bühnenfoto-URLs beschaffen → je Member in `src/content/{de,en}/team.json` als `"stage": "https://cdn.sanity.io/images/lc7slax2/production/…"`. Der `ContactCard`-Cross-Fade (Portrait→Bühne) ist fertig; bis dahin Zoom-Fallback.
 
 **🟡 P2 — Inhalt & Recht (warten auf Auftraggeber-Lieferung)**

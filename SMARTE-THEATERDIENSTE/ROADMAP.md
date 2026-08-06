@@ -17,18 +17,18 @@
 | **M17 W1**| ✅ done   | CI-Refresh + Nav + Landing | Public Sans, Black-Gray-Purple-CI, 4-Item-Menü, neue Slugs + 308-Redirects, `/materialien`, Bühnenverein-Lockup, Video, Zitate |
 | **M17 W2**| ✅ done   | Unterseiten nach Feedback  | Konzeption bebildert + Team + Zeitstrahl, Comic/Video eingebettet, MyMaps, FAQ-Kategorien, Team-Umzug, Blog+Termine→Timeline |
 | **M18**| 🟡 P1+P2(3a/3b)+P3 done | Welle 3 + Go-Live | Welle 1+2 production-live (`dpl_3ADeq7…`); Session 31: Datenfluss-Diagramm + Wortwitz-Eyebrows + ComicStrip-Fix + A11y-Recheck; Session 32: Production-Audit (A11y/SEO 100, BP 96, Perf ~91–94 — #7 komplett) + Event-Foto-Plumbing vorbereitet (defensiv, wartet auf DB-Push + URLs) + 503-Doku korrigiert · offen: Team-Bühnenfotos, 3c Comic-Strip, Legal-Texte, Event-Foto-Assets, Custom-Domain-DNS |
-| **M19**| 🟠 geplant | Sanity-Redaktions-CMS | Standalone Studio wie bei Sina, DE/EN, TypeGen, Migration von JSON + Supabase-Historie, Publish→Vercel, danach Supabase-Runtime entfernen · Detailplan: [[SANITY_CMS_PLAN]] |
+| **M19**| 🟡 in Umsetzung | Sanity-Redaktions-CMS | Phase-0-Inventur + eigenständiges Phase-1-Studio-Grundgerüst fertig; Zielprojekt-/Account-Entscheidungen und fachliche Phase-2-Schemas offen · Detailplan: [[SANITY_CMS_PLAN]] |
 
 ---
 
-## M19 — Sanity-Redaktions-CMS 🟠
+## M19 — Sanity-Redaktions-CMS 🟡
 
 **Ziel:** Der Bühnenverein pflegt alle redaktionellen Inhalte in Sanity; die nicht mehr erreichbare Supabase-Instanz wird nicht neu aufgebaut. Das bewährte Sina-Muster (Standalone Studio, Loader-Fallback, Publish→Vercel) wird übernommen und um TypeGen sowie das offizielle Internationalized-Array-Pattern ergänzt.
 
 - [x] Projekt- und Sina-Vault, reales Studio/Frontend-Setup und Sanity-Best-Practices analysiert.
 - [x] Zielarchitektur, Inhaltsmodell, Migrationsreihenfolge, Rollback und Definition of Done dokumentiert: [[SANITY_CMS_PLAN]].
-- [ ] Phase 0: Sanity-Projekt/Account, Dataset-Sichtbarkeit, Studio-Hostname, Editor-Rollen und Vercel-Zugriff festlegen.
-- [ ] Phase 1–2: Standalone Studio, Schema, Locales, Desk-Struktur und Validierungen.
+- [~] Phase 0: ✅ maschinenlesbare Inventur/Parität + Altprojekt-Audit; ⏳ Sanity-Zielprojekt/Account, Dataset-Sichtbarkeit, Studio-Hostname, Editor-Rollen und Vercel-Zugriff festlegen.
+- [~] Phase 1–2: ✅ Standalone Studio, Locales, Structure, Singleton-Schutz, Grundschema, TypeGen/CI; ⏳ seitenfachliche Abschnittsfelder vollständig modellieren.
 - [ ] Phase 3: TypeGen, GROQ, Fetch-/Mapper-/Loader-Schicht und JSON-Fallback.
 - [ ] Phase 4: JSON/Message/SQL/Asset-Migration mit Dry Run und anonymem Readback.
 - [ ] Phase 5: Seitenweise Cutover-Reihenfolge DE/EN.

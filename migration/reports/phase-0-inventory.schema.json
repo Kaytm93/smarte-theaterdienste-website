@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://smarte-theaterdienste.de/schemas/phase-0-inventory.schema.json",
+  "title": "M19 Phase-0-Migrationsinventur",
+  "type": "object",
+  "required": [
+    "reportVersion",
+    "generatedAt",
+    "sourceRevision",
+    "project",
+    "sanityTarget",
+    "summary",
+    "sourceGroups",
+    "mappings",
+    "parity",
+    "qualityIssues"
+  ],
+  "properties": {
+    "reportVersion": { "type": "integer", "minimum": 1 },
+    "generatedAt": { "type": "string", "format": "date" },
+    "sourceRevision": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "project": {
+      "type": "object",
+      "required": ["name", "baseLocale", "locales"],
+      "properties": {
+        "name": { "type": "string" },
+        "baseLocale": { "type": "string" },
+        "locales": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 2,
+          "uniqueItems": true
+        }
+      }
+    },
+    "sanityTarget": { "type": "object" },
+    "summary": { "type": "object" },
+    "sourceGroups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "paths", "canonicality", "targetTypes"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "type": "string" },
+          "paths": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "canonicality": {
+            "enum": ["canonical", "augment", "superseded", "schema-only", "skip"]
+          },
+          "targetTypes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "mappings": { "type": "array" },
+    "parity": { "type": "object" },
+    "qualityIssues": { "type": "array" }
+  }
+}

@@ -1,0 +1,405 @@
+{
+  "$schema": "./phase-0-inventory.schema.json",
+  "reportVersion": 1,
+  "generatedAt": "2026-08-06",
+  "sourceRevision": "ea0448d39d522639f88032979556929dbbeccac0",
+  "project": {
+    "name": "smarte-theaterdienste-website",
+    "baseLocale": "de",
+    "fallbackLocale": "de",
+    "locales": ["de", "en"]
+  },
+  "sanityTarget": {
+    "projectId": null,
+    "dataset": "production",
+    "datasetVisibility": "pending-user-decision",
+    "studioHostname": null,
+    "editors": [],
+    "vercelAccess": "pending",
+    "secretsStoredInReport": false
+  },
+  "legacySanitySource": {
+    "projectId": "lc7slax2",
+    "dataset": "production",
+    "access": "anonymous-read-only",
+    "manageableByCurrentLocalAccount": false,
+    "publishedDocumentCounts": {
+      "Footer": 1,
+      "downloadCard": 3,
+      "errorPage": 1,
+      "eventCard": 4,
+      "footerSettings": 1,
+      "galleryCard": 6,
+      "galleryItem": 1,
+      "globalSettings": 1,
+      "notFoundPage": 1,
+      "page": 8,
+      "splitCard": 14,
+      "stepsCard": 4,
+      "textCard": 4,
+      "textPanel": 39,
+      "sanity.imageAsset": 72
+    },
+    "nonAssetContentDocuments": 88,
+    "imageAssets": 72,
+    "migrationDisposition": "audit-and-import-source-not-target-project"
+  },
+  "summary": {
+    "physicalLocalFiles": 47,
+    "localizedPairs": 12,
+    "singletonDocuments": 11,
+    "documentsIncludingLocales": 55,
+    "entities": {
+      "person": 4,
+      "faqCategory": 4,
+      "faqItem": 21,
+      "event": 6,
+      "partner": 4,
+      "post": 3,
+      "locale": 2
+    },
+    "assets": {
+      "publicTotal": 17,
+      "publicEditorial": 12,
+      "publicEditorialReferenced": 11,
+      "remoteSanityImages": 9,
+      "externalVideos": 2,
+      "totalEditorialImageSources": 21
+    }
+  },
+  "expectedSourceKeys": {
+    "events": [
+      "meetup-datenraum-berlin-juni",
+      "workshop-konnektor-rueckblick",
+      "jahrestagung-buehnenverein-chemnitz-2025",
+      "dataweek-symposium-leipzig-2025",
+      "theatertreff-berlin-spdata-2025",
+      "abschlussforum-datenraum-kultur-hamburg-2025"
+    ],
+    "partners": [
+      "buehnenverein",
+      "fraunhofer",
+      "akademie",
+      "nfdi4culture"
+    ],
+    "posts": [
+      "kickoff-datenraum-kultur",
+      "erste-pilotpartner-gewonnen",
+      "wip-konnektor-roadmap"
+    ]
+  },
+  "sourceGroups": [
+    {
+      "id": "messages",
+      "kind": "localized-json",
+      "paths": ["src/messages/de.json", "src/messages/en.json"],
+      "pairCount": 1,
+      "canonicality": "canonical",
+      "targetTypes": [
+        "siteSettings",
+        "homePage",
+        "conceptPage",
+        "technicalStandardsPage",
+        "semanticStandardsPage",
+        "joinPage",
+        "useCasesPage",
+        "contributePage",
+        "materialsPage",
+        "teamPage",
+        "legal"
+      ]
+    },
+    {
+      "id": "routing-locales",
+      "kind": "typescript-config",
+      "paths": ["src/lib/i18n/routing.ts"],
+      "canonicality": "canonical",
+      "targetTypes": ["locale"]
+    },
+    {
+      "id": "content-json",
+      "kind": "localized-json",
+      "paths": [
+        "src/content/de/beteiligung-anwendungsbeispiele.json",
+        "src/content/en/beteiligung-anwendungsbeispiele.json",
+        "src/content/de/beteiligung-mitwirkung.json",
+        "src/content/en/beteiligung-mitwirkung.json",
+        "src/content/de/beteiligung.json",
+        "src/content/en/beteiligung.json",
+        "src/content/de/faq.json",
+        "src/content/en/faq.json",
+        "src/content/de/landing.json",
+        "src/content/en/landing.json",
+        "src/content/de/legal.json",
+        "src/content/en/legal.json",
+        "src/content/de/materialien.json",
+        "src/content/en/materialien.json",
+        "src/content/de/projekt-semantische-standards.json",
+        "src/content/en/projekt-semantische-standards.json",
+        "src/content/de/projekt-technische-standards.json",
+        "src/content/en/projekt-technische-standards.json",
+        "src/content/de/projekt.json",
+        "src/content/en/projekt.json",
+        "src/content/de/team.json",
+        "src/content/en/team.json"
+      ],
+      "pairCount": 11,
+      "canonicality": "canonical",
+      "targetTypes": [
+        "homePage",
+        "conceptPage",
+        "technicalStandardsPage",
+        "semanticStandardsPage",
+        "joinPage",
+        "useCasesPage",
+        "contributePage",
+        "materialsPage",
+        "teamPage",
+        "person",
+        "faqCategory",
+        "faqItem",
+        "legal"
+      ]
+    },
+    {
+      "id": "supabase-schema",
+      "kind": "sql-migration",
+      "paths": ["supabase/migrations/20260427121400_init.sql"],
+      "canonicality": "schema-only",
+      "targetTypes": ["post", "event", "faqCategory", "faqItem", "partner"]
+    },
+    {
+      "id": "supabase-post-translation-patch",
+      "kind": "sql-migration",
+      "paths": [
+        "supabase/migrations/20260507120000_m7_english_post_translations.sql"
+      ],
+      "canonicality": "augment",
+      "targetTypes": ["post"]
+    },
+    {
+      "id": "supabase-original-site-content",
+      "kind": "sql-migration",
+      "paths": [
+        "supabase/migrations/20260507153000_m11_original_site_content.sql"
+      ],
+      "canonicality": "augment",
+      "targetTypes": ["event", "faqCategory", "faqItem"]
+    },
+    {
+      "id": "supabase-event-image-field",
+      "kind": "sql-migration",
+      "paths": [
+        "supabase/migrations/20260607120000_event_image_url.sql"
+      ],
+      "canonicality": "schema-only",
+      "targetTypes": ["event"]
+    },
+    {
+      "id": "supabase-seed",
+      "kind": "sql-seed",
+      "paths": ["supabase/seed.sql"],
+      "canonicality": "augment",
+      "targetTypes": ["post", "event", "partner", "faqCategory", "faqItem"]
+    },
+    {
+      "id": "public-editorial-assets",
+      "kind": "local-asset",
+      "paths": [
+        "public/comic-strip/frame-1-zeit.jpg",
+        "public/comic-strip/frame-2-bescheid.jpg",
+        "public/comic-strip/frame-3-verbindungen.jpg",
+        "public/hero/theater-parade.jpg",
+        "public/logos/acatech.png",
+        "public/logos/akademie.png",
+        "public/logos/bkm.png",
+        "public/logos/buehnenverein.png",
+        "public/logos/fraunhofer.png",
+        "public/logos/hamburg.png",
+        "public/logos/nfdi4culture.png",
+        "public/maps/germany.svg"
+      ],
+      "canonicality": "canonical",
+      "targetTypes": [
+        "siteSettings",
+        "homePage",
+        "technicalStandardsPage",
+        "person",
+        "partner"
+      ]
+    },
+    {
+      "id": "public-scaffold-assets",
+      "kind": "local-asset",
+      "paths": [
+        "public/file.svg",
+        "public/globe.svg",
+        "public/next.svg",
+        "public/vercel.svg",
+        "public/window.svg"
+      ],
+      "canonicality": "skip",
+      "targetTypes": []
+    }
+  ],
+  "mappings": [
+    {
+      "source": "messages.{meta,nav,langSwitcher,footer,comingSoon}",
+      "targetType": "siteSettings",
+      "transform": "localized-array"
+    },
+    {
+      "source": "src/lib/i18n/routing.ts routing.locales/defaultLocale",
+      "targetType": "locale",
+      "transform": "static-routing-config-to-admin-documents"
+    },
+    {
+      "source": "messages.hero + content/*/landing.json",
+      "targetType": "homePage",
+      "transform": "localized-array-and-embedded-keys"
+    },
+    {
+      "source": "messages.timeline + messages.pages.projekt + content/*/projekt.json",
+      "targetType": "conceptPage",
+      "transform": "localized-array-and-embedded-keys"
+    },
+    {
+      "source": "content/*/projekt-technische-standards.json",
+      "targetType": "technicalStandardsPage",
+      "transform": "localized-array-and-embedded-keys"
+    },
+    {
+      "source": "content/*/projekt-semantische-standards.json",
+      "targetType": "semanticStandardsPage",
+      "transform": "localized-array-and-embedded-keys"
+    },
+    {
+      "source": "content/*/beteiligung.json",
+      "targetType": "joinPage",
+      "transform": "localized-array-and-embedded-keys"
+    },
+    {
+      "source": "content/*/beteiligung-anwendungsbeispiele.json",
+      "targetType": "useCasesPage",
+      "transform": "localized-array-and-embedded-keys"
+    },
+    {
+      "source": "content/*/beteiligung-mitwirkung.json",
+      "targetType": "contributePage",
+      "transform": "localized-array-and-embedded-keys"
+    },
+    {
+      "source": "content/*/materialien.json",
+      "targetType": "materialsPage",
+      "transform": "localized-array-and-embedded-keys"
+    },
+    {
+      "source": "content/*/team.json",
+      "targetType": "person + teamPage",
+      "transform": "sourceKey-lookup-and-ordered-references"
+    },
+    {
+      "source": "content/*/faq.json + M11 legacy UUIDs",
+      "targetType": "faqCategory + faqItem",
+      "transform": "json-canonical-text-with-legacy-metadata"
+    },
+    {
+      "source": "content/*/legal.json",
+      "targetType": "legal",
+      "transform": "markdown-to-portable-text"
+    },
+    {
+      "source": "Supabase seed + M7 post patch",
+      "targetType": "post",
+      "transform": "deduplicated-snapshot-to-localized-portable-text"
+    },
+    {
+      "source": "Supabase seed + M11 events",
+      "targetType": "event",
+      "transform": "deduplicated-snapshot-to-localized-portable-text"
+    },
+    {
+      "source": "Supabase seed partners",
+      "targetType": "partner",
+      "transform": "sourceKey-lookup"
+    },
+    {
+      "source": "public assets + lc7slax2 CDN images",
+      "targetType": "Sanity image assets",
+      "transform": "asset-upload-with-alt-credit-audit"
+    }
+  ],
+  "parity": {
+    "pairsChecked": 12,
+    "missingPaths": [],
+    "typeMismatches": [],
+    "arrayLengthMismatches": [],
+    "stableIdentityMismatches": [],
+    "sqlMissingLocales": []
+  },
+  "qualityIssues": [
+    {
+      "id": "plan-singleton-count",
+      "severity": "warning",
+      "code": "PLAN_COUNT_AMBIGUITY",
+      "message": "Die Typentabelle definiert 11 Singletons insgesamt; der alte Phase-4-Solltext implizierte 13.",
+      "requiredAction": "Plantext auf 9 Seiten plus siteSettings plus legal korrigieren."
+    },
+    {
+      "id": "sql-replay-order",
+      "severity": "warning",
+      "code": "SQL_NOT_DIRECTLY_REPLAYABLE",
+      "message": "Die M7-Translation-Migration referenziert Posts, die erst seed.sql anlegt.",
+      "requiredAction": "SQL als Snapshot parsen, nicht als direkte Importkette ausführen."
+    },
+    {
+      "id": "faq-duplicates",
+      "severity": "info",
+      "code": "DUPLICATE_SOURCE",
+      "message": "FAQ-Daten liegen in JSON, M11 und Seed vor.",
+      "requiredAction": "JSON-Texte und Reihenfolge als kanonisch verwenden; M11 nur für Legacy-Metadaten."
+    },
+    {
+      "id": "stale-upcoming-event",
+      "severity": "warning",
+      "code": "STALE_EVENT_STATUS",
+      "message": "Der als upcoming markierte Termin vom 2026-06-12 liegt am Reportdatum in der Vergangenheit und verwendet example.org.",
+      "requiredAction": "Vor Import Status und Registrierungslink redaktionell prüfen."
+    },
+    {
+      "id": "legal-placeholder",
+      "severity": "warning",
+      "code": "PLACEHOLDER_LEGAL_COPY",
+      "message": "Impressum und Datenschutz tragen weiterhin todo=true.",
+      "requiredAction": "Sichtbaren TODO-Zustand migrieren; erst nach Auftraggeber-Freigabe ersetzen."
+    },
+    {
+      "id": "missing-stage-images",
+      "severity": "warning",
+      "code": "MISSING_PERSON_STAGE_IMAGES",
+      "message": "Für alle vier Personen fehlen Bühnenfotos.",
+      "requiredAction": "Leere optionale Felder erhalten; keine Portrait-Duplikate erzeugen."
+    },
+    {
+      "id": "asset-metadata-gaps",
+      "severity": "warning",
+      "code": "MISSING_ASSET_METADATA",
+      "message": "Mehrere lokale und alte Sanity-Bilder haben keine asset-spezifischen Alt-/Credit-Felder.",
+      "requiredAction": "Vor Write-Migration Alt-Text/Credit-Report erzeugen und fehlende Angaben markieren."
+    },
+    {
+      "id": "legacy-project-access",
+      "severity": "info",
+      "code": "LEGACY_SANITY_READ_ONLY",
+      "message": "lc7slax2/production ist anonym lesbar, aber mit dem aktuellen lokalen Konto nicht verwaltbar.",
+      "requiredAction": "Nur als Read-/Asset-Quelle behandeln und ein bewusst gewähltes Zielprojekt verwenden."
+    }
+  ],
+  "validation": {
+    "jsonParsed": true,
+    "sqlStaticallyInventoried": true,
+    "secretsStored": false,
+    "expectedCountsMatched": true,
+    "contentLakeReadbackCompleted": false
+  }
+}

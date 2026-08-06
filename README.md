@@ -10,7 +10,8 @@ Theaterspielpläne via JSON/ORIF-Schnittstelle.
 - **TypeScript strict**, **Tailwind CSS v4**
 - **next-intl** für i18n (DE/EN)
 - **GSAP + ScrollTrigger** für subtile, apple-like Animationen
-- **Supabase** (Postgres) für Blog, Termine, FAQ, Partner-Karte
+- **Sanity Studio 5** als eigenständige CMS-App (M19 in Umsetzung)
+- **Supabase** nur noch als historische Runtime/Migrationsquelle bis zum Sanity-Cutover
 - **shadcn/ui** Komponentenbasis (Radix-Primitives)
 - Hosting: **Vercel**
 
@@ -23,6 +24,20 @@ pnpm dev                     # http://localhost:3000 → redirect /de
 ```
 
 Wegen Next.js 16: Turbopack ist Default für `dev` und `build` – keine Flags nötig.
+
+### Sanity Studio (M19)
+
+Das Studio besitzt unter `studio/` eigene Dependencies und einen eigenen Lockfile.
+Nach Auswahl des Zielprojekts:
+
+```bash
+cp studio/.env.example studio/.env.local
+pnpm --dir studio install
+pnpm cms:dev
+```
+
+Lokale, schreibfreie Gates: `pnpm cms:validate`, `pnpm cms:typegen`,
+`pnpm cms:migrate` (Inventur-Dry-Run) und `pnpm cms:verify`.
 
 ## Verzeichnisstruktur
 
@@ -38,7 +53,9 @@ src/
   styles/         – Design-Tokens
 src/proxy.ts      – next-intl Routing-Proxy (Next.js 16: ersetzt middleware.ts)
 supabase/         – Migrations + Seed
-_vault/           – Obsidian Vault als Projektplaner
+studio/           – eigenständiges Sanity Studio (eigene Dependencies)
+migration/        – maschinenlesbarer M19-Inventur-/Migrationsreport
+SMARTE-THEATERDIENSTE/ – Obsidian Vault als Projektplaner
 ```
 
 ## Sprachen & Routing

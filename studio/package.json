@@ -1,0 +1,46 @@
+{
+  "name": "@smarte-theaterdienste/studio",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=20.19 <22 || >=22.12"
+  },
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "start": "sanity start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "validate": "sanity schemas validate --level error",
+    "schema:extract": "sanity schemas extract --enforce-required-fields",
+    "typegen": "pnpm schema:extract && sanity typegen generate",
+    "migration:dry-run": "node scripts/check-source-inventory.mjs --mode=dry-run",
+    "migration:verify": "node scripts/check-source-inventory.mjs --mode=verify",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "@sanity/icons": "5.2.1",
+    "@sanity/language-filter": "5.0.14",
+    "@sanity/vision": "5.31.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "sanity": "5.31.1",
+    "sanity-plugin-internationalized-array": "5.1.25",
+    "styled-components": "6.5.0"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "5.0.2",
+    "@types/node": "20.19.43",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "eslint": "9.39.5",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

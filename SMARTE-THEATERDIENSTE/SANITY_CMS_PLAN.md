@@ -1,6 +1,6 @@
 # Sanity-CMS — Umsetzungsplan (M19)
 
-> **Stand:** 2026-08-06 · Planung abgeschlossen, Umsetzung noch nicht gestartet.
+> **Stand:** 2026-08-06 · Umsetzung gestartet: lokale Phase-0-Inventur und Phase-1-Studio-Grundgerüst sind implementiert; Zielprojekt-/Account-Entscheidungen bleiben offen.
 > **Ziel:** Der Bühnenverein pflegt Inhalte, Übersetzungen, Bilder, Termine, Partner und Rechtstexte selbst in einem eigenständigen Sanity Studio. Sanity löst nach geprüfter Datenparität die derzeitige Mischung aus statischen JSON-Dateien und dem nicht mehr erreichbaren Supabase-Projekt als redaktionelle Quelle ab.
 
 ## Kurzfassung
@@ -20,6 +20,17 @@ Gegenüber Sina wird der Neubau an zwei Stellen verbessert:
 
 1. GROQ-Queries werden mit `defineQuery` erfasst und per **Sanity TypeGen** typisiert; manuell gepflegte Raw-Query-Typen sind nicht die langfristige Quelle der Wahrheit.
 2. Mehrsprachige Felder werden mit dem offiziellen Internationalized-Array-Pattern modelliert. Das behält den gewünschten gemeinsamen DE/EN-Workflow, vermeidet aber die Attribut-Aufblähung vieler `{de, en}`-Objekte.
+
+## Umsetzungsstand (Session 41)
+
+- ✅ Maschinenlesbarer Inventur-Snapshot unter `migration/reports/phase-0-inventory.json`: 47 lokale Quelldateien inklusive `routing.locales`, 12 DE/EN-Paare, 55 erwartete Erstimport-Dokumente und 21 redaktionelle Bildquellen. `pnpm cms:migrate`/`cms:verify` prüfen Dateien, Routing-Locales/Basissprache, Sollzahlen und tiefe Content-Parität, ohne Daten zu schreiben.
+- ✅ `lc7slax2/production` geprüft: anonym lesbar (88 Inhaltsdokumente + 72 Bilder), aber mit dem aktuell gespeicherten Sanity-Konto nicht verwaltbar. Es bleibt reine Audit-/Migrationsquelle und wird nicht versehentlich als Zielprojekt verwendet.
+- ✅ Eigenständiges `studio/` mit eigenem Lockfile, Structure Tool, Vision, Internationalized Arrays, statischen DE/EN-Sprachen, 11 geschützten Singletons, redaktionell gruppierter Navigation und Grundschemata für Personen, FAQ, Termine, Partner und Beiträge.
+- ✅ Sanity-Schema, Studio-Typecheck/Lint/Build, TypeGen und der unveränderte Next.js-Build sind lokal grün; separater Studio-Job ist in der CI angelegt.
+- ⏳ Offen für den Abschluss von Phase 0/1: bewusstes Sanity-Zielprojekt, Dataset-Sichtbarkeit, finaler Studio-Hostname, Editor:innen/Rollen und Vercel-Zugriff.
+- ⏳ Phase 2 bleibt offen: seitenfachliche Abschnittsfelder über `intro`/`seo` hinaus vervollständigen und gegen alle JSON-/Message-Selektoren im Report abnehmen.
+
+**Runtime-Grenze:** Das Projekt läuft auf Node 20.19. Sanity 6 erfordert inzwischen Node ≥22.12; deshalb ist das eigenständige Studio reproduzierbar auf Sanity `5.31.1` gepinnt und `autoUpdates` ist deaktiviert ([[ENTSCHEIDUNGEN#ADR-66]]). Ein Node-22-/Sanity-6-Upgrade wird separat geplant, nicht unbemerkt in M19 vermischt.
 
 ## Zielarchitektur
 
@@ -109,8 +120,8 @@ Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werd
 - Sanity-Projekt im richtigen Account anlegen oder vorhandenes Projekt bewusst auswählen.
 - Dataset `production`, Studio-Hostname und Redakteur:innen festlegen.
 - Empfehlung: veröffentlichte Inhalte dürfen für die öffentliche Website anonym lesbar sein; Write-Token bleibt ausschließlich lokal/CI. Ein Read-Token wird erst für private Datasets oder spätere Draft Preview benötigt.
-- JSON-, Message-, Asset- und SQL-Inventur als maschinenlesbaren Migrationsreport festhalten.
-- Prüfen, ob das alte Sanity-Projekt `lc7slax2` nur CDN-Quelle ist oder zugänglich/übertragbar ist.
+- ✅ JSON-, Message-, Asset- und SQL-Inventur als maschinenlesbaren Migrationsreport festhalten.
+- ✅ Prüfen, ob das alte Sanity-Projekt `lc7slax2` nur CDN-Quelle ist oder zugänglich/übertragbar ist. Ergebnis: anonym lesbare Content-/Asset-Quelle, aber im aktuellen Konto nicht verwaltbar.
 
 **Akzeptanz**
 
@@ -131,7 +142,7 @@ Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werd
 **Akzeptanz**
 
 - Next-App und Studio starten getrennt.
-- `sanity schema validate` ist grün.
+- `sanity schemas validate` ist grün (aktueller kanonischer CLI-Befehl).
 - Ein normaler Vercel-Build installiert keine Studio-Dependencies und typecheckt nicht versehentlich `studio/`.
 
 ### Phase 2 — Schema und Redaktionsoberfläche bauen
@@ -156,7 +167,7 @@ Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werd
 
 - `@sanity/client`, Bild-URL-Builder, Portable-Text-Renderer und GROQ-Helfer ergänzen.
 - Alle Queries mit eindeutigen `defineQuery`-Namen anlegen.
-- `sanity schema extract --enforce-required-fields` + `sanity typegen generate` als wiederholbaren Workflow und CI-Gate einrichten; generierte Typen committen.
+- `sanity schemas extract --enforce-required-fields` + `sanity typegen generate` als wiederholbaren Workflow und CI-Gate einrichten; generierte Typen committen.
 - Einen zentralen read-only Fetch-Helper mit `perspective: published`, Fehlerprotokollierung und deployment-spezifischem Cache-Key bauen.
 - `loadContent()` async machen: zuerst Sanity, dann nur bei fehlenden/fehlerhaften Daten JSON-Fallback.
 - `next/image` für das neue Sanity-CDN konfigurieren; Crop/Hotspot, Dimensionen, Alt-Text und Credits erhalten.
@@ -179,7 +190,7 @@ Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werd
 
 **Sollzahlen vor dem Cutover**
 
-- 11 feste Inhaltsbereiche/Singletons plus `siteSettings` und `legal`
+- 11 Singletons insgesamt: 9 feste Seiten plus `siteSettings` und `legal`
 - 4 Personen
 - 21 FAQ-Einträge in 4 Kategorien
 - 4 historische Events aus M11 plus weitere im SQL-Seed vorhandene Datensätze
@@ -227,7 +238,7 @@ Nach jedem Paket werden DE und EN gegen den bisherigen Renderstand verglichen. K
 
 Pflichtchecks:
 
-- `sanity schema validate`
+- `sanity schemas validate`
 - TypeGen ohne Diff nach erneutem Lauf
 - Migrations-Dry-Run und vollständiger Readback
 - `pnpm typecheck`, `pnpm lint`, `pnpm build`
@@ -272,7 +283,7 @@ Erst nach grüner Phase 7:
 - Visual Editing/Presentation Tool (als optionales Folgepaket vorgesehen);
 - DNS-Umstellung der Custom-Domain.
 
-## Entscheidungen/Aktionen, die der User vor Phase 1 liefern muss
+## Entscheidungen/Aktionen, die der User für den Abschluss von Phase 0/1 liefern muss
 
 1. Sanity-Projekt neu anlegen oder Projektzugang bereitstellen; empfohlen ist ein projektbezogenes Konto/Team, nicht ein persönlicher Fremdaccount.
 2. Gewünschter Studio-Hostname, z. B. `smarte-theaterdienste`.

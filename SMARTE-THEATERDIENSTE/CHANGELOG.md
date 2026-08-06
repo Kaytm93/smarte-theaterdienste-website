@@ -1,5 +1,21 @@
 # 📝 Changelog
 
+## 2026-08-06 — Session 41: M19 Phase 0 + eigenständiges Sanity-Studio-Grundgerüst
+
+**Commit-SHA (Implementierung):** `PENDING`
+
+**Auftrag:** Projekt-Vault und inhaltliche/API-Dokumentation lesen und mit der Umsetzung des dokumentierten [[SANITY_CMS_PLAN]] beginnen.
+
+**Phase 0 — Inventur und Zugriffsaudit:** Alle 47 lokalen Quellfiles einschließlich `src/lib/i18n/routing.ts` wurden in `migration/reports/phase-0-inventory.json` mit JSON-Schema, Zielzuordnung, Sollzahlen und Qualitätsrisiken erfasst. Der schreibfreie Checker unter `studio/scripts/check-source-inventory.mjs` verifiziert 12 strukturgleiche DE/EN-Paare, stabile Schlüssel, Routing-Locales/Basissprache, 4 Personen, 4 FAQ-Kategorien/21 Einträge, 6 Events, 4 Partner, 3 Posts, 2 Locale-Dokumente und damit 55 erwartete Erstimport-Dokumente. Die historische SQL-Kette wird als Snapshot behandelt, weil M7 Übersetzungen vor den Seed-Posts referenziert. Das alte `lc7slax2/production` ist anonym lesbar (88 Inhaltsdokumente + 72 Bild-Assets), aber mit dem vorhandenen Account nicht verwaltbar und daher nur Importquelle. Keine externen Daten wurden geschrieben.
+
+**Phase 1 — Studio-Fundament:** Neues eigenständiges `studio/` mit Sanity `5.31.1`, Structure Tool, Vision, Internationalized Arrays, statischem DE/EN-Setup und eigener pnpm-/TypeScript-/ESLint-Grenze. Implementiert sind 11 geschützte Singletons, die Sammlungen Person/FAQ/Event/Partner/Post/Locale, fünf gemeinsame Objekttypen, DE-Pflicht-/EN-Warnvalidierung, redaktionell gruppierte Navigation und TypeGen nach `src/types/sanity.types.ts`. Singleton-Templates sowie Delete/Duplicate/Unpublish sind im Studio unterbunden; normale Dokumente behalten generierte IDs und optionale `sourceKey`-/`legacyId`-Felder. Root-Skripte `cms:{dev,validate,typegen,migrate,verify}`, separate CI-Gates sowie Root-/Vercel-Ausschlüsse halten Website und Studio getrennt.
+
+**Runtime-Entscheidung:** [[ENTSCHEIDUNGEN#ADR-66]] — Sanity 5.31.1 bleibt für Node 20 exakt gepinnt und Studio-Auto-Updates sind aus. Das Node-22-/Sanity-6-Upgrade folgt kontrolliert als eigener Tooling-Schritt.
+
+**Verifikation:** `pnpm --dir studio install --frozen-lockfile`, Studio-Typecheck/Lint/Schema-Validation/Build, zweimal deterministisches TypeGen, `pnpm cms:migrate`, `pnpm cms:verify`, Root-Typecheck/Lint/Build (**31/31 SSG**) und `git diff --check` grün. Die Migrationsbefehle melden ausdrücklich, dass Phase 0/1 weder Content-Lake-Writes noch Sanity-Readback ausführt.
+
+**Offen:** Sanity-Zielprojekt/Account, Dataset-Sichtbarkeit, Studio-Hostname, Editor:innen/Rollen und Vercel-Zugriff; danach vollständige fachliche Phase-2-Seitenfelder, echte idempotente Schreibmigration und Readback.
+
 ## 2026-08-06 — Session 40: Sanity-CMS-Zielarchitektur und M19-Umsetzungsplan
 
 **Commit-SHA (Doku):** `cd1e27b`

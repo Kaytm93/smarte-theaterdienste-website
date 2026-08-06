@@ -31,3 +31,41 @@ jobs:
           # Without Supabase env, queries graceful-degrade to ComingSoonHero
           # so the build stays SSG-clean (see ADR-31).
           NEXT_PUBLIC_SITE_URL: https://smarte-theaterdienste-website.vercel.app
+
+  studio:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: studio
+    env:
+      # Schema validation is local/offline. The real public project ID is added
+      # after the Phase-0 target-project decision; no token is required here.
+      SANITY_STUDIO_PROJECT_ID: ci000000
+      SANITY_STUDIO_DATASET: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.4
+          cache: pnpm
+          cache-dependency-path: studio/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm lint
+
+      - run: pnpm typecheck
+
+      - run: pnpm validate
+
+      - run: pnpm typegen
+
+      - name: Verify committed Sanity types
+        run: git diff --exit-code -- ../src/types/sanity.types.ts
+
+      - run: pnpm build
