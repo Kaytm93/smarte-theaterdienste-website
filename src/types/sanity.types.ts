@@ -24,10 +24,11 @@ export type Post = {
   sourceKey?: string;
   legacyId?: string;
   slug: Slug;
-  title?: InternationalizedArrayString;
+  title: InternationalizedArrayString;
   excerpt?: InternationalizedArrayText;
-  body?: InternationalizedArrayPortableText;
-  publishedAt: string;
+  body: InternationalizedArrayPortableText;
+  status: "draft" | "published" | "archived";
+  publishedAt?: string;
   cover?: ImageWithMetadata;
   seo?: Seo;
 };
@@ -92,10 +93,11 @@ export type Partner = {
   _updatedAt: string;
   _rev: string;
   sourceKey?: string;
+  legacyId?: string;
   name: string;
   slug: Slug;
   status: "partner" | "pilot" | "interested";
-  coordinates: Geopoint;
+  coordinates?: Geopoint;
   website?: string;
   logo?: ImageWithMetadata;
 };
@@ -114,14 +116,15 @@ export type Event = {
   _updatedAt: string;
   _rev: string;
   sourceKey?: string;
+  legacyId?: string;
   slug: Slug;
-  title?: InternationalizedArrayString;
+  title: InternationalizedArrayString;
   description?: InternationalizedArrayPortableText;
   startsAt: string;
   endsAt?: string;
   location?: string;
   registrationUrl?: string;
-  status: "upcoming" | "past" | "cancelled";
+  status: "scheduled" | "cancelled";
   image?: ImageWithMetadata;
 };
 
@@ -140,8 +143,8 @@ export type FaqItem = {
   _rev: string;
   sourceKey?: string;
   legacyId?: string;
-  question?: InternationalizedArrayString;
-  answer?: InternationalizedArrayPortableText;
+  question: InternationalizedArrayString;
+  answer: InternationalizedArrayPortableText;
   category: FaqCategoryReference;
   order: number;
 };
@@ -153,7 +156,7 @@ export type FaqCategory = {
   _updatedAt: string;
   _rev: string;
   sourceKey: string;
-  label?: InternationalizedArrayString;
+  label: InternationalizedArrayString;
   order: number;
 };
 
@@ -165,7 +168,7 @@ export type Person = {
   _rev: string;
   sourceKey?: string;
   name: string;
-  role?: InternationalizedArrayString;
+  role: InternationalizedArrayString;
   portrait: ImageWithMetadata;
   stageImage?: ImageWithMetadata;
   quote?: InternationalizedArrayText;
@@ -196,26 +199,47 @@ export type Legal = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  todo?: boolean;
-  imprint?: InternationalizedArrayPortableText;
-  privacy?: InternationalizedArrayPortableText;
+  imprint: LegalPage;
+  privacy: LegalPage;
 };
 
-export type TeamPage = {
+export type LegalPage = {
+  _type: "legalPage";
+  status: "placeholder" | "review" | "approved";
+  intro: PageIntro;
+  body?: InternationalizedArrayPortableText;
+  seo?: Seo;
+};
+
+export type FaqPage = {
   _id: string;
-  _type: "teamPage";
+  _type: "faqPage";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   intro: PageIntro;
+  navigationLabel: InternationalizedArrayString;
+  statsTemplate: InternationalizedArrayString;
+  search: FaqSearchCopy;
   seo?: Seo;
+};
+
+export type FaqSearchCopy = {
+  _type: "faqSearchCopy";
+  label: InternationalizedArrayString;
+  placeholder: InternationalizedArrayString;
+  clearLabel: InternationalizedArrayString;
+  resultsTemplate: InternationalizedArrayString;
+  noResultsTitle: InternationalizedArrayString;
+  noResultsTemplate: InternationalizedArrayText;
+  resetLabel: InternationalizedArrayString;
 };
 
 export type PageIntro = {
   _type: "pageIntro";
-  kicker?: InternationalizedArrayString;
-  title?: InternationalizedArrayString;
-  lead?: InternationalizedArrayText;
+  kicker: InternationalizedArrayString;
+  title: InternationalizedArrayString;
+  lead: InternationalizedArrayText;
 };
 
 export type MaterialsPage = {
@@ -225,7 +249,23 @@ export type MaterialsPage = {
   _updatedAt: string;
   _rev: string;
   intro: PageIntro;
+  resources: ResourceSection;
+  links: Array<
+    {
+      _key: string;
+    } & InternalOrExternalLink
+  >;
   seo?: Seo;
+};
+
+export type ResourceSection = {
+  _type: "resourceSection";
+  heading: SectionHeading;
+  items: Array<
+    {
+      _key: string;
+    } & ResourcePlacement
+  >;
 };
 
 export type ContributePage = {
@@ -235,7 +275,64 @@ export type ContributePage = {
   _updatedAt: string;
   _rev: string;
   intro: PageIntro;
+  benefits: FeatureSection;
+  steps: Array<
+    {
+      _key: string;
+    } & NumberedStep
+  >;
+  quote: QuoteItem;
+  implementation: ImplementationSection;
+  partnerMap: PartnerMapCopy;
   seo?: Seo;
+};
+
+export type PartnerMapCopy = {
+  _type: "partnerMapCopy";
+  heading: InternationalizedArrayString;
+  lead: InternationalizedArrayText;
+  networkNote: InternationalizedArrayString;
+  networkActionLabel: InternationalizedArrayString;
+  mapImageAlt: InternationalizedArrayString;
+  statusLabel: InternationalizedArrayString;
+  partnerStatus: InternationalizedArrayString;
+  pilotStatus: InternationalizedArrayString;
+  interestedStatus: InternationalizedArrayString;
+  websiteLabel: InternationalizedArrayString;
+  noLocation: InternationalizedArrayString;
+  empty: InternationalizedArrayText;
+  selectionHint: InternationalizedArrayString;
+  locationSingular: InternationalizedArrayString;
+  locationPlural: InternationalizedArrayString;
+  legendLabel: InternationalizedArrayString;
+};
+
+export type ImplementationSection = {
+  _type: "implementationSection";
+  heading: SectionHeading;
+  body: InternationalizedArrayText;
+  items: Array<
+    {
+      _key: string;
+    } & LocalizedListItem
+  >;
+};
+
+export type QuoteItem = {
+  _type: "quoteItem";
+  body: InternationalizedArrayText;
+  source: InternationalizedArrayString;
+  role?: InternationalizedArrayString;
+};
+
+export type FeatureSection = {
+  _type: "featureSection";
+  heading: SectionHeading;
+  items: Array<
+    {
+      _key: string;
+    } & FeatureItem
+  >;
 };
 
 export type UseCasesPage = {
@@ -245,6 +342,11 @@ export type UseCasesPage = {
   _updatedAt: string;
   _rev: string;
   intro: PageIntro;
+  useCases: Array<
+    {
+      _key: string;
+    } & FeatureItem
+  >;
   seo?: Seo;
 };
 
@@ -255,7 +357,25 @@ export type JoinPage = {
   _updatedAt: string;
   _rev: string;
   intro: PageIntro;
+  sections: Array<
+    {
+      _key: string;
+    } & TextSection
+  >;
+  networkMap: MapEmbedCopy;
+  links: Array<
+    {
+      _key: string;
+    } & InternalOrExternalLink
+  >;
   seo?: Seo;
+};
+
+export type MapEmbedCopy = {
+  _type: "mapEmbedCopy";
+  heading: SectionHeading;
+  caption: InternationalizedArrayText;
+  accessibleTitle: InternationalizedArrayString;
 };
 
 export type SemanticStandardsPage = {
@@ -265,6 +385,16 @@ export type SemanticStandardsPage = {
   _updatedAt: string;
   _rev: string;
   intro: PageIntro;
+  sections: Array<
+    {
+      _key: string;
+    } & TextSection
+  >;
+  links: Array<
+    {
+      _key: string;
+    } & InternalOrExternalLink
+  >;
   seo?: Seo;
 };
 
@@ -275,7 +405,60 @@ export type TechnicalStandardsPage = {
   _updatedAt: string;
   _rev: string;
   intro: PageIntro;
+  sections: Array<
+    {
+      _key: string;
+    } & TextSection
+  >;
+  dataFlow: DataFlowSection;
+  video: VideoSection;
+  comic: ComicReferenceSection;
+  resources: ResourceSection;
+  links: Array<
+    {
+      _key: string;
+    } & InternalOrExternalLink
+  >;
   seo?: Seo;
+};
+
+export type ComicStripReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "comicStrip";
+};
+
+export type ComicReferenceSection = {
+  _type: "comicReferenceSection";
+  heading: SectionHeading;
+  comic: ComicStripReference;
+};
+
+export type VideoSection = {
+  _type: "videoSection";
+  heading: SectionHeading;
+  caption: InternationalizedArrayText;
+  youtubeId: string;
+  accessibleTitle: InternationalizedArrayString;
+};
+
+export type DataFlowSection = {
+  _type: "dataFlowSection";
+  heading: SectionHeading;
+  stages: Array<
+    {
+      _key: string;
+    } & DataFlowStage
+  >;
+  caption: InternationalizedArrayText;
+};
+
+export type TeamPageReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "teamPage";
 };
 
 export type ConceptPage = {
@@ -285,7 +468,51 @@ export type ConceptPage = {
   _updatedAt: string;
   _rev: string;
   intro: PageIntro;
+  sections: Array<
+    {
+      _key: string;
+    } & TextSection
+  >;
+  links: Array<
+    {
+      _key: string;
+    } & InternalOrExternalLink
+  >;
+  timeline: TimelineSection;
+  teamPage: TeamPageReference;
   seo?: Seo;
+};
+
+export type PersonReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "person";
+};
+
+export type TeamPage = {
+  _id: string;
+  _type: "teamPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  intro: PageIntro;
+  people: Array<
+    {
+      _key: string;
+    } & PersonReference
+  >;
+  portraitFallback: InternationalizedArrayString;
+  stageAltTemplate: InternationalizedArrayString;
+  seo?: Seo;
+};
+
+export type TimelineSection = {
+  _type: "timelineSection";
+  heading: SectionHeading;
+  locationLabel: InternationalizedArrayString;
+  sourceLabel: InternationalizedArrayString;
+  journey: JourneySection;
 };
 
 export type HomePage = {
@@ -294,8 +521,64 @@ export type HomePage = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  intro: PageIntro;
+  hero: HomeHero;
+  benefits: FeatureSection;
+  video: VideoSection;
+  network: NetworkSection;
+  comic: ComicReferenceSection;
+  stakeholders: FeatureSection;
+  quotes: QuoteSection;
+  pitch: TextSection;
+  trust: BrandLockup;
   seo?: Seo;
+};
+
+export type BrandLockup = {
+  _type: "brandLockup";
+  label: InternationalizedArrayString;
+  logo: ImageWithMetadata;
+};
+
+export type TextSection = {
+  _type: "textSection";
+  eyebrow: InternationalizedArrayString;
+  heading: InternationalizedArrayString;
+  body: InternationalizedArrayPortableText;
+  image?: ImageWithMetadata;
+};
+
+export type QuoteSection = {
+  _type: "quoteSection";
+  heading: SectionHeading;
+  items: Array<
+    {
+      _key: string;
+    } & QuoteItem
+  >;
+};
+
+export type NetworkSection = {
+  _type: "networkSection";
+  heading: SectionHeading;
+  total: number;
+  totalLabel: InternationalizedArrayString;
+  mapTitle: InternationalizedArrayString;
+  mapCaption: InternationalizedArrayString;
+  segments: Array<
+    {
+      _key: string;
+    } & NetworkSegment
+  >;
+};
+
+export type HomeHero = {
+  _type: "homeHero";
+  technologyLabel: InternationalizedArrayString;
+  title: InternationalizedArrayString;
+  summary: InternationalizedArrayText;
+  primaryAction: InternalOrExternalLink;
+  secondaryAction: InternalOrExternalLink;
+  image: ImageWithMetadata;
 };
 
 export type SiteSettings = {
@@ -304,25 +587,91 @@ export type SiteSettings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  siteName?: InternationalizedArrayString;
-  siteDescription?: InternationalizedArrayText;
-  navigation?: Array<{
-    key: Slug;
-    label?: InternationalizedArrayString;
-    href: string;
-    _type: "navigationItem";
-    _key: string;
-  }>;
-  footerCopyright?: InternationalizedArrayString;
+  siteName: InternationalizedArrayString;
+  siteDescription: InternationalizedArrayText;
+  navigation: Array<
+    {
+      _key: string;
+    } & NavigationItem
+  >;
+  menuLabel: InternationalizedArrayString;
+  menuDescription: InternationalizedArrayString;
+  languageSwitcher: LanguageSwitcherCopy;
+  footer: FooterCopy;
+  comingSoon: ComingSoonCopy;
+  postUi: PostUiCopy;
+  eventUi: EventUiCopy;
   defaultSeo?: Seo;
 };
 
-export type InternalOrExternalLink = {
-  _type: "internalOrExternalLink";
-  label?: InternationalizedArrayString;
-  kind: "internal" | "external";
-  href: string;
-  openInNewTab?: boolean;
+export type EventUiCopy = {
+  _type: "eventUiCopy";
+  intro: PageIntro;
+  upcomingHeading: InternationalizedArrayString;
+  pastHeading: InternationalizedArrayString;
+  registerLabel: InternationalizedArrayString;
+  noUpcoming: InternationalizedArrayText;
+  empty: EmptyStateCopy;
+};
+
+export type PostUiCopy = {
+  _type: "postUiCopy";
+  intro: PageIntro;
+  readMoreLabel: InternationalizedArrayString;
+  publishedAtLabel: InternationalizedArrayString;
+  backToListLabel: InternationalizedArrayString;
+  empty: EmptyStateCopy;
+};
+
+export type ComingSoonCopy = {
+  _type: "comingSoonCopy";
+  kicker: InternationalizedArrayString;
+  title: InternationalizedArrayString;
+  body: InternationalizedArrayText;
+  backToHomeLabel: InternationalizedArrayString;
+};
+
+export type FooterCopy = {
+  _type: "footerCopy";
+  imprintLabel: InternationalizedArrayString;
+  privacyLabel: InternationalizedArrayString;
+  supportedByLabel: InternationalizedArrayString;
+  sitemapLabel: InternationalizedArrayString;
+  rightsStatement: InternationalizedArrayString;
+  copyrightTemplate: InternationalizedArrayString;
+  logos: Array<
+    {
+      _key: string;
+    } & FooterLogo
+  >;
+};
+
+export type LanguageSwitcherCopy = {
+  _type: "languageSwitcherCopy";
+  labelTemplate: InternationalizedArrayString;
+  germanLabel: InternationalizedArrayString;
+  englishLabel: InternationalizedArrayString;
+};
+
+export type EmptyStateCopy = {
+  _type: "emptyStateCopy";
+  kicker: InternationalizedArrayString;
+  title: InternationalizedArrayString;
+  body: InternationalizedArrayText;
+};
+
+export type FooterLogo = {
+  _type: "footerLogo";
+  sourceKey: string;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  alt: InternationalizedArrayString;
+  website?: string;
 };
 
 export type SanityImageCrop = {
@@ -341,6 +690,161 @@ export type SanityImageHotspot = {
   width: number;
 };
 
+export type NavigationItem = {
+  _type: "navigationItem";
+  sourceKey: string;
+  label: InternationalizedArrayString;
+  route: "/konzeption" | "/jetzt-mitmachen" | "/materialien" | "/faq" | "/team";
+  placements: Array<"header" | "footer">;
+};
+
+export type SectionHeading = {
+  _type: "sectionHeading";
+  eyebrow: InternationalizedArrayString;
+  heading: InternationalizedArrayString;
+  lead?: InternationalizedArrayText;
+};
+
+export type ResourceReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "resource";
+};
+
+export type ResourcePlacement = {
+  _type: "resourcePlacement";
+  resource: ResourceReference;
+  titleOverride?: InternationalizedArrayString;
+  bodyOverride?: InternationalizedArrayText;
+  labelOverride?: InternationalizedArrayString;
+};
+
+export type Resource = {
+  _id: string;
+  _type: "resource";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  sourceKey: string;
+  title: InternationalizedArrayString;
+  body: InternationalizedArrayText;
+  link: InternalOrExternalLink;
+};
+
+export type InternalOrExternalLink = {
+  _type: "internalOrExternalLink";
+  label: InternationalizedArrayString;
+  kind: "internal" | "external";
+  internalTarget?: string;
+  externalUrl?: string;
+  openInNewTab?: boolean;
+};
+
+export type DataFlowStage = {
+  _type: "dataFlowStage";
+  sourceKey: string;
+  heading: InternationalizedArrayString;
+  subheading: InternationalizedArrayString;
+  items: Array<
+    {
+      _key: string;
+    } & DataFlowItem
+  >;
+};
+
+export type DataFlowItem = {
+  _type: "dataFlowItem";
+  label: InternationalizedArrayString;
+  format?: InternationalizedArrayString;
+  channelKind: "standard" | "orif";
+};
+
+export type JourneySection = {
+  _type: "journeySection";
+  heading: InternationalizedArrayString;
+  lead: InternationalizedArrayText;
+  selectionHint: InternationalizedArrayString;
+  previousLabel: InternationalizedArrayString;
+  nextLabel: InternationalizedArrayString;
+  progressLabel: InternationalizedArrayString;
+  stations: Array<
+    {
+      _key: string;
+    } & JourneyStation
+  >;
+};
+
+export type JourneyStation = {
+  _type: "journeyStation";
+  sourceKey: string;
+  tag: InternationalizedArrayString;
+  phase: InternationalizedArrayString;
+  title: InternationalizedArrayString;
+  body: InternationalizedArrayText;
+  chips: Array<
+    {
+      _key: string;
+    } & LocalizedListItem
+  >;
+};
+
+export type NetworkSegment = {
+  _type: "networkSegment";
+  value: number;
+  label: InternationalizedArrayString;
+};
+
+export type ComicStrip = {
+  _id: string;
+  _type: "comicStrip";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  sourceKey: string;
+  internalName: string;
+  frames: Array<
+    {
+      _key: string;
+    } & ComicFrame
+  >;
+};
+
+export type ComicFrame = {
+  _type: "comicFrame";
+  sourceKey: string;
+  image: ImageWithMetadata;
+  title: InternationalizedArrayString;
+  caption: InternationalizedArrayText;
+};
+
+export type NumberedStep = {
+  _type: "numberedStep";
+  sourceKey: string;
+  title: InternationalizedArrayString;
+  body: InternationalizedArrayText;
+};
+
+export type LocalizedListItem = {
+  _type: "localizedListItem";
+  text: InternationalizedArrayString;
+};
+
+export type FeatureItem = {
+  _type: "featureItem";
+  sourceKey: string;
+  icon?:
+    | "sparkles"
+    | "megaphone"
+    | "users"
+    | "building"
+    | "archive"
+    | "code"
+    | "briefcase";
+  title: InternationalizedArrayString;
+  body: InternationalizedArrayText;
+};
+
 export type PortableText = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -351,7 +855,7 @@ export type PortableText = Array<{
   style?: "normal" | "h2" | "h3" | "blockquote";
   listItem?: "bullet" | "number";
   markDefs?: Array<{
-    href?: string;
+    href: string;
     openInNewTab?: boolean;
     _type: "link";
     _key: string;
@@ -488,20 +992,63 @@ export type AllSanitySchemaTypes =
   | LocaleReference
   | Locale
   | Legal
-  | TeamPage
+  | LegalPage
+  | FaqPage
+  | FaqSearchCopy
   | PageIntro
   | MaterialsPage
+  | ResourceSection
   | ContributePage
+  | PartnerMapCopy
+  | ImplementationSection
+  | QuoteItem
+  | FeatureSection
   | UseCasesPage
   | JoinPage
+  | MapEmbedCopy
   | SemanticStandardsPage
   | TechnicalStandardsPage
+  | ComicStripReference
+  | ComicReferenceSection
+  | VideoSection
+  | DataFlowSection
+  | TeamPageReference
   | ConceptPage
+  | PersonReference
+  | TeamPage
+  | TimelineSection
   | HomePage
+  | BrandLockup
+  | TextSection
+  | QuoteSection
+  | NetworkSection
+  | HomeHero
   | SiteSettings
-  | InternalOrExternalLink
+  | EventUiCopy
+  | PostUiCopy
+  | ComingSoonCopy
+  | FooterCopy
+  | LanguageSwitcherCopy
+  | EmptyStateCopy
+  | FooterLogo
   | SanityImageCrop
   | SanityImageHotspot
+  | NavigationItem
+  | SectionHeading
+  | ResourceReference
+  | ResourcePlacement
+  | Resource
+  | InternalOrExternalLink
+  | DataFlowStage
+  | DataFlowItem
+  | JourneySection
+  | JourneyStation
+  | NetworkSegment
+  | ComicStrip
+  | ComicFrame
+  | NumberedStep
+  | LocalizedListItem
+  | FeatureItem
   | PortableText
   | InternationalizedArrayPortableTextValue
   | InternationalizedArrayTextValue

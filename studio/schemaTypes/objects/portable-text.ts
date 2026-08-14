@@ -1,9 +1,11 @@
+import { BlockContentIcon } from "@sanity/icons/BlockContent";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const portableText = defineType({
   name: "portableText",
   title: "Formatierter Text",
   type: "array",
+  icon: BlockContentIcon,
   of: [
     defineArrayMember({
       type: "block",
@@ -34,7 +36,7 @@ export const portableText = defineType({
                 title: "Zieladresse",
                 type: "url",
                 validation: (rule) =>
-                  rule.uri({
+                  rule.required().uri({
                     allowRelative: true,
                     scheme: ["http", "https", "mailto", "tel"],
                   }),

@@ -2,7 +2,7 @@
 
 > Diese Datei beschreibt den **stabilen technischen Stand** (Tech-Stack, Architekturregeln, Dateipfade, Routing). Den laufenden Projektstatus + „was als Nächstes" findest du in [[DASHBOARD]], die Session-Historie in [[CHANGELOG]].
 >
-> Letzte Strukturaktualisierung: 2026-08-06 (Session 41 — M19-Inventur, eigenständiges `studio/`, Grundschema, TypeGen und CMS-CI ergänzt).
+> Letzte Strukturaktualisierung: 2026-08-14 (Session 42 — M19 Phase 2: vollständiges Sanity-Inhaltsmodell, Seiten-Schemas und Wiederverwendungsmodelle ergänzt).
 
 ---
 
@@ -67,7 +67,7 @@ Marketing- und Info-Website für den **Datenraum-Kultur-Use-Case 3** des **Deuts
 
 **Hosting:** Vercel, Projekt `kaytm93s-projects/smarte-theaterdienste-website`. Production-Alias `https://smarte-theaterdienste-website.vercel.app`. GitHub-Integration verbunden; **Push auf `main` triggert Auto-Deploy** (funktioniert seit [[ENTSCHEIDUNGEN#ADR-58]] — `requireVerifiedCommits` war die Ursache der zuvor abgebrochenen Auto-Deploys). Manueller Fallback: `pnpm dlx vercel@latest deploy --prod --yes`. `NEXT_PUBLIC_SITE_URL` in Vercel Production = der Alias. **Achtung:** `smarte-theaterdienste.de` zeigt noch auf alte Hetzner-A-Records (`167.235.107.225`/`159.69.6.148`) und alte Inhalte — erst nach DNS-Umstellung ist die echte Domain auf unserem Build (siehe [[PROBLEME]] + [[GO_LIVE_CHECKLIST]]).
 
-**Daten/CMS:** 🔴 **Das Supabase-Projekt existiert nicht mehr** (DNS NXDOMAIN) — PartnerMap/Timeline/Blog degradieren graceful auf leer; FAQ ist seit [[ENTSCHEIDUNGEN#ADR-64]] statisch. **M19 läuft seit Session 41:** maschinenlesbare Phase-0-Inventur + separates Sanity-Studio-Grundgerüst sind implementiert; noch kein Frontend-Cutover und keine Content-Lake-Writes. Das alte Projekt `lc7slax2/production` ist anonym lesbar (88 Inhaltsdokumente + 72 Bilder), aber im aktuellen Konto nicht verwaltbar und daher nur Importquelle. Sanity-Zielprojekt/Account bleibt offen. Vollplan: [[SANITY_CMS_PLAN]], Entscheidungen: [[ENTSCHEIDUNGEN#ADR-65]]/[[ENTSCHEIDUNGEN#ADR-66]]. Bis zum bewiesenen Cutover bleibt der Runtime-Code unverändert. Historische Supabase-Quelle: Migrationen/Seed unter `supabase/`, vollständiges Schema in [[API]].
+**Daten/CMS:** 🔴 **Das Supabase-Projekt existiert nicht mehr** (DNS NXDOMAIN) — PartnerMap/Timeline/Blog degradieren graceful auf leer; FAQ ist seit [[ENTSCHEIDUNGEN#ADR-64]] statisch. **M19 lokale Phase 0–2 ist fertig:** maschinenlesbare Inventur (65 Soll-Dokumente), separates Studio und vollständiges semantisches Inhaltsmodell mit 12 geschützten Singletons/86 TypeGen-Schematypen; noch kein Frontend-Cutover und keine Content-Lake-Writes. Das alte Projekt `lc7slax2/production` ist anonym lesbar (88 Inhaltsdokumente + 72 Bilder), aber im aktuellen Konto nicht verwaltbar und daher nur Importquelle. Sanity-Zielprojekt/Account bleibt offen. Vollplan: [[SANITY_CMS_PLAN]], Entscheidungen: [[ENTSCHEIDUNGEN#ADR-65]]/[[ENTSCHEIDUNGEN#ADR-66]]/[[ENTSCHEIDUNGEN#ADR-67]]. Bis zum bewiesenen Cutover bleibt der Runtime-Code unverändert. Historische Supabase-Quelle: Migrationen/Seed unter `supabase/`, vollständiges Schema in [[API]].
 
 ---
 
@@ -95,7 +95,7 @@ smarte-theaterdienste-website/
 │   └── plugins/marketplace.json               ← Session 22: lokaler Codex-Marketplace, verweist auf ./plugins/website-design-ultra
 ├── .github/
 │   ├── workflows/
-│   │   ├── ci.yml                              ← M8: lint + typecheck + build auf push/PR (pnpm 10, Node 20)
+│   │   ├── ci.yml                              ← Root: lint/typecheck/build; Studio: lint/typecheck/schema, Dry Run/Verify, TypeGen-Diff und Build
 │   │   └── lighthouse.yml                      ← M9 (Session 16): treosh/lighthouse-ci-action@v12 gegen 6 Production-URLs, manuell + Cron Mo 06:00 UTC
 │   └── lighthouserc.json                       ← M9: Asserts (A11y/SEO ≥0.95 error · Performance/BP ≥0.9 warn), preset desktop, temporaryPublicStorage
 ├── src/
@@ -153,7 +153,7 @@ smarte-theaterdienste-website/
 │   │   └── utils.ts                            ← cn(), shadcn helper
 │   ├── messages/{de,en}.json                   ← UI-Strings: nav, hero, footer, comingSoon, team, pages.* (M7: EN reviewt + strukturgleich)
 │   ├── types/database.ts                       ← Generated Supabase types (`pnpm gen:types`, mit Relationships)
-│   ├── types/sanity.types.ts                   ← M19 Session 41: generierte Sanity-Schematypen (TypeGen; Query-Typen folgen Phase 3)
+│   ├── types/sanity.types.ts                   ← M19 Session 42: 86 generierte Sanity-Schematypen (TypeGen; Query-Typen folgen Phase 3)
 │   ├── types/react-canary.d.ts                 ← M6: `/// <reference types="react/canary" />` für `<ViewTransition>`-Typen
 │   ├── content/{de,en}/                        ← Page-Content (Session 28: hrefs auf neue Routen migriert):
 │   │   ├── materialien.json                     ← Session 28: 8 ORIF-Werkzeuge + 2 interne Folge-Links
@@ -176,20 +176,24 @@ smarte-theaterdienste-website/
 │   │   ├── 20260427121400_init.sql             ← M4 Schema + RLS
 │   │   ├── 20260507120000_m7_english_post_translations.sql ← M7 Blog-Translations
 │   │   ├── 20260507153000_m11_original_site_content.sql ← M11 Original-FAQ + 2025-Events
-│   │   └── 20260607120000_event_image_url.sql  ← Session 32: events.image_url (NOCH NICHT gepusht — DB-Passwort fehlt)
+│   │   └── 20260607120000_event_image_url.sql  ← Session 32: historische events.image_url-Erweiterung; nie gepusht, Quellprojekt inzwischen verschwunden
 │   ├── seed.sql                                ← Beispiel-Daten inkl. M7 Blog-Translations
 │   ├── config.toml                            │
 │   └── .gitignore                             │
 ├── migration/
 │   └── reports/
-│       ├── phase-0-inventory.json              ← M19: 47 lokale Quellen inkl. Routing-Locales, 12 Locale-Paare, Sollzahlen, Mappings und Risiken
+│       ├── phase-0-inventory.json              ← M19: 48 lokale Quellen, 12 Locale-Paare, 65 Soll-Dokumente, Phase-2-Mappings und Risiken
 │       └── phase-0-inventory.schema.json       ← maschinenlesbarer Report-Vertrag
 ├── studio/                                     ← M19: eigenständiges Sanity Studio, kein Next.js-Routenbestandteil
 │   ├── package.json + pnpm-lock.yaml           ← eigene Dependency-/Lockfile-Grenze; Sanity 5.31.1 für Node 20
-│   ├── sanity.{config,cli}.ts                  ← Structure/Vision/i18n, TypeGen nach `src/types/sanity.types.ts`, Auto-Updates aus
-│   ├── schemaTypes/                            ← Grundobjekte + 11 Singletons + Person/FAQ/Event/Partner/Post/Locale
-│   ├── src/{config,structure}/                 ← statische DE/EN-Sprachen, redaktionelle Navigation, Singleton-Schutz
-│   └── scripts/check-source-inventory.mjs      ← schreibfreier `cms:migrate`-/`cms:verify`-Gate
+│   ├── sanity.{config,cli}.ts                  ← Structure, Development-Vision, i18n, TypeGen nach `src/types/sanity.types.ts`, Auto-Updates aus
+│   ├── schemaTypes/
+│   │   ├── documents/pages/                    ← 10 feste Seiten-Singletons inklusive Team und FAQ
+│   │   ├── documents/                          ← siteSettings, legal, Person/FAQ/Event/Partner/Post/Locale, Resource, Comic
+│   │   ├── objects/                            ← lokalisierte semantische Sections, globale Copy, Medien, Timeline/Datenfluss, Legal und Ressourcen-Placements
+│   │   └── shared/                             ← DE/EN-, Token-, Schlüssel- und Array-Eindeutigkeitsvalidatoren
+│   ├── src/{config,structure,permissions.ts}    ← statische DE/EN-Sprachen, Admin-Spiegel, dynamische FAQ-Navigation, Studio-UI-Schutz (keine Dataset-ACL)
+│   └── scripts/check-source-inventory.mjs      ← JSON-Schema-validierter Dry Run + strikter Source-Key-/Singleton-Verify ohne Writes
 ├── public/                                     ← Logos, Bilder
 │   ├── maps/germany.svg                        ← Wikimedia public-domain Locator-Map (M5)
 │   ├── hero/theater-parade.jpg                 ← M10: Theater-Parade-Foto (Schwarzweiss, alte Website)
@@ -272,11 +276,11 @@ pnpm --dir studio install
 pnpm cms:dev
 pnpm cms:validate
 pnpm cms:typegen
-pnpm cms:migrate       # aktuell Phase-0-Dry-Run, keine Writes
-pnpm cms:verify        # aktuell Inventur-/Paritätsgate, kein Readback
+pnpm cms:migrate       # Phase-0–2-Dry-Run, keine Writes
+pnpm cms:verify        # Inventur-/Paritäts-/Wiederverwendungsgate, noch kein Content-Lake-Readback
 ```
 
-Für die rein lokale Schema-Prüfung darf eine syntaktisch gültige Test-Projekt-ID per Prozess-Environment gesetzt werden; Tokens sind dafür nicht nötig. Root-TypeScript, Root-ESLint und Vercel-Upload schließen `studio/` explizit aus. Die CI hat dafür einen separaten Studio-Job mit eigenem Lockfile.
+Für die rein lokale Schema-Prüfung darf eine syntaktisch gültige Test-Projekt-ID per Prozess-Environment gesetzt werden; Tokens sind dafür nicht nötig. Root-TypeScript, Root-ESLint und Vercel-Upload schließen `studio/` explizit aus. Die CI hat dafür einen separaten Studio-Job mit eigenem Lockfile und prüft zusätzlich beide Migrationsgates sowie einen diff-freien TypeGen-Lauf.
 
 PNPM-Pfad falls nicht auf PATH:
 `/Users/kaygewinner/.nvm/versions/node/v20.19.4/bin/pnpm`
@@ -287,4 +291,4 @@ Preview-Server-Config: `.claude/launch.json` (Workspace-Root) hat den Eintrag `s
 
 ## Nächste Schritte
 
-Priorisierte Aufgaben mit Akzeptanzkriterien: [[DASHBOARD#📋 Nächste Schritte für Claude]] bzw. [[ROADMAP]]. M19 [[SANITY_CMS_PLAN]] ist in Umsetzung: lokal folgen die vollständigen Phase-2-Seitenfelder; für den Zielbetrieb fehlen Account/Projekt, Dataset-Sichtbarkeit, Studio-Hostname, Editor:innen und Vercel-Zugriff. Konkrete User-Handoff-Liste (Assets, Domain, Legal): [[GO_LIVE_CHECKLIST]].
+Priorisierte Aufgaben mit Akzeptanzkriterien: [[DASHBOARD#📋 Nächste Schritte für Claude]] bzw. [[ROADMAP]]. M19 [[SANITY_CMS_PLAN]] ist in Umsetzung: lokal folgt Phase 3 mit typisierten GROQ-Queries, Mappern und Loader/Fallback; für den Zielbetrieb fehlen Account/Projekt, Dataset-Sichtbarkeit, Studio-Hostname, Editor:innen/Rollen-Grants und Vercel-Zugriff. Konkrete User-Handoff-Liste (Assets, Domain, Legal): [[GO_LIVE_CHECKLIST]].

@@ -1,5 +1,25 @@
 # 📝 Changelog
 
+## 2026-08-14 — Session 42: M19 Phase 2 — vollständiges Sanity-Inhaltsmodell und Studio-UX
+
+**Commit-SHA (Implementierung):** `PENDING`
+
+**Auftrag:** Die Projekt-/Vault-MDs lesen und den Sanity-Plan weiterbearbeiten. Nach Pflichtlektüre von Projektkontext, Inhalten, API und [[SANITY_CMS_PLAN]] wurde nicht nur der Plantext aktualisiert, sondern die nächste autonom umsetzbare M19-Etappe vollständig ausgeführt: Phase 2 (Schema und Redaktionsoberfläche).
+
+**Drei parallele Read-only-Audits:** Feldmatrix gegen `messages`, elf DE/EN-Content-Paare und SQL; Schema-/Migrationslücken; Studio-UX/Validation/TypeGen/CI. Hauptbefund: Die neun bisherigen Seiten-Singletons hatten nur `intro`/`seo`; FAQ-Seite, globale UI-Copy, Ressourcen-/Comic-Wiederverwendung und getrennte Legal-Zustände fehlten. Außerdem waren lokalisierte Kernfelder trotz Custom-Validation in TypeGen optional, Event-Ende vor Beginn nur eine Warnung, Post-/Partner-Nullbarkeit nicht SQL-treu und `locale` ohne echte Wirkung editierbar.
+
+**Vollständiges Phase-2-Modell:** Zehn eigene Seitenschemas (Start, Konzeption, technische/semantische Standards, Jetzt mitmachen, Anwendungsbeispiele, Mitwirkung, Materialien, Team, FAQ) bilden alle realen semantischen Abschnitte ab. Ergänzt wurden gemeinsame Objekte für Sections, Features, Zitate, Reise/Timeline, Datenfluss, Video/Netzwerk, globale UI-/A11y-Copy, getrennte Legal-Seiten und Ressourcen-Placements. `siteSettings` enthält Navigation, Footer, Sprachwechsel, Coming-Soon-, Blog- und Event-Copy. `legal` führt pro Route `placeholder|review|approved`; leere Platzhalter bleiben veröffentlichbar, freigegebene Texte benötigen DE-Inhalt.
+
+**Wiederverwendung statt Duplikation:** Acht eindeutige Links werden als normale `resource`-Dokumente gepflegt und auf Materialien/Technik geordnet referenziert. Fünf technische EN-Texte dürfen sprachspezifische Overrides tragen, während die identische DE-Copy kanonisch bleibt. Die drei Comic-Frames leben einmal in `comicStrip` und werden von Startseite/Technik referenziert. FAQ erhält einen eigenen Singleton. Der Sollbestand steigt dadurch von 55 auf **65 Dokumente** (12 Singletons + 53 Entitäten/Locale-Spiegel).
+
+**Validierung und Redaktions-UX:** Kernarrays sind jetzt `rule.required()`- und damit TypeGen-wirksam; DE blockiert Publish, EN warnt mit dokumentiertem Fallback und beide Sprachen sind standardmäßig sichtbar. Optionale Lokalisierungen, Bild-Alt/Credit, bedingte interne/externe Links, Portable-Text-Hrefs, URL-/YouTube-Formate, Template-Tokens und Datumsreihenfolgen sind abgesichert. Dokument-/Array-Keys, Navigation, FAQ-Reihenfolgen und Netzwerk-Summen sind eindeutig/konsistent; die GROQ-Eindeutigkeitsregeln behandeln Drafts und Content Releases korrekt als Varianten desselben Dokuments. Use-Case-ID und kontrolliertes Icon bleiben getrennte Felder. Termine speichern `scheduled|cancelled`; upcoming/past folgt später aus dem Datum. Posts bewahren `draft|published|archived` und verlangen `publishedAt` nur bei Freigabe; Partner-Koordinaten bleiben optional. Formulare sind gruppiert, FAQ-Kategoriefilter entstehen dynamisch und release-sicher aus Dokumenten, Status-Previews sind deutsch, Vision nur Development. Zwölf Singletons sind gegen Create/Delete/Duplicate/Unpublish geschützt; `locale` ist nur admin-sichtbarer, vollständig read-only Spiegel der statischen Code-Konfiguration. Dieser Studio-Schutz ist ausdrücklich keine Dataset-ACL; Rollen-/Grant-Tests bleiben Handoff-Pflicht.
+
+**Inventur, Plan und CI:** Report v2 erfasst jetzt 48 lokale Quellen inklusive Routing und code-eigener MyMaps-Konfiguration, 12 Locale-Paare, 65 Dokumente, 20 aktive von 21 Bildkandidaten (**19 Sanity-Assets + 1 code-eigene Karte**) sowie explizite Source→Target-/Skip-Entscheidungen. Der Checker leitet die Bildsumme aus zehn tatsächlich referenzierten Public-Dateien, neun eindeutigen Alt-CDN-URLs und der code-eigenen Karte her und bestätigt `hamburg.png` als einzigen unreferenzierten Kandidaten. Der Dry Run lädt und validiert den JSON-Schema-Vertrag und simuliert Dokument-/Asset-Sollmengen; Verify ist dessen Superset und gleicht zusätzlich Source-Key-Gruppen, die echten `SINGLETON_TYPES`, acht Ressourcen-Keys/URLs, fünf gemeinsame Placements, EN-Kontextabweichungen, Comic-Frames und MyMaps-Konfiguration ab. `ci.yml` erzwingt Warning-Level-Schema, beide unterschiedlichen Migrationsgates und diff-freies TypeGen. [[SANITY_CMS_PLAN]], [[ROADMAP]], [[DASHBOARD]], [[KONTEXT]], [[PROBLEME]], [[API]], [[INHALTE]], [[GO_LIVE_CHECKLIST]] und [[ENTSCHEIDUNGEN#ADR-67]] wurden auf denselben Stand gebracht; unmögliche Supabase-Push-Schritte und historische persönliche Kontaktannahmen aus aktuellen Handoffs entfernt.
+
+**Verifikation:** Studio-Lint und -Typecheck grün; Schema auf Warnstufe **0 Fehler/0 Warnungen**; Dry Run + Verify grün (**48 Dateien · 12 Locale-Paare · 65 Dokumente · 20 aktive Bildquellen; Dry Run 19+1-Asset-Aufteilung**); TypeGen grün und bei Wiederholung hash-identisch (**86 Schematypen, 0 Queries erwartungsgemäß vor Phase 3**); Studio-Build grün. Root-Lint/Typecheck grün; Next-Production-Build grün (**31/31 statische Seiten**). JSON parsebar, `git diff --check` grün. Keine Content-Lake-, Sanity-, Vercel- oder sonstigen externen Schreiboperationen.
+
+**Nächster Schritt:** Phase 3 kann lokal mit `defineQuery`, Mappern und async Loader/JSON-Fallback beginnen. Vor Content-Lake-Writes, Readback, Studio-Deploy und Publish→Production bleiben Sanity-Zielprojekt/Account, Dataset-Sichtbarkeit, Hostname, Editor:innen/Rollen-Grants samt API-/CLI-Negativtest und Vercel-Zugriff erforderlich.
+
 ## 2026-08-06 — Session 41: M19 Phase 0 + eigenständiges Sanity-Studio-Grundgerüst
 
 **Commit-SHA (Implementierung):** `cffa508`
@@ -65,7 +85,7 @@
 
 ## 2026-06-19 — Session 37: Native interaktive „Spielplan-Reise" statt Genially-Embed + Partnerkarte neu aufgebaut
 
-**Commit-SHA (Code):** `PENDING`
+**Commit-SHA (Code):** `ccf6a77`
 
 **Auftrag:** User: Vault lesen, dann zwei Dinge: (1) „Interaktive Reise durch die Spielplanverbreitung" — das eingebettete Genially sieht schlecht aus, alles selbst bauen, animiert (Website-Design-Ultra-Referenz). (2) „Wer schon dabei ist"-Abschnitt aktualisieren — die Karte „passt nicht, ist nicht vollständig".
 

@@ -2,6 +2,7 @@ import { LinkIcon } from "@sanity/icons/Link";
 import { defineField, defineType } from "sanity";
 
 import {
+  germanString,
   recommendEnglish,
   requireGerman,
 } from "../shared/localized-validation";
@@ -17,7 +18,7 @@ export const internalOrExternalLink = defineType({
       title: "Beschriftung",
       type: "internationalizedArrayString",
       validation: (rule) => [
-        rule.custom(requireGerman),
+        rule.required().custom(requireGerman),
         rule.custom(recommendEnglish).warning(),
       ],
     }),
@@ -36,32 +37,42 @@ export const internalOrExternalLink = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "href",
-      title: "Ziel",
-      description:
-        "Intern: /konzeption oder #zeitstrahl. Extern: vollständige HTTPS-Adresse.",
+      name: "internalTarget",
+      title: "Interne Route / Anker",
+      description: "Zum Beispiel /konzeption oder #zeitstrahl.",
       type: "string",
+      hidden: ({ parent }) => parent?.kind !== "internal",
       validation: (rule) =>
-        rule.required().custom((href, context) => {
-          const kind = (context.parent as { kind?: string } | undefined)?.kind;
-
-          if (!href) return true;
-          if (kind === "internal") {
-            const isInternalTarget =
-              (href.startsWith("/") && !href.startsWith("//")) ||
-              href.startsWith("#");
-            return isInternalTarget
-              ? true
-              : "Interne Ziele beginnen mit genau einem / oder mit #.";
+        rule.custom((value, context) => {
+          if ((context.parent as { kind?: string } | undefined)?.kind !== "internal") {
+            return true;
           }
+          if (!value) return "Für interne Links ist ein Ziel erforderlich.";
+          return (value.startsWith("/") && !value.startsWith("//")) ||
+            value.startsWith("#")
+            ? true
+            : "Interne Ziele beginnen mit genau einem / oder mit #.";
+        }),
+    }),
+    defineField({
+      name: "externalUrl",
+      title: "Externe URL",
+      type: "url",
+      hidden: ({ parent }) => parent?.kind !== "external",
+      validation: (rule) =>
+        rule.custom((value, context) => {
+          if ((context.parent as { kind?: string } | undefined)?.kind !== "external") {
+            return true;
+          }
+          if (!value) return "Für externe Links ist eine URL erforderlich.";
 
           try {
-            const url = new URL(href);
-            return url.protocol === "https:" || url.protocol === "http:"
+            const url = new URL(value);
+            return url.protocol === "http:" || url.protocol === "https:"
               ? true
-              : "Externe Ziele müssen HTTP(S)-Adressen sein.";
+              : "Externe URLs müssen mit http:// oder https:// beginnen.";
           } catch {
-            return "Bitte eine vollständige externe URL eintragen.";
+            return "Bitte eine vollständige externe URL eingeben.";
           }
         }),
     }),
@@ -76,16 +87,16 @@ export const internalOrExternalLink = defineType({
   preview: {
     select: {
       label: "label",
-      href: "href",
+      kind: "kind",
+      internalTarget: "internalTarget",
+      externalUrl: "externalUrl",
     },
-    prepare({ label, href }) {
-      const germanLabel = Array.isArray(label)
-        ? label.find((item) => item?.language === "de")?.value
-        : undefined;
+    prepare({ label, kind, internalTarget, externalUrl }) {
+      const target = kind === "external" ? externalUrl : internalTarget;
 
       return {
-        title: germanLabel || href || "Link",
-        subtitle: href,
+        title: germanString(label) || target || "Link",
+        subtitle: target,
       };
     },
   },

@@ -1,6 +1,6 @@
 # 📊 Dashboard — Smarte Theaterdienste
 
-> Letzte Aktualisierung: 2026-08-06 (Session 41 — M19 Phase 0 + Phase-1-Studio-Grundgerüst)
+> Letzte Aktualisierung: 2026-08-14 (Session 42 — M19 Phase 2: vollständiges Sanity-Inhaltsmodell)
 > Vollständige Session-Historie: [[CHANGELOG]] · Detail-Logs: [[verlauf/INDEX]]
 
 ## Status (Kurzüberblick)
@@ -13,9 +13,11 @@
 | **Custom-Domain** | ⚠️ `smarte-theaterdienste.de` zeigt weiter die **alte Hetzner-Seite** (HTTP 200, aber nicht unser Build); DNS-Switch offen → siehe [[PROBLEME]] + [[GO_LIVE_CHECKLIST]] |
 | **Lighthouse (Production, DE+EN)** | A11y **100** · SEO **100** · Best Practices **96** (ein YouTube-Third-Party-Cookie) · Performance **~91–94** warm |
 | **Supabase** | 🔴 **Projekt `hyirpaloozcautcxhbqk` existiert nicht mehr** (DNS NXDOMAIN, Session 39) → PartnerMap, Timeline-Events und Blog ohne Daten (graceful degradiert). Architekturentscheidung ist getroffen: kein Neuaufbau; M19 migriert die Inhalte nach Sanity und entfernt Supabase erst nach Paritätsbeweis ([[ENTSCHEIDUNGEN#ADR-65]]). |
-| **Sanity CMS (M19)** | 🟡 **Umsetzung läuft.** Phase-0-Inventur (47 Dateien, 12 Locale-Paare, 55 Soll-Dokumente) und eigenständiges Studio-Grundgerüst sind fertig: i18n Arrays, 11 geschützte Singletons, Grundschema, TypeGen, CI und lokale Gates grün. Offen: Zielprojekt/Account/Hostname/Editoren/Vercel sowie fachliche Phase-2-Seitenfelder. [[SANITY_CMS_PLAN]] · [[ENTSCHEIDUNGEN#ADR-65]] · [[ENTSCHEIDUNGEN#ADR-66]]. |
+| **Sanity CMS (M19)** | 🟡 **Lokale Phase 0–2 fertig.** Inventur: 48 Dateien, 12 Locale-Paare, **65 Soll-Dokumente**, 20 aktive Bildquellen (19 Sanity + 1 code-owned). Studio: vollständige Seiten-/Entitätsschemas, 12 geschützte Singletons, Ressourcen-/Comic-Referenzen, 86 TypeGen-Schematypen; Schema 0/0, Lint/Typecheck/Migration grün. Nächster Codeschritt: Phase 3 (GROQ/Mapper/Loader). Extern offen: Zielprojekt/Account/Hostname/Editoren/Rollen-Grants/Vercel. [[SANITY_CMS_PLAN]] · [[ENTSCHEIDUNGEN#ADR-65]] · [[ENTSCHEIDUNGEN#ADR-66]] · [[ENTSCHEIDUNGEN#ADR-67]]. |
 
 ## Was zuletzt lief
+
+**Session 42 (2026-08-14) — M19 Phase 2: vollständiges Sanity-Inhaltsmodell (`PENDING`).** Alle Projekt-/Inhalts-MDs und der Sanity-Plan wurden gegen JSON, Messages, SQL und Studio geprüft. Die zehn Seiten-Singletons bilden jetzt ihre realen semantischen Abschnitte ab; FAQ-Seite, globale UI-Copy, getrennte Legal-Status, vollständige Entitäten, wiederverwendbare Ressourcen (8) und Comic (1) sind ergänzt. 12 Singletons sind geschützt, Locale-Dokumente nur noch admin-sichtbarer Spiegel, Vision nur Development. Publish-Regeln schützen DE-Pflichtinhalt, EN-Fallback-Warnungen, Template-Tokens, Links, Datumslogik, stabile Schlüssel, Navigation, FAQ-Reihenfolgen und Netzwerksummen; Use-Case-ID und Icon bleiben getrennt. Inventur/Plan stehen auf 65 Dokumenten und 20 aktiven Bildquellen (19 Sanity + 1 code-owned); CI validiert Warnstufe, Reportschema, Dry Run und strikten Verify. Lokal grün: Studio-Lint, Typecheck, Schema 0 Fehler/0 Warnungen, TypeGen 86 Typen, Dry Run/Verify. Keine externen Daten geschrieben.
 
 **Session 41 (2026-08-06) — M19 Phase 0 + Phase-1-Studio (`cffa508`).** `migration/reports/phase-0-inventory.json` dokumentiert alle 47 lokalen Quellen einschließlich `routing.locales`, DE/EN-Parität und 55 erwartete Erstimport-Dokumente; `cms:migrate`/`cms:verify` prüfen den Snapshot ohne Writes. Das Altprojekt `lc7slax2/production` ist anonym lesbar (88 Inhaltsdokumente + 72 Bilder), aber im aktuellen Konto nicht verwaltbar → nur Migrationsquelle. Neues eigenständiges `studio/` mit Sanity 5.31.1 (Node-20-Pin), Internationalized Arrays, Vision, 11 geschützten Singletons, redaktioneller Structure, Grundschemata, eigener pnpm-Grenze und CI-Job. Grün: Inventur, Studio-Typecheck/Lint/Schema/Build, TypeGen, Root-Typecheck/Lint/Build (31/31). Keine externen Daten geschrieben.
 
@@ -25,7 +27,7 @@
 
 **Session 38 (2026-06-19) — Spielplan-Reise Orbit-Polish (`de33eb5`).** User-Feedback zur nativen Reise: der pulsierende Kern mit Sternen sollte im Zentrum stehen statt oben links, die Darstellung war zu dunkel/zu schwer erkennbar, Animationen sollten sorgfältiger wirken. `SpielplanReise` poliert: zentrierter Orbit-Core im Tabpanel, hellere Stage-Fläche, stärkere Lesbarkeit, acht Sternpunkte, drehender Orbit, pulsierender Core/Glow, GSAP-Cleanup via `revertOnUpdate`, bessere Focus-/Active-/Disabled-States. Verifiziert: `pnpm typecheck`, `pnpm lint`, `pnpm build`, Playwright Desktop + Mobile, Mobile `docOverflowPx 0`, Core-vs-Panel-Mitte `deltaPx 0`, 0 Console-Errors/-Warnings. Details: [[CHANGELOG#2026-06-19 — Session 38: Spielplan-Reise Orbit-Polish]].
 
-**Session 37 (2026-06-19) — Native interaktive „Spielplan-Reise" + Partnerkarte neu (`PENDING`).** Zwei User-Aufträge. (1) Das **Genially-Embed** der „Interaktiven Reise durch die Spielplanverbreitung" (`/konzeption`) zeigte nur einen generischen Lade-Spinner → ersetzt durch die selbstgebaute, animierte `SpielplanReise` (Client+GSAP): 5-Stationen-Stepper mit Icon-Knoten, animierter Fortschrittslinie, Bühnen-Card + Format-Chips, Prev/Next, voll tastatur-/ARIA-/reduced-motion-tauglich. (2) Die **Partnerkarte** (`/jetzt-mitmachen/mitwirkung`) war eine ausgewaschene Hochformat-Rasterkarte mit 4 blassen Punkten → neu aufgebaut: CI-Graustufenkarte, kräftige **nummerierte** animierte Marker, nummerierte klickbare Liste, Netzwerk-Hinweis „Über 140 Institutionen" + CTA zur Startseiten-DACH-Karte. Vorab `node_modules`-Korruption (kaputte JSON-Dateien) per `rm -rf node_modules && pnpm install` repariert. Build 35/35 SSG clean, DE+EN + Mobile verifiziert. Details: [[CHANGELOG#2026-06-19 — Session 37: Native interaktive „Spielplan-Reise" statt Genially-Embed + Partnerkarte neu aufgebaut]] · [[ENTSCHEIDUNGEN#ADR-62]] · [[ENTSCHEIDUNGEN#ADR-63]].
+**Session 37 (2026-06-19) — Native interaktive „Spielplan-Reise" + Partnerkarte neu (`ccf6a77`).** Zwei User-Aufträge. (1) Das **Genially-Embed** der „Interaktiven Reise durch die Spielplanverbreitung" (`/konzeption`) zeigte nur einen generischen Lade-Spinner → ersetzt durch die selbstgebaute, animierte `SpielplanReise` (Client+GSAP): 5-Stationen-Stepper mit Icon-Knoten, animierter Fortschrittslinie, Bühnen-Card + Format-Chips, Prev/Next, voll tastatur-/ARIA-/reduced-motion-tauglich. (2) Die **Partnerkarte** (`/jetzt-mitmachen/mitwirkung`) war eine ausgewaschene Hochformat-Rasterkarte mit 4 blassen Punkten → neu aufgebaut: CI-Graustufenkarte, kräftige **nummerierte** animierte Marker, nummerierte klickbare Liste, Netzwerk-Hinweis „Über 140 Institutionen" + CTA zur Startseiten-DACH-Karte. Vorab `node_modules`-Korruption (kaputte JSON-Dateien) per `rm -rf node_modules && pnpm install` repariert. Build 35/35 SSG clean, DE+EN + Mobile verifiziert. Details: [[CHANGELOG#2026-06-19 — Session 37: Native interaktive „Spielplan-Reise" statt Genially-Embed + Partnerkarte neu aufgebaut]] · [[ENTSCHEIDUNGEN#ADR-62]] · [[ENTSCHEIDUNGEN#ADR-63]].
 
 **Session 36 (2026-06-11) — „Use Case 3" aus Hero-Bildunterschrift entfernt (`c6f7a5d`).** Die figcaption unter dem Hero-Theaterbild der Startseite lautete „Use Case 3 · Datenraum Kultur" (DE) / „Use Case 3 · Cultural Data Space" (EN). Auf Userwunsch + Rückfrage nur den „Use Case 3 · "-Präfix entfernt → „Datenraum Kultur" / „Cultural Data Space" bleibt. Die 4 anderen „Use Case 3"-Fundstellen (Meta-Description, OG-Image, Pitch-Fließtext) bewusst unberührt. Preview-verifiziert, 0 Console-Errors. Details: [[CHANGELOG#2026-06-11 — Session 36: „Use Case 3" aus Hero-Bildunterschrift der Startseite entfernt]].
 
@@ -39,24 +41,25 @@
 
 ## 📋 Nächste Schritte für Claude
 
-Vollständiger Plan mit Akzeptanzkriterien: [[ROADMAP#🗺️ M18 — Welle 3 + Go-Live (Plan, Stand 2026-05-24)]]. Priorisiert:
+Vollständige Pläne mit Akzeptanzkriterien: [[SANITY_CMS_PLAN]] (M19) und [[ROADMAP#🗺️ M18 — Welle 3 + Go-Live (Plan, Stand 2026-05-24)]]. Priorisiert:
 
 **🔴 P1 — Go-Live-kritisch**
-0. **M19 Zielbetrieb freigeben:** Sanity-Zielprojekt/Account, Dataset-Sichtbarkeit, finalen Studio-Hostname, Editor-E-Mails/Rollen und Vercel-Zugriff festlegen. Lokale Phase 0 und das Phase-1-Grundgerüst sind fertig; danach Phase 2 (vollständige Seitenfelder) gegen den Inventurreport abschließen. Supabase-Runtime-Abbau erst nach bewiesener Parität ([[SANITY_CMS_PLAN]], [[ENTSCHEIDUNGEN#ADR-65]]).
-1. **Team-Bühnen-Hover vervollständigen.** 4 Sanity-Bühnenfoto-URLs beschaffen → je Member in `src/content/{de,en}/team.json` als `"stage": "https://cdn.sanity.io/images/lc7slax2/production/…"`. Der `ContactCard`-Cross-Fade (Portrait→Bühne) ist fertig; bis dahin Zoom-Fallback.
+0. **M19 Zielbetrieb freigeben:** Sanity-Zielprojekt/Account, Dataset-Sichtbarkeit, finalen Studio-Hostname, Editor-E-Mails/Rollen-Grants und Vercel-Zugriff festlegen. Eingeschränkte Credentials müssen per API-/CLI-Negativtest geprüft werden, weil Studio-UI-Schutz keine Dataset-ACL ist. Lokale Phase 0–2 ist fertig; die Entscheidung wird spätestens vor Content-Lake-Writes/Readback/Deploy benötigt. Supabase-Runtime-Abbau erst nach bewiesener Parität ([[SANITY_CMS_PLAN]], [[ENTSCHEIDUNGEN#ADR-65]], [[ENTSCHEIDUNGEN#ADR-67]]).
+1. **M19 Phase 3 lokal umsetzen:** typisierte GROQ-Queries, Mapper und async Loader mit JSON-Fallback; 0 Querytypen sind bis dahin der erwartete TypeGen-Zustand.
+2. **Team-Bühnen-Hover vervollständigen.** 4 Sanity-Bühnenfoto-URLs beschaffen → je Member in `src/content/{de,en}/team.json` als `"stage": "https://cdn.sanity.io/images/lc7slax2/production/…"`. Der `ContactCard`-Cross-Fade (Portrait→Bühne) ist fertig; bis dahin Zoom-Fallback.
 
 **🟡 P2 — Inhalt & Recht (warten auf Auftraggeber-Lieferung)**
-2. **Finale Impressum-/Datenschutz-Texte** vom Bühnenverein → ersetzen die TODO-Marker (`legal.json`, [[ENTSCHEIDUNGEN#ADR-25]]).
-3. **Event-Fotos für die Timeline.** Plumbing fertig ([[ENTSCHEIDUNGEN#ADR-59]]). Offen: (a) Migration `20260607120000_event_image_url.sql` pushen — braucht das **DB-Passwort** (nicht in `.env.local`); (b) Foto-URLs je Event in `events.image_url` (Host muss in `next.config.ts → images.remotePatterns`; `*.supabase.co` + Sanity sind erlaubt).
-4. **3c Comic-Strip erweitern (optional).** 3 weitere Max-Kersting-Frames aus `STD-Design-Praesentation` S.5, falls der Bühnenverein die Original-Assets liefert.
+3. **Finale Impressum-/Datenschutz-Texte** vom Bühnenverein → ersetzen die getrennten sichtbaren Platzhalter (`legal.json`, später `legal.imprint/privacy`; [[ENTSCHEIDUNGEN#ADR-25]]).
+4. **Event-Fotos für die Timeline.** Darstellung und Sanity-Bildfeld sind vorbereitet ([[ENTSCHEIDUNGEN#ADR-59]]). Offen sind die echten Bilddateien/Credits je Event; das verschwundene Supabase-Projekt wird dafür nicht mehr migriert.
+5. **3c Comic-Strip erweitern (optional).** 3 weitere Max-Kersting-Frames aus `STD-Design-Praesentation` S.5, falls der Bühnenverein die Original-Assets liefert; das zentrale `comicStrip`-Dokument kann sie ohne Seitenduplikate aufnehmen.
 
 **🟢 P3 — Polish (nice-to-have)**
-5. **Startseiten-Performance-Re-Audit** nach dem nächsten Deploy — die Startseite trägt jetzt **zwei** lazy iframes (YouTube-`VideoEmbed` + MyMaps, beide unter dem Fold, [[ENTSCHEIDUNGEN#ADR-60]]); bestätigen, dass das Maps-iframe den LCP nicht antastet.
-6. ~~FAQ-Typografie~~ ✅ in Session 39 beim JSON-Export gefixt ([[ENTSCHEIDUNGEN#ADR-64]]).
-7. **FAQ-Interaktionen live gegenchecken** (Accordion-Motion, Scroll-Spy, Suche, Mobile 375 px) — der Browser-Check entfiel in Session 39 wegen des Kernel-Panics ([[PROBLEME]]).
+6. **Startseiten-Performance-Re-Audit** nach dem nächsten Deploy — die Startseite trägt jetzt **zwei** lazy iframes (YouTube-`VideoEmbed` + MyMaps, beide unter dem Fold, [[ENTSCHEIDUNGEN#ADR-60]]); bestätigen, dass das Maps-iframe den LCP nicht antastet.
+7. ~~FAQ-Typografie~~ ✅ in Session 39 beim JSON-Export gefixt ([[ENTSCHEIDUNGEN#ADR-64]]).
+8. **FAQ-Interaktionen live gegenchecken** (Accordion-Motion, Scroll-Spy, Suche, Mobile 375 px) — der Browser-Check entfiel in Session 39 wegen des Kernel-Panics ([[PROBLEME]]).
 
 **⚪ Infra (langstehend)**
-7. **Custom-Domain** `smarte-theaterdienste.de` auf Vercel umstellen (DNS A/CNAME) — erst danach ist die echte Domain auf unserem Build. [[GO_LIVE_CHECKLIST]] + [[PROBLEME]].
-8. **Partner-`website_url`/`logo_url` in Supabase** nachpflegen (aktuell nur Geo-Coords) — sonst fehlt der „Zur Website"-Link auf der `PartnerMap`.
+9. **Custom-Domain** `smarte-theaterdienste.de` auf Vercel umstellen (DNS A/CNAME) — erst danach ist die echte Domain auf unserem Build. [[GO_LIVE_CHECKLIST]] + [[PROBLEME]].
+10. **Partner-Link-/Logo-Quellen vor Sanity-Import vervollständigen.** Die alten SQL-Zeilen enthalten überwiegend nur Geo-Koordinaten; fehlende Websites/Logos nicht erfinden, sondern mit dem Bühnenverein bestätigen.
 
 > Offene Tooling-Lücken (`gh`/Homebrew fehlen, `curl` nur unter `/usr/bin/`, axe-`color-contrast`-False-Positives) stehen in [[PROBLEME]]. Offene Produktfragen (CMS-Frontend, Newsletter, Analytics) ebenfalls dort bzw. in [[ENTSCHEIDUNGEN#Zukunftige offene ADRs]].

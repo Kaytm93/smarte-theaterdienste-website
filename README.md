@@ -28,6 +28,8 @@ Wegen Next.js 16: Turbopack ist Default für `dev` und `build` – keine Flags n
 ### Sanity Studio (M19)
 
 Das Studio besitzt unter `studio/` eigene Dependencies und einen eigenen Lockfile.
+Die lokale Phase 0–2 ist abgeschlossen: vollständiges Inhaltsmodell,
+12 geschützte Singletons und ein verifizierter Sollimport von 65 Dokumenten.
 Nach Auswahl des Zielprojekts:
 
 ```bash
@@ -37,7 +39,7 @@ pnpm cms:dev
 ```
 
 Lokale, schreibfreie Gates: `pnpm cms:validate`, `pnpm cms:typegen`,
-`pnpm cms:migrate` (Inventur-Dry-Run) und `pnpm cms:verify`.
+`pnpm cms:migrate` (Phase-0–2-Dry-Run) und `pnpm cms:verify`.
 
 ## Verzeichnisstruktur
 

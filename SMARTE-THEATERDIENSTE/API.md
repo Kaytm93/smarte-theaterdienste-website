@@ -1,6 +1,6 @@
 # 🔌 API & Datenmodell
 
-> **Historischer Supabase-Stand.** Das Cloud-Projekt `hyirpaloozcautcxhbqk` existiert seit Session 39 nicht mehr (DNS NXDOMAIN). Schema, Migrationen, Seed und Query-Dokumentation bleiben die Importquelle für M19. Ziel: Inhalte nach Sanity migrieren und die Supabase-Runtime erst nach vollständiger Parität entfernen. Siehe [[SANITY_CMS_PLAN]] + [[ENTSCHEIDUNGEN#ADR-65]].
+> **Historischer Supabase-Stand.** Das Cloud-Projekt `hyirpaloozcautcxhbqk` existiert seit Session 39 nicht mehr (DNS NXDOMAIN). Schema, Migrationen, Seed und Query-Dokumentation bleiben die Importquelle für M19. Ziel: Inhalte nach Sanity migrieren und die Supabase-Runtime erst nach vollständiger Parität entfernen. Das lokale Sanity-Zielschema ist seit Session 42 vollständig (65 Soll-Dokumente); noch wurden keine Content-Lake-Daten geschrieben. Siehe [[SANITY_CMS_PLAN]] + [[ENTSCHEIDUNGEN#ADR-65]] + [[ENTSCHEIDUNGEN#ADR-67]].
 
 ## M19-Zielzustand: Sanity statt Supabase-Runtime
 
@@ -8,10 +8,14 @@
 - `events` + `event_translations` → Sanity-Dokument `event`
 - `faqs` + `faq_translations` → `faqItem` + Referenz auf `faqCategory` (die 21 aktuellen Einträge liegen bereits zusätzlich in JSON)
 - `partners` → Sanity-Dokument `partner`
-- JSON-Seiteninhalte → feste Sanity-Singletons und strukturierte Objekte
-- UI-Labels/SEO → `siteSettings`
+- JSON-Seiteninhalte → 10 feste Seiten-Singletons und strukturierte semantische Objekte
+- UI-Labels/SEO → `siteSettings` sowie seitenbezogene FAQ-/Legal-Copy
+- 8 eindeutige Material-URLs → `resource`; Materialien/Technik halten geordnete `resourcePlacement`-Referenzen mit optionalen Kontext-Overrides
+- 3 gemeinsam verwendete Comic-Frames → 1 `comicStrip`-Dokument, referenziert von Startseite und technischen Standards
 
-DE/EN werden im Zielmodell gemeinsam pro Inhalt gepflegt; gewöhnliche Dokumente erhalten Sanity-generierte IDs, importierte Supabase-IDs bei Bedarf ein explizites `legacyId`/`sourceKey`. Die SQL-Dateien bleiben bis nach dem Produktions-Cutover unverändert als prüfbare Migrationsquelle erhalten.
+DE/EN werden im Zielmodell gemeinsam pro Inhalt gepflegt; gewöhnliche Dokumente erhalten Sanity-generierte IDs, importierte Supabase-IDs bei Bedarf ein explizites `legacyId`/`sourceKey`. SQL-`events.status` wird beim Import semantisch normalisiert: `upcoming|past` → `scheduled`, `cancelled` bleibt `cancelled`; die Ansicht „bevorstehend/vergangen“ leitet das Frontend aus `startsAt` ab. `post.status` bleibt `draft|published|archived`, und `publishedAt` ist nur bei `published` Pflicht. Partner-Koordinaten bleiben nullbar wie in SQL/UI. Die SQL-Dateien bleiben bis nach dem Produktions-Cutover unverändert als prüfbare Migrationsquelle erhalten.
+
+**Phase-2-Sollsumme:** 12 Singletons + 4 Personen + 4 FAQ-Kategorien + 21 FAQ-Einträge + 6 Events + 4 Partner + 3 Posts + 8 Ressourcen + 1 Comic + 2 Locale-Spiegel = **65 Dokumente**.
 
 ---
 

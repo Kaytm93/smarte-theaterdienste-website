@@ -1,48 +1,38 @@
 import { LockIcon } from "@sanity/icons/Lock";
 import { defineField, defineType } from "sanity";
 
-import {
-  recommendEnglish,
-  requireGerman,
-} from "../shared/localized-validation";
-
 export const legal = defineType({
   name: "legal",
   title: "Rechtstexte",
   type: "document",
   icon: LockIcon,
+  groups: [
+    { name: "imprint", title: "Impressum", default: true },
+    { name: "privacy", title: "Datenschutz" },
+  ],
   fields: [
-    defineField({
-      name: "todo",
-      title: "Noch nicht final freigegeben",
-      type: "boolean",
-      initialValue: true,
-    }),
     defineField({
       name: "imprint",
       title: "Impressum",
-      type: "internationalizedArrayPortableText",
-      validation: (rule) => [
-        rule.custom(requireGerman),
-        rule.custom(recommendEnglish).warning(),
-      ],
+      type: "legalPage",
+      group: "imprint",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "privacy",
       title: "Datenschutz",
-      type: "internationalizedArrayPortableText",
-      validation: (rule) => [
-        rule.custom(requireGerman),
-        rule.custom(recommendEnglish).warning(),
-      ],
+      type: "legalPage",
+      group: "privacy",
+      validation: (rule) => rule.required(),
     }),
   ],
   preview: {
-    select: { todo: "todo" },
-    prepare({ todo }) {
+    select: { imprint: "imprint.status", privacy: "privacy.status" },
+    prepare({ imprint, privacy }) {
+      const approved = imprint === "approved" && privacy === "approved";
       return {
         title: "Rechtstexte",
-        subtitle: todo ? "Entwurf / Auftraggeber-Freigabe fehlt" : "Freigegeben",
+        subtitle: approved ? "Beide Seiten freigegeben" : "Freigaben noch offen",
       };
     },
   },

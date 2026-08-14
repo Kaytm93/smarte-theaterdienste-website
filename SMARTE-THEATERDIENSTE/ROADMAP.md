@@ -17,7 +17,7 @@
 | **M17 W1**| ✅ done   | CI-Refresh + Nav + Landing | Public Sans, Black-Gray-Purple-CI, 4-Item-Menü, neue Slugs + 308-Redirects, `/materialien`, Bühnenverein-Lockup, Video, Zitate |
 | **M17 W2**| ✅ done   | Unterseiten nach Feedback  | Konzeption bebildert + Team + Zeitstrahl, Comic/Video eingebettet, MyMaps, FAQ-Kategorien, Team-Umzug, Blog+Termine→Timeline |
 | **M18**| 🟡 P1+P2(3a/3b)+P3 done | Welle 3 + Go-Live | Welle 1+2 production-live (`dpl_3ADeq7…`); Session 31: Datenfluss-Diagramm + Wortwitz-Eyebrows + ComicStrip-Fix + A11y-Recheck; Session 32: Production-Audit (A11y/SEO 100, BP 96, Perf ~91–94 — #7 komplett) + Event-Foto-Plumbing vorbereitet (defensiv, wartet auf DB-Push + URLs) + 503-Doku korrigiert · offen: Team-Bühnenfotos, 3c Comic-Strip, Legal-Texte, Event-Foto-Assets, Custom-Domain-DNS |
-| **M19**| 🟡 in Umsetzung | Sanity-Redaktions-CMS | Phase-0-Inventur + eigenständiges Phase-1-Studio-Grundgerüst fertig; Zielprojekt-/Account-Entscheidungen und fachliche Phase-2-Schemas offen · Detailplan: [[SANITY_CMS_PLAN]] |
+| **M19**| 🟡 in Umsetzung | Sanity-Redaktions-CMS | Lokale Phase 0–2 fertig: Inventur, Studio und vollständiges Inhaltsmodell (65 Soll-Dokumente, 12 Singletons, 86 Schematypen); Phase 3 als nächster Code-Schritt, Zielprojekt-/Account-Entscheidungen weiter offen · Detailplan: [[SANITY_CMS_PLAN]] |
 
 ---
 
@@ -27,8 +27,8 @@
 
 - [x] Projekt- und Sina-Vault, reales Studio/Frontend-Setup und Sanity-Best-Practices analysiert.
 - [x] Zielarchitektur, Inhaltsmodell, Migrationsreihenfolge, Rollback und Definition of Done dokumentiert: [[SANITY_CMS_PLAN]].
-- [~] Phase 0: ✅ maschinenlesbare Inventur/Parität + Altprojekt-Audit; ⏳ Sanity-Zielprojekt/Account, Dataset-Sichtbarkeit, Studio-Hostname, Editor-Rollen und Vercel-Zugriff festlegen.
-- [~] Phase 1–2: ✅ Standalone Studio, Locales, Structure, Singleton-Schutz, Grundschema, TypeGen/CI; ⏳ seitenfachliche Abschnittsfelder vollständig modellieren.
+- [~] Phase 0: ✅ maschinenlesbare Inventur/Parität + Altprojekt-Audit (auf 65 Soll-Dokumente fortgeschrieben); ⏳ Sanity-Zielprojekt/Account, Dataset-Sichtbarkeit, Studio-Hostname, Editor-Rollen und Vercel-Zugriff festlegen.
+- [x] Phase 1–2: Standalone Studio, statische Locales mit Admin-Spiegel, 12 geschützte Singletons, vollständige semantische Seiten-/Entitätsschemas, Ressourcen-/Comic-Wiederverwendung, TypeGen und CI-Gates.
 - [ ] Phase 3: TypeGen, GROQ, Fetch-/Mapper-/Loader-Schicht und JSON-Fallback.
 - [ ] Phase 4: JSON/Message/SQL/Asset-Migration mit Dry Run und anonymem Readback.
 - [ ] Phase 5: Seitenweise Cutover-Reihenfolge DE/EN.
@@ -182,7 +182,7 @@ Daraus folgende P2-Tasks:
 - [x] **3b. Theater-Wortwitz-Pattern systematisieren** (Session 31). `STD-Design-Praesentation` Seite 4 etabliert Theater-Wortwitz als Designprinzip. Umgesetzt als kuratierte Inline-Eyebrow-Edits in `messages/{de,en}.json` (kein eigener `wordplay`-Namespace — die Kicker liegen bereits pro Seite als `pages.*.kicker`, siehe ADR-56): Konzeption/`pages.projekt.kicker` → „Großer Akt" / „Opening act"; Materialien/`pages.materialien.kicker` → „Aus dem Fundus" / „From the prop room"; FAQ/`pages.faq.kicker` + `faq.empty.kicker` → „Vorhang auf für Fragen" / „Curtain up for questions". „Bühne frei für …" (FeatureGrid) bleibt bestehen.
 - [ ] **3c. Comic-Strip erweitern (optional, vom Auftraggeber abhängig).** `STD-Design-Praesentation` Seite 5 zeigt mindestens 3 weitere Sprechblasen-Frames von Max Kersting („Yes, wir sind jetzt Veganer", „Und, haben euch die Beilagen geschmeckt?", „Wird ein heim gutes Foto"), die wir aktuell nicht nutzen. Wenn der Bühnenverein die Original-Assets bereitstellt, könnten wir den Strip von 3 auf 5–6 Frames erweitern oder auf Unterseiten zweite Strips einsetzen (z.B. einen für „Effektivere Arbeitsprozesse", einen für „Höhere Reichweite", einen für „Größeres Netzwerk").
 - [ ] **Finale Impressum-/Datenschutz-Texte** vom Bühnenverein einpflegen → ersetzt die sichtbaren TODO-Marker (`legal.json`, ADR-25).
-- [~] **Event-Fotos für die Timeline — Plumbing fertig (Session 32), 2 Asset-/Credential-Schritte offen.** Umgesetzt: Migration `20260607120000_event_image_url.sql` (`events.image_url`, nullbar/additiv), `EventListItem`/`EventRow`/`database.ts` um `imageUrl`/`image_url` erweitert, `listPastEvents`→`listEventsByStatus` selektiert defensiv mit Fallback, `Timeline` rendert das Foto konditional (`next/image`, `aspect-[16/9]`-figure). Deploy-sicher gegen die un-migrierte DB verifiziert (Build prerendert clean, Event bleibt sichtbar). **Offen:** (1) Migration auf die Cloud-DB pushen — braucht das **DB-Passwort** (nicht in `.env.local`). (2) Foto-URLs je Event eintragen (Host muss in `next.config.ts → images.remotePatterns`; `*.supabase.co` + Sanity bereits erlaubt). Dann erscheinen die Bilder ohne weitere Code-Änderung. Siehe [[ENTSCHEIDUNGEN#ADR-59]].
+- [~] **Event-Fotos für die Timeline — Darstellung + Sanity-Feld fertig, echte Assets offen.** Das historische Supabase-Plumbing aus Session 32 (`events.image_url`, defensiver Query-Fallback, konditionales Timeline-Bild) bleibt als Importquelle dokumentiert, wird aber nicht mehr in das verschwundene Cloud-Projekt gepusht. Phase 2 ergänzt `event.image` mit Alt/Credit. **Offen:** Bilddateien und Credits je Event vom Bühnenverein; Phase 4 lädt sie direkt nach Sanity, danach DE/EN-Timeline prüfen. Siehe [[ENTSCHEIDUNGEN#ADR-59]] + [[ENTSCHEIDUNGEN#ADR-67]].
 
 ### 🟢 P3 — Aufräumen & Verfeinerung
 

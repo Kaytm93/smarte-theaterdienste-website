@@ -3,7 +3,8 @@ import { defineField, defineType } from "sanity";
 
 import {
   hasGermanLocalizedValue,
-  recommendEnglish,
+  recommendEnglishWhenPresent,
+  requireGermanWhenPresent,
 } from "../shared/localized-validation";
 
 export const imageWithMetadata = defineType({
@@ -44,7 +45,7 @@ export const imageWithMetadata = defineType({
           .custom((value, context) =>
             (context.parent as { decorative?: boolean } | undefined)?.decorative
               ? true
-              : recommendEnglish(value),
+              : recommendEnglishWhenPresent(value),
           )
           .warning(),
       ],
@@ -64,6 +65,10 @@ export const imageWithMetadata = defineType({
       name: "caption",
       title: "Bildunterschrift",
       type: "internationalizedArrayText",
+      validation: (rule) => [
+        rule.custom(requireGermanWhenPresent),
+        rule.custom(recommendEnglishWhenPresent).warning(),
+      ],
     }),
   ],
   preview: {

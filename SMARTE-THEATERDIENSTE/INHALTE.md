@@ -1,6 +1,8 @@
 # 📄 Inhalte & Tonality
 
 > Maßstab: **Miro-Board > bestehende Website**. Wo die alte Site fehlt oder anders strukturiert ist, folgt das neue Projekt dem Miro-Board.
+>
+> **M19-Übergang (2026-08-14):** Bis zum Cutover bleiben `messages/`, `src/content/` und die SQL-Snapshots die prüfbaren Quellen. Das vollständige Sanity-Zielschema steht lokal; nach Migration/Readback wird Sanity die redaktionelle Quelle. Siehe [[SANITY_CMS_PLAN]] und [[ENTSCHEIDUNGEN#ADR-67]].
 
 ---
 
@@ -12,13 +14,13 @@ Die alte Website `https://smarte-theaterdienste.de/de` war wieder erreichbar und
 - Startseite: Nutzenblöcke "Effektivere Arbeitsprozesse", "Höhere Reichweite", "Größeres Netzwerk"; Stakeholder-Nutzen für Theaterleitung, PR/Marketing, Künstlerisches Betriebsbüro, Developer/Agenturen; DACH-Netzwerkkarte mit 141 Institutionen und Segmenten.
 - Konzeption/Material: ORIF als Open Repertoire Interchange Format, JSON-Erklärung, Werkdaten/Aufführungsdaten, Links zu Comic-Clip, Infomaterial, Musterkalkulation, ORIF-Dokumentation, Validator und Lektoratstool.
 - Jetzt mitmachen: Drei-Punkte-Plan "Implementieren / Automatisieren / Revolutionieren" und Tanzarchiv-Leipzig-Zitat.
-- FAQ: 21 Fragen/Antworten in Supabase übertragen, DE/EN.
-- Termine: vier 2025-Termine als vergangene Events in Supabase übertragen.
+- FAQ: 21 Fragen/Antworten in DE/EN; seit Session 39 kanonisch in `src/content/{de,en}/faq.json`, SQL nur historische Metadatenquelle.
+- Termine: vier historische 2025-Termine plus zwei weitere deduplizierte SQL-/Seed-Datensätze als Sanity-Importbestand.
 - Ansprechpersonen: vier Portraits aus dem alten Sanity-CDN eingebunden.
 
 Nicht übernommen:
 - Finale Impressum-/Datenschutztexte bleiben bewusst offen, bis der Auftraggeber sie freigibt.
-- Historische Teammitglieder ohne aktuelle Kontaktfunktion bleiben nicht auf der Ansprechpersonen-Seite, damit diese Seite weiterhin konkrete Kontaktaufnahme unterstützt.
+- Die historische Telefon-/E-Mail-Kontaktfunktion wurde entfernt; alle vier Teammitglieder bleiben als Personenprofile ohne persönliche Kontaktdaten erhalten (ADR-53).
 
 ---
 
@@ -57,14 +59,16 @@ Universelles Schema:
 | Claudia Grönniger       | Projektreferentin           | +49 (0)151 61 02 18 81 |
 | Madeleine Scheuerpflug  | Studentische Mitarbeiterin  | +49 (0)170 102 54 73   |
 
-Pro Person: Portraitfoto (Credit: © Sophie Moriarty), E-Mail-Link, optional kurzes Zitat zum Use Case. Ziel: nahbar, sympathisch.
+Historischer Briefing-Wunsch pro Person: Portraitfoto (Credit: © Sophie Moriarty), E-Mail-Link und optional kurzes Zitat zum Use Case. Ziel damals: nahbar, sympathisch.
 
-→ Daten in `src/content/{locale}/team.json` (statisch, kein CMS).
+→ Aktuelle Runtime-Quelle: `src/content/{locale}/team.json`; M19-Ziel: vier `person`-Dokumente, geordnet von `teamPage` und `conceptPage` referenziert.
+
+> **Einordnung für M19:** Die Tabelle und der E-Mail-Wunsch stammen aus dem historischen Sitemap-/Miro-Briefing. Sie sind kein aktueller Importvertrag: `team.json` enthält bewusst keine Telefon-/E-Mail-Felder, und die Teamseite ist seit ADR-53 keine Kontaktseite mehr. M19 migriert daher Name, Rolle, Bilder/Credits und optionale Zitate, aber keine historischen Kontaktdaten.
 
 ### 01.3 — Termine (`/termine` ↔ `/events`)
 - Meetup Datenraum Kultur
 - Workshops
-- Dynamisch aus Supabase-Tabelle `events` + `event_translations`.
+- Historisch aus `events` + `event_translations`; das Cloud-Projekt ist verschwunden. M19 migriert sechs deduplizierte Datensätze nach Sanity. Dort ist der redaktionelle Status `scheduled|cancelled`, während „bevorstehend/vergangen“ aus dem Datum folgt.
 
 ### 02 — Projektbeschreibung (`/projekt` ↔ `/project`)
 Kurze, verständliche Texte zu:
@@ -104,7 +108,7 @@ Verlinkungen zu konkreten Projektpartner:innen wo sinnvoll.
 ### 03.2 — Mitwirkung (`/beteiligung/mitwirkung` ↔ `/participation/contribute`)
 - Schritt 1: JSON-Schnittstelle implementieren
 - Schritt 2: Anschluss an DRK-Konnektor
-- **Interaktive Deutschlandkarte** mit Projektpartner:innen (Daten aus Supabase)
+- **Interaktive Deutschlandkarte** mit Projektpartner:innen (historisch Supabase, M19-Ziel `partner`-Dokumente in Sanity)
 - Logos: Datenraum Kultur, GENESIS, weitere Partner
 - Kontaktformular (optional, falls sinnvoll)
 
@@ -112,7 +116,7 @@ Verlinkungen zu konkreten Projektpartner:innen wo sinnvoll.
 - Wer ist schon dabei
 - Nächste Projektschritte, Veranstaltungen, Netzwerkarbeit
 - Fotodokumentation
-- Dynamisch aus Supabase `posts` + `post_translations`.
+- Historisch aus `posts` + `post_translations`; drei deduplizierte Beiträge werden mit Status und nullbarem Veröffentlichungsdatum nach Sanity migriert.
 
 ### 05 — FAQ (`/faq`)
 - Wie kann ich mich am DRK beteiligen?
@@ -121,7 +125,7 @@ Verlinkungen zu konkreten Projektpartner:innen wo sinnvoll.
 - Wozu brauche ich einen DRK?
 - Was sind offene Daten?
 
-Kurze Antworten mit Links zu entsprechenden Stellen auf der Website. Dynamisch aus Supabase `faqs` + `faq_translations`.
+Kurze Antworten mit Links zu entsprechenden Stellen auf der Website. Aktuell vollständig statisch aus `src/content/{de,en}/faq.json`; M19-Ziel sind `faqPage`, vier `faqCategory`- und 21 `faqItem`-Dokumente in Sanity.
 
 ### 06 — Footer (alle Seiten)
 - Logos: Akademie für Theater und Digitalität Dortmund, acatech, Fraunhofer FIT, NFDI4culture, BKM Hamburg, BKM Bund

@@ -1,7 +1,11 @@
 import { TrendUpwardIcon } from "@sanity/icons/TrendUpward";
 import { defineField, defineType } from "sanity";
 
-import { recommendEnglish } from "../shared/localized-validation";
+import {
+  germanString,
+  recommendEnglishWhenPresent,
+  requireGermanWhenPresent,
+} from "../shared/localized-validation";
 
 export const seo = defineType({
   name: "seo",
@@ -14,6 +18,7 @@ export const seo = defineType({
       title: "Seitentitel",
       type: "internationalizedArrayString",
       validation: (rule) => [
+        rule.custom(requireGermanWhenPresent),
         rule.custom((items) => {
           if (!Array.isArray(items)) return true;
           const tooLong = items.find(
@@ -24,14 +29,15 @@ export const seo = defineType({
             ? "Seitentitel sollten höchstens 65 Zeichen lang sein."
             : true;
         }).warning(),
-        rule.custom(recommendEnglish).warning(),
+        rule.custom(recommendEnglishWhenPresent).warning(),
       ],
     }),
     defineField({
       name: "description",
       title: "Beschreibung",
       type: "internationalizedArrayText",
-      validation: (rule) =>
+      validation: (rule) => [
+        rule.custom(requireGermanWhenPresent),
         rule.custom((items) => {
           if (!Array.isArray(items)) return true;
           const tooLong = items.find(
@@ -42,6 +48,8 @@ export const seo = defineType({
             ? "Beschreibungen sollten höchstens 170 Zeichen lang sein."
             : true;
         }).warning(),
+        rule.custom(recommendEnglishWhenPresent).warning(),
+      ],
     }),
     defineField({
       name: "socialImage",
@@ -49,4 +57,14 @@ export const seo = defineType({
       type: "imageWithMetadata",
     }),
   ],
+  preview: {
+    select: { title: "title", subtitle: "description", media: "socialImage.image" },
+    prepare({ title, subtitle, media }) {
+      return {
+        title: germanString(title) || "SEO-Einstellungen",
+        subtitle: germanString(subtitle),
+        media,
+      };
+    },
+  },
 });

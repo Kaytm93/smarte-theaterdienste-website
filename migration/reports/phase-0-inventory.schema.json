@@ -10,10 +10,13 @@
     "project",
     "sanityTarget",
     "summary",
+    "expectedSourceKeys",
     "sourceGroups",
     "mappings",
+    "phase2Coverage",
     "parity",
-    "qualityIssues"
+    "qualityIssues",
+    "validation"
   ],
   "properties": {
     "reportVersion": { "type": "integer", "minimum": 1 },
@@ -34,7 +37,26 @@
       }
     },
     "sanityTarget": { "type": "object" },
-    "summary": { "type": "object" },
+    "summary": {
+      "type": "object",
+      "required": [
+        "physicalLocalFiles",
+        "localizedPairs",
+        "singletonDocuments",
+        "documentsIncludingLocales",
+        "entities",
+        "assets"
+      ],
+      "properties": {
+        "physicalLocalFiles": { "type": "integer", "minimum": 1 },
+        "localizedPairs": { "type": "integer", "minimum": 1 },
+        "singletonDocuments": { "type": "integer", "minimum": 1 },
+        "documentsIncludingLocales": { "type": "integer", "minimum": 1 },
+        "entities": { "type": "object" },
+        "assets": { "type": "object" }
+      }
+    },
+    "expectedSourceKeys": { "type": "object" },
     "sourceGroups": {
       "type": "array",
       "items": {
@@ -59,7 +81,45 @@
       }
     },
     "mappings": { "type": "array" },
+    "phase2Coverage": {
+      "type": "object",
+      "required": [
+        "status",
+        "singletonTypes",
+        "canonicalResourceDocuments",
+        "sharedComicDocuments",
+        "eventLifecycle",
+        "localeAuthority",
+        "protectedTemplateTokens"
+      ],
+      "properties": {
+        "status": { "type": "string" },
+        "singletonTypes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "canonicalResourceDocuments": { "type": "integer", "minimum": 1 },
+        "reusedResourcePlacements": { "type": "integer", "minimum": 0 },
+        "sharedComicDocuments": { "type": "integer", "minimum": 1 },
+        "sharedComicFrames": { "type": "integer", "minimum": 1 },
+        "eventLifecycle": { "type": "string" },
+        "localeAuthority": { "type": "string" },
+        "codeOwnedMapConfig": { "type": "string" },
+        "protectedTemplateTokens": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "retiredOrCodeOwnedSources": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
     "parity": { "type": "object" },
-    "qualityIssues": { "type": "array" }
+    "qualityIssues": { "type": "array" },
+    "validation": { "type": "object" }
   }
 }

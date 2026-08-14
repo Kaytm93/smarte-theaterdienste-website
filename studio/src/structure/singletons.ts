@@ -18,13 +18,14 @@ export const SINGLETON_TYPES = new Set([
   "contributePage",
   "materialsPage",
   "teamPage",
+  "faqPage",
   "legal",
 ]);
 
-export const SINGLETON_ACTIONS = new Set([
-  "publish",
-  "discardChanges",
-  "restore",
+export const SINGLETON_BLOCKED_ACTIONS = new Set([
+  "delete",
+  "duplicate",
+  "unpublish",
 ]);
 
 export type SingletonDefinition = {
@@ -80,6 +81,13 @@ export const TEAM_PAGE_SINGLETON: SingletonDefinition = {
   schemaType: "teamPage",
   title: "Teamseite",
   icon: UsersIcon,
+};
+
+export const FAQ_PAGE_SINGLETON: SingletonDefinition = {
+  id: "faqPage",
+  schemaType: "faqPage",
+  title: "FAQ-Seite",
+  icon: DocumentTextIcon,
 };
 
 export const LEGAL_SINGLETON: SingletonDefinition = {

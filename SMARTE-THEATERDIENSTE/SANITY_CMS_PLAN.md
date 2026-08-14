@@ -1,6 +1,6 @@
 # Sanity-CMS — Umsetzungsplan (M19)
 
-> **Stand:** 2026-08-06 · Umsetzung gestartet: lokale Phase-0-Inventur und Phase-1-Studio-Grundgerüst sind implementiert; Zielprojekt-/Account-Entscheidungen bleiben offen.
+> **Stand:** 2026-08-14 · Lokale Phase 0 (Inventur), Phase 1 (Studio-Grundgerüst) und Phase 2 (vollständiges Inhaltsmodell/Redaktions-UX) sind implementiert und verifiziert; Zielprojekt-/Account-Entscheidungen bleiben offen.
 > **Ziel:** Der Bühnenverein pflegt Inhalte, Übersetzungen, Bilder, Termine, Partner und Rechtstexte selbst in einem eigenständigen Sanity Studio. Sanity löst nach geprüfter Datenparität die derzeitige Mischung aus statischen JSON-Dateien und dem nicht mehr erreichbaren Supabase-Projekt als redaktionelle Quelle ab.
 
 ## Kurzfassung
@@ -21,14 +21,16 @@ Gegenüber Sina wird der Neubau an zwei Stellen verbessert:
 1. GROQ-Queries werden mit `defineQuery` erfasst und per **Sanity TypeGen** typisiert; manuell gepflegte Raw-Query-Typen sind nicht die langfristige Quelle der Wahrheit.
 2. Mehrsprachige Felder werden mit dem offiziellen Internationalized-Array-Pattern modelliert. Das behält den gewünschten gemeinsamen DE/EN-Workflow, vermeidet aber die Attribut-Aufblähung vieler `{de, en}`-Objekte.
 
-## Umsetzungsstand (Session 41)
+## Umsetzungsstand (Session 42)
 
-- ✅ Maschinenlesbarer Inventur-Snapshot unter `migration/reports/phase-0-inventory.json`: 47 lokale Quelldateien inklusive `routing.locales`, 12 DE/EN-Paare, 55 erwartete Erstimport-Dokumente und 21 redaktionelle Bildquellen. `pnpm cms:migrate`/`cms:verify` prüfen Dateien, Routing-Locales/Basissprache, Sollzahlen und tiefe Content-Parität, ohne Daten zu schreiben.
+- ✅ Maschinenlesbarer Inventur-Snapshot unter `migration/reports/phase-0-inventory.json`: 48 lokale Quelldateien inklusive Routing-Locales und code-eigener MyMaps-Konfiguration, 12 DE/EN-Paare, **65 erwartete Erstimport-Dokumente** und 20 aktive redaktionelle Bildquellen (19 Sanity-Assets + 1 code-eigene Karte). `pnpm cms:migrate` validiert den Reportvertrag und simuliert Sollmengen; `cms:verify` gleicht zusätzlich stabile Schlüssel, Studio-Singletons, Ressourcen-Wiederverwendung, Comic-Frames und tiefe Content-Parität ab, ohne Daten zu schreiben.
 - ✅ `lc7slax2/production` geprüft: anonym lesbar (88 Inhaltsdokumente + 72 Bilder), aber mit dem aktuell gespeicherten Sanity-Konto nicht verwaltbar. Es bleibt reine Audit-/Migrationsquelle und wird nicht versehentlich als Zielprojekt verwendet.
-- ✅ Eigenständiges `studio/` mit eigenem Lockfile, Structure Tool, Vision, Internationalized Arrays, statischen DE/EN-Sprachen, 11 geschützten Singletons, redaktionell gruppierter Navigation und Grundschemata für Personen, FAQ, Termine, Partner und Beiträge.
-- ✅ Sanity-Schema, Studio-Typecheck/Lint/Build, TypeGen und der unveränderte Next.js-Build sind lokal grün; separater Studio-Job ist in der CI angelegt.
+- ✅ Eigenständiges `studio/` mit eigenem Lockfile, Structure Tool, Entwicklungs-Vision, Internationalized Arrays, statischen DE/EN-Sprachen, **12 geschützten Singletons** und aufgabenorientierter Navigation.
+- ✅ Phase 2 vollständig modelliert: alle zehn festen Seiten, globale UI-Texte, getrennte Impressum-/Datenschutz-Zustände, Personen, FAQ, Termine, Partner, Beiträge, acht wiederverwendbare Ressourcen und ein gemeinsamer Comic. Wiederverwendete Ressourcen behalten seitenbezogene Übersetzungs-Overrides, ohne Inhalte zu duplizieren.
+- ✅ Pflichtfelder sind TypeGen-wirksam, DE blockiert bei Kerninhalten, fehlendes EN warnt mit dokumentiertem DE-Fallback, Template-Platzhalter werden geschützt und Datums-/Link-/Statusregeln verhindern fehlerhafte Veröffentlichungen. Stabile Dokument-/Array-Schlüssel, FAQ-Reihenfolgen, Navigation und Netzwerk-Summen werden auf Konsistenz geprüft; Use-Case-Identität und Symbol bleiben getrennt erhalten.
+- ✅ Sanity-Schema auf Warnstufe (0 Fehler/0 Warnungen), Studio-Typecheck/Lint, TypeGen (**86 Schematypen; 0 Queries erwartungsgemäß vor Phase 3**) und beide Migrationschecks sind lokal grün; der Studio-CI-Job enthält dieselben Gates.
 - ⏳ Offen für den Abschluss von Phase 0/1: bewusstes Sanity-Zielprojekt, Dataset-Sichtbarkeit, finaler Studio-Hostname, Editor:innen/Rollen und Vercel-Zugriff.
-- ⏳ Phase 2 bleibt offen: seitenfachliche Abschnittsfelder über `intro`/`seo` hinaus vervollständigen und gegen alle JSON-/Message-Selektoren im Report abnehmen.
+- ⏭️ Nächster lokal autonomer Schritt ist Phase 3: GROQ-, Mapper- und Loader-Schicht mit JSON-Fallback. Content-Lake-Schreibmigration, Readback und Deploy bleiben bis zur Zielprojekt-Entscheidung gesperrt.
 
 **Runtime-Grenze:** Das Projekt läuft auf Node 20.19. Sanity 6 erfordert inzwischen Node ≥22.12; deshalb ist das eigenständige Studio reproduzierbar auf Sanity `5.31.1` gepinnt und `autoUpdates` ist deaktiviert ([[ENTSCHEIDUNGEN#ADR-66]]). Ein Node-22-/Sanity-6-Upgrade wird separat geplant, nicht unbemerkt in M19 vermischt.
 
@@ -66,6 +68,8 @@ Es gibt danach keine dauerhafte manuelle Doppelpflege. Vor dem finalen Umschalte
 
 Für dieses Projekt ist Field-Level-Lokalisierung passend: DE und EN verwenden dieselben Bilder, Referenzen, Reihenfolgen, Daten und Veröffentlichungszeitpunkte. Lokalisierte Werte werden per Internationalized Array gepflegt; DE ist Basissprache und Frontend-Fallback. Die vorhandenen locale-präfixierten URLs und die `next-intl`-Routing-Map bleiben unverändert.
 
+Die Sprachliste bleibt bewusst **statisch und versioniert** in `routing.ts` beziehungsweise `studio/src/config/languages.ts`. Die zwei `locale`-Dokumente sind nur ein admin-sichtbarer, schreibgeschützter Spiegel für Migration und spätere Abfragen; sie steuern das Studio-Plugin nicht dynamisch und erwecken deshalb keinen falschen Konfigurationsanspruch.
+
 ### 4. Feste Seiten bekommen feste redaktionelle Modelle
 
 Es wird in M19 **kein freier Page Builder** eingeführt. Das aktuelle, getestete Layout bleibt Code. Das CMS pflegt semantische Inhalte wie Nutzen, Ablauf, Ressourcen, Reise-Stationen oder Zitate; keine Felder wie „lila Karte" oder „dreispaltig". Das senkt Redaktionsfehler und schützt Design, A11y und Animationen.
@@ -77,6 +81,14 @@ Wie bei Sina ist der erste Produktionsweg ein Vercel-Deploy-Hook. Ein Sanity-Web
 ### 6. Supabase wird nach Parität aus dem Runtime-Pfad entfernt
 
 Das verschwundene Supabase-Projekt wird nicht zusätzlich zu Sanity neu aufgebaut. Inhalte aus den SQL-Migrationen werden nach Sanity importiert. Erst wenn Events, Partner und Posts in Sanity vollständig verifiziert sind, werden Supabase-Client, Env-Gates und der alte Revalidate-Endpoint aus der App entfernt. `supabase/migrations/` bleibt zunächst als historische Importquelle erhalten.
+
+### 7. Wiederverwendete Inhalte bleiben referenziert, aber kontextfähig
+
+Die acht eindeutigen Material-URLs werden als normale `resource`-Dokumente gepflegt. Materialien und technische Standards speichern nur geordnete `resourcePlacement`-Referenzen. Da fünf englische Titel/Beschreibungen im technischen Kontext bewusst anders formuliert sind, darf ein Placement lokalisierte Titel-, Text- und Label-Overrides tragen. Der dreiteilige Comic wird ebenfalls einmal als `comicStrip`-Dokument gespeichert und von Startseite und Technikseite referenziert.
+
+### 8. Statusfelder beschreiben Redaktion, Zeitansichten werden abgeleitet
+
+Ein Termin ist redaktionell `scheduled` oder `cancelled`; „bevorstehend“ und „vergangen“ werden aus `startsAt` berechnet und können dadurch nicht veralten. Beiträge bewahren den SQL-Status (`draft`, `published`, `archived`); nur ein freigegebener Beitrag benötigt `publishedAt`. Sanity-Drafts bleiben davon unabhängig der Mechanismus für unveröffentlichte Änderungen.
 
 ## Geplantes Inhaltsmodell
 
@@ -92,14 +104,17 @@ Das verschwundene Supabase-Projekt wird nicht zusätzlich zu Sanity neu aufgebau
 | `contributePage` | Singleton | `beteiligung-mitwirkung.json` | Nutzen, Schritte, Umsetzung, Zitat, Karten-Copy |
 | `materialsPage` | Singleton | `materialien.json` | Ressourcen und Folge-Links |
 | `teamPage` | Singleton | `pages.team`, `team.json` | Seitenintro und sortierte Referenzen auf Personen |
+| `faqPage` | Singleton | `pages.faq`, `faq.json` | Seitenintro, Statistik, Suche, Leer- und Ergebniszustände |
 | `person` | Dokument | `team.json` | Name, Rolle, Portrait, Bühnenfoto, Quote, Credit; wiederverwendbar in Team/Konzeption |
 | `faqCategory` | Dokument | `faq.json` | DE/EN-Label, stabiler Key, Reihenfolge |
 | `faqItem` | Dokument | `faq.json`, historische SQL-Migration | Frage/Antwort als Rich Text, Kategorie-Referenz, Reihenfolge |
 | `event` | Dokument | Supabase-Migrationen/Seed | Titel, Beschreibung, Zeitraum, Ort, Link, Status, Bild/Credit |
 | `partner` | Dokument | Supabase-Migrationen/Seed | Name, Status, Koordinaten, Website, Logo |
 | `post` | Dokument | Supabase-Migrationen/Seed | Slug, Titel, Excerpt, Body, Datum, Cover; erhält bestehende Detailroute/Sitemap |
-| `legal` | Singleton | `legal.json`, später Auftraggebertexte | Impressum und Datenschutz als strukturierter Rich Text; leer bleibt sichtbarer TODO-Zustand |
-| `locale` | Admin-Dokument | `routing.locales` | Deutsch/Englisch, Basissprache und Fallback für Studio-Plugins |
+| `resource` | Dokument | Ressourcen aus Materialien/Technik | Acht kanonische Links mit Titel, Beschreibung und CTA; seitenweise geordnet referenziert |
+| `comicStrip` | Dokument | `landing.comicStrip`, Technik-Comic | Gemeinsame Frames; Seiten pflegen nur Intro-Copy und Referenz |
+| `legal` | Singleton | `legal.json`, später Auftraggebertexte | Impressum und Datenschutz mit getrenntem Platzhalter-/Prüf-/Freigabestatus und Rich Text |
+| `locale` | Admin-Dokument | `routing.locales` | Schreibgeschützter Spiegel der statischen DE/EN-Konfiguration für Migration/Abfragen |
 
 ### Gemeinsame Objekttypen
 
@@ -107,7 +122,7 @@ Das verschwundene Supabase-Projekt wird nicht zusätzlich zu Sanity neu aufgebau
 - `imageWithMetadata` mit Asset, lokalisiertem Alt-Text, Credit und optionaler Caption
 - `internalOrExternalLink` mit klarer Linkart und bedingten Feldern
 - `seo` für Seitentitel, Beschreibung und optionales Social Image
-- semantische Abschnittsobjekte wie `textSection`, `resourceItem`, `journeyStation`, `quoteItem`
+- semantische Abschnittsobjekte wie `textSection`, `featureSection`, `journeyStation`, `quoteItem`, `dataFlowSection`, `resourcePlacement` und `comicReferenceSection`
 
 Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werden nur für Studio-Singletons verwendet. Importierte Quellidentitäten liegen bei Bedarf in `legacyId`/`sourceKey`, nicht in der `_id`.
 
@@ -139,6 +154,8 @@ Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werd
 - Root-`tsconfig.json`, ESLint, Vercel und CI so begrenzen, dass das Studio eine eigene App bleibt.
 - Root-Scripts für `cms:dev`, `cms:validate`, `cms:typegen`, `cms:migrate`, `cms:verify` ergänzen.
 
+Der Schutz in Structure, Document Actions und `readOnly` verbessert die Studio-UX, ist aber **keine Dataset-ACL**. Schreibrechte über API/CLI werden ausschließlich durch Sanity-Rollen und Grants begrenzt und müssen vor dem Redaktions-Handoff im Zielprojekt separat geprüft werden.
+
 **Akzeptanz**
 
 - Next-App und Studio starten getrennt.
@@ -146,6 +163,8 @@ Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werd
 - Ein normaler Vercel-Build installiert keine Studio-Dependencies und typecheckt nicht versehentlich `studio/`.
 
 ### Phase 2 — Schema und Redaktionsoberfläche bauen
+
+**Status: ✅ lokal abgeschlossen (2026-08-14).**
 
 **Arbeit**
 
@@ -157,9 +176,10 @@ Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werd
 
 **Akzeptanz**
 
-- Redakteur:innen sehen keine technischen `_type`-Listen als Hauptnavigation.
-- Alle derzeitigen JSON-/SQL-Felder sind ohne Layoutbegriffe abbildbar.
-- Fehlende DE-Pflichtinhalte blockieren Publish; fehlende EN-Inhalte geben einen klaren Hinweis und nutzen im Frontend DE-Fallback.
+- ✅ Redakteur:innen sehen keine technischen `_type`-Listen als Hauptnavigation.
+- ✅ Alle derzeitigen JSON-/Message-/SQL-Felder sind semantisch und ohne freien Page Builder abbildbar; bewusst code-eigene Layoutdaten sind im Inventar markiert.
+- ✅ Fehlende DE-Pflichtinhalte blockieren Publish; fehlende EN-Inhalte geben einen klaren Hinweis und nutzen im Frontend DE-Fallback.
+- ✅ Schema-Validierung auf Warnstufe, Typecheck, Lint, TypeGen sowie Inventur-Dry-Run/-Verify sind grün.
 
 ### Phase 3 — Typsichere Next.js-Anbindung
 
@@ -190,13 +210,17 @@ Normale Dokumente lassen Sanity ihre `_id` generieren. Deterministische IDs werd
 
 **Sollzahlen vor dem Cutover**
 
-- 11 Singletons insgesamt: 9 feste Seiten plus `siteSettings` und `legal`
+- 12 Singletons insgesamt: 10 feste Seiten plus `siteSettings` und `legal`
 - 4 Personen
 - 21 FAQ-Einträge in 4 Kategorien
-- 4 historische Events aus M11 plus weitere im SQL-Seed vorhandene Datensätze
-- 4 bekannte Kernpartner plus alle weiteren verifizierbaren Partnerzeilen
-- 3 historische Post-Datensätze inklusive DE/EN-Texten, soweit in Migration/Seed vorhanden
-- alle heute verwendeten redaktionellen Bilder mit Alt-Text/Credit-Feld
+- 6 deduplizierte Events aus M11 und SQL-Seed
+- 4 bekannte Kernpartner
+- 3 historische Post-Datensätze inklusive DE/EN-Texten
+- 8 kanonische Ressourcen mit 5 zusätzlichen technischen Placements
+- 1 gemeinsamer Comic mit 3 Frames
+- 2 Locale-Spiegel-Dokumente (`de`, `en`)
+- 19 nach Sanity migrierte aktive Bildquellen mit Alt-/Credit-Audit sowie 1 code-eigene Deutschlandkarte mit redaktioneller A11y-Copy; `public/logos/hamburg.png` bleibt als unreferenzierter Kandidat draußen
+- **65 Dokumente insgesamt** inklusive Locale-Spiegeln
 
 ### Phase 5 — Frontend seitenweise umschalten
 
@@ -260,7 +284,7 @@ Erst nach grüner Phase 7:
 
 ### Phase 9 — Redaktioneller Handoff
 
-- Redakteur:innen einladen und Rollen prüfen.
+- Redakteur:innen einladen und Dataset-Rollen/Grants mit einem API-/CLI-Negativtest prüfen; Studio-UI-Schutz allein gilt nicht als Berechtigungskontrolle.
 - Kurzanleitung schreiben: Login, DE/EN-Felder, Bilder/Alt/Credit, Draft, Preview-Status, Publish, erwartete Deploy-Dauer.
 - Backup-/Export-Runbook und Token-Rotation dokumentieren.
 - Studio-Link und Verantwortlichkeiten im Vault/Go-live-Handbuch hinterlegen.

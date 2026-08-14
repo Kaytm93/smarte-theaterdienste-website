@@ -5,19 +5,28 @@ import {
   recommendEnglish,
   requireGerman,
 } from "../shared/localized-validation";
+import { uniqueNavigationItems } from "../shared/validation";
 
 export const siteSettings = defineType({
   name: "siteSettings",
   title: "Website-Einstellungen",
   type: "document",
   icon: CogIcon,
+  groups: [
+    { name: "general", title: "Allgemein", default: true },
+    { name: "navigation", title: "Navigation" },
+    { name: "footer", title: "Footer" },
+    { name: "ui", title: "Systemtexte" },
+    { name: "seo", title: "SEO" },
+  ],
   fields: [
     defineField({
       name: "siteName",
       title: "Website-Name",
       type: "internationalizedArrayString",
+      group: "general",
       validation: (rule) => [
-        rule.custom(requireGerman),
+        rule.required().custom(requireGerman),
         rule.custom(recommendEnglish).warning(),
       ],
     }),
@@ -25,74 +34,84 @@ export const siteSettings = defineType({
       name: "siteDescription",
       title: "Globale Kurzbeschreibung",
       type: "internationalizedArrayText",
+      group: "general",
       validation: (rule) => [
-        rule.custom(requireGerman),
+        rule.required().custom(requireGerman),
         rule.custom(recommendEnglish).warning(),
       ],
     }),
     defineField({
       name: "navigation",
-      title: "Hauptnavigation",
+      title: "Seiten-Navigation",
+      description: "Ein Eintrag kann in Kopfzeile, Footer oder beiden Bereichen erscheinen.",
       type: "array",
-      of: [
-        defineArrayMember({
-          name: "navigationItem",
-          title: "Navigationseintrag",
-          type: "object",
-          fields: [
-            defineField({
-              name: "key",
-              title: "Stabiler Schlüssel",
-              type: "slug",
-              options: { source: "href", maxLength: 80 },
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: "label",
-              title: "Beschriftung",
-              type: "internationalizedArrayString",
-              validation: (rule) => [
-                rule.custom(requireGerman),
-                rule.custom(recommendEnglish).warning(),
-              ],
-            }),
-            defineField({
-              name: "href",
-              title: "Interner Pfad",
-              type: "string",
-              validation: (rule) =>
-                rule.required().custom((value) =>
-                  value?.startsWith("/") && !value.startsWith("//")
-                    ? true
-                    : "Interne Pfade beginnen mit genau einem /.",
-                ),
-            }),
-          ],
-          preview: {
-            select: { label: "label", subtitle: "href" },
-            prepare({ label, subtitle }) {
-              const title = Array.isArray(label)
-                ? label.find((item) => item?.language === "de")?.value
-                : undefined;
-              return { title: title || subtitle, subtitle };
-            },
-          },
-        }),
+      group: "navigation",
+      of: [defineArrayMember({ type: "navigationItem" })],
+      validation: (rule) => rule.required().min(1).custom(uniqueNavigationItems),
+    }),
+    defineField({
+      name: "menuLabel",
+      title: "Menü-Bezeichnung",
+      type: "internationalizedArrayString",
+      group: "navigation",
+      validation: (rule) => [
+        rule.required().custom(requireGerman),
+        rule.custom(recommendEnglish).warning(),
       ],
     }),
     defineField({
-      name: "footerCopyright",
-      title: "Copyright-Zeile",
+      name: "menuDescription",
+      title: "Zugängliche Menü-Beschreibung",
       type: "internationalizedArrayString",
+      group: "navigation",
       validation: (rule) => [
-        rule.custom(requireGerman),
+        rule.required().custom(requireGerman),
         rule.custom(recommendEnglish).warning(),
       ],
+    }),
+    defineField({
+      name: "languageSwitcher",
+      title: "Sprachwechsel",
+      type: "languageSwitcherCopy",
+      group: "navigation",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "footer",
+      title: "Footer",
+      type: "footerCopy",
+      group: "footer",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "comingSoon",
+      title: "Allgemeiner In-Vorbereitung-Zustand",
+      description: "Vor Migration redaktionell prüfen; der Alttext erwähnt noch eine Datenbank.",
+      type: "comingSoonCopy",
+      group: "ui",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "postUi",
+      title: "Beiträge / Blog",
+      description: "Detailseiten-Texte plus bewusst bewahrte Copy für eine mögliche Übersicht.",
+      type: "postUiCopy",
+      group: "ui",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "eventUi",
+      title: "Termine",
+      description: "Bewahrt die UI-Copy; die frühere Terminübersicht leitet aktuell zur Konzeption um.",
+      type: "eventUiCopy",
+      group: "ui",
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "defaultSeo",
       title: "SEO-Standardwerte",
       type: "seo",
+      group: "seo",
     }),
   ],
   preview: {

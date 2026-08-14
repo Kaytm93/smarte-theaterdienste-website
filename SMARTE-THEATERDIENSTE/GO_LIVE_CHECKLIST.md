@@ -1,6 +1,6 @@
 # Go-live-Checkliste — Assets, Domain, Vercel, Rechtstexte
 
-> Stand: 2026-05-07. Diese Datei ist der konkrete Handoff fuer alles, was Kay/Projektteam noch liefern oder im Dashboard erledigen muss, bevor die Seite final unter eigener Domain laufen kann. Seit Session 17/18 erledigt: Hero-Visual, Partner-Logos, Team-Portraits via Sanity-CDN, Vercel-GitHub-Integration und Original-Site-Content-Abgleich.
+> Stand: 2026-08-14. Diese Datei ist der konkrete Handoff fuer alles, was Kay/Projektteam noch liefern oder im Dashboard erledigen muss, bevor Sanity-Cutover und finale Domain live gehen. Seit Session 17/18 erledigt: Hero-Visual, Partner-Logos, Team-Portraits via altem Sanity-CDN, Vercel-GitHub-Integration und Original-Site-Content-Abgleich. Seit Session 42 ist das lokale Sanity-Inhaltsmodell fertig; Zielprojekt und Zugriffe sind noch offen.
 
 ## 1. Assets liefern
 
@@ -8,12 +8,12 @@ Alle Dateien bitte ohne Text-Overlay, mit Nutzungsrechten fuer Web/Marketing und
 
 ### Hero-Visual
 
-Status: erledigt in Session 17. Der Hero nutzt jetzt das finale Theaterraum-Bild unter `public/hero/theaterdatenraum-hero.jpg`.
+Status: erledigt in Session 17. Der Hero nutzt das Theater-Parade-Bild unter `public/hero/theater-parade.jpg`.
 
 Zielpfad im Projekt:
 
 ```text
-public/hero/theaterdatenraum-hero.jpg
+public/hero/theater-parade.jpg
 ```
 
 Anforderung:
@@ -38,14 +38,12 @@ public/blog/wip-konnektor-roadmap.jpg
 
 Anforderung:
 - 16:9, ideal 1600 x 900 px oder groesser.
-- Fuer sichtbare View-Transition-Morphs muessen die Bilder in Supabase als `cover_image_url` stehen.
-- Fuer Repo-Dateien reicht als Wert z. B. `/blog/kickoff-datenraum-kultur.jpg`.
-- Alternativ Supabase Storage / anderes CDN: vollstaendige `https://...` URL liefern. `*.supabase.co` und `images.unsplash.com` sind aktuell in `next.config.ts` erlaubt; andere Domains muessen dort ergaenzt werden.
+- Alt-Text, Credit/Lizenz und Zuordnung zum jeweiligen Post-Slug mitliefern.
+- M19-Ziel: Originaldateien als Sanity-Assets in `post.cover` hochladen; das verschwundene Supabase-Projekt wird nicht mehr gepflegt.
 
 Nach Lieferung:
-- Bilder nach `public/blog/`.
-- Supabase `posts.cover_image_url` fuer die passenden Slugs setzen.
-- `/de/blog -> Detailseite` im Browser testen, damit der Cover-Morph sichtbar ist.
+- Bilder in Phase 4 als Sanity-Assets den passenden `post`-Dokumenten zuordnen.
+- Blog-Detailseite DE/EN und View-Transition/CSS-Fallback testen.
 
 ### Team-Portraits
 
@@ -96,13 +94,25 @@ public/logos/nfdi4culture.svg
 Anforderung:
 - SVG bevorzugt, transparent, ohne feste weisse Box.
 - Wenn nur PNG verfuegbar: mindestens 1200 px Breite, transparenter Hintergrund.
-- Aktuelle Partner-Websites mitliefern, damit `partners.website_url` und `partners.logo_url` in Supabase gesetzt werden koennen.
+- Aktuelle Partner-Websites mitliefern, damit `partner.website` und `partner.logo` beim Sanity-Import vollstaendig sind.
 
 Nach Lieferung:
 - Erledigt: Footer rendert echte Logos.
 - Erledigt: Partner-Karte kann Logo/Website-Link anzeigen.
 
-## 2. Vercel-GitHub-Integration verbinden
+## 2. Sanity-Zielbetrieb festlegen
+
+Die lokale Phase 0–2 ist ohne Zielprojekt und ohne Secrets abgeschlossen. Vor Content-Lake-Writes braucht Codex/Kay:
+
+1. bewusst gewaehltes Sanity-Projekt im richtigen Organisations-/Projektkonto;
+2. Dataset-Sichtbarkeit: public (fuer diese oeffentlichen Inhalte empfohlen) oder private mit Vercel-Read-Token;
+3. gewuenschten `*.sanity.studio`-Hostname;
+4. E-Mail-Adressen und Rollen der Redakteur:innen;
+5. Vercel-Zugriff fuer Production-Envs und Deploy Hook.
+
+Keine Tokens, Hook-URLs oder Einladungsdaten in Git/Vault ablegen. Vollstaendige Reihenfolge und Akzeptanz: [[SANITY_CMS_PLAN]].
+
+## 3. Vercel-GitHub-Integration verbinden
 
 Aktueller Stand: erledigt. Das GitHub-Repo `Kaytm93/smarte-theaterdienste-website` ist mit Vercel verbunden; `git push origin main` triggert Production-Deployments automatisch.
 
@@ -119,7 +129,7 @@ Quellen:
 - Vercel GitHub-Integration: https://vercel.com/docs/git/vercel-for-github
 - Vercel KB bei fehlendem Repo: https://vercel.com/kb/guide/unable-to-find-github-repository
 
-## 3. Custom Domain entscheiden und DNS setzen
+## 4. Custom Domain entscheiden und DNS setzen
 
 Zuerst entscheiden:
 
@@ -144,13 +154,13 @@ Was Kay im Browser tun muss:
 Danach durch Codex:
 - Vercel Env Var `NEXT_PUBLIC_SITE_URL` fuer Production auf die finale Domain setzen.
 - Production redeployen.
-- Supabase-Revalidate-Funktion bei Bedarf auf die finale Domain umstellen.
+- Sanity-Publish-Webhook/Deploy-Hook nach dem CMS-Cutover end-to-end testen; die geheime Hook-URL bleibt ausserhalb von Git/Vault.
 - `/sitemap.xml`, Canonicals, OG-Images und `robots.txt` gegen die finale Domain testen.
 
 Quelle:
 - Vercel Custom Domain Setup: https://vercel.com/docs/domains/set-up-custom-domain
 
-## 4. Finale Impressum-/Datenschutztexte liefern
+## 5. Finale Impressum-/Datenschutztexte liefern
 
 Codex kann Platzhalter technisch einbauen, aber keine finale Rechtsfreigabe ersetzen. Bitte finale Texte vom Deutschen Buehnenverein oder juristisch geprueft liefern.
 
@@ -182,7 +192,8 @@ Bitte liefern:
 - Zwecke und Rechtsgrundlagen der Verarbeitung.
 - Hosting/Empfaenger:
   - Vercel fuer Hosting/Serverlogs.
-  - Supabase fuer Datenbank/Content-Daten, Projektregion EU-Central/Frankfurt.
+  - Sanity fuer CMS/Content/Assets nach dem M19-Cutover.
+  - Supabase nur dann nennen, wenn der Dienst zum Freigabezeitpunkt noch tatsaechlich im Runtime-Pfad verwendet wird; das alte Projekt existiert nicht mehr und soll entfernt werden.
 - Drittlandtransfer/geeignete Garantien fuer Vercel, falls relevant, inkl. DPA/SCC-Bewertung.
 - Speicherdauer oder Kriterien.
 - Betroffenenrechte nach DSGVO, Beschwerderecht bei Aufsichtsbehoerde.
@@ -193,28 +204,24 @@ Quellen fuer Pflichtpunkte:
 - `§ 5 DDG`: https://www.gesetze-im-internet.de/ddg/BJNR0950B0024.html
 - Art. 13 DSGVO: https://dsgvo-gesetz.de/art-13-dsgvo/
 
-## 5. Kontaktadresse bestaetigen
+## 6. Allgemeine Kontaktadressen bestaetigen
 
-Aktuell sind Team-E-Mails im Content als `vorname.nachname@buehnenverein.de` eingetragen.
+Die Teamseite ist seit ADR-53 bewusst keine Kontaktseite mehr; aktuelle
+`team.json`-Inhalte und das Sanity-`person`-Schema enthalten deshalb keine
+persoenlichen Telefon-/E-Mail-Felder. Historische Miro-Annahmen zu einzelnen
+Team-Adressen werden nicht ungeprueft migriert.
 
-Bitte bestaetigen oder korrigieren:
+Fuer die finalen Rechtstexte benoetigt werden:
+- bestaetigte allgemeine Kontaktadresse fuer das Impressum;
+- Datenschutzkontakt, falls abweichend;
+- Empfaenger-Adresse nur dann, wenn spaeter ein Kontaktformular beauftragt wird.
 
-```text
-sina.schmidt@buehnenverein.de
-peter.retzlaff@buehnenverein.de
-claudia.groenniger@buehnenverein.de
-madeleine.scheuerpflug@buehnenverein.de
-```
+## 7. Reihenfolge ab jetzt
 
-Ausserdem benoetigt:
-- Allgemeine Kontaktadresse fuer Impressum/Datenschutz, falls nicht die Personen-E-Mails genutzt werden sollen.
-- Datenschutzkontakt, falls abweichend.
-
-## 6. Reihenfolge ab jetzt
-
-1. Kay liefert Blog-Cover-Bilder + Rechts-/Kontakttexte.
-2. Codex baut Blog-Cover ein, setzt Supabase-URLs und ersetzt Legal-TODOs.
-3. `pnpm typecheck`, `pnpm lint`, `pnpm build`.
-4. Production-Deploy ueber Git-Integration oder CLI.
-5. Domain/Canonical/Sitemap/OG-Smoke gegen finale Domain.
-6. Lighthouse/axe final gegen finale Domain.
+1. Kay legt Sanity-Zielprojekt, Dataset-Sichtbarkeit, Studio-Hostname, Rollen/Grants und Vercel-Zugriff fest; eingeschraenkte Credentials werden gegen API/CLI getestet, weil Studio-UI-Schutz keine Dataset-ACL ist.
+2. Codex setzt Phase 3 (GROQ/Mapper/Loader) lokal um und baut danach Dry-Run/Write/Readback fuer das gewaehlte Ziel.
+3. Kay liefert Blog-/Event-/Buehnenbilder mit Alt/Credit sowie finale Rechts-/Kontakttexte.
+4. Codex migriert nach Sanity, verifiziert 65 Dokumente/Medien und schaltet die Seiten paketweise um.
+5. `pnpm typecheck`, `pnpm lint`, `pnpm build`, Studio-Gates, DE/EN-Smokes und echter Publish→Deploy-Test.
+6. Erst nach Paritaet Supabase-Runtime entfernen; danach Production-Deploy.
+7. Domain/Canonical/Sitemap/OG-Smoke und Lighthouse/Accessibility final gegen die echte Domain.
