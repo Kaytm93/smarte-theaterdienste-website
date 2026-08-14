@@ -2,7 +2,7 @@
 
 ## 2026-08-14 — Session 42: M19 Phase 2 — vollständiges Sanity-Inhaltsmodell und Studio-UX
 
-**Commit-SHA (Implementierung):** `PENDING`
+**Commit-SHA (Implementierung):** `6176f80`
 
 **Auftrag:** Die Projekt-/Vault-MDs lesen und den Sanity-Plan weiterbearbeiten. Nach Pflichtlektüre von Projektkontext, Inhalten, API und [[SANITY_CMS_PLAN]] wurde nicht nur der Plantext aktualisiert, sondern die nächste autonom umsetzbare M19-Etappe vollständig ausgeführt: Phase 2 (Schema und Redaktionsoberfläche).
 
