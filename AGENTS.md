@@ -46,27 +46,11 @@ Wenn mindestens drei Dateien geändert wurden oder ein grundlegendes Problem gel
 - Keine `Co-Authored-By: Claude`-Zeilen verwenden. Repo-Owner ist Kaytm93.
 - Ohne Push ist die Session nicht abgeschlossen.
 
-### 3. Obsidian-Sync nach `~/Documents/SMARTE-THEATERDIENSTE/`
+### Der Push IST der Obsidian-Sync
 
-Der User öffnet den Obsidian-Vault aus `~/Documents/SMARTE-THEATERDIENSTE/`, nicht aus dem Projektordner. Nach jedem Vault-Update muss deshalb synchronisiert werden:
+Kay liest den Obsidian-Vault direkt im Projekt unter `SMARTE-THEATERDIENSTE/`.
+Einen Spiegel unter `~/Documents/` gibt es nicht mehr — nichts dorthin
+kopieren oder rsyncen. Der gepushte Stand auf `origin/main` ist genau der,
+den Obsidian zeigt.
 
-```bash
-rsync -av --exclude '.obsidian' --exclude '.DS_Store' \
-  "/Users/kaygewinner/Desktop/Claude code/smarte-theaterdienste-website/SMARTE-THEATERDIENSTE/" \
-  ~/Documents/SMARTE-THEATERDIENSTE/
-```
-
-Danach verifizieren:
-
-```bash
-diff -r --brief --exclude '.obsidian' --exclude '.DS_Store' \
-  "/Users/kaygewinner/Desktop/Claude code/smarte-theaterdienste-website/SMARTE-THEATERDIENSTE/" \
-  ~/Documents/SMARTE-THEATERDIENSTE/ \
-  && echo "VAULTS IN SYNC"
-```
-
-Der `diff`-Output muss leer sein oder `VAULTS IN SYNC` ausgeben.
-
-Niemals `.obsidian/` mitsynchronisieren. Das ist Obsidian-User-Config und gehoert nicht ins Repo.
-
-Die Reihenfolge ist verbindlich: erst Vault schreiben, dann committen und pushen, dann synchronisieren. So enthaelt der Documents-Vault denselben Stand wie der Commit auf `origin/main`.
+Die Reihenfolge ist verbindlich: erst Vault schreiben, dann committen und pushen.
