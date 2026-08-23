@@ -1,5 +1,11 @@
 # 📝 Changelog
 
+## 2026-08-23 — Meta: Documents-Spiegel entfernt — Push ist der Obsidian-Sync
+
+**Commit-SHA:** `ce57d1a`
+
+Der rsync-Spiegel nach `~/Documents/SMARTE-THEATERDIENSTE/` ist entfernt; Kay liest den Vault direkt unter `SMARTE-THEATERDIENSTE/` im Repo. `AGENTS.md` + `CLAUDE.md` enden jetzt nach „Vault schreiben → committen+pushen". Zusätzlich: lokale Commit-Identität von `Kaytm931` auf `Kaytm93` korrigiert (Vercel-Blocker, siehe AGENTS.md).
+
 ## 2026-08-14 — Session 42: M19 Phase 2 — vollständiges Sanity-Inhaltsmodell und Studio-UX
 
 **Commit-SHA (Implementierung):** `6176f80`
